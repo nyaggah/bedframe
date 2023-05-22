@@ -1,10 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-if [ -t 1 ]; then
-  # Running in a terminal
-  exec < /dev/tty && node_modules/.bin/cz --hook || true
-else
-  # Not running in a terminal (CI environment)
-  node_modules/.bin/cz --hook || true
-fi
+# https://jamesandrewwright.com/articles/commitizen-eslint-prettier-husky/
+# https://github.com/commitizen/cz-cli/issues/289#issuecomment-979245492
+# exec < /dev/tty && node_modules/.bin/cz --hook || true
+exec < /dev/tty && git cz --hook || true
+# exec < /dev/tty && git cz --hook || true

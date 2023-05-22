@@ -1,8 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# npx commitlint --edit $1
 npx --no -- commitlint --edit "${1}"
+# npx commitlint --edit $1
 # ^^^ is a crase to do it like this.
 # user _still_ goes through prompts to enter standardize commit message
 # sooooo don't require a `git commit -m "dont require this"`
