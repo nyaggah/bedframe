@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.4
+
+### Patch Changes
+
+- 9d2fa31: feat(ci,core): build script update
+- Updated dependencies [9d2fa31]
+  - @bedframe/core@0.0.3
+
 ## 0.0.3
 
 ### Patch Changes

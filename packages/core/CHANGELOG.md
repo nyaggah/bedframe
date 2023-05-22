@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.3
+
+### Patch Changes
+
+- 9d2fa31: feat(ci,core): build script update
+
 ## 0.0.2
 
 ### Patch Changes
