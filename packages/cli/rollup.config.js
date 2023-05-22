@@ -1,4 +1,5 @@
 import typescript from '@rollup/plugin-typescript'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 import esbuild from 'rollup-plugin-esbuild'
 import copy from 'rollup-plugin-copy'
 import dts from 'rollup-plugin-dts'
@@ -12,7 +13,8 @@ const name = `build/index`
 
 const bundle = (config) => ({
   ...config,
-  input: resolve(__dirname, 'src/index.ts'),
+  // input: resolve(__dirname, 'src/index.ts'),
+  input: 'src/index.ts',
   external: (id) => !/^[./]/.test(id),
   plugins: [
     typescript(),
@@ -25,6 +27,7 @@ const bundle = (config) => ({
 export default [
   bundle({
     plugins: [
+      // nodeResolve(),
       esbuild(),
       string({
         include: `${name}.js`,
@@ -52,11 +55,13 @@ export default [
     plugins: [
       dts({
         insertTypesEntry: true,
+        respectExternal: false,
       }),
     ],
     output: {
       file: `${name}.d.ts`,
       format: 'es',
+      sourcemap: true,
     },
   }),
 ]
