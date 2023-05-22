@@ -7,16 +7,16 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
-    "dev": {
-      "cache": false
-    },
     "build:link": {
       "dependsOn": ["build"]
     },
+    "dev": {
+      "cache": false
+    },
+    "format": {},
     "lint": {
       "outputs": []
     },
-    "format": {},
     "release": {
       "dependsOn": ["build"]
     }
