@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.2
+
+### Patch Changes
+
+- cd6ddef: strip husky prepare scripts from core and cli
+
 ## 0.0.1
 
 ### Patch Changes

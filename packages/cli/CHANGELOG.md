@@ -1,5 +1,19 @@
 # @bedframe/cli
 
+## 0.0.3
+
+### Patch Changes
+
+- 690a358: feat(cli): add fs-extra to deps
+
+## 0.0.2
+
+### Patch Changes
+
+- cd6ddef: strip husky prepare scripts from core and cli
+- Updated dependencies [cd6ddef]
+  - @bedframe/core@0.0.2
+
 ## 0.0.1
 
 ### Patch Changes
