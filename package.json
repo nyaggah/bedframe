@@ -1,0 +1,104 @@
+{
+  "name": "@bedframe/monorepo",
+  "description": "Bedframe - Your Browser Extension Development Framework (monorepo)",
+  "author": {
+    "name": "Joe Nyaggah",
+    "url": "https://bedframe.dev"
+  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "preview": "turbo run preview",
+    "lint": "turbo run lint",
+    "prettier:check": "turbo run prettier:check",
+    "prettier": "turbo run prettier",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "build:link": "turbo run build:link",
+    "cz": "turbo run format lint && git add . && cz",
+    "release": "turbo run prettier lint build && changeset version && changeset publish",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.1",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@types/chrome": "^0.0.236",
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^16.18.25",
+    "@types/prompts": "^2.4.3",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-bedframe": "*",
+    "eslint-config-prettier": "^8.7.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.0",
+    "prettier": "^2.8.8",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
+    "tsx": "^3.12.7",
+    "turbo": "latest",
+    "typescript": "^4.9.5"
+  },
+  "lint-staged": {
+    "*.{css,html,json,js}": [
+      "prettier --write ."
+    ],
+    "*{js,ts}": "eslint --fix"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "bedframe"
+    ],
+    "settings": {
+      "next": {
+        "rootDir": [
+          "apps/*/",
+          "packages/*/"
+        ]
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "npx commitlint --edit",
+      "pre-commit": "yarn lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && node_modules/.bin/cz --hook || true"
+    }
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nyaggah/bedframe.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nyaggah/bedframe/issues"
+  },
+  "homepage": "https://bedframe.dev"
+}

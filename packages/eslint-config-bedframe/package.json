@@ -1,0 +1,33 @@
+{
+  "name": "eslint-config-bedframe",
+  "description": "Bedframe eslint config - borrowed form turborepo",
+  "author": {
+    "name": "Joe Nyaggah",
+    "url": "https://bedframe.dev"
+  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint \"**/*.ts*\" --fix",
+    "prettier": "prettier --write . --loglevel silent"
+  },
+  "dependencies": {
+    "eslint": "^7.23.0",
+    "eslint-config-next": "13.4.3",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-config-turbo": "latest"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nyaggah/bedframe.git",
+    "directory": "packages/eslint-config-bedframe"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

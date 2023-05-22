@@ -1,0 +1,8 @@
+# Ignore artifacts:
+package-lock.json
+dist
+coverage
+next-env.d.ts
+.next
+.vscode
+node_modules

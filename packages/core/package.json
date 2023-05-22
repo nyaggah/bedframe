@@ -1,0 +1,89 @@
+{
+  "name": "@bedframe/core",
+  "description": "Bedframe core - Your Browser Extension Development Framework (core funcs & types)",
+  "author": {
+    "name": "Joe Nyaggah",
+    "url": "https://bedframe.dev"
+  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/bedframe.umd.cjs",
+  "module": "./dist/bedframe.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/bedframe.js",
+      "require": "./dist/bedframe.umd.cjs",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/bedframe.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "build:watch": "tsc && vite build --watch",
+    "build:link": "npm uninstall --location=global @bedframe/core && yarn build && chmod 755 ./build && npm link",
+    "preview": "vite preview",
+    "lint": "eslint \"**/*.ts*\" --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prettier:check": "prettier --check .",
+    "prettier": "prettier --write . --loglevel silent",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.236",
+    "@types/node": "^16.18.25",
+    "@typescript-eslint/eslint-plugin": "^5.59.5",
+    "eslint-config-bedframe": "*",
+    "eslint-config-turbo": "^1.9.4",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.1",
+    "vite-plugin-dts": "^2.1.0"
+  },
+  "lint-staged": {
+    "*.{md,mdx,css,html,json,js}": [
+      "prettier --write ."
+    ],
+    "*{js,jsx,ts,tsx }": "eslint --fix"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "turbo",
+      "bedframe"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {},
+    "ignorePatterns": [
+      "dist"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nyaggah/bedframe.git",
+    "directory": "packages/core"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

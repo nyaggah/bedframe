@@ -1,0 +1,5 @@
+{
+  "files.exclude": {
+    "**/.git": false // don't hide .git dir. feel free to delete these settings/ entire dir if not needed
+  }
+}
