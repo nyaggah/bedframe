@@ -8,10 +8,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "main": "index.js",
-  "scripts": {
-    "lint": "eslint \"**/*.ts*\" --fix",
-    "prettier": "prettier --write . --loglevel silent"
-  },
   "dependencies": {
     "eslint": "^7.23.0",
     "eslint-config-next": "13.4.3",
