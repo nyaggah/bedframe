@@ -7,10 +7,6 @@
   },
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {
-    "lint": "eslint \"**/*.ts*\" --fix",
-    "prettier": "prettier --write . --loglevel silent"
-  },
   "files": [
     "base.json",
     "nextjs.json",
@@ -20,5 +16,8 @@
     "type": "git",
     "url": "https://github.com/nyaggah/bedframe.git",
     "directory": "packages/tsconfig"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
