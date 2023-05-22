@@ -3,12 +3,12 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import esbuild from 'rollup-plugin-esbuild'
 import copy from 'rollup-plugin-copy'
 import dts from 'rollup-plugin-dts'
-import path, { resolve } from 'node:path'
-import url from 'node:url'
+// import path, { resolve } from 'node:path'
+// import url from 'node:url'
 
 import { string } from 'rollup-plugin-string'
 
-const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
+// const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const name = `build/index`
 
 const bundle = (config) => ({
@@ -17,6 +17,7 @@ const bundle = (config) => ({
   input: 'src/index.ts',
   external: (id) => !/^[./]/.test(id),
   plugins: [
+    nodeResolve(),
     typescript(),
     copy({
       targets: [{ src: 'public/stubs', dest: 'build' }],
@@ -27,7 +28,6 @@ const bundle = (config) => ({
 export default [
   bundle({
     plugins: [
-      // nodeResolve(),
       esbuild(),
       string({
         include: `${name}.js`,
