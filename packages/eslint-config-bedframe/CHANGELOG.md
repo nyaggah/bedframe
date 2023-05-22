@@ -1,5 +1,13 @@
 # eslint-config-bedframe
 
+## 0.0.1
+
+### Patch Changes
+
+- 9e0ea00: add licenses (MIT) + update package.json scripts and repo settings
+- 9e0ea00: prep cli and core for publish
+- 9e0ea00: add licenses (MIT) + update package.json scripts and repo settings
+
 ## 0.0.4
 
 ### Patch Changes
