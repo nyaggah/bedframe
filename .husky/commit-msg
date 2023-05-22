@@ -1,10 +1,22 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx --no -- commitlint --edit "${1}"
-# npx commitlint --edit $1
-# ^^^ is a crase to do it like this.
-# user _still_ goes through prompts to enter standardize commit message
-# sooooo don't require a `git commit -m "dont require this"`
-# should just trigger on `git commit [enter]`
-# but ensure we don't open vi after. we've got our message
+if [ -t 0 ]; then
+  # Running in a terminal (development environment)
+  npx --no -- commitlint --edit "${1}"
+else
+  # Not running in a terminal (CI environment)
+  echo "Skipping commitlint in non-terminal environment"
+fi
+
+
+# #!/bin/sh
+# . "$(dirname "$0")/_/husky.sh"
+
+# npx --no -- commitlint --edit "${1}"
+# # npx commitlint --edit $1
+# # ^^^ is a crase to do it like this.
+# # user _still_ goes through prompts to enter standardize commit message
+# # sooooo don't require a `git commit -m "dont require this"`
+# # should just trigger on `git commit [enter]`
+# # but ensure we don't open vi after. we've got our message
