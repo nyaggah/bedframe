@@ -31,8 +31,7 @@
     "lint": "eslint \"**/*.ts*\" --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prettier:check": "prettier --check .",
-    "prettier": "prettier --write . --loglevel silent",
-    "prepare": "husky install"
+    "prettier": "prettier --write . --loglevel silent"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.236",
