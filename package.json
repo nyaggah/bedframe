@@ -83,13 +83,6 @@
       }
     }
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "npx commitlint --edit",
-      "pre-commit": "yarn lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && node_modules/.bin/cz --hook || true"
-    }
-  },
   "engines": {
     "node": ">=14.0.0"
   },
