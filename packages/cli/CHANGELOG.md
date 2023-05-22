@@ -1,5 +1,19 @@
 # @bedframe/cli
 
+## 0.0.1
+
+### Patch Changes
+
+- 9e0ea00: add licenses (MIT) + update package.json scripts and repo settings
+- 9e0ea00: update prompts & stubs, package.json scripts
+- 9e0ea00: prep cli and core for publish
+- 9e0ea00: add licenses (MIT) + update package.json scripts and repo settings
+- Updated dependencies [9e0ea00]
+- Updated dependencies [9e0ea00]
+- Updated dependencies [9e0ea00]
+- Updated dependencies [9e0ea00]
+  - @bedframe/core@0.0.1
+
 ## 0.6.4
 
 ### Patch Changes
