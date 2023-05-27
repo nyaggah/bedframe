@@ -385,7 +385,7 @@ const GlobalStyles = createGlobalStyle`
   --btn-bg-color: #5b5d5f;
   --btn-bg-color-primary: #53d3d8;
   --btn-bg-color-positive: #5fcf80;
-  --btn-bg-color-negative: ß6fc;
+  --btn-bg-color-negative: #6fc;
   --btn-bg-color-neutral: #5b5d5f;
 
   /* 

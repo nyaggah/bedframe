@@ -59,7 +59,7 @@ export function createManifestFrom(
   )
 }
 
-/**ß
+/**
  *
  * convertArrayToObject()
  *

@@ -124,11 +124,13 @@ export const extensionPrompts = (
     type: 'select',
     name: 'type',
     message: 'Type:',
+    initial: 0,
     choices: [
       {
         title: `Popup`,
         value: 'popup',
         description: dim('(default) - no user permissions needed'),
+        selected: true,
       },
       {
         title: `Overlay`,
@@ -166,7 +168,7 @@ export const extensionPrompts = (
     choices: [
       {
         title: 'New Tab',
-        value: 'new-tab',
+        value: 'newtab',
         description: dim('overrides `chrome://newtab` page'),
       },
       {
@@ -175,8 +177,8 @@ export const extensionPrompts = (
         description: dim('overrides `chrome://history` page'),
       },
       {
-        title: 'Bookmark Manager',
-        value: 'bookmark-manager',
+        title: 'Bookmarks',
+        value: 'bookmarks',
         description: dim('overrides `chrome://bookmarks` page'),
       },
     ],
