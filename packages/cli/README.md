@@ -1,9 +1,41 @@
+<div align="left">
+  <a href="https://bedframe.dev">
+    <!-- <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_dark_background.png">
+      <img src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png" height="128">
+    </picture> -->
+    <h1 align="left">Bedframe</h1>
+ </a>
+<pre>
+>_
+
+B R O W S E R
+E X T E N S I O N
+D E V E L O P M E NT</pre>
+
+</div>
+
+<p align="left">
+  <a aria-label="Bedframe logo" href="https://bedframe.dev">
+    <img src="https://img.shields.io/badge/BEDFRAME-7a46fc.svg?style=for-the-badge&logo=Bedframe&labelColor=CCC">
+  </a>
+  <a aria-label="@bedframe/core - NPM version" href="https://www.npmjs.com/package/@bedframe/core">
+    <img alt="" src="https://img.shields.io/npm/v/@bedframe/core.svg?style=for-the-badge&labelColor=000000">
+  </a>
+  <a aria-label="@bedframe/cli - NPM version" href="https://www.npmjs.com/package/@bedframe/cli">
+    <img alt="" src="https://img.shields.io/npm/v/@bedframe/cli.svg?style=for-the-badge&labelColor=000000">
+  </a>
+  <a aria-label="License" href="https://github.com/nyaggah/bedframe/blob/main/LICENSE">
+    <img alt="" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
+  </a>
+</p>
+
 # @bedframe/cli
 
 Your Browser Extension Development Framework (dev utility)
 
 <br />
-<pre>
+<pre><code>
 >_
 
 B R O W S E R
@@ -38,5 +70,6 @@ Options:
 -i, --installDeps Add & install dependencies (default: true)
 -y, --yes Set up Bedframe preconfigured defaults (default: false)
 --help display help for command
+</code>
 
 </pre>

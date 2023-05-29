@@ -1,0 +1,82 @@
+{
+  "name": "create-bedframe",
+  "description": "@bedframe/cli - standalone MAKE command",
+  "author": {
+    "name": "Joe Nyaggah",
+    "url": "https://bedframe.dev"
+  },
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/create-bedframe.umd.cjs",
+  "module": "./dist/create-bedframe.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/create-bedframe.js",
+      "require": "./dist/create-bedframe.umd.cjs",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/create-bedframe.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "build:watch": "tsc && vite build --watch",
+    "build:link": "yarn build && npm link",
+    "preview": "vite preview",
+    "lint": "eslint \"**/*.ts*\" --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prettier:check": "prettier --check .",
+    "prettier": "prettier --write . --loglevel silent"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vite-plugin-dts": "^2.3.0"
+  },
+  "lint-staged": {
+    "*.{md,mdx,css,html,json,js}": [
+      "prettier --write ."
+    ],
+    "*{js,jsx,ts,tsx }": "eslint --fix"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "turbo",
+      "bedframe"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {},
+    "ignorePatterns": [
+      "dist"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nyaggah/bedframe.git",
+    "directory": "packages/create-bedframe"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
