@@ -56,7 +56,7 @@
     "@types/listr": "^0.14.4",
     "@types/node": "^16.18.25",
     "@types/prompts": "^2.4.4",
-    "@typescript-eslint/eslint-plugin": "^5.59.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
     "eslint-config-bedframe": "*",
     "eslint-config-turbo": "^1.9.4",
     "rollup": "^3.23.0",
