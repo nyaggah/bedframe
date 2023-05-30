@@ -19,6 +19,9 @@
       "default": "./dist/create-bedframe.js"
     }
   },
+  "bin": {
+    "create-bedframe": "./dist/index.js"
+  },
   "files": [
     "dist"
   ],
