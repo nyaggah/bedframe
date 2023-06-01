@@ -5,7 +5,6 @@ import prompts from 'prompts'
 
 export function viteConfig(response: prompts.Answers<string>): string {
   const { browser: browsers, development } = response
-  console.log('response ----------->', response)
   const styledComponents =
     development.template.config.style === 'Styled Components'
 
@@ -31,7 +30,9 @@ export default ({ mode }) => {
     plugins: [
       react(),
       crx({
-        manifest: getManifest(mode, [${getManifestArray}]) as ManifestV3Export,
+        ${`manifest: getManifest(mode, [
+          ${getManifestArray}
+        ]) as ManifestV3Export,\n`}
       }),
       ${styledComponents ? 'macrosPlugin()' : ''},
     ],

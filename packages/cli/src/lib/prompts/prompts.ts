@@ -17,12 +17,14 @@ import {
 
 export function promptInstructions(_type: string = 'multiselect'): string {
   return `
-${yellow('[ ↑/↓ ]')}${dim(' - navigate')}${dim(' | ')}${yellow('[ ←/→ ]')}${dim(
-    ' - select'
-  )}${dim(' | ')}${yellow('[ A ]')} ${dim('- toggle all')}
-${yellow('[ space ]')}${dim(' - select')}${dim(' | ')}${yellow(
-    '[ enter ]'
-  )}${dim(' - submit')} 
+${dim('- - - - - - - - - - - - ')}
+${yellow('[ ↑/↓ ]')}  ${dim(' - navigate')}
+${yellow('[ ←/→ ]')}  ${dim(' - select')}
+${yellow('[  A  ]')}  ${dim(' - toggle all')}
+${dim('- - - - - - - - - - - -')}
+${yellow('[ space ]')}${dim(' - select')}
+${yellow('[ enter ]')}${dim(' - submit')} 
+${dim('- - - - - - - - - - - -')}
 `
 }
 export const browserPrompts: PromptObject<keyof BrowserPrompts>[] = [
@@ -319,9 +321,28 @@ export async function bedframePrompts(projectName: string): Promise<Bedframe> {
     },
   })
 
+  /*
+"type": {
+      "name": "popup"
+    },
+    "override": "newtab"
+
+overrides & type i.e. sidebar, popup, etc    
+
+// SIDEPANEL
+
+"permissions": ["sidePanel"]
+
+  */
+
   const bedframeConfig = createBedframe({
     browser: browsersResponse.browsers,
     extension: {
+      author: {
+        name: extensionResponse.author.name,
+        email: extensionResponse.author.email,
+        url: extensionResponse.author.url,
+      },
       // path: extensionResponse.name.path,
       manifest: browsersResponse.browsers.map((browser: Browser) => {
         return {

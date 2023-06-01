@@ -7,9 +7,13 @@ promptsIntro()
 const make = new Command()
 make
   // Name, desc,
-  .command('make [name]')
+  .command('make')
+  .argument('[name]')
+  .usage(`[name] [options]`)
   .description('make your B E D')
   .allowExcessArguments(false)
+  // .enablePositionalOptions(true)
+  // .passThroughOptions(true)
   // Options
   .option('-v, --version <version>', 'Specify project version', '0.0.1')
   .option(

@@ -27,15 +27,18 @@ export async function makeBed(response: PromptsResponse) {
   }
 
   const projectDir = response.name.name
+  const projectPath = response.name.path
 
-  if (response.name) {
-    fs.ensureDir(projectDir)
+  // if (response.name) {
+  if (projectPath) {
+    fs.ensureDir(projectPath)
       .then(async () => {
         console.log(
           dim(`successfully created project at ${green(projectDir)})`)
         )
         // return
-        await execa('cd', [projectDir])
+        // await execa('cd', [projectDir])
+        await execa('cd', [projectPath])
           .then((data) =>
             console.log(
               'fs.ensureDir(projectDir).then... [are we inside projectDir?] {data, projectDir}',
@@ -44,9 +47,8 @@ export async function makeBed(response: PromptsResponse) {
           )
           .catch(console.error)
       })
-      .then(async (data) => {
-        console.log('anything? {data, cwd()}:', { data, cwd: cwd() })
-        await execa('cd', [`${projectDir}`])
+      .then(async () => {
+        await execa('cd', [`${projectPath}`])
           .then(() => {
             console.log('cwd()', cwd())
           })
@@ -73,7 +75,6 @@ export async function makeBed(response: PromptsResponse) {
               scripts: path.join(stubsPath, 'scripts'),
               lintFormat: path.join(stubsPath, 'lint-format'),
               gitHooks: path.join(stubsPath, 'git-hooks'),
-              // commitLint: path.join(stubsPath, 'commit-lint'),
               tests: path.join(stubsPath, 'tests'),
               changesets: path.join(stubsPath, 'changesets'),
               vscode: path.join(stubsPath, 'vscode'),
@@ -130,10 +131,6 @@ export async function makeBed(response: PromptsResponse) {
               response.development.template.config.gitHooks
                 ? copyFolder(stubs.gitHooks, destination.root)
                 : Promise.resolve(),
-              // Commit Lint + Commitizen etc
-              // response.development.template.config.commitLint
-              //   ? copyFolder(stubs.commitLint, destination.root)
-              //   : Promise.resolve(),
               // Changesets
               response.development.template.config.changesets
                 ? copyFolder(stubs.changesets, destination.root)
@@ -141,17 +138,17 @@ export async function makeBed(response: PromptsResponse) {
             ])
           })
           .then(async () => {
-            if (response.development.template.config.git) {
-              initializeGitProject(response.name.name).catch((error) =>
-                console.error(error)
-              )
-            }
             await installDependencies(response)
-              // .then(() => {
-              //   if (response.development.template.config.git) {
-              //     initializeGitProject(response.name.name)
-              //   }
-              // })
+              .then(() => {
+                console.log('installing dependencies....')
+              })
+              .then(() => {
+                if (response.development.template.config.git) {
+                  initializeGitProject(response.name.name).catch((error) =>
+                    console.error(error)
+                  )
+                }
+              })
               .catch((error) => console.error(error))
           })
           .catch((error) => console.error(error))

@@ -10,7 +10,7 @@
     "vite.config.ts",
     "vitest", // if tests: true
     "vitest.config.ts", // if tests: true
-    "src/manifest"
-    // "package.json" //
+    "src/manifest",
+    "package.json"
   ]
 }
