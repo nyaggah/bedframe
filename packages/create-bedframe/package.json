@@ -8,13 +8,13 @@
   "version": "0.0.2",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/create-bedframe.umd.cjs",
+  "main": "./dist/create-bedframe.js",
   "module": "./dist/create-bedframe.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/create-bedframe.js",
-      "require": "./dist/create-bedframe.umd.cjs",
+      "require": "./dist/create-bedframe.js",
       "types": "./dist/index.d.ts",
       "default": "./dist/create-bedframe.js"
     }

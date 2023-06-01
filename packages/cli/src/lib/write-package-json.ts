@@ -5,6 +5,7 @@ import {
   Browser,
   PackageManager,
   BuildTarget,
+  AnyCase,
 } from '@bedframe/core'
 import path from 'node:path'
 import fs from 'fs-extra'
@@ -54,6 +55,8 @@ export function createManifestFrom(
       name: response.name,
       version: response.version,
       manifest_version: 3,
+      description: response.description,
+      author: response.author.email,
     },
     'chrome'
   )
@@ -214,7 +217,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        // { name: '@bedframe/core', version: '*' },
+        { name: '@bedframe/core', version: '^0.0.3' },
         { name: 'typescript', version: '^5.0.2' },
         { name: '@types/chrome', version: '^0.0.220' },
         { name: '@crxjs/vite-plugin', version: '^1.0.14' },
@@ -419,13 +422,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
       ...gitHooksConfig,
     }
 
-    console.log('{...configs}:::', { ...configs })
-
-    console.log(
-      'JSON.stringify(configs, null, 2)',
-      JSON.stringify(configs, null, 2)
-    )
-
     return { ...configs }
   }
 
@@ -438,12 +434,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     ...commitLint,
     ...changesets,
   ]
-
-  console.log(' -------- ')
-  console.log()
-  console.log('deps::', deps)
-  console.log()
-  console.log(' -------- ')
 
   const dependencies: Partial<DependencyType> = {}
   const devDependencies: Partial<DependencyType> = {}
@@ -471,19 +461,30 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   return { dependencies, devDependencies, ...configs }
 }
 
+function getFirstManifestDetails(response: any): Manifest {
+  for (const browserKey in response) {
+    const browser = response[browserKey] as Manifest
+    return browser
+  }
+
+  throw new Error('Invalid JSON object: No valid Manifest object found')
+}
+
 export function createPackageJsonFrom(
   response: prompts.Answers<string>
 ): PackageJsonType {
   return createPackageJson({
-    name: response.extension.manifest.name,
-    version: response.extension.manifest.version,
-    description: response.extension.description ?? 'extension desc here...', // TO diddly DO: add to prompts
+    name: getFirstManifestDetails(response.extension.manifest[0]).name,
+    version: getFirstManifestDetails(response.extension.manifest[0]).version,
+    description: getFirstManifestDetails(response.extension.manifest[0])
+      .description,
     author: {
-      name: response.extension.author?.name ?? 'Your Name', // TO diddly DO: add to prompts}
-      email: response.extension.author?.email ?? 'your@email.com',
+      name: response.extension.author.name,
+      email: response.extension.author.email,
+      url: response.extension.author.url,
     },
-    license: response.extension.license ?? 'MIT', // TO diddly DO: add to prompts
-    private: Boolean(response.private) ?? 'true', // TO diddly DO: add to prompts
+    license: response.extension.license ?? 'MIT',
+    private: Boolean(response.private) ?? 'true',
     scripts: createScriptCommandsFrom(response),
     ...createDependenciesFrom(response),
   })
@@ -491,10 +492,7 @@ export function createPackageJsonFrom(
 
 export function writePackageJson(response: prompts.Answers<string>): void {
   const packageJson = JSON.stringify(createPackageJsonFrom(response), null, 2)
-  const destinationRoot = path.resolve(response.name.path)
+  const destinationRoot = path.resolve(response.extension.name.path)
   const destinationPackageJson = path.join(destinationRoot, 'package.json')
-
-  fs.ensureDir(destinationRoot)
-    .finally(() => fs.writeFile(destinationPackageJson, packageJson + '\n'))
-    .catch((error) => console.error(error))
+  fs.writeFile(destinationPackageJson, packageJson + '\n').catch(console.error)
 }

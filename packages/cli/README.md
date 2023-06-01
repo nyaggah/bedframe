@@ -1,19 +1,24 @@
-<div align="left">
-  <a href="https://bedframe.dev">
-    <!-- <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_dark_background.png">
-      <img src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png" height="128">
-    </picture> -->
-    <h1 align="left">Bedframe</h1>
- </a>
-<pre>
->_
+| Flag (short) | Flag (long)      | Type           | Description                                     | Default      |
+| ------------ | ---------------- | -------------- | ----------------------------------------------- | ------------ |
+| -v           | --version        | string         | Specify project version                         | "0.0.1"      |
+| -b           | --browsers       | Browser[]      | Specify comma-separated list of target browsers | [ "Chrome" ] |
+| -p           | --packageManager | PackageManager | Specify package manager to use                  | "Yarn"       |
+| -f           | --framework      | Framework      | Specify framework to use                        | "React"      |
+| -l           | --language       | Language       | Specify language to use                         | "TypeScript" |
+| -s           | --style          | Style          | Specify CSS solution to use                     | "Tailwind"   |
+| -o           | --lintFormat     | boolean        | Configure linting with formatting               | true         |
+| -g           | --git            | boolean        | Initialize git source control                   | true         |
+| -h           | --gitHooks       | boolean        | Add git hooks (Husky + lint staged)             | true         |
+| -t           | --tests          | boolean        | Add tests (Vitest + Testing Library + jsdom)    | true         |
+| -c           | --commitLint     | boolean        | Add commit linting                              | true         |
+| -x           | --changesets     | boolean        | Add changesets                                  | true         |
+| -i           | --installDeps    | boolean        | Add &amp; install dependencies                  | true         |
+| -y           | --yes            | boolean        | Set up Bedframe w/ preconfigured defaults       | false        |
+|              | --help           |                | display help for command                        |              |
 
-B R O W S E R
-E X T E N S I O N
-D E V E L O P M E NT</pre>
+# @bedframe/cli
 
-</div>
+Your Browser Extension Development Framework (dev utility)
 
 <p align="left">
   <a aria-label="Bedframe logo" href="https://bedframe.dev">
@@ -29,10 +34,6 @@ D E V E L O P M E NT</pre>
     <img alt="" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
   </a>
 </p>
-
-# @bedframe/cli
-
-Your Browser Extension Development Framework (dev utility)
 
 <br />
 <pre><code>

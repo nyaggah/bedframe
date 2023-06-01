@@ -14,15 +14,19 @@ import {
   languages,
   stylingOptions,
 } from './prompts-utils'
+import { basename } from 'node:path'
+import { cwd } from 'node:process'
 
 export function promptInstructions(_type: string = 'multiselect'): string {
   return `
-${yellow('[ ↑/↓ ]')}${dim(' - navigate')}${dim(' | ')}${yellow('[ ←/→ ]')}${dim(
-    ' - select'
-  )}${dim(' | ')}${yellow('[ A ]')} ${dim('- toggle all')}
-${yellow('[ space ]')}${dim(' - select')}${dim(' | ')}${yellow(
-    '[ enter ]'
-  )}${dim(' - submit')} 
+${dim('- - - - - - - - - - - - ')}
+${yellow('[ ↑/↓ ]')}  ${dim(' - navigate')}
+${yellow('[ ←/→ ]')}  ${dim(' - select')}
+${yellow('[  A  ]')}  ${dim(' - toggle all')}
+${dim('- - - - - - - - - - - -')}
+${yellow('[ space ]')}${dim(' - select')}
+${yellow('[ enter ]')}${dim(' - submit')} 
+${dim('- - - - - - - - - - - -')}
 `
 }
 export const browserPrompts: PromptObject<keyof BrowserPrompts>[] = [
@@ -296,6 +300,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
 ]
 
 export async function bedframePrompts(projectName: string): Promise<Bedframe> {
+  projectName === undefined ? basename(cwd()) : projectName
   const browsersResponse = await prompts(browserPrompts, {
     // onSubmit: (_prompt, answer, _answers) => console.log('browsers:', answer),
     onCancel: () => {
@@ -319,13 +324,38 @@ export async function bedframePrompts(projectName: string): Promise<Bedframe> {
     },
   })
 
+  /*
+"type": {
+      "name": "popup"
+    },
+    "override": "newtab"
+
+overrides & type i.e. sidebar, popup, etc    
+
+// SIDEPANEL
+
+"permissions": ["sidePanel"]
+
+  */
+
   const bedframeConfig = createBedframe({
     browser: browsersResponse.browsers,
     extension: {
+      name: {
+        name: extensionResponse.name.name,
+        path: extensionResponse.name.path,
+      },
+      author: {
+        name: extensionResponse.author.name,
+        email: extensionResponse.author.email,
+        url: extensionResponse.author.url,
+      },
       // path: extensionResponse.name.path,
       manifest: browsersResponse.browsers.map((browser: Browser) => {
         return {
           [browser.toLowerCase()]: {
+            // TO diddly DO: use `createManifest()`
+            // or point to `src/manifest/{browser}`
             name: extensionResponse.name.name, // ??
             version: extensionResponse.version,
             manifest_version: 3,
@@ -345,7 +375,7 @@ export async function bedframePrompts(projectName: string): Promise<Bedframe> {
         position: extensionResponse.position, // if position === 'overlay'
       },
       override: extensionResponse.override,
-      pages: extensionResponse.pages,
+      options: extensionResponse.options,
     },
     development: {
       template: {
