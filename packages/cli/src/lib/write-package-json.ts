@@ -422,13 +422,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
       ...gitHooksConfig,
     }
 
-    console.log('{...configs}:::', { ...configs })
-
-    console.log(
-      'JSON.stringify(configs, null, 2)',
-      JSON.stringify(configs, null, 2)
-    )
-
     return { ...configs }
   }
 
@@ -441,12 +434,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     ...commitLint,
     ...changesets,
   ]
-
-  console.log(' -------- ')
-  console.log()
-  console.log('deps::', deps)
-  console.log()
-  console.log(' -------- ')
 
   const dependencies: Partial<DependencyType> = {}
   const devDependencies: Partial<DependencyType> = {}
@@ -474,15 +461,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   return { dependencies, devDependencies, ...configs }
 }
 
-// export function getFirstManifestDetails(manifest: Manifest[]): Manifest {
-//   const firstObject = manifest[0]
-//   const browser = Object.keys(firstObject)[0].toLowerCase() as AnyCase<Browser>
-
-//   const { name, version, author, ...rest } = firstObject[browser]
-
-//   return { name, version, author, ...rest }
-// }
-
 function getFirstManifestDetails(response: any): Manifest {
   for (const browserKey in response) {
     const browser = response[browserKey] as Manifest
@@ -496,7 +474,7 @@ export function createPackageJsonFrom(
   response: prompts.Answers<string>
 ): PackageJsonType {
   return createPackageJson({
-    name: getFirstManifestDetails(response.extension.manifest[0]).name, // response.name.name ??
+    name: getFirstManifestDetails(response.extension.manifest[0]).name,
     version: getFirstManifestDetails(response.extension.manifest[0]).version,
     description: getFirstManifestDetails(response.extension.manifest[0])
       .description,
@@ -514,11 +492,7 @@ export function createPackageJsonFrom(
 
 export function writePackageJson(response: prompts.Answers<string>): void {
   const packageJson = JSON.stringify(createPackageJsonFrom(response), null, 2)
-  const destinationRoot = path.resolve(response.name.path)
+  const destinationRoot = path.resolve(response.extension.name.path)
   const destinationPackageJson = path.join(destinationRoot, 'package.json')
   fs.writeFile(destinationPackageJson, packageJson + '\n').catch(console.error)
-
-  // fs.ensureDir(destinationRoot)
-  //   .finally(() =>
-  // .catch((error) => console.error(error))
 }

@@ -14,6 +14,8 @@ import {
   languages,
   stylingOptions,
 } from './prompts-utils'
+import { basename } from 'node:path'
+import { cwd } from 'node:process'
 
 export function promptInstructions(_type: string = 'multiselect'): string {
   return `
@@ -298,6 +300,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
 ]
 
 export async function bedframePrompts(projectName: string): Promise<Bedframe> {
+  projectName === undefined ? basename(cwd()) : projectName
   const browsersResponse = await prompts(browserPrompts, {
     // onSubmit: (_prompt, answer, _answers) => console.log('browsers:', answer),
     onCancel: () => {
@@ -338,6 +341,10 @@ overrides & type i.e. sidebar, popup, etc
   const bedframeConfig = createBedframe({
     browser: browsersResponse.browsers,
     extension: {
+      name: {
+        name: extensionResponse.name.name,
+        path: extensionResponse.name.path,
+      },
       author: {
         name: extensionResponse.author.name,
         email: extensionResponse.author.email,
@@ -347,6 +354,8 @@ overrides & type i.e. sidebar, popup, etc
       manifest: browsersResponse.browsers.map((browser: Browser) => {
         return {
           [browser.toLowerCase()]: {
+            // TO diddly DO: use `createManifest()`
+            // or point to `src/manifest/{browser}`
             name: extensionResponse.name.name, // ??
             version: extensionResponse.version,
             manifest_version: 3,
@@ -366,7 +375,7 @@ overrides & type i.e. sidebar, popup, etc
         position: extensionResponse.position, // if position === 'overlay'
       },
       override: extensionResponse.override,
-      pages: extensionResponse.pages,
+      options: extensionResponse.options,
     },
     development: {
       template: {

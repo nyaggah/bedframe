@@ -4,9 +4,7 @@ import { Answers } from 'prompts'
 import { Browser } from '@bedframe/core'
 
 const sidePanel = `export const sidePanel = {
-  side_panel: {
-    default_path: 'src/pages/sidepanel.html',
-  },
+  default_path: 'src/pages/sidepanel.html',
 }`
 
 export function sharedManifest(response: Answers<string>): string {
@@ -109,7 +107,6 @@ export default {
 `
 }
 
-// export function manifestForBrowser(browser: Browser): string {
 export function manifestForBrowser(
   response: Answers<string>,
   browser: Browser
@@ -154,13 +151,12 @@ export function manifestIndexFile(browsers: Browser[]): string | string[] {
 }
 
 export async function writeManifests(response: Answers<string>): Promise<void> {
-  const { name, browser: browsers } = response
-  const manifestDir = path.resolve(name.path, 'src', 'manifest')
+  const { browser: browsers, extension } = response
+  const manifestDir = path.resolve(extension.name.path, 'src', 'manifest')
   const sharedManifestPath = path.join(manifestDir, 'config.ts')
   const manifestIndexPath = path.join(manifestDir, 'index.ts')
 
   try {
-    // await fs.ensureFile(manifestIndexPath)
     const promises = browsers.map(async (browser: Browser) => {
       const manifestPath = path.join(manifestDir, `${browser.toLowerCase()}.ts`)
       await Promise.all([
@@ -176,28 +172,6 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
   } catch (error) {
     console.error(error)
   }
-}
-
-export function _writeManifests(response: Answers<string>): void {
-  const { name, browser: browsers } = response
-  const manifestDir = path.resolve(path.join(name.path, 'src', 'manifest'))
-  const sharedManifestPath = path.join(manifestDir, 'config.ts')
-  // const manifestIndexPath = path.join(manifestDir, 'index.ts')
-
-  // fs.ensureFile(manifestIndexPath)
-  fs.ensureFile(manifestDir)
-    .then(() => {
-      for (const browser of browsers) {
-        const manifestPath = path.join(
-          manifestDir,
-          `${browser.toLowerCase()}.ts`
-        )
-        // fs.writeFile(manifestIndexPath, manifestIndexFile(browsers) + '\n')
-        fs.writeFile(sharedManifestPath, sharedManifest(response) + '\n')
-        fs.writeFile(manifestPath, manifestForBrowser(response, browser) + '\n')
-      }
-    })
-    .catch((error) => console.error(error))
 }
 
 /*

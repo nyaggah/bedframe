@@ -30,7 +30,7 @@
     "bed": "tsx ./src/index.ts",
     "bedframe:validate": "tsx ./src/lib/validate-manifest.ts --name=mycoolioextendo --version=0.0.0 --manifest_version=3",
     "build:watch": "yarn build --watch",
-    "build:link": "npm uninstall --location=global @bedframe/cli && yarn build && chmod 755 ./build && npm link",
+    "build:link": "npm uninstall -g @bedframe/cli && yarn build && chmod 755 ./build && npm link",
     "lint": "eslint \"**/*.ts*\" --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prettier:check": "prettier --check .",

@@ -46,9 +46,7 @@ export default ({ mode }) => {
 }
 
 export function writeViteConfig(response: prompts.Answers<string>): void {
-  console.log('viteConfig(response):::', viteConfig(response))
-  const { name } = response
-  const rootDir = path.resolve(name.path)
+  const rootDir = path.resolve(response.extension.name.path)
   const viteConfigPath = path.resolve(path.join(rootDir, `vite.config.ts`))
   fs.ensureFile(viteConfigPath)
     .then(() =>

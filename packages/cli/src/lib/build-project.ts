@@ -6,46 +6,30 @@ import fs from 'fs-extra'
 import Listr from 'listr'
 import url from 'node:url'
 import { cwd } from 'node:process'
-import path, { basename } from 'node:path'
+import path from 'node:path'
 import { writeManifests } from './write-manifests'
-import { writePackageJson } from './write-package-json'
 import { writeViteConfig } from './write-vite-config'
-import { PromptsResponse } from './prompts'
+import { writePackageJson } from './write-package-json'
 import { copyFolder } from './copy-folder'
+import { PromptsResponse } from './prompts'
 
 export async function makeBed(response: PromptsResponse) {
-  // update response for all the cool kids who like to initialize with a .
-  // TO diddly DO: there's an issue w/ parent dir being recreated
-  // inside projectDir (prolly due to all this `ensureDir` bidnez)
+  console.log('makeBed() > response:', response)
 
-  response = {
-    ...response,
-    name: {
-      name: basename(cwd()),
-      path: cwd(),
-    },
-  }
+  const projectDir = response.extension.name.name
+  const projectPath = response.extension.name.path
 
-  const projectDir = response.name.name
-  const projectPath = response.name.path
+  console.log('makeBed() > { projectDir, projectPath }:', {
+    projectDir,
+    projectPath,
+  })
 
-  // if (response.name) {
   if (projectPath) {
     fs.ensureDir(projectPath)
       .then(async () => {
         console.log(
-          dim(`successfully created project at ${green(projectDir)})`)
+          dim(`successfully created project at (${green(projectDir)})`)
         )
-        // return
-        // await execa('cd', [projectDir])
-        await execa('cd', [projectPath])
-          .then((data) =>
-            console.log(
-              'fs.ensureDir(projectDir).then... [are we inside projectDir?] {data, projectDir}',
-              { data, projectDir }
-            )
-          )
-          .catch(console.error)
       })
       .then(async () => {
         await execa('cd', [`${projectPath}`])
@@ -86,7 +70,7 @@ export async function makeBed(response: PromptsResponse) {
             }
 
             const destination = {
-              root: path.resolve(response.name.path),
+              root: path.resolve(response.extension.name.path),
             }
             await Promise.all([
               copyFolder(stubs.base, destination.root),
@@ -144,8 +128,8 @@ export async function makeBed(response: PromptsResponse) {
               })
               .then(() => {
                 if (response.development.template.config.git) {
-                  initializeGitProject(response.name.name).catch((error) =>
-                    console.error(error)
+                  initializeGitProject(response.extension.name.name).catch(
+                    (error) => console.error(error)
                   )
                 }
               })
@@ -209,10 +193,13 @@ export async function installDependencies(response: PromptsResponse) {
 
   const { stdout } = await projectInstall({
     prefer: packageManager.toLowerCase(),
-    cwd: response.name.path,
+    cwd: response.extension.name.path,
   })
 
   const packages = stdout.match(/Installing .+/g)
+  if (packages) {
+    console.log('installing', packages)
+  }
   if (!packages) {
     console.log('No packages to install.')
     return

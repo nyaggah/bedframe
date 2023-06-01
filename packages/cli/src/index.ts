@@ -1,6 +1,6 @@
 import { Command } from 'commander'
 import { cwd } from 'node:process'
-import path from 'node:path'
+import path, { basename } from 'node:path'
 import { promptsIntro, bedframePrompts, makeBed } from './lib'
 
 promptsIntro()
@@ -38,8 +38,15 @@ make
   .option('-i, --installDeps', 'Add & install dependencies', true)
   .option('-y, --yes', 'Set up Bedframe preconfigured defaults', false)
   .action((name, options) => {
+    console.log('[ B A S E ] action.... name::::', name)
     if (name === '.') {
-      name = path.basename(cwd())
+      name = {
+        name: path.basename(cwd()),
+        path: cwd(),
+      }
+      console.log('[ . ] action.... name::::', name)
+    } else {
+      console.log('[ N A M E L E S S :/ ] action.... name::::', name)
     }
     if (
       !name ||
@@ -51,7 +58,8 @@ make
       !options.language ||
       !options.style
     ) {
-      bedframePrompts(name).then(async (response) => {
+      const _name = name ? name : undefined
+      bedframePrompts(_name).then(async (response) => {
         await makeBed(response).catch(console.error)
       })
     }
