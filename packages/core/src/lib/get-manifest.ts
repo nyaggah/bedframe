@@ -1,5 +1,5 @@
 import { ManifestV3Export } from '@crxjs/vite-plugin'
-import { Browser, BuildMode, BuildTarget, Manifest } from './types'
+import { Browser, BuildMode, BuildTarget } from './types'
 
 /**
  * Given the `Mode` i.e. `Browser` target, return the appropriate `Manifest` to build from
