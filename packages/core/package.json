@@ -26,7 +26,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:watch": "tsc && vite build --watch",
-    "build:link": "npm uninstall --location=global @bedframe/core && yarn build && chmod 755 ./dist && npm link",
+    "build:link": "npm uninstall -g @bedframe/core && yarn build && chmod 755 ./dist && npm link",
     "preview": "vite preview",
     "lint": "eslint \"**/*.ts*\" --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -84,5 +84,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "@crxjs/vite-plugin": "^1.0.14"
   }
 }
