@@ -34,6 +34,7 @@
     "prettier": "prettier --write . --loglevel silent"
   },
   "devDependencies": {
+    "@crxjs/vite-plugin": "^1.0.14",
     "@types/chrome": "^0.0.236",
     "@types/node": "^16.18.25",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
@@ -84,8 +85,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "peerDependencies": {
-    "@crxjs/vite-plugin": "^1.0.14"
   }
 }
