@@ -1,5 +1,20 @@
 # @bedframe/cli
 
+## 0.0.7
+
+### Patch Changes
+
+- 0ab40c4: ### core:
+
+  - create manifest fields helper methods;
+
+  ### cli:
+
+  - clean up
+
+- Updated dependencies [0ab40c4]
+  - @bedframe/core@0.0.4
+
 ## 0.0.6
 
 ### Patch Changes
