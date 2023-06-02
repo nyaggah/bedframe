@@ -14,7 +14,7 @@ export function viteConfig(response: prompts.Answers<string>): string {
 
   return `import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
-import { ManifestV3Export, crx } from '@crxjs/vite-plugin'
+import { crx } from '@crxjs/vite-plugin'
 import react from '@vitejs/plugin-react'
 ${styledComponents ? `import macrosPlugin from 'vite-plugin-babel-macros'` : ''}
 import { getManifest } from '@bedframe/core'
@@ -32,7 +32,7 @@ export default ({ mode }) => {
       crx({
         ${`manifest: getManifest(mode, [
           ${getManifestArray}
-        ]) as ManifestV3Export,\n`}
+        ]),`}
       }),
       ${styledComponents ? 'macrosPlugin()' : ''},
     ],

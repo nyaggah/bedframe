@@ -1,11 +1,9 @@
-/* eslint camelcase: 0 */
 import {
   Manifest,
   createManifest,
   Browser,
   PackageManager,
   BuildTarget,
-  AnyCase,
 } from '@bedframe/core'
 import path from 'node:path'
 import fs from 'fs-extra'
@@ -73,6 +71,7 @@ export function createManifestFrom(
  * @example
  *
  * we expect to perform on an array like this:
+ * ```json
  * [
  *   { 'build:all': 'concurrently pnpm:build:extension-*' },
  *   { 'build:chrome': 'pnpm build --outDir dist/chrome' },
@@ -80,7 +79,7 @@ export function createManifestFrom(
  *   { 'build:opera': 'pnpm build --outDir dist/opera' },
  *   { 'build:safari': 'pnpm build --outDir dist/safari' },
  * ]
- *
+ *```
  */
 export function convertArrayToObject(arr: ScriptCommand[]): ScriptCommand {
   let obj: ScriptCommand = {}
@@ -108,7 +107,14 @@ export function createPackageJson(
 ): PackageJsonType {
   return packageJson
 }
-
+/**
+ * Generate the base package.json scripts
+ * Bedframe relies on Vite sos these will
+ * be the default Vite build scripts
+ *
+ * @export
+ * @return {*}  {ScriptCommand}
+ */
 export function baseScripts(): ScriptCommand {
   return {
     dev: 'vite --mode chrome',
@@ -116,7 +122,15 @@ export function baseScripts(): ScriptCommand {
     preview: 'vite preview',
   }
 }
-
+/**
+ * Conditionally generate the requisite scripts
+ * to handle the functionality opted into via
+ * `@bedframe/cli` `Make` command args, flags & prompts
+ *
+ * @export
+ * @param {prompts.Answers<string>} response
+ * @return {*}  {ScriptCommand}
+ */
 export function createScriptCommandsFrom(
   response: prompts.Answers<string>
 ): ScriptCommand {
@@ -199,7 +213,22 @@ export function createScriptCommandsFrom(
     ...gitHooksScripts(),
   }
 }
-
+/**
+ * Conditionally generate the `package.json` dependencies
+ * opted into via `@bedframe/cli` `Make` command args,
+ * flags & prompts
+ *
+ * @export
+ * @param {prompts.Answers<string>} response
+ * @return {*}
+ * ```typescript
+ * {{
+ *   dependencies?: Partial<DependencyType>
+ *   devDependencies?: Partial<DependencyType>
+ *   config?: Partial<ConfigType>
+ * }}
+ * ```
+ */
 export function createDependenciesFrom(response: prompts.Answers<string>): {
   dependencies?: Partial<DependencyType>
   devDependencies?: Partial<DependencyType>
@@ -321,6 +350,18 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     ? [{ devDependencies: [{ name: '@changesets/cli', version: '^2.26.1' }] }]
     : []
 
+  /**
+   * Generate `package.json` compliant field (object)
+   * from `(key, value)` pair from passed in
+   *
+   * This function is suuuper liberal, innit?!
+   * TO diddly DO: tighten typing on
+   * the expected `value`
+   *
+   * @param {string} key
+   * @param {*} value
+   * @return {*}  {Partial<ConfigType>}
+   */
   const packageJsonField = (
     key: string,
     value: any // Partial<ConfigType> // Record<string, any> | string | any[]
@@ -331,7 +372,13 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
 
     return { [key]: value }
   }
-
+  /**
+   * Generate the packageJsonField()s for the
+   * other non-standard/ free-form-ish package.json
+   * fields / configs
+   *
+   * @return {*}
+   */
   const getConfigs = () => {
     const eslintConfig = response.development.template.config.lintFormat
       ? packageJsonField('eslintConfig', {
@@ -460,7 +507,14 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   let configs = { ...getConfigs() }
   return { dependencies, devDependencies, ...configs }
 }
-
+/**
+ * For BEDs with multiple Manifests (Browser targets)
+ * set by selecting multiple Browsers in cli prompts,
+ * return the Manifest for the first of these
+ *
+ * @param {*} response
+ * @return {*}  {Manifest}
+ */
 function getFirstManifestDetails(response: any): Manifest {
   for (const browserKey in response) {
     const browser = response[browserKey] as Manifest
@@ -469,7 +523,14 @@ function getFirstManifestDetails(response: any): Manifest {
 
   throw new Error('Invalid JSON object: No valid Manifest object found')
 }
-
+/**
+ * Compose the project's `package.json` from the
+ * prompt response & configurations therein
+ *
+ * @export
+ * @param {prompts.Answers<string>} response
+ * @return {*}  {PackageJsonType}
+ */
 export function createPackageJsonFrom(
   response: prompts.Answers<string>
 ): PackageJsonType {
@@ -489,7 +550,13 @@ export function createPackageJsonFrom(
     ...createDependenciesFrom(response),
   })
 }
-
+/**
+ * Write the composed package.json (from `createPackageJsonFrom` method)
+ * to the project's root
+ *
+ * @export
+ * @param {prompts.Answers<string>} response
+ */
 export function writePackageJson(response: prompts.Answers<string>): void {
   const packageJson = JSON.stringify(createPackageJsonFrom(response), null, 2)
   const destinationRoot = path.resolve(response.extension.name.path)
