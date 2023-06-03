@@ -43,7 +43,7 @@
     "prettier": "^2.8.8",
     "shx": "^0.3.3",
     "ts-node": "^10.9.1",
-    "tslib": "^2.5.0",
+    "tslib": "^2.5.3",
     "tsx": "^3.12.7",
     "turbo": "latest",
     "typescript": "^4.9.5"
