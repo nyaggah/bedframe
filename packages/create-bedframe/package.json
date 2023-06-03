@@ -10,24 +10,25 @@
   "type": "module",
   "main": "./dist/create-bedframe.js",
   "module": "./dist/create-bedframe.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/create-bedframe.d.ts",
   "exports": {
     ".": {
       "import": "./dist/create-bedframe.js",
       "require": "./dist/create-bedframe.js",
-      "types": "./dist/index.d.ts",
+      "types": "./dist/create-bedframe.d.ts",
       "default": "./dist/create-bedframe.js"
     }
   },
   "bin": {
-    "create-bedframe": "./dist/index.js"
+    "create-bedframe": "./dist/create-bedframe.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "clean": "shx rm -rf build",
+    "buildv": "tsc && vite build",
+    "build": "yarn clean && tsc && rollup -c",
     "build:watch": "tsc && vite build --watch",
     "build:link": "yarn build && npm link",
     "preview": "vite preview",
@@ -36,7 +37,16 @@
     "prettier:check": "prettier --check .",
     "prettier": "prettier --write . --loglevel silent"
   },
+  "dependencies": {
+    "@bedframe/cli": "*",
+    "@bedframe/core": "*"
+  },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-esbuild": "^5.0.0",
+    "rollup-plugin-string": "^3.0.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0"

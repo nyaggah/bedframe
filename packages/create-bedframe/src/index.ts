@@ -1,3 +1,3 @@
-#!/usr/bin/env node
+import { run } from '@bedframe/cli'
 
-export * from './lib'
+run()
