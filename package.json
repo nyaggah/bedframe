@@ -21,7 +21,8 @@
     "prettier": "turbo run prettier",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "build:link": "turbo run build:link",
-    "cz": "turbo run format lint && git add . && cz",
+    "cz1": "turbo run format lint && git add . && cz",
+    "cz": "cz",
     "release": "turbo run format lint build && changeset version && changeset publish",
     "prepare": "husky install"
   },

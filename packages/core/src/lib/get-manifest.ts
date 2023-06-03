@@ -4,6 +4,7 @@ import { Browser, BuildMode, BuildTarget } from './types'
 /**
  * Given the `Mode` i.e. `Browser` target, return the appropriate `Manifest` to build from
  *
+ *
  * ```typescript
  * type BuildMode = Browser
  * type BuildTarget = {
@@ -11,10 +12,23 @@ import { Browser, BuildMode, BuildTarget } from './types'
  *   browser: Browser
  * }
  * ```
+ * @example
+ *
+ *  If the following script is present in project's `package.json`,
+ *
+ * ```json
+ * "scripts": {
+ *  "build:extension-chrome": "vite build --mode chrome",
+ * }
+ * ```
+ *
+ * then it will build for the chrome browser
+ *
  * @export
  * @param {BuildMode} mode
  * @param {BuildTarget[]} targets
  * @return {*} { Manifest }
+ *
  */
 export function getManifest(
   mode: BuildMode,
