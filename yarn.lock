@@ -1063,10 +1063,10 @@
   resolved "https://registry.yarnpkg.com/@types/argparse/-/argparse-1.0.38.tgz#a81fd8606d481f873a3800c6ebae4f1d768a56a9"
   integrity sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==
 
-"@types/chrome@^0.0.236":
-  version "0.0.236"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.236.tgz#f967769015c458718d4328a54682fa24f0c62c92"
-  integrity sha512-ArQoxO9WtDY6GWcT2cpo+D+hyASPeFt7PHQEUDXwQhRS00Rbop07rnEOA046yws0HkM83Tcew/hW6Dgvnj4iMQ==
+"@types/chrome@^0.0.237":
+  version "0.0.237"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.237.tgz#20a38e1d1134e2725fc7eb43c881e55e1b24ddd7"
+  integrity sha512-krsRmyfMlck5r+H1EapsrrucDRq6iRm0NAi5fapr93CgnpVMDdK+h2+z4x79GegdW7BNH9Vb//gkptORwwwVIQ==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
