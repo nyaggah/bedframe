@@ -1,5 +1,19 @@
 # @bedframe/core
 
+## 0.0.6
+
+### Patch Changes
+
+- 92b4409: feat: beef up readmes; update some jsdoc
+
+## 0.0.5
+
+### Patch Changes
+
+- d9b23e6: feat(core): ensure getManifest pulls in crxjs prop'lay
+
+  @bedframe/core workflow action failing in ci <--- can't find peer dep crxjs ?
+
 ## 0.0.4
 
 ### Patch Changes
