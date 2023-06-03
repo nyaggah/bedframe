@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.6
+
+### Patch Changes
+
+- 92b4409: feat: beef up readmes; update some jsdoc
+
 ## 0.0.5
 
 ### Patch Changes

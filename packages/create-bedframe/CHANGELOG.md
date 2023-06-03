@@ -1,5 +1,11 @@
 # create-bedframe
 
+## 0.0.4
+
+### Patch Changes
+
+- 92b4409: feat: beef up readmes; update some jsdoc
+
 ## 0.0.3
 
 ### Patch Changes
