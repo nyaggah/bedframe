@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.7
+
+### Patch Changes
+
+- d254dc8: feat(readme): update @bedframe/core readme
+
 ## 0.0.6
 
 ### Patch Changes
