@@ -40,49 +40,20 @@ Visit https://bedframe.dev/docs to get started with Bedframe.
 
 Visit https://bedframe.dev/docs to view the full documentation.
 
-## Why
-
-why bedframe exists...
-current landscape...
-
-## What
-
-Bedframe is your Browser Extension Development (BED) Framework
-Not a framework in the (another javascript framework?!) traditional sense of the word but more of an opinionated arch and app structure for building production-ready, commercial, cross-browser extensions.
-
-**Why prod-ready? Why commercial?**<br />
-Technically a browser extension is just a collection of html, css, js and a manifest.json file.
-
-A typescript + react build process coupled with continuous integration and continuous deployment is likely something you don't need or (frankly) want in a relatively simple extension. But if your extension is a "product" or its for a "client" or you have "users" that rely on your extension... Bedframe helps you bring the front-end best practices for arch and workflows you're used to in your "regular" web development:
-unit tests, github actions that run on protected main branch, changesets, conventional changelogs... automated versioning, tagging and publishing.
-
-**Frameworks**<br />
-Bedframe generates projects bootstrapped with Vite and support template configurations for:
-
-- Vanilla
-- React
-- Preact
-- Lit
-- Svelte
-- Vue
-
-## How
-
-how we configure the BED
-
 ## Packages
 
-| Package                          | Version                                                                              | Description                                                         |
-| -------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| [@bedframe/cli](packages/cli/)   | ![@bedframe/cli version](https://img.shields.io/npm/v/@bedframe/cli.svg?label=%20)   | Bedframe CLI utility. Make and manage your BED from the commandline |
-| [@bedframe/core](packages/core/) | ![@bedframe/core version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Bedframe types and functions                                        |
+| Package                                      | Version                                                                               | Description                                                         |
+| -------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| [create-bedframe](packages/create-bedframe/) | ![create-bedframe version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Standalone [@bedframe/cli](packages/cli) `make` command utility     |
+| [@bedframe/cli](packages/cli/)               | ![@bedframe/cli version](https://img.shields.io/npm/v/@bedframe/cli.svg?label=%20)    | Bedframe CLI utility. Make and manage your BED from the commandline |
+| [@bedframe/core](packages/core/)             | ![@bedframe/core version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20)  | Bedframe core types and functions                                   |
 
 ## Monorepo Utility Packages
 
-| Package                                                    | Version                                                                                              | Description                                                                                                 |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| [eslint-config-bedframe](packages/eslint-config-bedframe/) | ![eslint-config-bedframe version](https://img.shields.io/npm/v/eslint-config-bedframe.svg?label=%20) | `eslint` configurations (includes `eslint-config-turbo`, `eslint-config-next` and `eslint-config-prettier`) |
-| [tsconfig](packages/tsconfig/)                             | &nbsp;                                                                                               | `tsconfig.json`s used throughout the monorepo                                                               |
+| Package                                                    | Version                                                                                              | Description                                      |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| [eslint-config-bedframe](packages/eslint-config-bedframe/) | ![eslint-config-bedframe version](https://img.shields.io/npm/v/eslint-config-bedframe.svg?label=%20) | Shared ESLint configs used in this Turborepo     |
+| [@bedframe/tsconfig](packages/tsconfig/)                   | &nbsp;                                                                                               | Shared TypeScript configs used in this Turborepo |
 
 ## License
 

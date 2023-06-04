@@ -7,7 +7,7 @@
   F R A M E W O R K<br />
 </div>
 
-#
+<br />
 
 <p align="left">
   <a aria-label="Bedframe logo" href="https://bedframe.dev">
@@ -24,8 +24,6 @@
   </a>
 </p>
 
-#
-
 ## **create-bedframe**
 
 Standalone [@bedframe/cli](https://github.com/nyaggah/bedframe/tree/main/packages/cli) `make` command utility
@@ -33,8 +31,10 @@ Standalone [@bedframe/cli](https://github.com/nyaggah/bedframe/tree/main/package
 ### Scaffolding Your First Bedframe Project
 
 <blockquote>
+<br />
 <strong>Compatibility Note</strong><br/>
 Bedframe uses the offically supported Vite template presets. Vite requires <a href="https://nodejs.org/en" target="_blank">Node.js</a> version 14.18+, 16+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.
+<br /><br />
 </blockquote>
 
 <br />
