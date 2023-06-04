@@ -1,5 +1,14 @@
 # create-bedframe
 
+## 0.0.6
+
+### Patch Changes
+
+- 5d09fd9: update readmes; make moar uniform
+- Updated dependencies [5d09fd9]
+  - @bedframe/core@0.0.8
+  - @bedframe/cli@0.0.9
+
 ## 0.0.5
 
 ### Patch Changes

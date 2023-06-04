@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.8
+
+### Patch Changes
+
+- 5d09fd9: update readmes; make moar uniform
+
 ## 0.0.7
 
 ### Patch Changes

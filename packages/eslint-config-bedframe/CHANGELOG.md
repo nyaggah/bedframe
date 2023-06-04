@@ -1,5 +1,11 @@
 # eslint-config-bedframe
 
+## 0.0.2
+
+### Patch Changes
+
+- 5d09fd9: update readmes; make moar uniform
+
 ## 0.0.1
 
 ### Patch Changes
