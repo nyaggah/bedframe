@@ -24,8 +24,8 @@
   </a>
 </p>
 
-## **@bedframe/tsconfig**
+## **eslint-config-bedframe**
 
-Shared TypeScript configs used in this Turborepo.
+Shared ESLint configs used in this Turborepo
 
-These are the base TypeScript configurations from which all others inherit.
+These are the base ESLint configurations from which from all others inherit.

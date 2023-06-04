@@ -7,7 +7,7 @@
   F R A M E W O R K<br />
 </div>
 
-#
+<br />
 
 <p align="left">
   <a aria-label="Bedframe logo" href="https://bedframe.dev">
@@ -24,8 +24,6 @@
   </a>
 </p>
 
-#
-
 ## **@bedframe/cli**
 
 <!-- Your Browser Extension Development Framework (dev utility) -->
@@ -35,8 +33,10 @@ The Bedframe Command Line Interface (CLI) lets you make and manage your BED dire
 ### Installation
 
 <blockquote>
+  <br />
   <h4><strong>Node Version Requirement</strong></h4>  
   Bedframe CLI requires <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">Node.js</a> 14.18+, 16+. You can manage multiple versions of Node on the same machine with <a href="https://github.com/tj/n" target="_blank" rel="noopener noreferrer">n</a>, <a href="https://github.com/creationix/nvm" target="_blank" rel="noopener noreferrer">nvm</a> or <a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener noreferrer">nvm-windows</a>.
+  <br /><br />
 </blockquote>
 
 ```bash
@@ -53,13 +53,6 @@ pnpm add -g @bedframe/cli
 After installation, you will have access to the `bedframe` executable in your command line. You can verify that it is properly installed by simply running `bedframe`, which should present you with an intro and help message.
 
 ```bash
-  >_
-
-  B R O W S E R
-  E X T E N S I O N
-  D E V E L O P M E N T
-  F R A M E W O R K
-
 Usage: bedframe [command] [options]
 
 Options:
@@ -69,7 +62,6 @@ Options:
 Commands:
   make [name] [options]  make your B E D
   help [command]         display help for command
-
 ```
 
 You can check you have the right version with this command:
@@ -157,23 +149,23 @@ If any required configuration isn't passed in via `flags` the CLI will prompt yo
 
 ### Options
 
-| Flag (short) | Flag (long)                                              | Type           | Description                                     | Default      |
-| ------------ | -------------------------------------------------------- | -------------- | ----------------------------------------------- | ------------ |
-| -v           | --version                                                | string         | Specify project version                         | "0.0.1"      |
-| -b           | --browsers                                               | Browser[]      | Specify comma-separated list of target browsers | [ "Chrome" ] |
-| -p           | <span style="white-space:nowrap">--packageManager</span> | PackageManager | Specify package manager to use                  | "Yarn"       |
-| -f           | --framework                                              | Framework      | Specify framework to use                        | "React"      |
-| -l           | --language                                               | Language       | Specify language to use                         | "TypeScript" |
-| -s           | --style                                                  | Style          | Specify CSS solution to use                     | "Tailwind"   |
-| -o           | --lintFormat                                             | boolean        | Configure linting with formatting               | true         |
-| -g           | --git                                                    | boolean        | Initialize git source control                   | true         |
-| -h           | --gitHooks                                               | boolean        | Add git hooks (Husky + lint staged)             | true         |
-| -t           | --tests                                                  | boolean        | Add tests (Vitest + Testing Library + jsdom)    | true         |
-| -c           | --commitLint                                             | boolean        | Add commit linting                              | true         |
-| -x           | --changesets                                             | boolean        | Add changesets                                  | true         |
-| -i           | --installDeps                                            | boolean        | Add &amp; install dependencies                  | true         |
-| -y           | --yes                                                    | boolean        | Set up Bedframe w/ preconfigured defaults       | false        |
-|              | --help                                                   |                | display help for command                        |              |
+| Flag (short) | Flag (long)            | Type           | Description                                     | Default    |
+| ------------ | ---------------------- | -------------- | ----------------------------------------------- | ---------- |
+| -v           | --version              | string         | Specify project version                         | 0.0.1      |
+| -b           | --browsers             | Browser[]      | Specify comma-separated list of target browsers | chrome     |
+| -p           | --packageManager&nbsp; | PackageManager | Specify package manager to use                  | yarn       |
+| -f           | --framework            | Framework      | Specify framework to use                        | react      |
+| -l           | --language             | Language       | Specify language to use                         | typescript |
+| -s           | --style                | Style          | Specify CSS solution to use                     | tailwind   |
+| -o           | --lintFormat           | boolean        | Configure linting with formatting               | true       |
+| -g           | --git                  | boolean        | Initialize git source control                   | true       |
+| -h           | --gitHooks             | boolean        | Add git hooks (Husky + lint staged)             | true       |
+| -t           | --tests                | boolean        | Add tests (Vitest + Testing Library + jsdom)    | true       |
+| -c           | --commitLint           | boolean        | Add commit linting                              | true       |
+| -x           | --changesets           | boolean        | Add changesets                                  | true       |
+| -i           | --installDeps          | boolean        | Add &amp; install dependencies                  | true       |
+| -y           | --yes                  | boolean        | Set up Bedframe w/ preconfigured defaults       | false      |
+|              | --help                 |                | display help for command                        |            |
 
 ### Package Manager
 
