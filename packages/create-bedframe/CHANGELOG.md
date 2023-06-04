@@ -1,5 +1,11 @@
 # create-bedframe
 
+## 0.0.5
+
+### Patch Changes
+
+- af5234d: feat(create-bedframe): add @bedframe/cli make command to create-bedfeame package
+
 ## 0.0.4
 
 ### Patch Changes
