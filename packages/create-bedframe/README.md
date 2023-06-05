@@ -28,7 +28,7 @@
 
 Standalone [@bedframe/cli](https://github.com/nyaggah/bedframe/tree/main/packages/cli) `make` command utility
 
-### Scaffolding Your First Bedframe Project
+## Scaffolding Your First Bedframe Project
 
 <blockquote>
 <br />
@@ -171,8 +171,11 @@ Pick from either npm, yarn or pnpm
 The `version` passed in via the Bedframe CLI make command flag (`-v, --version`) or via prompt response is used to set the `version` for both your project's package.json and the (one or more) manifests for the extension(s) in your project.
 
 <blockquote>
+<br />
 <h4>Note</h4>
 The `version` in manifest.json is not in semVer while the `version` in pacakge.json must be parseable by <a href="https://github.com/npm/node-semver">node-semver</a>. If you find the two need to be different in your project, you can alternatively pass in the Version Name flag (`--versionName`) and this will be the semVer-valid `version` used in the package.json and as `version_name` in manifest.json.
+<br />
+<br />
 </blockquote>
 <Br />
 

@@ -7,7 +7,7 @@
   F R A M E W O R K<br />
 </div>
 
-#
+<br />
 
 <p align="left">
   <a aria-label="Bedframe logo" href="https://bedframe.dev">
@@ -23,8 +23,6 @@
     <img alt="" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
   </a>
 </p>
-
-#
 
 ## [B E D F R A M E](https://bedframe.dev)
 
