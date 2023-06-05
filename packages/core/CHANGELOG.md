@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.9
+
+### Patch Changes
+
+- f4bc59d: feat: readme updates; cd into project before git
+
 ## 0.0.8
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.10
+
+### Patch Changes
+
+- f4bc59d: feat: readme updates; cd into project before git
+- Updated dependencies [f4bc59d]
+  - @bedframe/core@0.0.9
+
 ## 0.0.9
 
 ### Patch Changes
