@@ -30,7 +30,7 @@
 
 The Bedframe Command Line Interface (CLI) lets you make and manage your BED directly from the terminal.
 
-### Installation
+## Installation
 
 <blockquote>
   <br />
@@ -70,7 +70,7 @@ You can check you have the right version with this command:
 bedframe --version
 ```
 
-### Making your BED
+## Making your BED
 
 To create a new bedframe project, run:
 

@@ -28,7 +28,7 @@
 
 Your Browser Extension Development Framework (core types &amp; funcs)
 
-### Installation
+## Installation
 
 <blockquote>
   <br />
@@ -48,24 +48,30 @@ yarn add @bedframe/core -D
 pnpm add @bedframe/core -D
 ```
 
-### Usage
+## Scaffolding Your First Bedframe Project
+
+<blockquote>
+<br />
+<strong>Compatibility Note</strong><br/>
+Bedframe uses the offically supported Vite template presets. Vite requires <a href="https://nodejs.org/en" target="_blank">Node.js</a> version 14.18+, 16+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.
+<br /><br />
+</blockquote>
 
 The best way to get started with Bedframe is by using the `create-bedframe` project generator or run the `make` command using the `@bedframe/cli`.
 
 If building a project from scratch, assuming you've generated a Vite project (w/ React + TypeScript), after installing `@beframe/core`, ensure a folder structure like the following:
 
-**The default Bedframe setup if for a Chrome Popup extension**
+The default Bedframe setup generates a production-ready Chrome Popup extension BED setup complete with sensible default configurations for:
 
-Production-ready dev setup complete with configuration for:
-
-- tests (unit testing w/ Vitest)
-- linting & formating (w/ eslint + prettier w/ lint-staged)
-- source control (w/ git)
+- **Required**: base framework configuration (e.g. Vite + React with TypeScript)
+- **Recommended**: linting & formating (w/ eslint + prettier w/ lint-staged)
+- **Recommended**: source control (w/ git)
   - publish/ release workflows (ci/cd w/ github actions)
   - automated dependency updates (w/ dependapot workflows)
   - conventional commits and git hooks (commitizen + commitlint)
   - changesets (w/ changesets)
     - conventional changelog
+- **Optional**: tests (unit testing w/ Vitest)
 
 ```bash
 
@@ -104,7 +110,7 @@ bedframe-project/
 ├─ vitest.config.ts
 ```
 
-### Defining your manifest
+## Defining your manifest
 
 ```typescript
 function createManifest(
@@ -125,7 +131,7 @@ type BuildTarget = {
 }
 ```
 
-### Usage
+## Usage
 
 Assuming you have a manifest for Chrome browser here `src/manifest/chrome.ts`, you'd create your manifest like so:
 

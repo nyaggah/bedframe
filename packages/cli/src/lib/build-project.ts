@@ -128,9 +128,10 @@ export async function makeBed(response: PromptsResponse) {
               })
               .then(() => {
                 if (response.development.template.config.git) {
-                  initializeGitProject(response.extension.name.name).catch(
-                    (error) => console.error(error)
-                  )
+                  initializeGitProject(
+                    response.extension.name.name,
+                    response.extension.name.path ?? cwd()
+                  ).catch((error) => console.error(error))
                 }
               })
               .catch((error) => console.error(error))
@@ -141,10 +142,21 @@ export async function makeBed(response: PromptsResponse) {
 }
 
 export async function initializeGitProject(projectName: string, cwd?: string) {
+  console.log('initializeGitProject() > { projectName, cwd }:', {
+    projectName,
+    cwd,
+  })
   const tasks = new Listr([
     {
       title: 'Initializing git repository',
-      task: async (ctx, task): Promise<ExecaReturnValue<string>> => {
+      // task: async (ctx, task): Promise<ExecaReturnValue<string>> => {
+      task: async (ctx, task) => {
+        console.log('{ ctx, task }', { ctx, task })
+        console.log('process.cwd()', process.cwd())
+        console.log('projectName', projectName)
+
+        execa('cd', [`${cwd}`])
+
         const proc = execa('git', ['init'], { cwd })
         proc.stdout?.pipe(process.stdout)
         const spinner = createSpinner('Initializing git repository').start()
@@ -156,6 +168,11 @@ export async function initializeGitProject(projectName: string, cwd?: string) {
     {
       title: 'Adding files to git',
       task: async (ctx, task): Promise<ExecaReturnValue<string>> => {
+        console.log('{ ctx, task }', { ctx, task })
+        console.log('process.cwd()', process.cwd())
+        console.log('projectName', projectName)
+
+        execa('cd', [`${cwd}`])
         const proc = execa('git', ['add', '.'], { cwd })
         proc.stdout?.pipe(process.stdout)
         const spinner = createSpinner('Adding files to git').start()
@@ -167,6 +184,11 @@ export async function initializeGitProject(projectName: string, cwd?: string) {
     {
       title: 'Committing changes',
       task: async (ctx, task): Promise<ExecaReturnValue<string>> => {
+        console.log('{ ctx, task }', { ctx, task })
+        console.log('process.cwd()', process.cwd())
+        console.log('projectName', projectName)
+
+        execa('cd', [`${cwd}`])
         const proc = execa(
           'git',
           [
