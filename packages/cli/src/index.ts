@@ -3,7 +3,8 @@ import { cwd } from 'node:process'
 import { basename } from 'node:path'
 import { promptsIntro, bedframePrompts, makeBed } from './lib'
 
-promptsIntro()
+let showIntro = true
+// promptsIntro()
 const make = new Command()
 make
   // Name, desc,
@@ -38,6 +39,9 @@ make
   .option('-i, --installDeps', 'Add & install dependencies', true)
   .option('-y, --yes', 'Set up Bedframe preconfigured defaults', false)
   .action((name, options) => {
+    if (options) {
+      showIntro = false
+    }
     if (name === '.') {
       name = {
         name: basename(cwd()),
@@ -56,6 +60,7 @@ make
     ) {
       const _name = name ? name : undefined
       bedframePrompts(_name).then(async (response) => {
+        console.log('bruh?! where in the fudge is that log coming fruhm?!')
         await makeBed(response).catch(console.error)
       })
     }
@@ -63,6 +68,9 @@ make
 
 export async function run(): Promise<void> {
   try {
+    if (showIntro) {
+      promptsIntro()
+    }
     await make.parseAsync(process.argv)
   } catch (error) {
     console.error(error)

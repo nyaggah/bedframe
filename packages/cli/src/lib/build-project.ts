@@ -5,7 +5,7 @@ import { dim, green } from 'kolorist'
 import fs from 'fs-extra'
 import Listr from 'listr'
 import url from 'node:url'
-import { cwd } from 'node:process'
+import { chdir, cwd } from 'node:process'
 import path from 'node:path'
 import { writeManifests } from './write-manifests'
 import { writeViteConfig } from './write-vite-config'
@@ -14,15 +14,8 @@ import { copyFolder } from './copy-folder'
 import { PromptsResponse } from './prompts'
 
 export async function makeBed(response: PromptsResponse) {
-  console.log('makeBed() > response:', response)
-
   const projectDir = response.extension.name.name
   const projectPath = response.extension.name.path
-
-  console.log('makeBed() > { projectDir, projectPath }:', {
-    projectDir,
-    projectPath,
-  })
 
   if (projectPath) {
     fs.ensureDir(projectPath)
@@ -33,9 +26,6 @@ export async function makeBed(response: PromptsResponse) {
       })
       .then(async () => {
         await execa('cd', [`${projectPath}`])
-          .then(() => {
-            console.log('cwd()', cwd())
-          })
           .then(() => writePackageJson(response))
           .catch(console.error)
 
@@ -122,72 +112,55 @@ export async function makeBed(response: PromptsResponse) {
             ])
           })
           .then(async () => {
-            await installDependencies(response)
-              .then(() => {
-                console.log('installing dependencies....')
-              })
-              .then(() => {
-                if (response.development.template.config.git) {
-                  initializeGitProject(
-                    response.extension.name.name,
-                    response.extension.name.path ?? cwd()
-                  ).catch((error) => console.error(error))
-                }
-              })
-              .catch((error) => console.error(error))
+            chdir(projectPath)
+            // TO diddly DO: maybe nest even further, joey! is a spaget!
+            await installDependencies(response).then(async (respo) => {
+              console.log('respo', respo)
+              await execa('cd', [`${projectPath}`])
+                .then(async () => {
+                  if (response.development.template.config.git) {
+                    await initializeGitProject(
+                      response.extension.name.name,
+                      response.extension.name.path ?? cwd()
+                    ).catch((error) => console.error(error))
+                  }
+                })
+                .catch(console.error)
+            })
           })
-          .catch((error) => console.error(error))
       })
   }
 }
 
 export async function initializeGitProject(projectName: string, cwd?: string) {
-  console.log('initializeGitProject() > { projectName, cwd }:', {
-    projectName,
-    cwd,
-  })
   const tasks = new Listr([
     {
       title: 'Initializing git repository',
-      // task: async (ctx, task): Promise<ExecaReturnValue<string>> => {
-      task: async (ctx, task) => {
-        console.log('{ ctx, task }', { ctx, task })
-        console.log('process.cwd()', process.cwd())
-        console.log('projectName', projectName)
-
+      task: async (): Promise<ExecaReturnValue<string>> => {
         execa('cd', [`${cwd}`])
-
         const proc = execa('git', ['init'], { cwd })
         proc.stdout?.pipe(process.stdout)
         const spinner = createSpinner('Initializing git repository').start()
         await proc
-        spinner.success()
+        spinner.success({ mark: '✓', text: 'initialized empty git repository' })
         return proc
       },
     },
     {
       title: 'Adding files to git',
-      task: async (ctx, task): Promise<ExecaReturnValue<string>> => {
-        console.log('{ ctx, task }', { ctx, task })
-        console.log('process.cwd()', process.cwd())
-        console.log('projectName', projectName)
-
+      task: async (): Promise<ExecaReturnValue<string>> => {
         execa('cd', [`${cwd}`])
         const proc = execa('git', ['add', '.'], { cwd })
         proc.stdout?.pipe(process.stdout)
         const spinner = createSpinner('Adding files to git').start()
         await proc
-        spinner.success()
+        spinner.success({ mark: '✓', text: 'files staged' })
         return proc
       },
     },
     {
       title: 'Committing changes',
-      task: async (ctx, task): Promise<ExecaReturnValue<string>> => {
-        console.log('{ ctx, task }', { ctx, task })
-        console.log('process.cwd()', process.cwd())
-        console.log('projectName', projectName)
-
+      task: async (): Promise<ExecaReturnValue<string>> => {
         execa('cd', [`${cwd}`])
         const proc = execa(
           'git',
@@ -201,7 +174,7 @@ export async function initializeGitProject(projectName: string, cwd?: string) {
         proc.stdout?.pipe(process.stdout)
         const spinner = createSpinner('Committing changes').start()
         await proc
-        spinner.success()
+        spinner.success({ mark: '✓', text: 'file commited!' })
         return proc
       },
     },
@@ -211,45 +184,57 @@ export async function initializeGitProject(projectName: string, cwd?: string) {
 }
 
 export async function installDependencies(response: PromptsResponse) {
-  const { packageManager } = response.development.template.config
-
-  const { stdout } = await projectInstall({
-    prefer: packageManager.toLowerCase(),
-    cwd: response.extension.name.path,
-  })
-
-  const packages = stdout.match(/Installing .+/g)
-  if (packages) {
-    console.log('installing', packages)
-  }
-  if (!packages) {
-    console.log('No packages to install.')
-    return
-  }
-
-  const tasks = packages.map((pkg: any) => ({
-    title: pkg,
-    task: () =>
-      new Promise<void>((resolve, reject) => {
-        const spinner = createSpinner(`Installing ${pkg}`)
-        spinner.start()
-
-        install(pkg.split(' ')[1])
-          .then(() => {
-            spinner.success({ text: 'Success!🚀' })
-            resolve()
-          })
-          .catch((error) => {
-            spinner.error({ text: 'Failed! 😢' })
-            reject(error)
-          })
-      }),
-  }))
-
+  const { packageManager } = response.development.template.config.packageManager
   try {
-    await new Listr(tasks).run()
-    console.log('Packages installed successfully!')
+    const { stdout } = await execa(`${packageManager ?? 'yarn'} install`, [
+      `${cwd}`,
+    ])
+    console.log(stdout)
   } catch (error) {
-    console.error('Error installing packages:', error)
+    console.error(error)
   }
 }
+
+// export async function __installDependencies(response: PromptsResponse) {
+//   const { packageManager } = response.development.template.config
+
+//   const { stdout } = await projectInstall({
+//     prefer: packageManager.toLowerCase(),
+//     cwd: response.extension.name.path,
+//   })
+
+//   const packages = stdout.match(/Installing .+/g)
+//   if (packages) {
+//     console.log('installing', packages)
+//   }
+//   if (!packages) {
+//     console.log('No packages to install.')
+//     return
+//   }
+
+//   const tasks = packages.map((pkg: any) => ({
+//     title: pkg,
+//     task: () =>
+//       new Promise<void>((resolve, reject) => {
+//         const spinner = createSpinner(`Installing ${pkg}`)
+//         spinner.start()
+
+//         install(pkg.split(' ')[1])
+//           .then(() => {
+//             spinner.success({ text: 'Success!🚀' })
+//             resolve()
+//           })
+//           .catch((error) => {
+//             spinner.error({ text: 'Failed! 😢' })
+//             reject(error)
+//           })
+//       }),
+//   }))
+
+//   try {
+//     await new Listr(tasks).run()
+//     console.log('Packages installed successfully!')
+//   } catch (error) {
+//     console.error('Error installing packages:', error)
+//   }
+// }

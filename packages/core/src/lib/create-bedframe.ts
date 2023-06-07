@@ -50,11 +50,6 @@ export interface Bedframe {
  * @return {*}  {Bedframe}
  */
 export const createBedframe = (bedframe: Bedframe): Bedframe => {
-  console.group('.bedframe/config.{ts/js/json}:')
-  console.log()
-  console.log(JSON.stringify(bedframe, null, 2))
-  console.groupEnd()
-  console.log()
   return bedframe
 }
 
