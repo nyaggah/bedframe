@@ -7,13 +7,11 @@ const Iframe = styled(Frame)`
 
   --iframe-opacity: 0; // initial opacity
 
-  --iframe-width: 600px;
-  --iframe-min-width: 600px;
+  --iframe-width: 560px;
+  --iframe-min-width: 560px;
   --iframe-max-width: 960px;
-
   --iframe-height: 80vh;
-  --iframe-min-height: 80vh;
-  --iframe-max-height: 80vh;
+  --iframe-min-height: 50vh;
 
   --iframe-border-radius: 12px;
   --iframe-z-index: 9999999;
