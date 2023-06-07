@@ -12,6 +12,7 @@ const Iframe = styled(Frame)`
   --iframe-max-width: 960px;
   --iframe-height: 80vh;
   --iframe-min-height: 50vh;
+  --iframe-max-height: 80vh;
 
   --iframe-border-radius: 12px;
   --iframe-z-index: 9999999;
