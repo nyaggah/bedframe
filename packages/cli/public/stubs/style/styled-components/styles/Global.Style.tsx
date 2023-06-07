@@ -359,7 +359,7 @@ const GlobalStyles = createGlobalStyle`
   --primary-color: #212121;
   --secondary-color: #8795a2;
   --highlight-color: var(--brand-purp);
-  --background-color: #fff;
+  --background-color: rgb(24, 26, 29); // #fff;
 
   /* 
     // Elements
