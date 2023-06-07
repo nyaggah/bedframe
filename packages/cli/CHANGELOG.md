@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.12
+
+### Patch Changes
+
+- f76db7d: feat(intro component): clean up intro component (first run experience [WIP])
+
 ## 0.0.11
 
 ### Patch Changes
