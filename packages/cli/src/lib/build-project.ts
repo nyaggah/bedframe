@@ -111,21 +111,16 @@ export async function makeBed(response: PromptsResponse) {
                 : Promise.resolve(),
             ])
           })
-          .then(async () => {
+          .finally(async () => {
             chdir(projectPath)
             // TO diddly DO: maybe nest even further, joey! is a spaget!
-            await installDependencies(response).then(async (respo) => {
-              console.log('respo', respo)
-              await execa('cd', [`${projectPath}`])
-                .then(async () => {
-                  if (response.development.template.config.git) {
-                    await initializeGitProject(
-                      response.extension.name.name,
-                      response.extension.name.path ?? cwd()
-                    ).catch((error) => console.error(error))
-                  }
-                })
-                .catch(console.error)
+            await installDependencies(response).then(async () => {
+              if (response.development.template.config.git) {
+                await initializeGitProject(
+                  response.extension.name.name,
+                  response.extension.name.path ?? cwd()
+                ).catch((error) => console.error(error))
+              }
             })
           })
       })
@@ -184,57 +179,50 @@ export async function initializeGitProject(projectName: string, cwd?: string) {
 }
 
 export async function installDependencies(response: PromptsResponse) {
-  const { packageManager } = response.development.template.config.packageManager
+  const projectPath = response.extension.name.path
+  chdir(projectPath)
+
+  const { packageManager } = response.development.template.config
+
+  const { stdout } = await projectInstall({
+    prefer: packageManager.toLowerCase() ?? 'yarn',
+    cwd: projectPath,
+  })
+
+  const packages = stdout.match(/Installing .+/g)
+
+  if (!packages) {
+    console.log('No packages to install.')
+    return
+  }
+
+  if (packages) {
+    console.log('installing', packages)
+  }
+
+  const tasks = packages.map((pkg: any) => ({
+    title: pkg,
+    task: () =>
+      new Promise<void>((resolve, reject) => {
+        const spinner = createSpinner(`Installing ${pkg}`)
+        spinner.start()
+
+        install(pkg.split(' ')[1])
+          .then(() => {
+            spinner.success({ text: 'Success!🚀' })
+            resolve()
+          })
+          .catch((error) => {
+            spinner.error({ text: 'Failed! 😢' })
+            reject(error)
+          })
+      }),
+  }))
+
   try {
-    const { stdout } = await execa(`${packageManager ?? 'yarn'} install`, [
-      `${cwd}`,
-    ])
-    console.log(stdout)
+    await new Listr(tasks).run()
+    console.log('Packages installed successfully!')
   } catch (error) {
-    console.error(error)
+    console.error('Error installing packages:', error)
   }
 }
-
-// export async function __installDependencies(response: PromptsResponse) {
-//   const { packageManager } = response.development.template.config
-
-//   const { stdout } = await projectInstall({
-//     prefer: packageManager.toLowerCase(),
-//     cwd: response.extension.name.path,
-//   })
-
-//   const packages = stdout.match(/Installing .+/g)
-//   if (packages) {
-//     console.log('installing', packages)
-//   }
-//   if (!packages) {
-//     console.log('No packages to install.')
-//     return
-//   }
-
-//   const tasks = packages.map((pkg: any) => ({
-//     title: pkg,
-//     task: () =>
-//       new Promise<void>((resolve, reject) => {
-//         const spinner = createSpinner(`Installing ${pkg}`)
-//         spinner.start()
-
-//         install(pkg.split(' ')[1])
-//           .then(() => {
-//             spinner.success({ text: 'Success!🚀' })
-//             resolve()
-//           })
-//           .catch((error) => {
-//             spinner.error({ text: 'Failed! 😢' })
-//             reject(error)
-//           })
-//       }),
-//   }))
-
-//   try {
-//     await new Listr(tasks).run()
-//     console.log('Packages installed successfully!')
-//   } catch (error) {
-//     console.error('Error installing packages:', error)
-//   }
-// }

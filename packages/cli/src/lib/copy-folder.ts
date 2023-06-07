@@ -14,7 +14,7 @@ import path from 'node:path'
  */
 export async function copyFolder(from: string, to: string): Promise<void> {
   fs.ensureDir(to)
-    .then(async () => console.log(dim(`successfully created ${green(to)})`)))
+    // .then(async () => console.log(dim(`successfully created ${green(to)})`)))
     .catch((error) => console.error(error))
 
   for (const element of fs.readdirSync(from)) {
