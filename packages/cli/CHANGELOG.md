@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.11
+
+### Patch Changes
+
+- a640dee: feat(cli): project generation: use execa to directly install
+- Updated dependencies [a640dee]
+  - @bedframe/core@0.0.10
+
 ## 0.0.10
 
 ### Patch Changes
