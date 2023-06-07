@@ -499,11 +499,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     }
   }
 
-  console.log('{ dependencies, devDependencies, ...rest }:', {
-    dependencies,
-    devDependencies,
-    configs: JSON.stringify(getConfigs(), null, 2),
-  })
   let configs = { ...getConfigs() }
   return { dependencies, devDependencies, ...configs }
 }

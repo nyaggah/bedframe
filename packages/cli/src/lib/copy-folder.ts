@@ -24,18 +24,8 @@ export async function copyFolder(from: string, to: string): Promise<void> {
     // eslint-disable  no-await-in-loop
     if ((await fs.lstat(path.join(from, element))).isFile()) {
       fs.copy(path.join(from, element), path.join(to, elementName))
-      // console.log(
-      //   `${dim('Copied')} ${yellow(path.join(from, element))} ${dim(
-      //     '→'
-      //   )} ${green(path.join(to, elementName))}`
-      // )
     } else {
       copyFolder(path.join(from, element), path.join(to, elementName))
-      // console.log(
-      //   `${dim('Copied')} ${yellow(path.join(from, element))} ${dim(
-      //     '→'
-      //   )} ${green(path.join(to, elementName))}`
-      // )
     }
   }
 }

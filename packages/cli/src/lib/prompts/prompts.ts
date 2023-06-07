@@ -75,12 +75,13 @@ export const extensionPrompts = (
   name: string
 ): PromptObject<keyof ExtensionPrompts>[] => [
   {
-    type: (name) => (name ? null : 'text'),
+    // type: (name) => (name ? null : 'text'),
+    type: 'text',
     name: 'name',
     message: 'Project name:',
     initial: name ? name : 'bedframe-project',
-    hint: ` — Where would you like to create your project? ${yellow(
-      italic('./bedframe-project')
+    hint: `— Where would you like to create your project? ${yellow(
+      italic(name ? name : './bedframe-project')
     )}`,
     format: (answer: string) => formatTargetDir(answer),
   },
@@ -397,16 +398,6 @@ overrides & type i.e. sidebar, popup, etc
       },
     },
   } as any) // TO diddly DO: bruuuuuh! this is a BED; not just any bed but MY BED! type me up, Joey!
-
-  console.log(`./${extensionResponse.name.path}/bedframe.config.json`)
-
-  console.log(`
-    this is your BED. 
-    there are many like it
-    but this one is yours!
-    `)
-
-  console.log(JSON.stringify(bedframeConfig, null, 2))
 
   return bedframeConfig
 }
