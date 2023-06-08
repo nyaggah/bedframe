@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.13
+
+### Patch Changes
+
+- 70b27b4: feat(intro component): spruce up intro component a lil bit
+
 ## 0.0.12
 
 ### Patch Changes
