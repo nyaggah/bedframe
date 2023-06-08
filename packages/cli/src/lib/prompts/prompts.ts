@@ -299,8 +299,8 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
     inactive: 'No',
   },
 ]
-
-export async function bedframePrompts(projectName: string): Promise<Bedframe> {
+// : Promise<Bedframe>
+export async function bedframePrompts(projectName: string) {
   projectName === undefined ? basename(cwd()) : projectName
   const browsersResponse = await prompts(browserPrompts, {
     // onSubmit: (_prompt, answer, _answers) => console.log('browsers:', answer),
@@ -395,6 +395,10 @@ overrides & type i.e. sidebar, popup, etc
           commitLint: developmentResponse.commitLint,
           changesets: developmentResponse.changesets,
         },
+      },
+      // TO diddly DO: this aint no bedframe object!
+      config: {
+        installDeps: developmentResponse.installDeps,
       },
     },
   } as any) // TO diddly DO: bruuuuuh! this is a BED; not just any bed but MY BED! type me up, Joey!
