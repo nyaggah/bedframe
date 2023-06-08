@@ -1,20 +1,19 @@
-import { projectInstall } from 'pkg-install'
-import { ExecaReturnValue, execa } from 'execa'
-import { createSpinner } from 'nanospinner'
+import { execa } from 'execa'
 import { dim, green } from 'kolorist'
 import fs from 'fs-extra'
-import Listr from 'listr'
 import url from 'node:url'
-import { chdir, cwd } from 'node:process'
+import { chdir } from 'node:process'
 import path, { basename } from 'node:path'
 import { writeManifests } from './write-manifests'
 import { writeViteConfig } from './write-vite-config'
 import { writePackageJson } from './write-package-json'
 import { copyFolder } from './copy-folder'
 import { PromptsResponse } from './prompts'
+import { initializeGitProject } from './initialize-git'
+import { installDependencies } from './install-deps'
 
 export async function makeBed(response: PromptsResponse) {
-  const projectDir = response.extension.name.name
+  // const projectDir = response.extension.name.name
   const projectPath = response.extension.name.path
 
   if (projectPath) {
@@ -117,74 +116,25 @@ export async function makeBed(response: PromptsResponse) {
       if (response.development.template.config.git) {
         chdir(projectPath)
         initializeGitProject(response)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
-
-export async function initializeGitProject(
-  response: PromptsResponse
-): Promise<void> {
-  const projectPath = response.extension.name.path ?? cwd()
-  const projectName = response.extension.name.name ?? 'bedframe-project'
-
-  try {
-    chdir(projectPath)
-    await execa('git', ['init'])
-    await execa('git', ['add', '.'])
-    await execa('git', [
-      'commit',
-      '-am',
-      `feat(${projectName}): initial commit. configure BEDframe`,
-    ])
-  } catch (error) {
-    console.error(error)
-  }
-  console.groupEnd()
-}
-
-export async function installDependencies(response: PromptsResponse) {
-  const projectPath = response.extension.name.path
-  const { packageManager } = response.development.template.config
-  const packageJson = path.join(projectPath, 'package.json')
-
-  fs.readFile(packageJson, 'utf8', async (err, _data) => {
-    if (err) {
-      console.error(err)
-      return
-    }
-
-    await execa('cd', [`${projectPath}`])
-      .then(async () => {
-        // const { stdout } = await projectInstall({
-        //   prefer: 'yarn',
-        // })
-        // chdir(projectPath)
-        const { stdout } = await projectInstall({
-          prefer: packageManager.toLowerCase() ?? 'yarn',
-          cwd: projectPath,
-        })
-        // console.log('installling packages in... cwd()', cwd())
-        // console.log('')
-        console.log(stdout)
-        // console.log('')
+        const packageManager =
+          response.development.template.config.packageManager
+        // ${dim('3.')} ${packageManager.toLowerCase()} build
         console.log(`
         >_
         
         ${green('Your BED is made! 🚀')}
         
         ${dim('1.')} cd ${basename(projectPath)}
-        ${dim('2.')} ${packageManager.toLowerCase()} build ${dim(
-          `- production build`
-        )}
-          ${dim('3.')} ${packageManager.toLowerCase()}
-  ${dim('4.')} ${packageManager.toLowerCase()} dev ${dim(
-          ` - local development`
+        ${dim('2.')} ${packageManager.toLowerCase()} ${
+          packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+        }
+        ${dim('3.')} ${packageManager.toLowerCase()} dev ${dim(
+          ` or yarn dev:all`
         )}
       `)
-      })
-      .catch(console.error)
-  })
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }

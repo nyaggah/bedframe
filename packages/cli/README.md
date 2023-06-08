@@ -41,13 +41,13 @@ The Bedframe Command Line Interface (CLI) lets you make and manage your BED dire
 
 ```bash
 # with npm
-npm install -g @bedframe/cli
+npm install @bedframe/cli -g
 
 # with yarn
-yarn add -g @bedframe/cli
+yarn add @bedframe/cli -g
 
 #  with pnpm
-pnpm add -g @bedframe/cli
+pnpm add @bedframe/cli -g
 ```
 
 After installation, you will have access to the `bedframe` executable in your command line. You can verify that it is properly installed by simply running `bedframe`, which should present you with an intro and help message.
@@ -96,7 +96,7 @@ You will then be prompted to configure your BED, picking `Framework`, `Language`
 
 ### Make
 
-The Bedframe `make` command is a scaffolding utitlity that creates a BED environment based on your chosen configuration of features you choose, and delegates the rest to Vite. Projects scaffolded this way can directly leverage the Vite plugin ecosystem which is Rollup-compatible. You end up with a familiar Vite-powered project you're used to.
+The Bedframe `make` command is a scaffolding utility that creates a BED environment based on your chosen configuration of features you choose, and delegates the rest to Vite. Projects scaffolded this way can directly leverage the Vite plugin ecosystem which is Rollup-compatible. You end up with a familiar Vite-powered project you're used to.
 
 Run the `make` command to launch the project scaffolding prompts. This command is also available as the standalone [`create-bedframe`](https://github.com/nyaggah/bedframe/tree/main/packages/create-bedframe) package.
 

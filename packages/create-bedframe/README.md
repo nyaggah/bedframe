@@ -93,7 +93,7 @@ You will then be prompted to configure your BED, picking `Framework`, `Language`
 
 ### Create Bedframe
 
-`create-bedframe` is a scaffolding utitlity that creates a BED environment based on your chosen configuration of features you choose, and delegates the rest to Vite. Projects scaffolded this way can directly leverage the Vite plugin ecosystem which is Rollup-compatible. You end up with a familiar Vite-powered project you're used to.
+`create-bedframe` is a scaffolding utility that creates a BED environment based on your chosen configuration of features you choose, and delegates the rest to Vite. Projects scaffolded this way can directly leverage the Vite plugin ecosystem which is Rollup-compatible. You end up with a familiar Vite-powered project you're used to.
 
 ### Args
 
