@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.14
+
+### Patch Changes
+
+- 94d7631: feat(project gen): reconfigure project generation
+
 ## 0.0.13
 
 ### Patch Changes
