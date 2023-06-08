@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.16
+
+### Patch Changes
+
+- d4680a7: project gen updates (wip); file renaming
+
 ## 0.0.15
 
 ### Patch Changes
