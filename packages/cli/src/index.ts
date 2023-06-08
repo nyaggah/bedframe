@@ -60,7 +60,6 @@ make
     ) {
       const _name = name ? name : undefined
       bedframePrompts(_name).then(async (response) => {
-        console.log('bruh?! where in the fudge is that log coming fruhm?!')
         await makeBed(response).catch(console.error)
       })
     }
