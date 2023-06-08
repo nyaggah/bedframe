@@ -237,7 +237,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   const base: Partial<DependencyType>[] = [
     {
       dependencies: [
-        { name: 'vite', version: '^4.1.0' },
+        { name: 'vite', version: '^4.3.9' },
         { name: 'react', version: '^18.2.0' },
         { name: 'react-dom', version: '^18.2.0' },
         { name: 'react-frame-component', version: '^5.2.6' },
@@ -247,14 +247,14 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     {
       devDependencies: [
         { name: '@bedframe/core', version: '^0.0.10' },
-        { name: 'typescript', version: '^5.0.2' },
-        { name: '@types/chrome', version: '^0.0.220' },
+        { name: 'typescript', version: '^5.1.3' },
+        { name: '@types/chrome', version: '^0.0.237' },
         { name: '@crxjs/vite-plugin', version: '^2.0.0-beta.17' },
-        { name: '@types/react', version: '^18.0.27' },
-        { name: '@types/react-dom', version: '^18.0.10' },
-        { name: '@vitejs/plugin-react', version: '^3.1.0' },
+        { name: '@types/react', version: '^18.2.9' },
+        { name: '@types/react-dom', version: '^18.2.4' },
+        { name: '@vitejs/plugin-react', version: '^4.0.0' },
         { name: '@types/react-frame-component', version: '^4.1.3' },
-        { name: 'concurrently', version: '^7.6.0' },
+        { name: 'concurrently', version: '^8.1.0' },
       ],
     },
   ]
@@ -266,8 +266,8 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
           devDependencies: [
             { name: 'eslint', version: '^8.38.0' },
             { name: 'prettier', version: '^2.8.8' },
-            { name: '@typescript-eslint/eslint-plugin', version: '^5.0.0' },
-            { name: 'eslint-config-prettier', version: '^8.7.0' },
+            { name: '@typescript-eslint/eslint-plugin', version: '^5.59.9' },
+            { name: 'eslint-config-prettier', version: '^8.8.0' },
             {
               name: 'eslint-config-standard-with-typescript',
               version: '^34.0.0',
