@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.15
+
+### Patch Changes
+
+- 2f2dd56: feat(changeset): update project deps versions
+
 ## 0.0.14
 
 ### Patch Changes
