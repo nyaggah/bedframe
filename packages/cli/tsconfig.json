@@ -21,6 +21,6 @@
     },
     "outDir": "build"
   },
-  "include": ["src", "templates", "stubs"],
+  "include": ["src", "templates", "stubs", "package.json"],
   "exclude": ["node_modules", "build"]
 }

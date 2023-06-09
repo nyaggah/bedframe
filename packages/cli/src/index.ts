@@ -2,16 +2,32 @@ import { Command } from 'commander'
 import { cwd } from 'node:process'
 import { basename } from 'node:path'
 import { promptsIntro, bedframePrompts, makeBed } from './lib'
+import { readFileSync } from 'node:fs'
+
+const pkg = JSON.parse(
+  readFileSync(new URL('../package.json', import.meta.url), 'utf8')
+)
+
+// let standalone = false
+// const bedframe = new Command()
+// const progOrCommand = standalone ? program : bedframe
 
 let showIntro = true
-// promptsIntro()
-const make = new Command()
-make
-  // Name, desc,
+
+// program
+const bedframe = new Command()
+bedframe
+  .name(pkg.name)
+  .description(pkg.description)
+  .version(`v${pkg.version}`)
+
+  // Command: Make
   .command('make')
-  .argument('[name]')
-  .usage(`[name] [options]`)
   .description('make your B E D')
+
+  // Name, desc,
+  .argument('[name]', 'project name')
+  // .usage(`[name] [options]`)
   .allowExcessArguments(false)
   // .enablePositionalOptions(true)
   // .passThroughOptions(true)
@@ -65,15 +81,17 @@ make
     }
   })
 
-export async function run(): Promise<void> {
+export async function run() {
   try {
     if (showIntro) {
       promptsIntro()
     }
-    await make.parseAsync(process.argv)
+    await bedframe.parseAsync(process.argv)
   } catch (error) {
     console.error(error)
   }
 }
+
+export { promptsIntro, bedframePrompts, makeBed }
 
 run()

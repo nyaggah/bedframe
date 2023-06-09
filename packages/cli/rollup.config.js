@@ -4,6 +4,7 @@ import esbuild from 'rollup-plugin-esbuild'
 import copy from 'rollup-plugin-copy'
 import dts from 'rollup-plugin-dts'
 import { string } from 'rollup-plugin-string'
+import json from '@rollup/plugin-json'
 
 const name = `build/index`
 
@@ -14,6 +15,7 @@ const bundle = (config) => ({
   plugins: [
     nodeResolve(),
     typescript(),
+    json(),
     copy({
       targets: [{ src: 'public/stubs', dest: 'build' }],
     }),
