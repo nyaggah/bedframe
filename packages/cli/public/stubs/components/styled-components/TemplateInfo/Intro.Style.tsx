@@ -7,7 +7,10 @@ const BlinkAnimation = keyframes`
 `
 
 const Intro = styled.div`
-  background: #181a1d;
+  background-color: #181a1d;
+  background-image: radial-gradient(#ffffff12 1px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -20px -22px;
   color: #b6b8bd;
   display: flex;
   flex-direction: column;

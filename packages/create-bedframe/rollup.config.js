@@ -4,7 +4,10 @@ import esbuild from 'rollup-plugin-esbuild'
 import dts from 'rollup-plugin-dts'
 import { string } from 'rollup-plugin-string'
 
-const name = `dist/create-bedframe`
+const name = {
+  module: `dist/index`,
+  definition: `dist/create-bedframe`,
+}
 
 const bundle = (config) => ({
   ...config,
@@ -18,21 +21,21 @@ export default [
     plugins: [
       esbuild(),
       string({
-        include: `${name}.js`,
+        include: `${name.module}.js`,
       }),
       string({
-        include: `${name}.cjs`,
+        include: `${name.module}.cjs`,
       }),
     ],
     output: [
       {
-        file: `${name}.cjs`,
+        file: `${name.module}.cjs`,
         format: 'cjs',
         sourcemap: true,
         banner: '#!/usr/bin/env node\n',
       },
       {
-        file: `${name}.js`,
+        file: `${name.module}.js`,
         format: 'es',
         sourcemap: true,
         banner: '#!/usr/bin/env node\n',
@@ -47,7 +50,7 @@ export default [
       }),
     ],
     output: {
-      file: `${name}.d.ts`,
+      file: `${name.definition}.d.ts`,
       format: 'es',
       sourcemap: true,
     },

@@ -8,25 +8,26 @@
   "version": "0.0.7",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/create-bedframe.js",
-  "module": "./dist/create-bedframe.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/create-bedframe.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/create-bedframe.js",
-      "require": "./dist/create-bedframe.js",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
       "types": "./dist/create-bedframe.d.ts",
-      "default": "./dist/create-bedframe.js"
+      "default": "./dist/index.js"
     }
   },
   "bin": {
-    "create-bedframe": "./dist/create-bedframe.js"
+    "create-bedframe": "./dist/index.js",
+    "bed": "./dist/index.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "clean": "shx rm -rf build",
+    "clean": "shx rm -rf dist",
     "buildv": "tsc && vite build",
     "build": "yarn clean && tsc && rollup -c",
     "build:watch": "tsc && vite build --watch",
