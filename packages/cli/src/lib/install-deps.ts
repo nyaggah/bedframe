@@ -23,9 +23,7 @@ export async function installDependencies(response: PromptsResponse) {
           cwd: projectPath,
         })
         console.log(stdout)
-        // ${dim('2.')} ${packageManager.toLowerCase()} build ${dim(
-        //   `- production build`
-        // )}
+
         console.log(`
         >_
         
@@ -33,7 +31,7 @@ export async function installDependencies(response: PromptsResponse) {
         
         ${dim('1.')} cd ${basename(projectPath)}
         ${dim('2.')} ${packageManager.toLowerCase()} dev ${dim(
-          ` or yarn dev:all`
+          `or ${packageManager.toLowerCase()} dev:all`
         )}
       `)
       })

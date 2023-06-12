@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "lib": ["esnext", "dom"],
-    "types": ["vite/client", "chrome", "node"],
+    "types": ["chrome", "node"],
     "declaration": true,
     "module": "esnext",
     "moduleResolution": "node",

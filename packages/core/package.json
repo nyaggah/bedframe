@@ -26,7 +26,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:watch": "tsc && vite build --watch",
-    "build:link": "npm uninstall -g @bedframe/core && yarn build && chmod 755 ./dist && npm link",
+    "build:link": "pnpm remove @bedframe/core -g && pnpm build && chmod 755 ./dist && pnpm link --global",
     "preview": "vite preview",
     "lint": "eslint \"**/*.ts*\" --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -85,5 +85,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "kolorist": "^1.8.0"
   }
 }

@@ -12,6 +12,7 @@ export default defineConfig({
       fileName: 'bedframe',
     },
     outDir: 'dist',
+    emptyOutDir: true,
   },
   plugins: [
     dts({
