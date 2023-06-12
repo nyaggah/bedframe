@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.11
+
+### Patch Changes
+
+- 514f38d: use pnpm in turborepo
+
 ## 0.0.10
 
 ### Patch Changes

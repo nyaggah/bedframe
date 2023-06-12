@@ -1,5 +1,14 @@
 # @bedframe/cli
 
+## 0.0.17
+
+### Patch Changes
+
+- 1890834: feat: updates to project gen
+- 514f38d: use pnpm in turborepo
+- Updated dependencies [514f38d]
+  - @bedframe/core@0.0.11
+
 ## 0.0.16
 
 ### Patch Changes
