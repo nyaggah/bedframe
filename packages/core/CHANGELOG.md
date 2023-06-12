@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.12
+
+### Patch Changes
+
+- 2d5508e: issue w/ release workflow (don't use yarn)
+
 ## 0.0.11
 
 ### Patch Changes

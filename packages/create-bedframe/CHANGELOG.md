@@ -1,5 +1,14 @@
 # create-bedframe
 
+## 0.0.10
+
+### Patch Changes
+
+- 2d5508e: issue w/ release workflow (don't use yarn)
+- Updated dependencies [2d5508e]
+  - @bedframe/cli@0.0.18
+  - @bedframe/core@0.0.12
+
 ## 0.0.9
 
 ### Patch Changes

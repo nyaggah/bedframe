@@ -1,5 +1,11 @@
 # eslint-config-bedframe
 
+## 0.0.3
+
+### Patch Changes
+
+- 2d5508e: issue w/ release workflow (don't use yarn)
+
 ## 0.0.2
 
 ### Patch Changes
