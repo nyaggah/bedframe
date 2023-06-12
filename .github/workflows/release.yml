@@ -21,7 +21,10 @@ jobs:
           node-version: 16.x
       
       - name: Install pnpm
-        run: npm install -g pnpm          
+        run: npm install -g pnpm  
+      
+      - name: Install rollup
+        run: npm install -g rollup
 
       - name: Install Dependencies
         run: pnpm install
