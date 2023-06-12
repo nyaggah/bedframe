@@ -1,5 +1,12 @@
 # eslint-config-bedframe
 
+## 0.0.4
+
+### Patch Changes
+
+- 2c5b852: feat(workflow): remove yarn + npm; use pnpm
+- e8a20a7: feat(workflow): add pnpm install step before deps install
+
 ## 0.0.3
 
 ### Patch Changes

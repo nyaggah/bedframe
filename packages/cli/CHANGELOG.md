@@ -1,5 +1,15 @@
 # @bedframe/cli
 
+## 0.0.19
+
+### Patch Changes
+
+- 2c5b852: feat(workflow): remove yarn + npm; use pnpm
+- e8a20a7: feat(workflow): add pnpm install step before deps install
+- Updated dependencies [2c5b852]
+- Updated dependencies [e8a20a7]
+  - @bedframe/core@0.0.13
+
 ## 0.0.18
 
 ### Patch Changes
