@@ -21,7 +21,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "lint:format": "turbo run format lint",
-    "commit": "cz",
+    "cz": "cz",
     "release": "turbo run format lint build && changeset version && changeset publish",
     "prepare": "husky install"
   },
