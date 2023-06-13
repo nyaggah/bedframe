@@ -28,14 +28,14 @@ export async function promptsIntro(): Promise<string> {
   // ${bgLightGreen(' E ')} ${lightGreen('X T E N S I O N')}
   // ${bgLightCyan(' D ')} ${lightCyan('E V E L O P M E N T')}
   // ${bgLightYellow(' F R A M E ')} ${lightYellow('W O R K')}
-  console.log(`
-  ${bold(dim('>_'))}
-  
-  ${bold(lightMagenta('B '))}${lightMagenta('R O W S E R')} 
-  ${lightGreen('E X T E N S I O N')} 
-  ${lightCyan('D E V E L O P M E N T')}
-  ${lightYellow('F R A M E W O R K')}
-  `)
+  // console.log(`
+  // ${bold(dim('>_'))}
+
+  // ${bold(lightMagenta('B '))}${lightMagenta('R O W S E R')}
+  // ${lightGreen('E X T E N S I O N')}
+  // ${lightCyan('D E V E L O P M E N T')}
+  // ${lightYellow('F R A M E W O R K')}
+  // `)
 
   return `
 ${bold(dim('>_'))}

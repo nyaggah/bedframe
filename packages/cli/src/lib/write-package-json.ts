@@ -134,16 +134,14 @@ export function baseScripts(): ScriptCommand {
 export function createScriptCommandsFrom(
   response: prompts.Answers<string>
 ): ScriptCommand {
-  const { packageManager = 'yarn', browser: browsers } = response
+  const { packageManager, browser: browsers } = response
 
   const browserScripts = () => {
     const concurrentlyScript =
       browsers.length > 1
         ? createScriptCommand(
             'build:all',
-            `concurrently ${
-              packageManager.toLowerCase() as PackageManager
-            }:build:extension-*`
+            `concurrently ${packageManager.toLowerCase()}:build:extension-*`
           )
         : {}
 
@@ -171,17 +169,15 @@ export function createScriptCommandsFrom(
 
     const prettierCheckScript = createScriptCommand(
       'prettier:check',
-      `${packageManager.toLowerCase() as PackageManager} prettier --check .`
+      `${packageManager.toLowerCase()} prettier --check .`
     )
     const prettierWriteScript = createScriptCommand(
       'prettier:write',
-      `${packageManager.toLowerCase() as PackageManager} prettier --write .`
+      `${packageManager.toLowerCase()} prettier --write .`
     )
     const lintFormatScript = createScriptCommand(
       'lint:format',
-      `${packageManager.toLowerCase() ?? 'yarn'} prettier:write && ${
-        packageManager.toLowerCase() ?? 'yarn'
-      } lint`
+      `${packageManager.toLowerCase()} prettier:write && ${packageManager.toLowerCase()} lint`
     )
 
     return convertArrayToObject([
@@ -196,7 +192,7 @@ export function createScriptCommandsFrom(
   const gitHooksScripts = () => {
     const czScript = createScriptCommand(
       'cz',
-      `${response.packageManager ?? 'yarn'} lint:format && git add . && cz`
+      `${response.packageManager} lint:format && git add . && cz`
     )
     const postInstallScript = createScriptCommand(
       'postinstall',
@@ -313,6 +309,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             { name: '@testing-library/react', version: '^14.0.0' },
             { name: '@testing-library/user-event', version: '^14.4.3' },
             { name: '@testing-library/jest-dom', version: '^5.16.5' },
+            { name: '@types/jest', version: '^29.5.2' },
             { name: 'jsdom', version: '^21.1.1' },
           ],
         },

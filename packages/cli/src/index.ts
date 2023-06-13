@@ -1,8 +1,16 @@
-import { Command } from 'commander'
+import { program, Command } from 'commander'
 import { cwd } from 'node:process'
 import { basename } from 'node:path'
 import { promptsIntro, bedframePrompts, makeBed } from './lib'
 import { readFileSync } from 'node:fs'
+import {
+  bold,
+  dim,
+  lightCyan,
+  lightGreen,
+  lightMagenta,
+  lightYellow,
+} from 'kolorist'
 
 const pkg = JSON.parse(
   readFileSync(new URL('../package.json', import.meta.url), 'utf8')
@@ -21,15 +29,27 @@ bedframe
   .description(pkg.description)
   .version(`v${pkg.version}`)
 
+  .addHelpText(
+    'beforeAll',
+    `
+  ${bold(dim('>_'))}
+  
+    ${bold(lightMagenta('B '))}${lightMagenta('R O W S E R')} 
+    ${lightGreen('E X T E N S I O N')} 
+    ${lightCyan('D E V E L O P M E N T')}
+    ${lightYellow('F R A M E W O R K')}
+  `
+  )
+
   // Command: Make
+  .enablePositionalOptions(true)
   .command('make')
   .description('make your B E D')
 
   // Name, desc,
   .argument('[name]', 'project name')
   // .usage(`[name] [options]`)
-  .allowExcessArguments(false)
-  // .enablePositionalOptions(true)
+  // .allowExcessArguments(false)
   // .passThroughOptions(true)
   // Options
   .option('-v, --version <version>', 'Specify project version', '0.0.1')
@@ -55,6 +75,10 @@ bedframe
   .option('-i, --installDeps', 'Add & install dependencies', true)
   .option('-y, --yes', 'Set up Bedframe preconfigured defaults', false)
   .action((name, options) => {
+    console.log('options')
+    console.log(options)
+    console.log('bedframe.opt()')
+    console.log(bedframe.opts())
     if (options) {
       showIntro = false
     }
