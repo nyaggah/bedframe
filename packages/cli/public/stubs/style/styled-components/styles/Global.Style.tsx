@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components/macro'
-import { IntroAnimation } from './Utility.Style'
+import { Utility } from './Utility.Style'
 
 const GlobalStyles = createGlobalStyle`
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap'); */
@@ -350,7 +350,7 @@ const GlobalStyles = createGlobalStyle`
     0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
     0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
 
-  --iframe-intro-animation: ${IntroAnimation} 0.2s 0.1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+  --iframe-intro-animation: ${Utility.IntroAnimation} 0.2s 0.1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
 
   /* 
     // Colors

@@ -351,7 +351,7 @@ const rangeSliderBoxShadow = `
   343px 0 0 -6px var(--secondary-color);
 `
 
-export {
+export const Utility = {
   FlexDiv,
   FlexButton,
   SmallCaps,

@@ -1,2 +1,2 @@
-export * from './Intro.Style'
-export * from './TemplateInfo'
+export { Styled } from './Intro.Style'
+export { TemplateInfo } from './TemplateInfo'

@@ -136,18 +136,25 @@ export const ${browser.toLowerCase()} = createManifest(
 
 export function manifestIndexFile(browsers: Browser[]): string | string[] {
   if (browsers.length > 1) {
-    return browsers
-      .map((browser) => {
-        return (
-          `export { ${browser.toLowerCase()} } from './${browser.toLowerCase()}'` +
-          '\n'
-        )
-      })
+    const manifestImports = browsers
+      .map(
+        (browser) =>
+          `import { ${browser.toLowerCase()} } from './${browser.toLowerCase()}'`
+      )
       .toString()
-      .replace(/,/g, '')
+      .replace(/,/g, '\n')
+
+    const manifestExports = `
+export const manifest = [
+  ${browsers}
+]`
+    return `${manifestImports}\n${manifestExports}`
   }
 
-  return `export { ${browsers[0].toLowerCase()} } from './${browsers[0].toLowerCase()}'`
+  return `
+  import { ${browsers[0].toLowerCase()} } from './${browsers[0].toLowerCase()}'
+  export const manifest = [ ${browsers[0].toLowerCase()} ]
+  `
 }
 
 export async function writeManifests(response: Answers<string>): Promise<void> {
