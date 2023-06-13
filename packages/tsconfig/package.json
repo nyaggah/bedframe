@@ -1,6 +1,6 @@
 {
   "name": "@bedframe/tsconfig",
-  "description": "Bedframe tsconfig - borrowed form turborepo",
+  "description": "Bedframe tsconfig - Shared TypeScript configs used in this Turborepo",
   "author": {
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"

@@ -19,7 +19,7 @@ export async function installDependencies(response: PromptsResponse) {
     await execa('cd', [`${projectPath}`])
       .then(async () => {
         const { stdout } = await projectInstall({
-          prefer: packageManager.toLowerCase() ?? 'yarn',
+          prefer: packageManager.toLowerCase(),
           cwd: projectPath,
         })
         console.log(stdout)

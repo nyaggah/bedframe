@@ -134,7 +134,7 @@ export function createPackageJson(
 export function createScriptCommandsFrom(
   response: prompts.Answers<string>
 ): ScriptCommand {
-  const { packageManager = 'yarn', browser: browsers } = response
+  const { packageManager, browser: browsers } = response
 
   const devBuildScripts = () => {
     const devScript = createScriptCommand('dev', 'vite')
@@ -194,9 +194,7 @@ export function createScriptCommandsFrom(
     )
     const lintFormatScript = createScriptCommand(
       'lint:format',
-      `${packageManager.toLowerCase() ?? 'yarn'} prettier:write && ${
-        packageManager.toLowerCase() ?? 'yarn'
-      } lint`
+      `${packageManager.toLowerCase()} prettier:write && ${packageManager.toLowerCase()} lint`
     )
 
     return convertArrayToObject([
