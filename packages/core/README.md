@@ -199,11 +199,10 @@ ensure you have a script to dev in local and build (for production), etc like so
 {
   // other fields...
   "scripts": {
-    "dev": "vite --mode chrome",
-    "build": "tsc && vite build --mode chrome",
-    "preview": "vite preview",
-    "build:extension-chrome": "vite build --mode chrome",
-    "build:all": "concurrently yarn:build:extension-*"
+    "dev": "vite --mode",
+    "build": "tsc && vite build",
+    "dev:all": "concurrently \"vite --mode chrome\" \"vite --mode brave\" \"vite --mode opera\" \"vite --mode edge\"",
+    "build:all": "concurrently \"tsc && vite build --mode chrome\" \"tsc && vite build --mode brave\" \"tsc && vite build --mode opera\" \"tsc && vite build --mode edge\""
   }
   // other fields...
 }

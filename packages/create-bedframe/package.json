@@ -5,7 +5,7 @@
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
   },
-  "version": "0.0.8",
+  "version": "0.0.11",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -29,9 +29,9 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "buildv": "tsc && vite build",
-    "build": "yarn clean && tsc && rollup -c",
+    "build": "pnpm clean && tsc && rollup -c",
     "build:watch": "tsc && vite build --watch",
-    "build:link": "yarn build && npm link",
+    "build:link": "pnpm build && pnpm link --global",
     "preview": "vite preview",
     "lint": "eslint \"**/*.ts*\" --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

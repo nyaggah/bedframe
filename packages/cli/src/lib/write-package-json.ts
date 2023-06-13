@@ -136,12 +136,22 @@ export function createScriptCommandsFrom(
 ): ScriptCommand {
   const { packageManager, browser: browsers } = response
 
+  /*
+    "dev": "vite",
+    "dev:for": "vite --mode",
+    "build": "tsc && vite build",
+    "build:for": "tsc && vite build --mode",
+    "dev:all": "concurrently \"vite --mode chrome\" \"vite --mode brave\" \"vite --mode opera\" \"vite --mode edge\"",
+    "build:all": "concurrently \"tsc && vite build --mode chrome\" \"tsc && vite build --mode brave\" \"tsc && vite build --mode opera\" \"tsc && vite build --mode edge\"",
+  */
   const browserScripts = () => {
     const concurrentlyScript =
       browsers.length > 1
         ? createScriptCommand(
             'build:all',
-            `concurrently ${packageManager.toLowerCase()}:build:extension-*`
+            `concurrently ${
+              packageManager.toLowerCase() as PackageManager
+            }:build:extension-*`
           )
         : {}
 
@@ -233,24 +243,24 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   const base: Partial<DependencyType>[] = [
     {
       dependencies: [
-        { name: 'vite', version: '^4.3.9' },
         { name: 'react', version: '^18.2.0' },
         { name: 'react-dom', version: '^18.2.0' },
-        { name: 'react-frame-component', version: '^5.2.6' },
         { name: 'react-chrome-extension-router', version: '^1.4.0' },
+        { name: 'react-frame-component', version: '^5.2.6' },
       ],
     },
     {
       devDependencies: [
         { name: '@bedframe/core', version: '^0.0.10' },
-        { name: 'typescript', version: '^5.1.3' },
-        { name: '@types/chrome', version: '^0.0.237' },
         { name: '@crxjs/vite-plugin', version: '^1.0.14' },
+        { name: '@types/chrome', version: '^0.0.237' },
         { name: '@types/react', version: '^18.2.9' },
         { name: '@types/react-dom', version: '^18.2.4' },
-        { name: '@vitejs/plugin-react', version: '^4.0.0' },
         { name: '@types/react-frame-component', version: '^4.1.3' },
+        { name: '@vitejs/plugin-react', version: '^4.0.0' },
         { name: 'concurrently', version: '^8.1.0' },
+        { name: 'typescript', version: '^5.1.3' },
+        { name: 'vite', version: '^4.3.9' },
       ],
     },
   ]

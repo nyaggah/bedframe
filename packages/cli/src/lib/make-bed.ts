@@ -118,7 +118,7 @@ export async function makeBed(response: PromptsResponse) {
         initializeGitProject(response)
         const packageManager =
           response.development.template.config.packageManager
-        // ${dim('3.')} ${packageManager.toLowerCase()} build
+
         console.log(`
         >_
         
@@ -129,7 +129,7 @@ export async function makeBed(response: PromptsResponse) {
           packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
         }
         ${dim('3.')} ${packageManager.toLowerCase()} dev ${dim(
-          ` or yarn dev:all`
+          `or ${packageManager.toLowerCase()} dev:all`
         )}
       `)
       }

@@ -1,5 +1,24 @@
 # @bedframe/core
 
+## 0.0.13
+
+### Patch Changes
+
+- 2c5b852: feat(workflow): remove yarn + npm; use pnpm
+- e8a20a7: feat(workflow): add pnpm install step before deps install
+
+## 0.0.12
+
+### Patch Changes
+
+- 2d5508e: issue w/ release workflow (don't use yarn)
+
+## 0.0.11
+
+### Patch Changes
+
+- 514f38d: use pnpm in turborepo
+
 ## 0.0.10
 
 ### Patch Changes
