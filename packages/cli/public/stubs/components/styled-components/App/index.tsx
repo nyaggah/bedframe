@@ -1,3 +1,2 @@
-export * from './App.Style'
-export * from './App.test'
+export { Styled } from './App.Style'
 export { default as App } from './App'

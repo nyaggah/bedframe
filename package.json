@@ -14,13 +14,13 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "build:link": "turbo run build:link",
     "preview": "turbo run preview",
-    "lint": "turbo run lint",
     "prettier:check": "turbo run prettier:check",
     "prettier": "turbo run prettier",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "build:link": "turbo run build:link",
-    "cz1": "turbo run format lint && git add . && cz",
+    "lint": "turbo run lint",
+    "lint:format": "turbo run format lint",
     "cz": "cz",
     "release": "turbo run format lint build && changeset version && changeset publish",
     "prepare": "husky install"
@@ -81,7 +81,12 @@
           "packages/*/"
         ]
       }
-    }
+    },
+    "ignorePatterns": [
+      "build",
+      "stubs",
+      "tsconfig.tsbuildinfo"
+    ]
   },
   "engines": {
     "node": ">=14.0.0"
