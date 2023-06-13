@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
@@ -6,8 +7,14 @@ export default defineConfig({
     setupFiles: ['./vitest/vitest.setup.ts'],
     environment: 'jsdom',
     coverage: {
-      provider: 'c8', // or 'custom' | 'istanbul'
+      provider: 'istanbul', // or 'custom' | 'istanbul'
       reporter: ['text', 'json', 'html'],
+    },
+    watch: false,
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
     },
   },
 })

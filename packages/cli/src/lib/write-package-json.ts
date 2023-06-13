@@ -115,13 +115,13 @@ export function createPackageJson(
  * @export
  * @return {*}  {ScriptCommand}
  */
-export function baseScripts(): ScriptCommand {
-  return {
-    dev: 'vite --mode chrome',
-    build: 'tsc && vite build --mode chrome',
-    preview: 'vite preview',
-  }
-}
+// export function baseScripts(): ScriptCommand {
+//   return {
+//     // dev: 'vite --mode chrome',
+//     // build: 'tsc && vite build --mode chrome',
+//     // preview: 'vite preview',
+//   }
+// }
 /**
  * Conditionally generate the requisite scripts
  * to handle the functionality opted into via
@@ -136,44 +136,51 @@ export function createScriptCommandsFrom(
 ): ScriptCommand {
   const { packageManager, browser: browsers } = response
 
-  /*
-    "dev": "vite",
-    "dev:for": "vite --mode",
-    "build": "tsc && vite build",
-    "build:for": "tsc && vite build --mode",
-    "dev:all": "concurrently \"vite --mode chrome\" \"vite --mode brave\" \"vite --mode opera\" \"vite --mode edge\"",
-    "build:all": "concurrently \"tsc && vite build --mode chrome\" \"tsc && vite build --mode brave\" \"tsc && vite build --mode opera\" \"tsc && vite build --mode edge\"",
-  */
-  const browserScripts = () => {
-    const concurrentlyScript =
+  const devBuildScripts = () => {
+    const devScript = createScriptCommand('dev', 'vite')
+    const devForScript = createScriptCommand('dev:for', 'vite --mode')
+    const devAllScript =
       browsers.length > 1
         ? createScriptCommand(
-            'build:all',
-            `concurrently ${
-              packageManager.toLowerCase() as PackageManager
-            }:build:extension-*`
+            `dev:all`,
+            `concurrently ${browsers
+              .map((browser: Browser) => `\"vite --mode ${browser}\"`)
+              .join(' ')}`
           )
         : {}
 
-    const buildBrowserScripts = browsers.map((browser: Browser) => {
-      return createScriptCommand(
-        `build:extension-${browser.toLowerCase()}`,
-        `vite build --mode ${browser.toLowerCase()}`
-      )
-    })
+    const buildScript = createScriptCommand('build', 'tsc && vite build')
+    const buildForScript = createScriptCommand(
+      'build:for',
+      'tsc && vite build --mode'
+    )
+    const buildAllScript =
+      browsers.length > 1
+        ? createScriptCommand(
+            `build:all`,
+            `concurrently ${browsers
+              .map(
+                (browser: Browser) => `\"tsc && vite build --mode ${browser}\"`
+              )
+              .join(' ')}`
+          )
+        : {}
 
     return convertArrayToObject(
-      [...buildBrowserScripts, concurrentlyScript].filter(Boolean)
+      [
+        devScript,
+        devForScript,
+        devAllScript,
+        buildScript,
+        buildForScript,
+        buildAllScript,
+      ].filter(Boolean)
     )
   }
 
   const lintFormatScripts = () => {
     const lintScript = createScriptCommand(
       'lint',
-      `eslint . --report-unused-disable-directives --fix`
-    )
-    const lintVerboseScript = createScriptCommand(
-      'lint:verbose',
       `eslint . --report-unused-disable-directives --max-warnings 0`
     )
 
@@ -187,12 +194,13 @@ export function createScriptCommandsFrom(
     )
     const lintFormatScript = createScriptCommand(
       'lint:format',
-      `${packageManager.toLowerCase()} prettier:write && ${packageManager.toLowerCase()} lint`
+      `${packageManager.toLowerCase() ?? 'yarn'} prettier:write && ${
+        packageManager.toLowerCase() ?? 'yarn'
+      } lint`
     )
 
     return convertArrayToObject([
       lintScript,
-      lintVerboseScript,
       prettierCheckScript,
       prettierWriteScript,
       lintFormatScript,
@@ -200,10 +208,7 @@ export function createScriptCommandsFrom(
   }
 
   const gitHooksScripts = () => {
-    const czScript = createScriptCommand(
-      'cz',
-      `${response.packageManager} lint:format && git add . && cz`
-    )
+    const czScript = createScriptCommand('cz', `cz`)
     const postInstallScript = createScriptCommand(
       'postinstall',
       'husky install'
@@ -213,8 +218,7 @@ export function createScriptCommandsFrom(
   }
 
   return {
-    ...baseScripts(),
-    ...browserScripts(),
+    ...devBuildScripts(),
     ...lintFormatScripts(),
     ...gitHooksScripts(),
   }
@@ -247,11 +251,11 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
         { name: 'react-dom', version: '^18.2.0' },
         { name: 'react-chrome-extension-router', version: '^1.4.0' },
         { name: 'react-frame-component', version: '^5.2.6' },
-      ],
+      ].sort((a, b) => a.name.localeCompare(b.name)),
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.10' },
+        { name: '@bedframe/core', version: '^0.0.13' },
         { name: '@crxjs/vite-plugin', version: '^1.0.14' },
         { name: '@types/chrome', version: '^0.0.237' },
         { name: '@types/react', version: '^18.2.9' },
@@ -261,30 +265,33 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
         { name: 'concurrently', version: '^8.1.0' },
         { name: 'typescript', version: '^5.1.3' },
         { name: 'vite', version: '^4.3.9' },
-      ],
+      ].sort((a, b) => a.name.localeCompare(b.name)),
     },
   ]
+  // function sortMembersByName(members: Partial<DependencyType>[]) {
+  //   return members.sort((a, b) => a.name.localeCompare(b.name));
+  // }
 
   const lintFormat: Partial<DependencyType>[] = response.development.template
     .config.lintFormat
     ? [
         {
           devDependencies: [
-            { name: 'eslint', version: '^8.38.0' },
-            { name: 'prettier', version: '^2.8.8' },
             { name: '@typescript-eslint/eslint-plugin', version: '^5.59.9' },
+            { name: 'eslint', version: '^8.38.0' },
+            { name: 'eslint-plugin-import', version: '^2.25.2' },
+            { name: 'eslint-plugin-n', version: '^15.0.0' },
+            { name: 'eslint-plugin-promise', version: '^6.0.0' },
             { name: 'eslint-config-prettier', version: '^8.8.0' },
+            { name: 'eslint-plugin-react', version: '^7.32.2' },
+            { name: 'eslint-plugin-react-hooks', version: '^4.6.0' },
+            { name: 'eslint-plugin-react-refresh', version: '^0.4.1' },
             {
               name: 'eslint-config-standard-with-typescript',
               version: '^34.0.0',
             },
-            { name: 'eslint-plugin-import', version: '^2.25.2' },
-            { name: 'eslint-plugin-n', version: '^15.0.0' },
-            { name: 'eslint-plugin-promise', version: '^6.0.0' },
-            { name: 'eslint-plugin-react', version: '^7.32.2' },
-            { name: 'eslint-plugin-react-hooks', version: '^4.6.0' },
-            { name: 'eslint-plugin-react-refresh', version: '^0.4.1' },
-          ],
+            { name: 'prettier', version: '^2.8.8' },
+          ].sort((a, b) => a.name.localeCompare(b.name)),
         },
       ]
     : []
@@ -294,10 +301,10 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
           { dependencies: [{ name: 'styled-components', version: '^5.3.8' }] },
           {
             devDependencies: [
-              { name: 'vite-plugin-babel-macros', version: '^1.0.6' }, // <-- if vite + styled-components
               { name: '@types/styled-components', version: '^5.1.26' },
               { name: 'babel-plugin-styled-components', version: '^2.1.1' },
-            ],
+              { name: 'vite-plugin-babel-macros', version: '^1.0.6' }, // <-- if vite + styled-components
+            ].sort((a, b) => a.name.localeCompare(b.name)),
           },
         ]
       : [
@@ -306,7 +313,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
               { name: 'autoprefixer', version: '^10.4.14' },
               { name: 'postcss', version: '^8.4.21' },
               { name: 'tailwindcss', version: '^3.3.1' },
-            ],
+            ].sort((a, b) => a.name.localeCompare(b.name)),
           },
         ]
 
@@ -315,13 +322,13 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     ? [
         {
           devDependencies: [
-            { name: 'vitest', version: '^0.29.8' },
             { name: '@testing-library/react', version: '^14.0.0' },
             { name: '@testing-library/user-event', version: '^14.4.3' },
             { name: '@testing-library/jest-dom', version: '^5.16.5' },
             { name: '@types/jest', version: '^29.5.2' },
             { name: 'jsdom', version: '^21.1.1' },
-          ],
+            { name: 'vitest', version: '^0.29.8' },
+          ].sort((a, b) => a.name.localeCompare(b.name)),
         },
       ]
     : []
@@ -333,7 +340,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
           devDependencies: [
             { name: 'husky', version: '^8.0.0' },
             { name: 'lint-staged', version: '^13.1.2' },
-          ],
+          ].sort((a, b) => a.name.localeCompare(b.name)),
         },
       ]
     : []
@@ -345,9 +352,9 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
           devDependencies: [
             { name: '@commitlint/cli', version: '^17.4.4' },
             { name: '@commitlint/config-conventional', version: '^17.4.4' },
-            { name: 'commitizen', version: '^4.3.0' },
             { name: 'cz-conventional-changelog', version: '^3.3.0' },
-          ],
+            { name: 'commitizen', version: '^4.3.0' },
+          ].sort((a, b) => a.name.localeCompare(b.name)),
         },
       ]
     : []

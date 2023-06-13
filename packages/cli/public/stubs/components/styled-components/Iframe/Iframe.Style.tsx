@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 import Frame from 'react-frame-component'
-import { IntroAnimation } from '@/styles'
+import { Utility } from '@/styles'
 
 const Iframe = styled(Frame)`
   --iframe-background-color: #fff;
@@ -20,7 +20,7 @@ const Iframe = styled(Frame)`
     0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
     0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
 
-  --iframe-intro-animation: ${IntroAnimation} 0.2s 0.1s forwards
+  --iframe-intro-animation: ${Utility.IntroAnimation} 0.2s 0.1s forwards
     cubic-bezier(0.2, 0.8, 0.2, 1);
 
   border: var(--border);
