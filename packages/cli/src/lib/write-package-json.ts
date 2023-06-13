@@ -134,7 +134,7 @@ export function createPackageJson(
 export function createScriptCommandsFrom(
   response: prompts.Answers<string>
 ): ScriptCommand {
-  const { packageManager = 'yarn', browser: browsers } = response
+  const { packageManager, browser: browsers } = response
 
   const devBuildScripts = () => {
     const devScript = createScriptCommand('dev', 'vite')
@@ -186,11 +186,11 @@ export function createScriptCommandsFrom(
 
     const prettierCheckScript = createScriptCommand(
       'prettier:check',
-      `${packageManager.toLowerCase() as PackageManager} prettier --check .`
+      `${packageManager.toLowerCase()} prettier --check .`
     )
     const prettierWriteScript = createScriptCommand(
       'prettier:write',
-      `${packageManager.toLowerCase() as PackageManager} prettier --write .`
+      `${packageManager.toLowerCase()} prettier --write .`
     )
     const lintFormatScript = createScriptCommand(
       'lint:format',
@@ -208,13 +208,13 @@ export function createScriptCommandsFrom(
   }
 
   const gitHooksScripts = () => {
-    const commitScript = createScriptCommand('commit', `cz`)
+    const czScript = createScriptCommand('cz', `cz`)
     const postInstallScript = createScriptCommand(
       'postinstall',
       'husky install'
     )
 
-    return convertArrayToObject([commitScript, postInstallScript])
+    return convertArrayToObject([czScript, postInstallScript])
   }
 
   return {
