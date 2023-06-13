@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.20
+
+### Patch Changes
+
+- 5b43398: feat(cli): write manifest package vite config updates + rejigg
+
 ## 0.0.19
 
 ### Patch Changes
