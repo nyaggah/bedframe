@@ -32,16 +32,16 @@ The `packages` directory contains the main Bedframe packages as well us the Turb
 
 ## Packages
 
-| Package                                      | Version                                                                               | Description                                                         |
-| -------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| Package                              | Version                                                                               | Description                                                         |
+| ------------------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | [create-bedframe](/create-bedframe/) | ![create-bedframe version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Standalone [@bedframe/cli](packages/cli) `make` command utility     |
 | [@bedframe/cli](/cli/)               | ![@bedframe/cli version](https://img.shields.io/npm/v/@bedframe/cli.svg?label=%20)    | Bedframe CLI utility. Make and manage your BED from the commandline |
 | [@bedframe/core](/core/)             | ![@bedframe/core version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20)  | Bedframe core types and functions                                   |
 
 ## Monorepo Utility Packages
 
-| Package                                                    | Version                                                                                              | Description                                      |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Package                                            | Version                                                                                              | Description                                      |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
 | [eslint-config-bedframe](/eslint-config-bedframe/) | ![eslint-config-bedframe version](https://img.shields.io/npm/v/eslint-config-bedframe.svg?label=%20) | Shared ESLint configs used in this Turborepo     |
 | [@bedframe/tsconfig](/tsconfig/)                   | &nbsp;                                                                                               | Shared TypeScript configs used in this Turborepo |
 
