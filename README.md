@@ -51,7 +51,7 @@ Visit https://bedframe.dev/docs to view the full documentation.
 | Package                                                    | Version                                                                                              | Description                                      |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
 | [eslint-config-bedframe](packages/eslint-config-bedframe/) | ![eslint-config-bedframe version](https://img.shields.io/npm/v/eslint-config-bedframe.svg?label=%20) | Shared ESLint configs used in this Turborepo     |
-| [@bedframe/tsconfig](packages/tsconfig/)                   | &nbsp;                                                                                               | Shared TypeScript configs used in this Turborepo |
+| [@bedframe/tsconfig](packages/tsconfig/)                   | ![@bedframe/tsconfig version](https://img.shields.io/npm/v/@bedframe/tsconfig.svg?label=%20)         | Shared TypeScript configs used in this Turborepo |
 
 ## License
 
