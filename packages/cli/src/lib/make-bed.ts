@@ -11,6 +11,8 @@ import { copyFolder } from './copy-folder'
 import { PromptsResponse } from './prompts'
 import { initializeGitProject } from './initialize-git'
 import { installDependencies } from './install-deps'
+import { writeSidePanels } from './write-sidepanels'
+import { writeServiceWorker } from './write-service-worker'
 
 export async function makeBed(response: PromptsResponse) {
   // const projectDir = response.extension.name.name
@@ -82,14 +84,14 @@ export async function makeBed(response: PromptsResponse) {
         // Copy Styled Components if selected
         response.development.template.config.style === 'Styled Components'
           ? copyFolder(
-              stubs.style.styledComponents,
-              path.join(destination.root, 'src')
-            )
+            stubs.style.styledComponents,
+            path.join(destination.root, 'src')
+          )
           : Promise.resolve(),
 
         // Copy Lint & Format files if required
         response.development.template.config.lintFormat ||
-        response.language === 'TypeScript'
+          response.language === 'TypeScript'
           ? copyFolder(stubs.lintFormat, destination.root)
           : Promise.resolve(),
 
@@ -109,6 +111,12 @@ export async function makeBed(response: PromptsResponse) {
           : Promise.resolve(),
       ])
 
+      writeServiceWorker(response)
+
+      if (response.extension.type === 'sidepanel') {
+        writeSidePanels(response)
+      }
+
       if (response.development.config.installDeps) {
         installDependencies(response)
       }
@@ -125,12 +133,11 @@ export async function makeBed(response: PromptsResponse) {
         ${green('Your BED is made! 🚀')}
         
         ${dim('1.')} cd ${basename(projectPath)}
-        ${dim('2.')} ${packageManager.toLowerCase()} ${
-          packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
-        }
+        ${dim('2.')} ${packageManager.toLowerCase()} ${packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+          }
         ${dim('3.')} ${packageManager.toLowerCase()} dev ${dim(
-          `or ${packageManager.toLowerCase()} dev:all`
-        )}
+            `or ${packageManager.toLowerCase()} dev:all`
+          )}
       `)
       }
     } catch (error) {

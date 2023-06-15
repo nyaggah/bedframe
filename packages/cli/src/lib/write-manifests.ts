@@ -3,9 +3,12 @@ import path from 'node:path'
 import { Answers } from 'prompts'
 import { Browser } from '@bedframe/core'
 
-const sidePanel = `export const sidePanel = {
-  default_path: 'src/pages/sidepanel.html',
-}`
+// TO diddly DO: if using service worker to register,
+// don't set here
+// const sidePanel = `export const sidePanel = {
+//   default_path: 'src/sidepanels/welcome.html',
+// }`
+// ${response.extension.type.name === 'sidepanel' ? sidePanel : ''}
 
 export function sharedManifest(response: Answers<string>): string {
   return `
@@ -37,8 +40,6 @@ export const background: ManifestBackground = {
   type: 'module',
 }
 
-${response.extension.type.name === 'sidepanel' ? sidePanel : ''}
-
 export const contentScripts: ManifestContentScripts = [
   {
     js: ['src/scripts/content.tsx'],
@@ -65,14 +66,12 @@ export const commands: ManifestCommands = {
   },
 }
 
-${
-  response.extension.type.name === 'sidepanel'
-    ? `// @ts-expect-error Type '"sidePanel"' is not assignable to type 'ManifestPermissions`
-    : ''
-}
-export const permissions: ManifestPermissions = [ 'activeTab' ${
-    response.extension.type.name === 'sidepanel' ? `, 'sidePanel'` : ''
-  } ]
+${response.extension.type.name === 'sidepanel'
+      ? `// @ts-expect-error Type '"sidePanel"' is not assignable to type 'ManifestPermissions`
+      : ''
+    }
+export const permissions: ManifestPermissions = [ 'activeTab' ${response.extension.type.name === 'sidepanel' ? `, 'sidePanel'` : ''
+    } ]
 
 
 // SHARED FIELDS
@@ -120,10 +119,9 @@ export const ${browser.toLowerCase()} = createManifest(
     ...config.shared,
     action: config.action,
     background: config.background,
-    ${
-      response.extension.type.name === 'sidepanel'
-        ? 'side_panel: config.sidePanel,'
-        : ''
+    ${response.extension.type.name === 'sidepanel'
+      ? 'side_panel: config.sidePanel,'
+      : ''
     }
     content_scripts: config.contentScripts,
     web_accessible_resources: config.webAccessibleResources,

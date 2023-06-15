@@ -26,7 +26,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:watch": "tsc && vite build --watch",
-    "build:link": "pnpm remove @bedframe/core -g && pnpm build && chmod 755 ./dist && pnpm link --global",
+    "build:link": "pnpm build && chmod 755 ./dist && pnpm link --global",
     "preview": "vite preview",
     "lint": "eslint \"**/*.ts*\" --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

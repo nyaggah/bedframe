@@ -13,11 +13,11 @@ export const extension = {
 export function toggle(): void {
   document.getElementById(extension.rootElementId) === null
     ? setTimeout(function () {
-        createAndMount()
-      })
+      createAndMount()
+    })
     : setTimeout(function () {
-        removeRootAndStyles()
-      })
+      removeRootAndStyles()
+    })
 }
 
 export function removeRootAndStyles(
@@ -81,10 +81,10 @@ export function createAndMount(): void {
 }
 
 // =============MESSAGE PASSING===========
-export type MessageResponse = (response?: any) => void
+export type MessageResponse = (response?: unknown) => void
 
 const messagesFromReactAppListener = (
-  message: any,
+  message: Record<string, unknown>,
   _sender: chrome.runtime.MessageSender, // currently unused. rename to `sender` to user
   response: MessageResponse
 ): void => {
@@ -94,6 +94,6 @@ const messagesFromReactAppListener = (
   }
 }
 
-;(function init(): void {
-  chrome.runtime.onMessage.addListener(messagesFromReactAppListener)
-})()
+  ; (function init(): void {
+    chrome.runtime.onMessage.addListener(messagesFromReactAppListener)
+  })()
