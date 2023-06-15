@@ -113,7 +113,7 @@ export async function makeBed(response: PromptsResponse) {
 
       writeServiceWorker(response)
 
-      if (response.extension.type === 'sidepanel') {
+      if (response.extension.type.name === 'sidepanel') {
         writeSidePanels(response)
       }
 

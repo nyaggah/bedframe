@@ -60,13 +60,18 @@ export function writeSidePanels(response: prompts.Answers<string>): void {
     },
   ]
 
-  sidePanels.map((sidepanel) => {
-    fs.ensureFile(sidepanel.path)
-      .then(() =>
-        fs
-          .outputFile(sidepanel.path, sidepanel.content + '\n')
-          .catch((error) => console.error(error))
-      )
-      .catch((error) => console.error(error))
-  })
+  try {
+    fs.ensureDir(sidePanelsPath).catch(console.error)
+    sidePanels.map((sidepanel) => {
+      fs.ensureFile(sidepanel.path)
+        .then(() =>
+          fs
+            .outputFile(sidepanel.path, sidepanel.content + '\n')
+            .catch((error) => console.error(error))
+        )
+        .catch((error) => console.error(error))
+    })
+  } catch (error) {
+    console.error(error)
+  }
 }
