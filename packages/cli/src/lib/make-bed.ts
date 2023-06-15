@@ -84,14 +84,14 @@ export async function makeBed(response: PromptsResponse) {
         // Copy Styled Components if selected
         response.development.template.config.style === 'Styled Components'
           ? copyFolder(
-            stubs.style.styledComponents,
-            path.join(destination.root, 'src')
-          )
+              stubs.style.styledComponents,
+              path.join(destination.root, 'src')
+            )
           : Promise.resolve(),
 
         // Copy Lint & Format files if required
         response.development.template.config.lintFormat ||
-          response.language === 'TypeScript'
+        response.language === 'TypeScript'
           ? copyFolder(stubs.lintFormat, destination.root)
           : Promise.resolve(),
 
@@ -133,11 +133,12 @@ export async function makeBed(response: PromptsResponse) {
         ${green('Your BED is made! 🚀')}
         
         ${dim('1.')} cd ${basename(projectPath)}
-        ${dim('2.')} ${packageManager.toLowerCase()} ${packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
-          }
+        ${dim('2.')} ${packageManager.toLowerCase()} ${
+          packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+        }
         ${dim('3.')} ${packageManager.toLowerCase()} dev ${dim(
-            `or ${packageManager.toLowerCase()} dev:all`
-          )}
+          `or ${packageManager.toLowerCase()} dev:all`
+        )}
       `)
       }
     } catch (error) {

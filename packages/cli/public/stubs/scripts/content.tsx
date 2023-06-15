@@ -13,11 +13,11 @@ export const extension = {
 export function toggle(): void {
   document.getElementById(extension.rootElementId) === null
     ? setTimeout(function () {
-      createAndMount()
-    })
+        createAndMount()
+      })
     : setTimeout(function () {
-      removeRootAndStyles()
-    })
+        removeRootAndStyles()
+      })
 }
 
 export function removeRootAndStyles(
@@ -94,6 +94,6 @@ const messagesFromReactAppListener = (
   }
 }
 
-  ; (function init(): void {
-    chrome.runtime.onMessage.addListener(messagesFromReactAppListener)
-  })()
+;(function init(): void {
+  chrome.runtime.onMessage.addListener(messagesFromReactAppListener)
+})()

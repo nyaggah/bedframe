@@ -1,7 +1,7 @@
-import fs from 'fs-extra';
+import fs from 'fs-extra'
 // import { AnyCase, Browser } from "@bedframe/core";
-import path from "node:path";
-import prompts from "prompts";
+import path from 'node:path'
+import prompts from 'prompts'
 
 const onInstalled = `
 /**
@@ -52,11 +52,7 @@ chrome.runtime.onSuspend.addListener(function (): void {
 
 `
 
-const eventListeners = onInstalled +
-  onConnect +
-  onStartup +
-  onSuspend
-
+const eventListeners = onInstalled + onConnect + onStartup + onSuspend
 
 const sidePanels = `
 const welcomePanel = 'sidepanels/welcome.html'
@@ -87,7 +83,7 @@ chrome.tabs.onActivated.addListener(async ({ tabId }) => {
 
 `
 
-// TO diddly DO: move to @bedframe/core 
+// TO diddly DO: move to @bedframe/core
 type ExtensionType = 'popup' | 'overlay' | 'sidepanel' | 'devtools'
 type ExtensionPosition = 'center' | 'left' | 'right'
 
@@ -98,7 +94,9 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
   // const pagesPath = path.resolve(path.join(rootDir, 'src', 'pages'))
   // const sidePanelsPath = path.resolve(path.join(rootDir, 'src', 'sidepanels'))
 
-  const serviceWorkerPath = path.resolve(path.join(rootDir, 'src', 'scripts', `background.ts`))
+  const serviceWorkerPath = path.resolve(
+    path.join(rootDir, 'src', 'scripts', `background.ts`)
+  )
 
   const isPopup = extension.type.name === 'popup' // 'popup' | 'overlay' | 'sidepanel' | 'devtools'
   const isOverlay = extension.type.name === 'overlay'
@@ -125,12 +123,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
         .catch((error) => console.error(error))
     )
     .catch((error) => console.error(error))
-
 }
-
-
-
 
 // SIDEPANEL(s)
 // - multiple
-

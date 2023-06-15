@@ -1,6 +1,6 @@
-import fs from 'fs-extra';
-import path from "node:path";
-import prompts from "prompts";
+import fs from 'fs-extra'
+import path from 'node:path'
+import prompts from 'prompts'
 
 const sidePanelWelcomeContent = `
 import { StrictMode } from 'react'
@@ -51,13 +51,13 @@ export function writeSidePanels(response: prompts.Answers<string>): void {
     {
       name: 'welcome',
       path: path.resolve(path.join(sidePanelsPath, 'welcome.html')),
-      content: sidePanelWelcomeContent
+      content: sidePanelWelcomeContent,
     },
     {
       name: 'main',
       path: path.resolve(path.join(sidePanelsPath, 'welcome.html')),
-      content: sidePanelMainContent
-    }
+      content: sidePanelMainContent,
+    },
   ]
 
   sidePanels.map((sidepanel) => {

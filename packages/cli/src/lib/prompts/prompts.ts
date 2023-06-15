@@ -74,148 +74,148 @@ export function extensionPositionPrompts(
 export const extensionPrompts = (
   name: string
 ): PromptObject<keyof ExtensionPrompts>[] => [
-    {
-      // type: (name) => (name ? null : 'text'),
-      type: 'text',
-      name: 'name',
-      message: 'Project name:',
-      initial: name ? name : 'bedframe-project',
-      hint: `— Where would you like to create your project? ${yellow(
-        italic(name ? name : './bedframe-project')
-      )}`,
-      format: (answer: string) => formatTargetDir(answer),
+  {
+    // type: (name) => (name ? null : 'text'),
+    type: 'text',
+    name: 'name',
+    message: 'Project name:',
+    initial: name ? name : 'bedframe-project',
+    hint: `— Where would you like to create your project? ${yellow(
+      italic(name ? name : './bedframe-project')
+    )}`,
+    format: (answer: string) => formatTargetDir(answer),
+  },
+  {
+    type: 'text',
+    name: 'version',
+    message: 'Project version:',
+    initial: '0.0.1',
+  },
+  {
+    type: 'text',
+    name: 'description',
+    message: 'Description:',
+    initial: '',
+  },
+  {
+    type: 'list',
+    name: 'author',
+    message: 'Author (name, email, url):',
+    initial: '',
+    separator: ',',
+    format: (value) => {
+      return {
+        name: value[0] ?? '',
+        email: value[1] ?? '',
+        url: value[2] ?? '',
+      }
     },
-    {
-      type: 'text',
-      name: 'version',
-      message: 'Project version:',
-      initial: '0.0.1',
-    },
-    {
-      type: 'text',
-      name: 'description',
-      message: 'Description:',
-      initial: '',
-    },
-    {
-      type: 'list',
-      name: 'author',
-      message: 'Author (name, email, url):',
-      initial: '',
-      separator: ',',
-      format: (value) => {
-        return {
-          name: value[0] ?? '',
-          email: value[1] ?? '',
-          url: value[2] ?? '',
-        }
+  },
+  {
+    type: 'text',
+    name: 'license',
+    message: 'License:',
+    initial: 'MIT',
+  },
+  {
+    type: 'toggle',
+    name: 'private',
+    message: 'Private?',
+    initial: true,
+    active: 'Yes',
+    inactive: 'No',
+  },
+  {
+    type: 'select',
+    name: 'type',
+    message: 'Type:',
+    initial: 0,
+    choices: [
+      {
+        title: `Popup`,
+        value: 'popup',
+        description: dim('(default) - no user permissions needed'),
+        selected: true,
       },
-    },
-    {
-      type: 'text',
-      name: 'license',
-      message: 'License:',
-      initial: 'MIT',
-    },
-    {
-      type: 'toggle',
-      name: 'private',
-      message: 'Private?',
-      initial: true,
-      active: 'Yes',
-      inactive: 'No',
-    },
-    {
-      type: 'select',
-      name: 'type',
-      message: 'Type:',
-      initial: 0,
-      choices: [
-        {
-          title: `Popup`,
-          value: 'popup',
-          description: dim('(default) - no user permissions needed'),
-          selected: true,
-        },
-        {
-          title: `Overlay`,
-          value: 'overlay',
-          description: dim('content script - needs user permissions'),
-        },
-        {
-          title: `Side Panel`,
-          value: 'sidepanel',
-          description: dim('requires "sidePanel" permission (Chrome Beta 114+)'),
-        },
-        {
-          title: `DevTools`,
-          value: 'devtools',
-          description: dim('requires "devtools" permission'),
-        },
-      ],
-    },
-    {
-      type: (prev) => (prev === 'overlay' ? 'select' : null),
-      name: 'position',
-      message: 'Position:',
-      initial: 0,
-      choices: [
-        { title: `Center (default)`, value: 'center', selected: true },
-        { title: `Left`, value: 'left' },
-        { title: `Right`, value: 'right' },
-      ],
-    },
-    {
-      type: 'select',
-      name: 'override',
-      message: 'Override Page:',
-      hint: dim('you can override one of these pages'),
-      choices: [
-        {
-          title: 'None',
-          value: 'none',
-          description: dim('no page overrides'),
-          selected: true,
-        },
-        {
-          title: 'New Tab',
-          value: 'newtab',
-          description: dim('overrides `chrome://newtab` page'),
-        },
-        {
-          title: 'History',
-          value: 'history',
-          description: dim('overrides `chrome://history` page'),
-        },
-        {
-          title: 'Bookmarks',
-          value: 'bookmarks',
-          description: dim('overrides `chrome://bookmarks` page'),
-        },
-      ],
-    },
-    {
-      type: 'select',
-      name: 'options',
-      message: 'Options Page:',
-      initial: 0,
-      choices: [
-        {
-          title: `Full Page`,
-          value: 'full-page',
-          description: dim('options displayed in a new tab'),
-          selected: true,
-        },
-        {
-          title: `Embedded`,
-          value: 'embedded',
-          description: dim(
-            'integrate options into extensions management page inside browser-native embedded box'
-          ),
-        },
-      ],
-    },
-  ]
+      {
+        title: `Overlay`,
+        value: 'overlay',
+        description: dim('content script - needs user permissions'),
+      },
+      {
+        title: `Side Panel`,
+        value: 'sidepanel',
+        description: dim('requires "sidePanel" permission (Chrome Beta 114+)'),
+      },
+      {
+        title: `DevTools`,
+        value: 'devtools',
+        description: dim('requires "devtools" permission'),
+      },
+    ],
+  },
+  {
+    type: (prev) => (prev === 'overlay' ? 'select' : null),
+    name: 'position',
+    message: 'Position:',
+    initial: 0,
+    choices: [
+      { title: `Center (default)`, value: 'center', selected: true },
+      { title: `Left`, value: 'left' },
+      { title: `Right`, value: 'right' },
+    ],
+  },
+  {
+    type: 'select',
+    name: 'override',
+    message: 'Override Page:',
+    hint: dim('you can override one of these pages'),
+    choices: [
+      {
+        title: 'None',
+        value: 'none',
+        description: dim('no page overrides'),
+        selected: true,
+      },
+      {
+        title: 'New Tab',
+        value: 'newtab',
+        description: dim('overrides `chrome://newtab` page'),
+      },
+      {
+        title: 'History',
+        value: 'history',
+        description: dim('overrides `chrome://history` page'),
+      },
+      {
+        title: 'Bookmarks',
+        value: 'bookmarks',
+        description: dim('overrides `chrome://bookmarks` page'),
+      },
+    ],
+  },
+  {
+    type: 'select',
+    name: 'options',
+    message: 'Options Page:',
+    initial: 0,
+    choices: [
+      {
+        title: `Full Page`,
+        value: 'full-page',
+        description: dim('options displayed in a new tab'),
+        selected: true,
+      },
+      {
+        title: `Embedded`,
+        value: 'embedded',
+        description: dim(
+          'integrate options into extensions management page inside browser-native embedded box'
+        ),
+      },
+    ],
+  },
+]
 
 export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
   {

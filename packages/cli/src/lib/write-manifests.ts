@@ -66,12 +66,14 @@ export const commands: ManifestCommands = {
   },
 }
 
-${response.extension.type.name === 'sidepanel'
-      ? `// @ts-expect-error Type '"sidePanel"' is not assignable to type 'ManifestPermissions`
-      : ''
-    }
-export const permissions: ManifestPermissions = [ 'activeTab' ${response.extension.type.name === 'sidepanel' ? `, 'sidePanel'` : ''
-    } ]
+${
+  response.extension.type.name === 'sidepanel'
+    ? `// @ts-expect-error Type '"sidePanel"' is not assignable to type 'ManifestPermissions`
+    : ''
+}
+export const permissions: ManifestPermissions = [ 'activeTab' ${
+    response.extension.type.name === 'sidepanel' ? `, 'sidePanel'` : ''
+  } ]
 
 
 // SHARED FIELDS
@@ -119,9 +121,10 @@ export const ${browser.toLowerCase()} = createManifest(
     ...config.shared,
     action: config.action,
     background: config.background,
-    ${response.extension.type.name === 'sidepanel'
-      ? 'side_panel: config.sidePanel,'
-      : ''
+    ${
+      response.extension.type.name === 'sidepanel'
+        ? 'side_panel: config.sidePanel,'
+        : ''
     }
     content_scripts: config.contentScripts,
     web_accessible_resources: config.webAccessibleResources,

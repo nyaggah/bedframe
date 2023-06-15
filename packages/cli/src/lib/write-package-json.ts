@@ -1,4 +1,4 @@
-import { packageManagers } from './prompts/prompts-utils';
+import { packageManagers } from './prompts/prompts-utils'
 import {
   Manifest,
   createManifest,
@@ -144,11 +144,11 @@ export function createScriptCommandsFrom(
     const devAllScript =
       browsers.length > 1
         ? createScriptCommand(
-          `dev:all`,
-          `concurrently ${browsers
-            .map((browser: Browser) => `\"vite --mode ${browser}\"`)
-            .join(' ')}`
-        )
+            `dev:all`,
+            `concurrently ${browsers
+              .map((browser: Browser) => `\"vite --mode ${browser}\"`)
+              .join(' ')}`
+          )
         : {}
 
     const buildScript = createScriptCommand('build', 'tsc && vite build')
@@ -159,13 +159,13 @@ export function createScriptCommandsFrom(
     const buildAllScript =
       browsers.length > 1
         ? createScriptCommand(
-          `build:all`,
-          `concurrently ${browsers
-            .map(
-              (browser: Browser) => `\"tsc && vite build --mode ${browser}\"`
-            )
-            .join(' ')}`
-        )
+            `build:all`,
+            `concurrently ${browsers
+              .map(
+                (browser: Browser) => `\"tsc && vite build --mode ${browser}\"`
+              )
+              .join(' ')}`
+          )
         : {}
 
     return convertArrayToObject(
@@ -275,88 +275,88 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   const lintFormat: Partial<DependencyType>[] = response.development.template
     .config.lintFormat
     ? [
-      {
-        devDependencies: [
-          { name: '@typescript-eslint/eslint-plugin', version: '^5.59.9' },
-          { name: 'eslint', version: '^8.38.0' },
-          { name: 'eslint-plugin-import', version: '^2.25.2' },
-          { name: 'eslint-plugin-n', version: '^15.0.0' },
-          { name: 'eslint-plugin-promise', version: '^6.0.0' },
-          { name: 'eslint-config-prettier', version: '^8.8.0' },
-          { name: 'eslint-plugin-react', version: '^7.32.2' },
-          { name: 'eslint-plugin-react-hooks', version: '^4.6.0' },
-          { name: 'eslint-plugin-react-refresh', version: '^0.4.1' },
-          {
-            name: 'eslint-config-standard-with-typescript',
-            version: '^34.0.0',
-          },
-          { name: 'prettier', version: '^2.8.8' },
-        ].sort((a, b) => a.name.localeCompare(b.name)),
-      },
-    ]
+        {
+          devDependencies: [
+            { name: '@typescript-eslint/eslint-plugin', version: '^5.59.9' },
+            { name: 'eslint', version: '^8.38.0' },
+            { name: 'eslint-plugin-import', version: '^2.25.2' },
+            { name: 'eslint-plugin-n', version: '^15.0.0' },
+            { name: 'eslint-plugin-promise', version: '^6.0.0' },
+            { name: 'eslint-config-prettier', version: '^8.8.0' },
+            { name: 'eslint-plugin-react', version: '^7.32.2' },
+            { name: 'eslint-plugin-react-hooks', version: '^4.6.0' },
+            { name: 'eslint-plugin-react-refresh', version: '^0.4.1' },
+            {
+              name: 'eslint-config-standard-with-typescript',
+              version: '^34.0.0',
+            },
+            { name: 'prettier', version: '^2.8.8' },
+          ].sort((a, b) => a.name.localeCompare(b.name)),
+        },
+      ]
     : []
   const style: Partial<DependencyType>[] =
     response.development.template.config.style === 'Styled Components'
       ? [
-        { dependencies: [{ name: 'styled-components', version: '^5.3.8' }] },
-        {
-          devDependencies: [
-            { name: '@types/styled-components', version: '^5.1.26' },
-            { name: 'babel-plugin-styled-components', version: '^2.1.1' },
-            { name: 'vite-plugin-babel-macros', version: '^1.0.6' }, // <-- if vite + styled-components
-          ].sort((a, b) => a.name.localeCompare(b.name)),
-        },
-      ]
+          { dependencies: [{ name: 'styled-components', version: '^5.3.8' }] },
+          {
+            devDependencies: [
+              { name: '@types/styled-components', version: '^5.1.26' },
+              { name: 'babel-plugin-styled-components', version: '^2.1.1' },
+              { name: 'vite-plugin-babel-macros', version: '^1.0.6' }, // <-- if vite + styled-components
+            ].sort((a, b) => a.name.localeCompare(b.name)),
+          },
+        ]
       : [
-        {
-          devDependencies: [
-            { name: 'autoprefixer', version: '^10.4.14' },
-            { name: 'postcss', version: '^8.4.21' },
-            { name: 'tailwindcss', version: '^3.3.1' },
-          ].sort((a, b) => a.name.localeCompare(b.name)),
-        },
-      ]
+          {
+            devDependencies: [
+              { name: 'autoprefixer', version: '^10.4.14' },
+              { name: 'postcss', version: '^8.4.21' },
+              { name: 'tailwindcss', version: '^3.3.1' },
+            ].sort((a, b) => a.name.localeCompare(b.name)),
+          },
+        ]
 
   const tests: Partial<DependencyType>[] = response.development.template.config
     .tests
     ? [
-      {
-        devDependencies: [
-          { name: '@testing-library/react', version: '^14.0.0' },
-          { name: '@testing-library/user-event', version: '^14.4.3' },
-          { name: '@testing-library/jest-dom', version: '^5.16.5' },
-          { name: '@types/jest', version: '^29.5.2' },
-          { name: 'jsdom', version: '^21.1.1' },
-          { name: 'vitest', version: '^0.29.8' },
-        ].sort((a, b) => a.name.localeCompare(b.name)),
-      },
-    ]
+        {
+          devDependencies: [
+            { name: '@testing-library/react', version: '^14.0.0' },
+            { name: '@testing-library/user-event', version: '^14.4.3' },
+            { name: '@testing-library/jest-dom', version: '^5.16.5' },
+            { name: '@types/jest', version: '^29.5.2' },
+            { name: 'jsdom', version: '^21.1.1' },
+            { name: 'vitest', version: '^0.29.8' },
+          ].sort((a, b) => a.name.localeCompare(b.name)),
+        },
+      ]
     : []
 
   const gitHooks: Partial<DependencyType>[] = response.development.template
     .config.gitHooks
     ? [
-      {
-        devDependencies: [
-          { name: 'husky', version: '^8.0.0' },
-          { name: 'lint-staged', version: '^13.1.2' },
-        ].sort((a, b) => a.name.localeCompare(b.name)),
-      },
-    ]
+        {
+          devDependencies: [
+            { name: 'husky', version: '^8.0.0' },
+            { name: 'lint-staged', version: '^13.1.2' },
+          ].sort((a, b) => a.name.localeCompare(b.name)),
+        },
+      ]
     : []
 
   const commitLint: Partial<DependencyType>[] = response.development.template
     .config.commitLint
     ? [
-      {
-        devDependencies: [
-          { name: '@commitlint/cli', version: '^17.4.4' },
-          { name: '@commitlint/config-conventional', version: '^17.4.4' },
-          { name: 'cz-conventional-changelog', version: '^3.3.0' },
-          { name: 'commitizen', version: '^4.3.0' },
-        ].sort((a, b) => a.name.localeCompare(b.name)),
-      },
-    ]
+        {
+          devDependencies: [
+            { name: '@commitlint/cli', version: '^17.4.4' },
+            { name: '@commitlint/config-conventional', version: '^17.4.4' },
+            { name: 'cz-conventional-changelog', version: '^3.3.0' },
+            { name: 'commitizen', version: '^4.3.0' },
+          ].sort((a, b) => a.name.localeCompare(b.name)),
+        },
+      ]
     : []
 
   const changesets: Partial<DependencyType & ConfigType>[] = response
@@ -396,82 +396,83 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   const getConfigs = () => {
     const eslintConfig = response.development.template.config.lintFormat
       ? packageJsonField('eslintConfig', {
-        globals: {
-          JSX: true,
-        },
-        env: {
-          browser: true,
-          es2020: true,
-          webextensions: true,
-        },
-        extends: [
-          'eslint:recommended',
-          'plugin:@typescript-eslint/recommended',
-          'plugin:react-hooks/recommended',
-          'prettier',
-        ],
-        settings: {
-          react: {
-            version: 'detect',
+          globals: {
+            JSX: true,
           },
-        },
-        parser: '@typescript-eslint/parser',
-        parserOptions: {
-          ecmaVersion: 'latest',
-          sourceType: 'module',
-          project: ['tsconfig.json', 'tsconfig.node.json'],
-        },
-        plugins: ['react-refresh'],
-        rules: {
-          'react-refresh/only-export-components': 'warn',
-          'react/react-in-jsx-scope': 'off',
-          'space-before-function-paren': 'off',
-        },
-        ignorePatterns: ['dist', 'node_modules'],
-      })
+          env: {
+            browser: true,
+            es2020: true,
+            webextensions: true,
+          },
+          extends: [
+            'eslint:recommended',
+            'plugin:@typescript-eslint/recommended',
+            'plugin:react-hooks/recommended',
+            'prettier',
+          ],
+          settings: {
+            react: {
+              version: 'detect',
+            },
+          },
+          parser: '@typescript-eslint/parser',
+          parserOptions: {
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+            project: ['tsconfig.json', 'tsconfig.node.json'],
+          },
+          plugins: ['react-refresh'],
+          rules: {
+            'react-refresh/only-export-components': 'warn',
+            'react/react-in-jsx-scope': 'off',
+            'space-before-function-paren': 'off',
+          },
+          ignorePatterns: ['dist', 'node_modules'],
+        })
       : {}
     const lintStagedConfig: Partial<ConfigType> = response.development.template
       .config.lintFormat
       ? packageJsonField('lint-staged', {
-        '*.{css,html,json,js}': ['prettier --write .'],
-        '*{js,ts}': 'eslint . --fix',
-      })
+          '*.{css,html,json,js}': ['prettier --write .'],
+          '*{js,ts}': 'eslint . --fix',
+        })
       : {}
 
     const prettierConfig: Partial<ConfigType> = response.development.template
       .config.lintFormat
       ? packageJsonField('prettier', {
-        tabWidth: 2,
-        semi: false,
-        singleQuote: true,
-      })
+          tabWidth: 2,
+          semi: false,
+          singleQuote: true,
+        })
       : {}
 
     const commitLintConfig: Partial<ConfigType> = response.development.template
       .config.lintFormat
       ? packageJsonField('', {
-        commitlint: {
-          extends: ['@commitlint/config-conventional'],
-        },
-        config: {
-          commitizen: {
-            path: './node_modules/cz-conventional-changelog',
+          commitlint: {
+            extends: ['@commitlint/config-conventional'],
           },
-        },
-      })
+          config: {
+            commitizen: {
+              path: './node_modules/cz-conventional-changelog',
+            },
+          },
+        })
       : {}
     const gitHooksConfig: Partial<ConfigType> = response.development.template
       .config.lintFormat
       ? packageJsonField('husky', {
-        hooks: {
-          'commit-msg': 'commitlint --edit',
-          'pre-commit': `${response.development.template.config.packageManager.toLowerCase() ??
-            'yarn'
+          hooks: {
+            'commit-msg': 'commitlint --edit',
+            'pre-commit': `${
+              response.development.template.config.packageManager.toLowerCase() ??
+              'yarn'
             } lint-staged`,
-          'prepare-commit-msg':
-            'exec < /dev/tty && node_modules/.bin/cz --hook || true',
-        },
-      })
+            'prepare-commit-msg':
+              'exec < /dev/tty && node_modules/.bin/cz --hook || true',
+          },
+        })
       : {}
 
     const configs = {
@@ -501,13 +502,13 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   for (const dep of deps) {
     if (dep.dependencies) {
       for (const dependency of dep.dependencies as Dependency[]) {
-        ; (dependencies as any)[dependency.name] = dependency.version
+        ;(dependencies as any)[dependency.name] = dependency.version
       }
     }
 
     if (dep.devDependencies) {
       for (const dependency of dep.devDependencies as Dependency[]) {
-        ; (devDependencies as any)[dependency.name] = dependency.version
+        ;(devDependencies as any)[dependency.name] = dependency.version
       }
     }
   }
