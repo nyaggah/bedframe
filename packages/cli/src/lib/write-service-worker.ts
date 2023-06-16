@@ -3,14 +3,23 @@ import fs from 'fs-extra'
 import path from 'node:path'
 import prompts from 'prompts'
 
-const onInstalled = `
+const onInstalled = (isSidePanel: boolean): string => `
 /**
  *  Fired when the extension is first installed,
  *  when the extension is updated to a new version,
  *  and when Chrome is updated to a new version
  *  */
 chrome.runtime.onInstalled.addListener((details): void => {
+  ${
+    isSidePanel
+      ? `
+  chrome.sidePanel.setOptions({ path: welcomePanel })
+  console.log('[background.ts] > onInstalled > welcomePanel')
+  `
+      : `
   console.log('[background.ts] > onInstalled', details)
+  `
+  }
 })
 
 `
@@ -52,21 +61,12 @@ chrome.runtime.onSuspend.addListener(function (): void {
 
 `
 
-const eventListeners = onInstalled + onConnect + onStartup + onSuspend
+const eventListeners = (isSidePanel: boolean) =>
+  onInstalled(isSidePanel) + onConnect + onStartup + onSuspend
 
 const sidePanels = `
-const welcomePanel = 'sidepanels/welcome.html'
-const mainPanel = 'sidepanels/main.html'
-
-/**
- *  Fired when the extension is first installed,
- *  when the extension is updated to a new version,
- *  and when Chrome is updated to a new version
- *  */
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.sidePanel.setOptions({ path: welcomePanel })
-  console.log('[background.ts] > onInstalled > welcomePanel')
-})
+const welcomePanel = 'sidepanels/welcome/index.html'
+const mainPanel = 'sidepanels/main/index.html'
 
 /**
  *  Fires when the active tab in a window changes. 
@@ -112,7 +112,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
     console.log('type', type)
 
     const sidePanelContent = isSidePanel ? sidePanels : ''
-    const content = eventListeners + sidePanelContent
+    const content = eventListeners(isSidePanel) + sidePanelContent
     return content
   }
 
@@ -124,6 +124,3 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
     )
     .catch((error) => console.error(error))
 }
-
-// SIDEPANEL(s)
-// - multiple

@@ -1,14 +1,7 @@
-import { packageManagers } from './prompts/prompts-utils'
-import {
-  Manifest,
-  createManifest,
-  Browser,
-  PackageManager,
-  BuildTarget,
-} from '@bedframe/core'
+import { Manifest, createManifest, Browser, BuildTarget } from '@bedframe/core'
+import prompts from 'prompts'
 import path from 'node:path'
 import fs from 'fs-extra'
-import prompts from 'prompts'
 
 export type PackageJsonType = Record<string, any> & {
   name: string
@@ -268,9 +261,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
       ].sort((a, b) => a.name.localeCompare(b.name)),
     },
   ]
-  // function sortMembersByName(members: Partial<DependencyType>[]) {
-  //   return members.sort((a, b) => a.name.localeCompare(b.name));
-  // }
 
   const lintFormat: Partial<DependencyType>[] = response.development.template
     .config.lintFormat

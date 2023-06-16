@@ -66,6 +66,9 @@ export async function makeBed(response: PromptsResponse) {
           stubs.components,
           path.join(destination.root, 'src', 'components')
         ),
+
+        // if we're writing  it e.g. for sidePanel
+        // don't copy over fileses
         copyFolder(
           stubs.scripts,
           path.join(destination.root, 'src', 'scripts')
@@ -118,12 +121,12 @@ export async function makeBed(response: PromptsResponse) {
       }
 
       if (response.development.config.installDeps) {
-        installDependencies(response)
+        await installDependencies(response)
       }
 
       if (response.development.template.config.git) {
         chdir(projectPath)
-        initializeGitProject(response)
+        await initializeGitProject(response)
         const packageManager =
           response.development.template.config.packageManager
 

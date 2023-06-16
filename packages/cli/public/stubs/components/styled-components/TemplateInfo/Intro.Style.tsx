@@ -1,10 +1,5 @@
-import styled, { keyframes } from 'styled-components/macro'
-
-const BlinkAnimation = keyframes`
-  0% {
-    opacity: 0;
-  }
-`
+import styled from 'styled-components/macro'
+import { Utility } from '@/styles'
 
 const Intro = styled.div`
   background-color: #181a1d;
@@ -40,7 +35,7 @@ const LogoType = styled.div`
     padding-bottom: 1em;
   }
   .caret-blinker {
-    animation: ${BlinkAnimation} 1.5s steps(2) infinite;
+    animation: ${Utility.BlinkAnimation} 1.5s steps(2) infinite;
   }
   .b {
     color: #c792e9;
