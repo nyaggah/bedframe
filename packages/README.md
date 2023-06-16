@@ -43,7 +43,7 @@ The `packages` directory contains the main Bedframe packages as well us the Turb
 | Package                                            | Version                                                                                              | Description                                      |
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
 | [eslint-config-bedframe](/eslint-config-bedframe/) | ![eslint-config-bedframe version](https://img.shields.io/npm/v/eslint-config-bedframe.svg?label=%20) | Shared ESLint configs used in this Turborepo     |
-| [@bedframe/tsconfig](/tsconfig/)                   | ![@bedframe/tsconfig version](https://img.shields.io/npm/v/@bedframe/tsconfig.svg?label=%20)nbsp;                                                                                               | Shared TypeScript configs used in this Turborepo |
+| [@bedframe/tsconfig](/tsconfig/)                   | ![@bedframe/tsconfig version](https://img.shields.io/npm/v/@bedframe/tsconfig.svg?label=%20)nbsp;    | Shared TypeScript configs used in this Turborepo |
 
 ## License
 
