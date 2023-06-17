@@ -257,6 +257,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
         { name: '@vitejs/plugin-react', version: '^4.0.0' },
         { name: 'concurrently', version: '^8.1.0' },
         { name: 'typescript', version: '^5.1.3' },
+        { name: 'unplugin-fonts', version: '^1.0.3' },
         { name: 'vite', version: '^4.3.9' },
       ].sort((a, b) => a.name.localeCompare(b.name)),
     },
@@ -276,10 +277,10 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             { name: 'eslint-plugin-react', version: '^7.32.2' },
             { name: 'eslint-plugin-react-hooks', version: '^4.6.0' },
             { name: 'eslint-plugin-react-refresh', version: '^0.4.1' },
-            {
-              name: 'eslint-config-standard-with-typescript',
-              version: '^34.0.0',
-            },
+            // {
+            //   name: 'eslint-config-standard-with-typescript',
+            //   version: '^34.0.0',
+            // },
             { name: 'prettier', version: '^2.8.8' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
         },

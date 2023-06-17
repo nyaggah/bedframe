@@ -81,6 +81,28 @@ chrome.tabs.onActivated.addListener(async ({ tabId }) => {
   }
 })
 
+// @ts-expect-error sidePanel
+chrome.sidePanel
+.setPanelBehavior({ openPanelOnActionClick: true })
+.catch((error: Error) => console.error(error))
+
+`
+
+const overlayBrowserAction = `/**
+*  Fired when an action icon is clicked.
+*  This event will not fire if the action has a popup */
+chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
+ chrome.tabs.sendMessage(
+   tab.id ?? 0,
+   {
+     type: 'browser-action',
+     action: 'toggle',
+   },
+   (response) => {
+     console.log('chrome.action.onClicked.addListener > response:', response)
+   }
+ )
+})
 `
 
 // TO diddly DO: move to @bedframe/core
@@ -112,7 +134,9 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
     console.log('type', type)
 
     const sidePanelContent = isSidePanel ? sidePanels : ''
-    const content = eventListeners(isSidePanel) + sidePanelContent
+    const overlayContent = isOverlay ? overlayBrowserAction : ''
+    const content =
+      eventListeners(isSidePanel) + sidePanelContent + overlayContent
     return content
   }
 
@@ -124,3 +148,34 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
     )
     .catch((error) => console.error(error))
 }
+
+// const sidePanelWecome = 'sidepanels/welcome/index.html'
+// const sidePanelMain = 'sidepanels/main/index.html'
+
+// // @ts-expect-error sidePanel
+// chrome.sidePanel
+// .setPanelBehavior({ openPanelOnActionClick: true })
+// .catch((error: Error) => console.error(error))
+
+// chrome.runtime.onInstalled.addListener(() => {
+//   // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
+//   chrome.sidePanel.setOptions({ path: sidePanelWecome })
+// })
+
+// chrome.tabs.onActivated.addListener(async ({ tabId }) => {
+//   // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
+//   const { path } = await chrome.sidePanel.getOptions({ tabId })
+//   if (path === sidePanelMain) {
+//     // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
+//     chrome.sidePanel.setOptions({ path: sidePanelMain })
+//   }
+// })
+
+// chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, _tab) => {
+//   // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
+//   const { path } = await chrome.sidePanel.getOptions({ tabId })
+//   if (changeInfo.status === 'complete' && path === sidePanelMain) {
+//     // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
+//     chrome.sidePanel.setOptions({ path: sidePanelMain })
+//   }
+// })

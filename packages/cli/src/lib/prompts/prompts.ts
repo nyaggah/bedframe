@@ -249,6 +249,8 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
     initial: 0,
   },
   {
+    // TO diddly DO: if ts, yasiin bey lint:format
+    // maybe just default to yes and don't prompt
     type: 'toggle',
     name: 'lintFormat',
     message: 'Add linting with formatting?',

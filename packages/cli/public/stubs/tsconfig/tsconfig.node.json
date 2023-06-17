@@ -4,13 +4,14 @@
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx"
   },
   "include": [
+    "bedframe.config.ts",
+    "src/manifests",
+    "package.json",
     "vite.config.ts",
-    "vitest", // if tests: true
-    "vitest.config.ts", // if tests: true
-    "src/manifest",
-    "package.json"
+    "vitest"
   ]
 }

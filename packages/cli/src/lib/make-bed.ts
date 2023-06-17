@@ -13,6 +13,7 @@ import { initializeGitProject } from './initialize-git'
 import { installDependencies } from './install-deps'
 import { writeSidePanels } from './write-sidepanels'
 import { writeServiceWorker } from './write-service-worker'
+import { writeBedframeConfig } from './write-bedframe-config'
 
 export async function makeBed(response: PromptsResponse) {
   // const projectDir = response.extension.name.name
@@ -36,8 +37,18 @@ export async function makeBed(response: PromptsResponse) {
       const stubsPath = path.resolve(path.join(__dirname, 'stubs'))
 
       const stubs = {
+        assets: path.join(stubsPath, 'assets'),
         base: path.join(stubsPath, 'base'),
-        public: path.join(stubsPath, 'public'),
+        // public: path.join(stubsPath, 'public'),
+        pages: {
+          popup: path.join(stubsPath, 'pages', 'popup'),
+          newtab: path.join(stubsPath, 'pages', 'newtab'),
+          options: path.join(stubsPath, 'pages', 'options'),
+          history: path.join(stubsPath, 'pages', 'history'),
+          devtools: path.join(stubsPath, 'pages', 'devtools'),
+          bookmarks: path.join(stubsPath, 'pages', 'bookmarks'),
+        },
+        sidepanels: path.join(stubsPath, 'sidepanels'),
         tsconfig: path.join(stubsPath, 'tsconfig'),
         style: {
           styledComponents: path.join(stubsPath, 'style', 'styled-components'),
@@ -59,13 +70,64 @@ export async function makeBed(response: PromptsResponse) {
         root: path.resolve(response.extension.name.path),
       }
 
+      const { tests: hasTests } = response.development.template.config
+      const {
+        override: overridePage,
+        options: optionsPage,
+        type,
+      } = response.extension
+      const { name: extensionType /* position */ } = type
+
+      const copyOverridePage = async (
+        overridePage: string,
+        stubSrc: string
+      ): Promise<void> => {
+        await copyFolder(
+          stubSrc,
+          path.join(destination.root, 'src', 'pages', overridePage)
+        )
+      }
+
       await Promise.all([
+        copyFolder(stubs.assets, path.join(destination.root, 'src', 'assets')),
         copyFolder(stubs.base, destination.root),
-        copyFolder(stubs.public, path.join(destination.root, 'public')),
+        // copyFolder(stubs.public, path.join(destination.root, 'public')),
         copyFolder(
           stubs.components,
           path.join(destination.root, 'src', 'components')
         ),
+
+        extensionType === 'popup'
+          ? copyFolder(
+              stubs.pages.popup,
+              path.join(destination.root, 'src', 'pages', 'popup')
+            )
+          : Promise.resolve(),
+
+        extensionType === 'sidepanel'
+          ? copyFolder(
+              stubs.sidepanels,
+              path.join(destination.root, 'src', 'sidepanels')
+            )
+          : Promise.resolve(),
+
+        optionsPage === 'full-page' || optionsPage === 'embedded'
+          ? copyFolder(
+              stubs.pages.options,
+              path.join(destination.root, 'src', 'pages', 'options')
+            )
+          : Promise.resolve(),
+
+        extensionType === 'devtools'
+          ? copyFolder(
+              stubs.pages.devtools,
+              path.join(destination.root, 'src', 'pages', 'devtools')
+            )
+          : Promise.resolve(),
+
+        overridePage !== 'none'
+          ? copyOverridePage(overridePage, stubs.pages.history)
+          : Promise.resolve(),
 
         // if we're writing  it e.g. for sidePanel
         // don't copy over fileses
@@ -99,7 +161,7 @@ export async function makeBed(response: PromptsResponse) {
           : Promise.resolve(),
 
         // Copy Unit Test files if required
-        response.development.template.config.tests
+        hasTests
           ? copyFolder(stubs.tests, destination.root)
           : Promise.resolve(),
 
@@ -114,9 +176,11 @@ export async function makeBed(response: PromptsResponse) {
           : Promise.resolve(),
       ])
 
+      writeBedframeConfig(response)
+
       writeServiceWorker(response)
 
-      if (response.extension.type.name === 'sidepanel') {
+      if (extensionType === 'sidepanel') {
         writeSidePanels(response)
       }
 
@@ -127,19 +191,24 @@ export async function makeBed(response: PromptsResponse) {
       if (response.development.template.config.git) {
         chdir(projectPath)
         await initializeGitProject(response)
-        const packageManager =
-          response.development.template.config.packageManager
-
+        const { packageManager } = response.development.template.config
+        const { installDeps } = response.development.config
         console.log(`
         >_
         
         ${green('Your BED is made! 🚀')}
         
         ${dim('1.')} cd ${basename(projectPath)}
-        ${dim('2.')} ${packageManager.toLowerCase()} ${
-          packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+        ${
+          !installDeps
+            ? `${dim('2.')} ${packageManager.toLowerCase()} ${
+                packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+              }`
+            : ``
         }
-        ${dim('3.')} ${packageManager.toLowerCase()} dev ${dim(
+        ${dim(
+          installDeps ? `2.` : `3.`
+        )} ${packageManager.toLowerCase()} dev ${dim(
           `or ${packageManager.toLowerCase()} dev:all`
         )}
       `)
