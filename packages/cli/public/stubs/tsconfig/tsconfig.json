@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["@bedframe/core", "jest"],
     "module": "ESNext",
     "skipLibCheck": true,
 

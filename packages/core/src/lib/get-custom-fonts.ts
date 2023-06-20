@@ -1,18 +1,12 @@
+import type { CustomFontFamily } from 'unplugin-fonts/types'
 import Unfonts from 'unplugin-fonts/vite'
 
-export type FontWeight = {
+export type CustomFontWeight = {
   [key: string]: number
 }
 
-// extend or use directly from `CustomFontFamily`
-// from unplugin-fonts
-// so object can accept all options
-// ^^^ don't cripple plugin functionality, boi boi!
-export type CustomFontOptions = {
-  name: string
-  local: string | string[]
-  src: string | string[]
-  weights?: FontWeight
+export type BedframeCustomFontFamily = CustomFontFamily & {
+  weights?: CustomFontWeight
 }
 
 /**
@@ -45,7 +39,7 @@ export type CustomFontOptions = {
  * ```
  *
  */
-export function getCustomFonts(fonts: CustomFontOptions[]) {
+export function getCustomFonts(fonts: BedframeCustomFontFamily[]) {
   return Unfonts({
     custom: {
       families: fonts.map((f) => {
@@ -56,11 +50,9 @@ export function getCustomFonts(fonts: CustomFontOptions[]) {
           src: f.src,
           transform(font) {
             if (!fontWeights) return null
-
             if (font.basename in fontWeights) {
               font.weight = fontWeights[font.basename]
             }
-
             return font
           },
         }

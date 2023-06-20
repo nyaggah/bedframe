@@ -29,7 +29,7 @@ export function writeBedframeConfig(response: Answers<string>): void {
   } = response.extension
   const { name: extensionType /* position */ } = type
 
-  const fileContent = `import { getManifest } from '@bedframe/core'
+  const fileContent = `import { getCustomFonts, getManifest } from '@bedframe/core'
   import Unfonts from 'unplugin-fonts/vite'
   import { crx } from '@crxjs/vite-plugin'
   import { resolve } from 'node:path'
@@ -93,44 +93,6 @@ export function writeBedframeConfig(response: Answers<string>): void {
         },
       ]),
     }
-  }
-  
-  // - - - - - - - - - - - - - - - - - -
-  
-  type FontWeight = {
-    [key: string]: number
-  }
-  
-  // extend or use directly from 'CustomFontFamily'
-  // from unplugin-fonts
-  // so object can accept all options
-  // ^^^ don't cripple plugin functionality, boi boi!
-  type CustomFontOptions = {
-    name: string
-    local: string | string[]
-    src: string | string[]
-    weights?: FontWeight
-  }
-  
-  function getCustomFonts(fonts: CustomFontOptions[]) {
-    return Unfonts({
-      custom: {
-        families: fonts.map((f) => {
-          const fontWeights = f.weights
-          return {
-            name: f.name,
-            local: f.local,
-            src: f.src,
-            transform(font) {
-              if (font.basename in fontWeights) {
-                font.weight = fontWeights[font.basename]
-              }
-              return font
-            },
-          }
-        }),
-      },
-    })
   }
 
   `

@@ -105,6 +105,21 @@ chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
 })
 `
 
+const devtoolsOnConnect = `// Listen for connections from the DevTools panel
+chrome.runtime.onConnect.addListener((port) => {
+  console.log('chrome.runtime.onConnect > port', port)
+  if (port.name === 'devtools-page') {
+    port.onMessage.addListener((message) => {
+      if (message.action === 'sendData') {
+        // Handle data sent from the DevTools panel
+        console.log('Data received from DevTools panel:', message.data)
+      }
+    })
+  }
+})
+
+`
+
 // TO diddly DO: move to @bedframe/core
 type ExtensionType = 'popup' | 'overlay' | 'sidepanel' | 'devtools'
 type ExtensionPosition = 'center' | 'left' | 'right'
@@ -133,10 +148,14 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
   const fileContent = (type: ExtensionType): string => {
     console.log('type', type)
 
-    const sidePanelContent = isSidePanel ? sidePanels : ''
-    const overlayContent = isOverlay ? overlayBrowserAction : ''
+    const sidePanelContent = isSidePanel ? sidePanels : ``
+    const overlayContent = isOverlay ? overlayBrowserAction : ``
+    const devtoolsContent = isDevtools ? devtoolsOnConnect : ``
     const content =
-      eventListeners(isSidePanel) + sidePanelContent + overlayContent
+      eventListeners(isSidePanel) +
+      sidePanelContent +
+      overlayContent +
+      devtoolsContent
     return content
   }
 

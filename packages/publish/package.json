@@ -1,22 +1,23 @@
 {
-  "name": "@bedframe/core",
-  "description": "Bedframe core - Your Browser Extension Development Framework (core funcs & types)",
+  "name": "@bedframe/publish",
+  "description": "Bedframe publish - publish you bedframe project to web store(s)",
   "author": {
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
   },
-  "version": "0.0.13",
+  "version": "0.0.1",
   "license": "MIT",
+  "private": true,
   "type": "module",
-  "main": "./dist/bedframe.umd.cjs",
-  "module": "./dist/bedframe.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/server.umd.cjs",
+  "module": "./dist/server.js",
+  "types": "./dist/server.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/bedframe.js",
-      "require": "./dist/bedframe.umd.cjs",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/bedframe.js"
+      "import": "./dist/server.js",
+      "require": "./dist/server.umd.cjs",
+      "types": "./dist/server.d.ts",
+      "default": "./dist/server.js"
     }
   },
   "files": [
@@ -25,7 +26,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:watch": "tsc && vite build --watch",
     "build:link": "pnpm build && chmod 755 ./dist && pnpm link --global",
     "preview": "vite preview",
     "lint": "eslint \"**/*.ts*\" --report-unused-disable-directives --max-warnings 0",
@@ -34,22 +34,11 @@
     "lint:format": "pnpm prettier:write && pnpm lint",
     "rebuild:pack": "rm -rf node_modules pnpm-lock.yaml && pnpm i && pnpm build && pnpm pack"
   },
-  "peerDependencies": {},
   "devDependencies": {
-    "kolorist": "^1.8.0",
-    "unplugin-fonts": "^1.0.3",
-    "@crxjs/vite-plugin": "^1.0.14",
-    "@types/chrome": "^0.0.237",
-    "@types/node": "^16.18.25",
-    "@typescript-eslint/eslint-plugin": "^5.59.8",
-    "eslint-config-bedframe": "*",
-    "eslint-config-turbo": "^1.9.9",
-    "rollup-plugin-node-externals": "^6.1.1",
-    "tslib": "^2.5.3",
-    "typescript": "^4.9.3",
-    "vite": "^4.2.1",
-    "vite-plugin-dts": "^2.1.0",
-    "vite-plugin-externalize-deps": "^0.6.0"
+    "@bedframe/core": "workspace:*",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vite-plugin-dts": "^2.3.0"
   },
   "lint-staged": {
     "*.{md,mdx,css,html,json,js}": [
@@ -87,7 +76,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/nyaggah/bedframe.git",
-    "directory": "packages/core"
+    "directory": "packages/publish"
   },
   "publishConfig": {
     "access": "public"

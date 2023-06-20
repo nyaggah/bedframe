@@ -6,7 +6,7 @@ import dts from 'rollup-plugin-dts'
 import { string } from 'rollup-plugin-string'
 import json from '@rollup/plugin-json'
 
-const name = `build/index`
+const name = `dist/bedframe`
 
 const bundle = (config) => ({
   ...config,
@@ -17,7 +17,7 @@ const bundle = (config) => ({
     typescript(),
     json(),
     copy({
-      targets: [{ src: 'public/stubs', dest: 'build' }],
+      targets: [{ src: 'public/stubs', dest: 'dist' }],
     }),
   ],
 })

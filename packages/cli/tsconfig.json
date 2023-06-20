@@ -19,7 +19,7 @@
     "paths": {
       "@bedframe/core": ["../core/dist"]
     },
-    "outDir": "build"
+    "outDir": "dist"
   },
   "include": ["src", "templates", "stubs", "package.json"],
   "exclude": ["node_modules", "build"]

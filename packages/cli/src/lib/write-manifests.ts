@@ -83,7 +83,10 @@ export const webAccessibleResources: ManifestWebAccessibleResources = [
   {
     resources: [
       'assets/icons/*.png',
-      'assets/fonts/inter/*.ttf',
+      'assets/fonts/inter/Inter-Bold.ttf',
+      'assets/fonts/inter/Inter-ExtraBold.ttf',
+      'assets/fonts/inter/Inter-Regular.ttf',
+      'assets/fonts/inter/Inter-SemiBold.ttf',
     ],
     matches: ['<all_urls>'],
   },

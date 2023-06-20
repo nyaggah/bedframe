@@ -317,6 +317,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             { name: '@testing-library/user-event', version: '^14.4.3' },
             { name: '@testing-library/jest-dom', version: '^5.16.5' },
             { name: '@types/jest', version: '^29.5.2' },
+            { name: '@types/testing-library__jest-dom', version: '^5.14.6' },
             { name: 'jsdom', version: '^21.1.1' },
             { name: 'vitest', version: '^0.29.8' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
