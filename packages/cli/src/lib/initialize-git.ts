@@ -21,12 +21,12 @@ export async function initializeGitProject(
 
     const childProcess = execa('git', ['commit', '-am', commitMessage])
 
-    if (childProcess.stdout) {
-      childProcess.stdout.on('data', (data) => {
-        // Handle the output data here
-        console.log(data)
-      })
-    }
+    // if (childProcess.stdout) {
+    //   // childProcess.stdout.on('data', (_data) => {
+    //   //   // Handle the output data here
+    //   //   // console.log(data)
+    //   // })
+    // }
 
     // Wait for the child process to complete
     await childProcess
