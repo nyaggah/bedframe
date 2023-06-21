@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.21
+
+### Patch Changes
+
+- 9fd50a2: rejig the whole thang
+
 ## 0.0.20
 
 ### Patch Changes
