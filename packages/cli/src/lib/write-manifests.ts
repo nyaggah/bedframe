@@ -174,6 +174,7 @@ export const ${browser.toLowerCase()} = createManifest(
     ...config.shared,
     action: config.action,
     background: config.background,
+    content_scripts: config.contentScripts,
     ${
       optionsPage === 'full-page'
         ? `options_page: config.optionsPage,`

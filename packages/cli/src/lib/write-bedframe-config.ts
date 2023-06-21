@@ -94,24 +94,24 @@ export function writeBedframeConfig(response: Answers<string>): void {
               }
               ${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
             },
+          },
+          ${
+            hasTests
+              ? `test: {
+            globals: true,
+            setupFiles: ['./vitest/vitest.setup.ts'],
+            environment: 'jsdom', // 'jsdom' | 'edge-runtime' | 'happy-dom' | 'jsdom'
+            coverage: {
+              provider: 'istanbul', // 'c8' | 'custom' | 'istanbul'
+              reporter: ['default', 'text', 'json', 'html'],
             },
+            watch: false,
           },
+          `
+              : ''
+          }
         },
-        ${
-          hasTests
-            ? `test: {
-          globals: true,
-          setupFiles: ['./vitest/vitest.setup.ts'],
-          environment: 'jsdom', // 'jsdom' | 'edge-runtime' | 'happy-dom' | 'jsdom'
-          coverage: {
-            provider: 'istanbul', // 'c8' | 'custom' | 'istanbul'
-            reporter: ['default', 'text', 'json', 'html'],
-          },
-          watch: false,
-        },
-        `
-            : ''
-        }
+      }
   }
   `
 
