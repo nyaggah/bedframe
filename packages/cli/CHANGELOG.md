@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.22
+
+### Patch Changes
+
+- b7026ec: project gen updates + re-write configs
+- Updated dependencies [b7026ec]
+  - @bedframe/core@0.0.14
+
 ## 0.0.21
 
 ### Patch Changes

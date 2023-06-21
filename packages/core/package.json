@@ -5,7 +5,7 @@
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
   },
-  "version": "0.0.13",
+  "version": "0.0.14",
   "license": "MIT",
   "type": "module",
   "main": "./dist/bedframe.umd.cjs",
@@ -40,7 +40,7 @@
     "unplugin-fonts": "^1.0.3",
     "@crxjs/vite-plugin": "^1.0.14",
     "@types/chrome": "^0.0.237",
-    "@types/node": "^16.18.25",
+    "@types/node": "^16.18.36",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "eslint-config-bedframe": "*",
     "eslint-config-turbo": "^1.9.9",
