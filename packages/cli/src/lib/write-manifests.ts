@@ -167,7 +167,7 @@ export function manifestForBrowser(
 
   return `
 import { createManifest } from '@bedframe/core'
-import config from './config'
+import config from './manifest.config'
 
 export const ${browser.toLowerCase()} = createManifest(
   {
@@ -220,7 +220,7 @@ export const manifests = [
 export async function writeManifests(response: Answers<string>): Promise<void> {
   const { browser: browsers, extension } = response
   const manifestDir = path.resolve(extension.name.path, 'src', 'manifests')
-  const sharedManifestPath = path.join(manifestDir, 'config.ts')
+  const sharedManifestPath = path.join(manifestDir, 'manifest.config.ts')
   const manifestIndexPath = path.join(manifestDir, 'index.ts')
 
   try {

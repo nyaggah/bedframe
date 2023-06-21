@@ -88,6 +88,19 @@ export async function makeBed(response: PromptsResponse) {
         )
       }
 
+      const getOverridePage = (overridePage: string): string => {
+        switch (overridePage) {
+          case 'history':
+            return stubs.pages.history
+          case 'newtab':
+            return stubs.pages.newtab
+          case 'bookmarks':
+            return stubs.pages.bookmarks
+          default:
+            return ''
+        }
+      }
+
       await Promise.all([
         copyFolder(stubs.assets, path.join(destination.root, 'src', 'assets')),
         copyFolder(stubs.base, destination.root),
@@ -126,7 +139,8 @@ export async function makeBed(response: PromptsResponse) {
           : Promise.resolve(),
 
         overridePage !== 'none'
-          ? copyOverridePage(overridePage, stubs.pages.history)
+          ? // ? copyOverridePage(overridePage, stubs.pages.history)
+            copyOverridePage(overridePage, getOverridePage(overridePage))
           : Promise.resolve(),
 
         // if we're writing  it e.g. for sidePanel
@@ -162,7 +176,7 @@ export async function makeBed(response: PromptsResponse) {
 
         // Copy Unit Test files if required
         hasTests
-          ? copyFolder(stubs.tests, destination.root)
+          ? copyFolder(stubs.tests, path.join(destination.root, 'src'))
           : Promise.resolve(),
 
         // Copy Git Hooks with Husky if required

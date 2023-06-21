@@ -13,6 +13,7 @@ import { Browser, BuildTarget } from './types'
  * Given the `Mode` i.e. `Browser` target, return the appropriate `Manifest` to build from
  *
  */
+// TO diddly DO: update w/ https://chat.openai.com/c/c99d5aea-7e48-4687-a0f2-e7dbc57f6758
 export function getManifest(
   config: {
     mode: unknown
@@ -113,6 +114,10 @@ export function getManifest(
       config.mode
     }`)
   }
+
+  // const crx = crx({
+  //   manifest: getManifest({ command, mode }, manifests),
+  // }),
 
   return browser.manifest as ManifestV3Export
 }
