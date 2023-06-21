@@ -1,0 +1,84 @@
+{
+  "name": "@bedframe/publish",
+  "description": "Bedframe publish - publish you bedframe project to web store(s)",
+  "author": {
+    "name": "Joe Nyaggah",
+    "url": "https://bedframe.dev"
+  },
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "./dist/server.umd.cjs",
+  "module": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/server.js",
+      "require": "./dist/server.umd.cjs",
+      "types": "./dist/server.d.ts",
+      "default": "./dist/server.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "build:link": "pnpm build && chmod 755 ./dist && pnpm link --global",
+    "preview": "vite preview",
+    "lint": "eslint \"**/*.ts*\" --report-unused-disable-directives --max-warnings 0",
+    "prettier:check": "pnpm prettier --check .",
+    "prettier:write": "pnpm prettier --write .",
+    "lint:format": "pnpm prettier:write && pnpm lint",
+    "rebuild:pack": "rm -rf node_modules pnpm-lock.yaml && pnpm i && pnpm build && pnpm pack"
+  },
+  "devDependencies": {
+    "@bedframe/core": "workspace:*",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vite-plugin-dts": "^2.3.0"
+  },
+  "lint-staged": {
+    "*.{md,mdx,css,html,json,js}": [
+      "prettier --write ."
+    ],
+    "*{js,jsx,ts,tsx }": "eslint --fix"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "turbo",
+      "bedframe"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {},
+    "ignorePatterns": [
+      "dist"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nyaggah/bedframe.git",
+    "directory": "packages/publish"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

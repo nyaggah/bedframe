@@ -81,10 +81,10 @@ export function createAndMount(): void {
 }
 
 // =============MESSAGE PASSING===========
-export type MessageResponse = (response?: any) => void
+export type MessageResponse = (response?: unknown) => void
 
 const messagesFromReactAppListener = (
-  message: any,
+  message: Record<string, unknown>,
   _sender: chrome.runtime.MessageSender, // currently unused. rename to `sender` to user
   response: MessageResponse
 ): void => {

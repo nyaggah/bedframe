@@ -20,7 +20,7 @@
     "prettier": "turbo run prettier",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "lint:format": "turbo run format lint",
+    "lint:format": "turbo run lint:format",
     "cz": "cz",
     "release": "turbo run format lint build && changeset version && changeset publish",
     "prepare": "husky install"

@@ -26,24 +26,30 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "build:watch": "tsc && vite build --watch",
-    "build:link": "pnpm remove @bedframe/core -g && pnpm build && chmod 755 ./dist && pnpm link --global",
+    "build:link": "pnpm build && chmod 755 ./dist && pnpm link --global",
     "preview": "vite preview",
-    "lint": "eslint \"**/*.ts*\" --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prettier:check": "prettier --check .",
-    "prettier": "prettier --write . --loglevel silent"
+    "lint": "eslint \"**/*.ts*\" --report-unused-disable-directives --max-warnings 0",
+    "prettier:check": "pnpm prettier --check .",
+    "prettier:write": "pnpm prettier --write .",
+    "lint:format": "pnpm prettier:write && pnpm lint",
+    "rebuild:pack": "rm -rf node_modules pnpm-lock.yaml && pnpm i && pnpm build && pnpm pack"
   },
+  "peerDependencies": {},
   "devDependencies": {
+    "kolorist": "^1.8.0",
+    "unplugin-fonts": "^1.0.3",
     "@crxjs/vite-plugin": "^1.0.14",
     "@types/chrome": "^0.0.237",
     "@types/node": "^16.18.25",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "eslint-config-bedframe": "*",
     "eslint-config-turbo": "^1.9.9",
+    "rollup-plugin-node-externals": "^6.1.1",
     "tslib": "^2.5.3",
     "typescript": "^4.9.3",
     "vite": "^4.2.1",
-    "vite-plugin-dts": "^2.1.0"
+    "vite-plugin-dts": "^2.1.0",
+    "vite-plugin-externalize-deps": "^0.6.0"
   },
   "lint-staged": {
     "*.{md,mdx,css,html,json,js}": [
@@ -85,8 +91,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "kolorist": "^1.8.0"
   }
 }

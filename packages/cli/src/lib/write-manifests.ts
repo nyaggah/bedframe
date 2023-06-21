@@ -3,11 +3,14 @@ import path from 'node:path'
 import { Answers } from 'prompts'
 import { Browser } from '@bedframe/core'
 
-const sidePanel = `export const sidePanel = {
-  default_path: 'src/pages/sidepanel.html',
-}`
-
 export function sharedManifest(response: Answers<string>): string {
+  const {
+    override: overridePage,
+    options: optionsPage,
+    type,
+  } = response.extension
+  const { name: extensionType } = type
+
   return `
 import {
   ManifestAction,
@@ -22,14 +25,20 @@ import {
 import pkg from '../../package.json'
 
 export const icons = createManifestIcons({
-  16: 'icons/icon-16x16.png',
-  32: 'icons/icon-32x32.png',
-  48: 'icons/icon-48x48.png',
-  128: 'icons/icon-128x128.png',
+  16: 'assets/icons/icon-16x16.png',
+  32: 'assets/icons/icon-32x32.png',
+  48: 'assets/icons/icon-48x48.png',
+  128: 'assets/icons/icon-128x128.png',
 })
 
 export const action: ManifestAction = {
   default_icon: icons,
+  default_title: pkg.name,
+  ${
+    extensionType === 'popup'
+      ? `default_popup: 'src/pages/popup/index.html',`
+      : ''
+  }
 }
 
 export const background: ManifestBackground = {
@@ -37,7 +46,31 @@ export const background: ManifestBackground = {
   type: 'module',
 }
 
-${response.extension.type.name === 'sidepanel' ? sidePanel : ''}
+export const devtoolsPage = 'src/pages/devtools/index.html'
+${
+  optionsPage === 'full-page'
+    ? `export const optionsPage = 'src/pages/options/index.html'`
+    : `export const optionsUI = {
+  page: 'src/pages/options/index.html',
+  open_in_tab: false,
+}`
+}
+
+${
+  extensionType === 'sidepanel'
+    ? `export const sidePanel = {
+  default_path: 'src/sidepanels/welcome/index.html',
+}`
+    : ''
+}
+
+${
+  overridePage !== 'none'
+    ? `export const chromeUrlOverrides = {
+  ${`${overridePage}: 'src/pages/${overridePage}/index.html',`}
+}`
+    : ''
+}
 
 export const contentScripts: ManifestContentScripts = [
   {
@@ -48,7 +81,13 @@ export const contentScripts: ManifestContentScripts = [
 
 export const webAccessibleResources: ManifestWebAccessibleResources = [
   {
-    resources: [icons['128']],
+    resources: [
+      'assets/icons/*.png',
+      'assets/fonts/inter/Inter-Bold.ttf',
+      'assets/fonts/inter/Inter-ExtraBold.ttf',
+      'assets/fonts/inter/Inter-Regular.ttf',
+      'assets/fonts/inter/Inter-SemiBold.ttf',
+    ],
     matches: ['<all_urls>'],
   },
 ]
@@ -65,13 +104,13 @@ export const commands: ManifestCommands = {
   },
 }
 
-${
-  response.extension.type.name === 'sidepanel'
-    ? `// @ts-expect-error Type '"sidePanel"' is not assignable to type 'ManifestPermissions`
-    : ''
-}
-export const permissions: ManifestPermissions = [ 'activeTab' ${
-    response.extension.type.name === 'sidepanel' ? `, 'sidePanel'` : ''
+export const permissions: ManifestPermissions = [ 
+  'activeTab' ${
+    response.extension.type.name === 'sidepanel'
+      ? `, 
+    // @ts-expect-error Type '"sidePanel"' is not assignable to type 'ManifestPermissions2
+    'sidePanel'`
+      : ''
   } ]
 
 
@@ -96,8 +135,11 @@ export const shared = createManifestSharedFields({
 export default {
   icons,
   action,
+  ${optionsPage === 'full-page' ? `optionsPage,` : `optionsUI,`}
+  devtoolsPage,
   background,
   ${response.extension.type.name === 'sidepanel' ? `sidePanel,` : ''}
+  ${overridePage !== 'none' ? `chromeUrlOverrides,` : ``}  
   contentScripts,
   webAccessibleResources,
   commands,
@@ -111,9 +153,21 @@ export function manifestForBrowser(
   response: Answers<string>,
   browser: Browser
 ): string {
+  const {
+    override: overridePage,
+    type,
+    options: optionsPage, // 'full-page' | 'embedded'
+  } = response.extension
+  const { name: extensionType } = type
+
+  const optionsUI = `options_ui: {
+    page: 'pages/options/index.html',
+    open_in_tab: false,
+  }`
+
   return `
 import { createManifest } from '@bedframe/core'
-import config from './config'
+import config from './manifest.config'
 
 export const ${browser.toLowerCase()} = createManifest(
   {
@@ -121,11 +175,17 @@ export const ${browser.toLowerCase()} = createManifest(
     action: config.action,
     background: config.background,
     ${
-      response.extension.type.name === 'sidepanel'
-        ? 'side_panel: config.sidePanel,'
-        : ''
+      optionsPage === 'full-page'
+        ? `options_page: config.optionsPage,`
+        : `options_ui: config.optionsUI,`
     }
-    content_scripts: config.contentScripts,
+    ${extensionType === 'devtools' ? `devtools_page: config.devtoolsPage,` : ``}
+    ${extensionType === 'sidepanel' ? 'side_panel: config.sidePanel,' : ``}
+    ${
+      overridePage !== 'none'
+        ? `chrome_url_overrides: config.chromeUrlOverrides,`
+        : ``
+    }
     web_accessible_resources: config.webAccessibleResources,
   },
   '${browser.toLowerCase()}'
@@ -145,7 +205,7 @@ export function manifestIndexFile(browsers: Browser[]): string | string[] {
       .replace(/,/g, '\n')
 
     const manifestExports = `
-export const manifest = [
+export const manifests = [
   ${browsers}
 ]`
     return `${manifestImports}\n${manifestExports}`
@@ -153,14 +213,14 @@ export const manifest = [
 
   return `
   import { ${browsers[0].toLowerCase()} } from './${browsers[0].toLowerCase()}'
-  export const manifest = [ ${browsers[0].toLowerCase()} ]
+  export const manifests = [ ${browsers[0].toLowerCase()} ]
   `
 }
 
 export async function writeManifests(response: Answers<string>): Promise<void> {
   const { browser: browsers, extension } = response
-  const manifestDir = path.resolve(extension.name.path, 'src', 'manifest')
-  const sharedManifestPath = path.join(manifestDir, 'config.ts')
+  const manifestDir = path.resolve(extension.name.path, 'src', 'manifests')
+  const sharedManifestPath = path.join(manifestDir, 'manifest.config.ts')
   const manifestIndexPath = path.join(manifestDir, 'index.ts')
 
   try {

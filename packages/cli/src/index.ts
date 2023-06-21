@@ -1,4 +1,4 @@
-import { program, Command } from 'commander'
+import { /* program,*/ Command } from 'commander'
 import { cwd } from 'node:process'
 import { basename } from 'node:path'
 import { promptsIntro, bedframePrompts, makeBed } from './lib'
@@ -75,10 +75,6 @@ bedframe
   .option('-i, --installDeps', 'Add & install dependencies', true)
   .option('-y, --yes', 'Set up Bedframe preconfigured defaults', false)
   .action((name, options) => {
-    console.log('options')
-    console.log(options)
-    console.log('bedframe.opt()')
-    console.log(bedframe.opts())
     if (options) {
       showIntro = false
     }

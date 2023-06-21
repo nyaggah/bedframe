@@ -1,13 +1,7 @@
-import {
-  Manifest,
-  createManifest,
-  Browser,
-  PackageManager,
-  BuildTarget,
-} from '@bedframe/core'
+import { Manifest, createManifest, Browser, BuildTarget } from '@bedframe/core'
+import prompts from 'prompts'
 import path from 'node:path'
 import fs from 'fs-extra'
-import prompts from 'prompts'
 
 export type PackageJsonType = Record<string, any> & {
   name: string
@@ -134,7 +128,8 @@ export function createPackageJson(
 export function createScriptCommandsFrom(
   response: prompts.Answers<string>
 ): ScriptCommand {
-  const { packageManager, browser: browsers } = response
+  const { development, browser: browsers } = response
+  const { packageManager } = development.template.config
 
   const devBuildScripts = () => {
     const devScript = createScriptCommand('dev', 'vite')
@@ -194,9 +189,7 @@ export function createScriptCommandsFrom(
     )
     const lintFormatScript = createScriptCommand(
       'lint:format',
-      `${packageManager.toLowerCase() ?? 'yarn'} prettier:write && ${
-        packageManager.toLowerCase() ?? 'yarn'
-      } lint`
+      `${packageManager.toLowerCase()} prettier:write && ${packageManager.toLowerCase()} lint`
     )
 
     return convertArrayToObject([
@@ -264,13 +257,11 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
         { name: '@vitejs/plugin-react', version: '^4.0.0' },
         { name: 'concurrently', version: '^8.1.0' },
         { name: 'typescript', version: '^5.1.3' },
+        { name: 'unplugin-fonts', version: '^1.0.3' },
         { name: 'vite', version: '^4.3.9' },
       ].sort((a, b) => a.name.localeCompare(b.name)),
     },
   ]
-  // function sortMembersByName(members: Partial<DependencyType>[]) {
-  //   return members.sort((a, b) => a.name.localeCompare(b.name));
-  // }
 
   const lintFormat: Partial<DependencyType>[] = response.development.template
     .config.lintFormat
@@ -286,10 +277,10 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             { name: 'eslint-plugin-react', version: '^7.32.2' },
             { name: 'eslint-plugin-react-hooks', version: '^4.6.0' },
             { name: 'eslint-plugin-react-refresh', version: '^0.4.1' },
-            {
-              name: 'eslint-config-standard-with-typescript',
-              version: '^34.0.0',
-            },
+            // {
+            //   name: 'eslint-config-standard-with-typescript',
+            //   version: '^34.0.0',
+            // },
             { name: 'prettier', version: '^2.8.8' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
         },
@@ -326,6 +317,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             { name: '@testing-library/user-event', version: '^14.4.3' },
             { name: '@testing-library/jest-dom', version: '^5.16.5' },
             { name: '@types/jest', version: '^29.5.2' },
+            { name: '@types/testing-library__jest-dom', version: '^5.14.6' },
             { name: 'jsdom', version: '^21.1.1' },
             { name: 'vitest', version: '^0.29.8' },
           ].sort((a, b) => a.name.localeCompare(b.name)),

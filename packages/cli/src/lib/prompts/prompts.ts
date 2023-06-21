@@ -160,9 +160,9 @@ export const extensionPrompts = (
     message: 'Position:',
     initial: 0,
     choices: [
-      { title: `Default (center)`, value: 'default', selected: true },
-      { title: `Left (sidebar)`, value: 'left' },
-      { title: `Right (sidebar)`, value: 'right' },
+      { title: `Center (default)`, value: 'center', selected: true },
+      { title: `Left`, value: 'left' },
+      { title: `Right`, value: 'right' },
     ],
   },
   {
@@ -171,6 +171,12 @@ export const extensionPrompts = (
     message: 'Override Page:',
     hint: dim('you can override one of these pages'),
     choices: [
+      {
+        title: 'None',
+        value: 'none',
+        description: dim('no page overrides'),
+        selected: true,
+      },
       {
         title: 'New Tab',
         value: 'newtab',
@@ -243,6 +249,8 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
     initial: 0,
   },
   {
+    // TO diddly DO: if ts, yasiin bey lint:format
+    // maybe just default to yes and don't prompt
     type: 'toggle',
     name: 'lintFormat',
     message: 'Add linting with formatting?',

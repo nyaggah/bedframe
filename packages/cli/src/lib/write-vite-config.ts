@@ -3,38 +3,21 @@ import path from 'node:path'
 import prompts from 'prompts'
 
 export function viteConfig(response: prompts.Answers<string>): string {
-  const styledComponents =
-    response.development.template.config.style === 'Styled Components'
+  const { tests: hasTests } = response.development.template.config
+  return `import { defineConfig } from 'vite'
+import { createBedframeConfig } from './bedframe.config'
 
-  return `import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
-import { crx } from '@crxjs/vite-plugin'
-import react from '@vitejs/plugin-react'
-${styledComponents ? `import macrosPlugin from 'vite-plugin-babel-macros'` : ''}
-import { getManifest } from '@bedframe/core'
-import { manifest } from './src/manifest'
+export default defineConfig(({ command, mode }) => {
+  const config = createBedframeConfig(command, mode)
 
-export default defineConfig(async ({ command, mode }) => {
   return {
-    resolve: {
-      alias: {
-        '@': resolve(__dirname, './src'),
-      },
-    },
-    plugins: [
-      react(),
-      crx({
-        manifest: getManifest({ command, mode }, manifest),
-      }),
-      ${styledComponents ? 'macrosPlugin()' : ''},
-    ],
-    build: {
-      outDir: \`dist/\${mode}\`,
-    },
+    root: config.root,
+    resolve: config.resolve,
+    plugins: config.plugins,
+    build: config.build,
+    ${hasTests ? `test: config.test,` : ''}
   }
-})
-
-`
+})\n`
 }
 
 export function writeViteConfig(response: prompts.Answers<string>): void {

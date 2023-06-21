@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-bedframe",
-  "description": "Bedframe eslint config - borrowed form turborepo",
+  "description": "Bedframe eslint config - Shared ESLint configs used in this Turborepo",
   "author": {
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
