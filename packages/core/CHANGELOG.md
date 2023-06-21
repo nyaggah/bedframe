@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.14
+
+### Patch Changes
+
+- b7026ec: project gen updates + re-write configs
+
 ## 0.0.13
 
 ### Patch Changes
