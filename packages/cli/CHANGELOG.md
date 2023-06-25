@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.24
+
+### Patch Changes
+
+- fe6e613: project gen updates + bedframe config updates
+- Updated dependencies [fe6e613]
+  - @bedframe/core@0.0.15
+
 ## 0.0.23
 
 ### Patch Changes

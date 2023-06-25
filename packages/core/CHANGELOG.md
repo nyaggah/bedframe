@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.15
+
+### Patch Changes
+
+- fe6e613: project gen updates + bedframe config updates
+
 ## 0.0.14
 
 ### Patch Changes
