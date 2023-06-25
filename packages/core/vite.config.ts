@@ -13,6 +13,9 @@ export default defineConfig({
     },
     outDir: 'dist',
     emptyOutDir: true,
+    rollupOptions: {
+      external: ['@crxjs/vite-plugin'],
+    },
   },
   plugins: [
     externalizeDeps(),
@@ -21,7 +24,4 @@ export default defineConfig({
       insertTypesEntry: true,
     }),
   ],
-  optimizeDeps: {
-    include: ['unplugin-fonts/vite'],
-  },
 })

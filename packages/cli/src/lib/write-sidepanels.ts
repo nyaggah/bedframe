@@ -50,12 +50,12 @@ export function writeSidePanels(response: prompts.Answers<string>): void {
   const sidePanels = [
     {
       name: 'welcome',
-      path: path.resolve(path.join(sidePanelsPath, 'welcome.html')),
+      path: path.resolve(path.join(sidePanelsPath, 'welcome.tsx')),
       content: sidePanelWelcomeContent,
     },
     {
       name: 'main',
-      path: path.resolve(path.join(sidePanelsPath, 'welcome.html')),
+      path: path.resolve(path.join(sidePanelsPath, 'main.tsx')),
       content: sidePanelMainContent,
     },
   ]

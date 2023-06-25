@@ -210,10 +210,21 @@ export function createScriptCommandsFrom(
     return convertArrayToObject([czScript, postInstallScript])
   }
 
+  const releaseScripts = () => {
+    // "release": "pnpm lint:format && pnpm build:all && changeset version && changeset publish",
+    const releaseScript = createScriptCommand(
+      'release',
+      'pnpm lint:format && pnpm build:all && changeset version && changeset publish'
+    )
+
+    return convertArrayToObject([releaseScript])
+  }
+
   return {
     ...devBuildScripts(),
     ...lintFormatScripts(),
     ...gitHooksScripts(),
+    ...releaseScripts(),
   }
 }
 /**
@@ -248,7 +259,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.14' },
+        { name: '@bedframe/core', version: '^0.0.15' },
         { name: '@crxjs/vite-plugin', version: '^1.0.14' },
         { name: '@types/chrome', version: '^0.0.237' },
         { name: '@types/react', version: '^18.2.9' },
