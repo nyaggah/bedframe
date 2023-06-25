@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.23
+
+### Patch Changes
+
+- 8b64ca0: feat(bedframe config): fix issue with bedframe config when has tests
+
 ## 0.0.22
 
 ### Patch Changes
