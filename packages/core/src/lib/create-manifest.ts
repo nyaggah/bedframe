@@ -70,6 +70,19 @@ export function createManifestSharedFields(
 ): SharedManifestFields {
   return obj
 }
+/**
+ * create a base Manifest to inherit from
+ * type Manifest = chrome.runtime.ManifestV3
+ *
+ * use as shared base to extend inBrowser manifests
+ *
+ * @export
+ * @param {Manifest} manifest
+ * @return {*}  {Manifest}
+ */
+export function createManifestBase(manifest: Manifest): Manifest {
+  return manifest
+}
 
 /*
 https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json#notes_about_manifest.json_keys

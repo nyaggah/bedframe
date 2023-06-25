@@ -1,5 +1,4 @@
 import fs from 'fs-extra'
-// import { AnyCase, Browser } from "@bedframe/core";
 import path from 'node:path'
 import prompts from 'prompts'
 
@@ -12,9 +11,9 @@ const onInstalled = (isSidePanel: boolean): string => `
 chrome.runtime.onInstalled.addListener((details): void => {
   ${
     isSidePanel
-      ? `
+      ? `// @ts-expect-error sidePanel not available (yet) from @types/chrome
   chrome.sidePanel.setOptions({ path: welcomePanel })
-  console.log('[background.ts] > onInstalled > welcomePanel')
+  console.log('[background.ts] > onInstalled > welcomePanel', details)
   `
       : `
   console.log('[background.ts] > onInstalled', details)
@@ -74,14 +73,16 @@ const mainPanel = 'sidepanels/main/index.html'
  *  but you can listen to onUpdated events so as to be notified when a URL is set.
  *  */
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {
+  // @ts-expect-error sidePanel not available (yet) from @types/chrome
   const { path } = await chrome.sidePanel.getOptions({ tabId })
   if (path === welcomePanel) {
+    // @ts-expect-error sidePanel not available (yet) from @types/chrome
     chrome.sidePanel.setOptions({ path: mainPanel })
     console.log('[background.ts] > onInstalled > mainPanel')
   }
 })
 
-// @ts-expect-error sidePanel
+// @ts-expect-error sidePanel not available (yet) from @types/chrome
 chrome.sidePanel
 .setPanelBehavior({ openPanelOnActionClick: true })
 .catch((error: Error) => console.error(error))

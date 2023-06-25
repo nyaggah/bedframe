@@ -5,61 +5,69 @@ import {
   ManifestCommands,
   ManifestContentScripts,
   ManifestIcons,
+  ManifestOptionsUI,
   ManifestPermissions,
+  ManifestURLOverrides,
   ManifestWebAccessibleResources,
 } from './types'
 
-function manifestIcons(icons: ManifestIcons): ManifestIcons {
+function icons(icons: ManifestIcons): ManifestIcons {
   return icons
 }
 
-function manifestAction(action: ManifestAction): ManifestAction {
+function action(action: ManifestAction): ManifestAction {
   return action
 }
 
-function manifestBackground(
-  background: ManifestBackground
-): ManifestBackground {
+function background(background: ManifestBackground): ManifestBackground {
   return background
 }
 
-function manifestSidePanel(
+function sidePanel(
   sidePanel: any // SidePanel <-- TO diddly DO: update when @types/chrome catches up
 ): any {
   return sidePanel
 }
 
-function manifestContentScripts(
+function contentScripts(
   contentScripts: ManifestContentScripts
 ): ManifestContentScripts {
   return contentScripts
 }
 
-function manifestWebAccessibleResources(
+function webAccessibleResources(
   webAccessibleResources: ManifestWebAccessibleResources
 ): ManifestWebAccessibleResources {
   return webAccessibleResources
 }
 
-function manifestCommands(commands: ManifestCommands): ManifestCommands {
+function commands(commands: ManifestCommands): ManifestCommands {
   return commands
 }
 
-function manifestPermissions(
-  permissions: ManifestPermissions
-): ManifestPermissions {
+function permissions(permissions: ManifestPermissions): ManifestPermissions {
   return permissions
 }
 
-export const create = {
-  manifestIcons,
-  manifestAction,
-  manifestBackground,
-  manifestSidePanel,
-  manifestContentScripts,
-  manifestWebAccessibleResources,
-  manifestCommands,
-  manifestPermissions,
+function optionsUI(options: ManifestOptionsUI): ManifestOptionsUI {
+  return options
+}
+
+function urlOverrides(overrides: ManifestURLOverrides): ManifestURLOverrides {
+  return overrides
+}
+
+export const manifest = {
+  icons,
+  action,
+  background,
+  sidePanel,
+  contentScripts,
+  webAccessibleResources,
+  commands,
+  permissions,
+  optionsUI,
+  urlOverrides,
 }
 
 // - - - - - - - - - -

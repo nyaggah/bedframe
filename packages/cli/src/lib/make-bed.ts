@@ -56,6 +56,7 @@ export async function makeBed(response: PromptsResponse) {
         },
         scripts: path.join(stubsPath, 'scripts'),
         lintFormat: path.join(stubsPath, 'lint-format'),
+        github: path.join(stubsPath, 'github'),
         gitHooks: path.join(stubsPath, 'git-hooks'),
         tests: path.join(stubsPath, 'tests'),
         changesets: path.join(stubsPath, 'changesets'),
@@ -179,6 +180,11 @@ export async function makeBed(response: PromptsResponse) {
           ? copyFolder(stubs.tests, path.join(destination.root, 'src'))
           : Promise.resolve(),
 
+        // Copy Github / release workflow w/ changeset publish action
+        response.development.template.config.git
+          ? copyFolder(stubs.github, destination.root)
+          : Promise.resolve(),
+
         // Copy Git Hooks with Husky if required
         response.development.template.config.gitHooks
           ? copyFolder(stubs.gitHooks, destination.root)
@@ -196,6 +202,7 @@ export async function makeBed(response: PromptsResponse) {
 
       if (extensionType === 'sidepanel') {
         writeSidePanels(response)
+        copyFolder(stubs.sidepanels, path.join(destination.root, 'src'))
       }
 
       if (response.development.config.installDeps) {

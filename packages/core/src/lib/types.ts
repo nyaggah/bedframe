@@ -1,4 +1,4 @@
-import { AnyCase, AnyCaseLanguage, createEnum } from './utils'
+import { AnyCase, createEnum } from './utils'
 
 export const FrameworkEnum = {
   React: 'React',
@@ -44,6 +44,9 @@ export type ManifestWebAccessibleResources =
 export type ManifestCommands = chrome.runtime.ManifestV3['commands']
 export type ManifestAction = chrome.runtime.ManifestV3['action']
 export type ManifestPermissions = chrome.runtime.ManifestV3['permissions']
+export type ManifestOptionsUI = chrome.runtime.ManifestV3['options_ui']
+export type ManifestURLOverrides =
+  chrome.runtime.ManifestV3['chrome_url_overrides']
 
 export type BrowserName<T extends string> = Capitalize<T> | Lowercase<T>
 export type BrowserEnumType<T extends string> = {
@@ -55,6 +58,11 @@ export type BuildMode = AnyCase<Browser>
 export type BuildTarget = {
   manifest: Manifest
   browser: AnyCase<Browser>
+}
+export type BuildConfig = {
+  command?: 'build' | 'serve'
+  mode?: AnyCase<Browser> | string
+  // ^^^ `Browser` for @bedframe-specific build modes... rest for vite and pals
 }
 
 export interface Repository {
