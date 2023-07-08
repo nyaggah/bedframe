@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -63,7 +67,7 @@ importers:
         version: 3.12.7
       turbo:
         specifier: latest
-        version: 1.10.6
+        version: 1.10.7
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -171,8 +175,8 @@ importers:
         specifier: ^5.59.8
         version: 5.59.8(@typescript-eslint/parser@5.59.11)(eslint@7.32.0)(typescript@4.9.5)
       '@vitejs/plugin-react':
-        specifier: ^4.0.1
-        version: 4.0.1(vite@4.3.9)
+        specifier: ^4.0.2
+        version: 4.0.2(vite@4.3.9)
       eslint-config-bedframe:
         specifier: '*'
         version: link:../eslint-config-bedframe
@@ -254,7 +258,7 @@ importers:
         version: 8.7.0(eslint@7.32.0)
       eslint-config-turbo:
         specifier: latest
-        version: 1.10.6(eslint@7.32.0)
+        version: 1.10.7(eslint@7.32.0)
       eslint-plugin-react:
         specifier: 7.32.2
         version: 7.32.2(eslint@7.32.0)
@@ -921,7 +925,7 @@ packages:
       rollup: 2.79.1
       vite: 4.3.9(@types/node@16.18.36)
     optionalDependencies:
-      '@vitejs/plugin-react': 4.0.1(vite@4.3.9)
+      '@vitejs/plugin-react': 4.0.2(vite@4.3.9)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2038,8 +2042,8 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: true
 
-  /@vitejs/plugin-react@4.0.1(vite@4.3.9):
-    resolution: {integrity: sha512-g25lL98essfeSj43HJ0o4DMp0325XK0ITkxpgChzJU/CyemgyChtlxfnRbjfwxDGCTRxTiXtQAsdebQXKMRSOA==}
+  /@vitejs/plugin-react@4.0.2(vite@4.3.9):
+    resolution: {integrity: sha512-zbnVp3Esfg33zDaoLrjxG+p/dPiOtpvJA+1oOEQwSxMMTRL9zi1eghIcd2WtLjkcKnPsa3S15LzS/OzDn2BOCA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.2.0
@@ -3268,13 +3272,13 @@ packages:
       eslint-plugin-turbo: 1.10.3(eslint@7.32.0)
     dev: true
 
-  /eslint-config-turbo@1.10.6(eslint@7.32.0):
-    resolution: {integrity: sha512-iZ63etePRUdEIDY5MxdUhU2ekV9TDbVdHg0BK00QqVFgQTXUYuJ7rsQj/wUKTsw3jwhbLfaY6H5sknAgYyWZ2g==}
+  /eslint-config-turbo@1.10.7(eslint@7.32.0):
+    resolution: {integrity: sha512-0yHt5UlXVph8S4SOvP6gYehLvYjJj6XFKTYOG/WUQbjlcF0OU4pOT1a1juqmmBPWYlvJ0evt7v+RekY4tOopPQ==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 7.32.0
-      eslint-plugin-turbo: 1.10.6(eslint@7.32.0)
+      eslint-plugin-turbo: 1.10.7(eslint@7.32.0)
     dev: false
 
   /eslint-import-resolver-node@0.3.7:
@@ -3440,8 +3444,8 @@ packages:
       eslint: 7.32.0
     dev: true
 
-  /eslint-plugin-turbo@1.10.6(eslint@7.32.0):
-    resolution: {integrity: sha512-jlzfxYaK8hcz1DTk8Glxxi1r0kgdy85191a4CbFOTiiBulmKHMLJgzhsyE9Ong796MA62n91KFpc20BiKjlHwg==}
+  /eslint-plugin-turbo@1.10.7(eslint@7.32.0):
+    resolution: {integrity: sha512-YikBHc75DY9VV1vAFUIBekHLQlxqVT5zTNibK8zBQInCUhF7PvyPJc0xXw5FSz8EYtt4uOV3r0Km3CmFRclS4Q==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -6257,65 +6261,65 @@ packages:
       yargs: 17.7.2
     dev: true
 
-  /turbo-darwin-64@1.10.6:
-    resolution: {integrity: sha512-s2Gc7i9Ud+H9GDcrGJjPIyscJfzDGQ6il4Sl2snfvwngJs4/TaqKuBoX3HNt/7F4NiFRs7ZhlLV1/Yu9zGBRhw==}
+  /turbo-darwin-64@1.10.7:
+    resolution: {integrity: sha512-N2MNuhwrl6g7vGuz4y3fFG2aR1oCs0UZ5HKl8KSTn/VC2y2YIuLGedQ3OVbo0TfEvygAlF3QGAAKKtOCmGPNKA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64@1.10.6:
-    resolution: {integrity: sha512-tgl70t5PBLyRcNTdP9N6NjvdvQ5LUk8Z60JGUhBhnc+oCOdA4pltrDJNPyel3tQAXXt1dDpl8pp9vUrbwoVyGg==}
+  /turbo-darwin-arm64@1.10.7:
+    resolution: {integrity: sha512-WbJkvjU+6qkngp7K4EsswOriO3xrNQag7YEGRtfLoDdMTk4O4QTeU6sfg2dKfDsBpTidTvEDwgIYJhYVGzrz9Q==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64@1.10.6:
-    resolution: {integrity: sha512-h7eyAA3xtAVpamcYJYUwe0xm0LWdbv7/I7QiM09AZ67TTNpyUgqW8giFN3h793BHEQ2Rcnk9FNkpIbjWBbyamg==}
+  /turbo-linux-64@1.10.7:
+    resolution: {integrity: sha512-x1CF2CDP1pDz/J8/B2T0hnmmOQI2+y11JGIzNP0KtwxDM7rmeg3DDTtDM/9PwGqfPotN9iVGgMiMvBuMFbsLhg==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64@1.10.6:
-    resolution: {integrity: sha512-8cZhOeLqu3QZ27yLd6bw4FNaB8y5pLdWeRLJeiWHkIb/cptKnRKJFP+keBJzJi8ovaMqdBpabrxiBRN2lhau5Q==}
+  /turbo-linux-arm64@1.10.7:
+    resolution: {integrity: sha512-JtnBmaBSYbs7peJPkXzXxsRGSGBmBEIb6/kC8RRmyvPAMyqF8wIex0pttsI+9plghREiGPtRWv/lfQEPRlXnNQ==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64@1.10.6:
-    resolution: {integrity: sha512-qx5jcfCJodN1Mh0KtSVQau7pK8CxDvtif7+joPHI2HbQPAADgdUl0LHfA5tFHh6aWgfvhxbvIXqJd6v7Mqkj9g==}
+  /turbo-windows-64@1.10.7:
+    resolution: {integrity: sha512-7A/4CByoHdolWS8dg3DPm99owfu1aY/W0V0+KxFd0o2JQMTQtoBgIMSvZesXaWM57z3OLsietFivDLQPuzE75w==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64@1.10.6:
-    resolution: {integrity: sha512-vTQaRG3/s2XTreOBr6J9HKFtjzusvwGQg0GtuW2+9Z7fizdzP8MuhaDbN6FhKHcWC81PQPD61TBIKTVTsYOEZg==}
+  /turbo-windows-arm64@1.10.7:
+    resolution: {integrity: sha512-D36K/3b6+hqm9IBAymnuVgyePktwQ+F0lSXr2B9JfAdFPBktSqGmp50JNC7pahxhnuCLj0Vdpe9RqfnJw5zATA==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo@1.10.6:
-    resolution: {integrity: sha512-0/wbjw4HvmPP1abVWHTdeFRfCA9cn5oxCPP5bDixagLzvDgGWE3xfdlsyGmq779Ekr9vjtDPgC2Y4JlXEhyryw==}
+  /turbo@1.10.7:
+    resolution: {integrity: sha512-xm0MPM28TWx1e6TNC3wokfE5eaDqlfi0G24kmeHupDUZt5Wd0OzHFENEHMPqEaNKJ0I+AMObL6nbSZonZBV2HA==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.10.6
-      turbo-darwin-arm64: 1.10.6
-      turbo-linux-64: 1.10.6
-      turbo-linux-arm64: 1.10.6
-      turbo-windows-64: 1.10.6
-      turbo-windows-arm64: 1.10.6
+      turbo-darwin-64: 1.10.7
+      turbo-darwin-arm64: 1.10.7
+      turbo-linux-64: 1.10.7
+      turbo-linux-arm64: 1.10.7
+      turbo-windows-64: 1.10.7
+      turbo-windows-arm64: 1.10.7
     dev: true
 
   /type-check@0.4.0:
@@ -6737,7 +6741,3 @@ packages:
     optionalDependencies:
       commander: 9.5.0
     dev: true
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
