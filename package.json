@@ -38,7 +38,7 @@
     "eslint": "^7.32.0",
     "eslint-config-bedframe": "*",
     "eslint-config-prettier": "^8.7.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.8",
     "shx": "^0.3.3",
