@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.26
+
+### Patch Changes
+
+- d084473: bump installed @bedframe/core package
+
 ## 0.0.25
 
 ### Patch Changes
