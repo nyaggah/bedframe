@@ -1,5 +1,11 @@
 # @bedframe/tsconfig
 
+## 0.0.5
+
+### Patch Changes
+
+- f266d40: feat(changeset): project gen updates; repo cleanup
+
 ## 0.0.4
 
 ### Patch Changes

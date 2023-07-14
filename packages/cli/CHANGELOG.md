@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.25
+
+### Patch Changes
+
+- f266d40: feat(changeset): project gen updates; repo cleanup
+- Updated dependencies [f266d40]
+  - @bedframe/core@0.0.16
+
 ## 0.0.24
 
 ### Patch Changes
