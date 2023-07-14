@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.16
+
+### Patch Changes
+
+- f266d40: feat(changeset): project gen updates; repo cleanup
+
 ## 0.0.15
 
 ### Patch Changes
