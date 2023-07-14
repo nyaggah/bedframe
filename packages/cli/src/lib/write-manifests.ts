@@ -144,7 +144,7 @@ export default {
   background,
   ${response.extension.type.name === 'sidepanel' ? `sidePanel,` : ''}
   ${overridePage !== 'none' ? `chromeUrlOverrides,` : ``}  
-  contentScripts,
+  ${response.extension.type.name === 'overlay' ? `contentScripts,` : ''}
   webAccessibleResources,
   commands,
   shared,
