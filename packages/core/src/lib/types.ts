@@ -61,7 +61,7 @@ export type BuildTarget = {
 }
 export type BuildConfig = {
   command?: 'build' | 'serve'
-  mode?: AnyCase<Browser> | string
+  mode?: AnyCase<Browser> | string | undefined
   // ^^^ `Browser` for @bedframe-specific build modes... rest for vite and pals
 }
 

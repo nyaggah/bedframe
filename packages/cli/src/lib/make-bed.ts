@@ -1,19 +1,20 @@
 import { execa } from 'execa'
-import { dim, green } from 'kolorist'
 import fs from 'fs-extra'
-import url from 'node:url'
-import { chdir } from 'node:process'
+import { dim, green } from 'kolorist'
+import Listr from 'listr'
 import path, { basename } from 'node:path'
-import { writeManifests } from './write-manifests'
-import { writeViteConfig } from './write-vite-config'
-import { writePackageJson } from './write-package-json'
+import { chdir } from 'node:process'
+import url from 'node:url'
 import { copyFolder } from './copy-folder'
-import { PromptsResponse } from './prompts'
 import { initializeGitProject } from './initialize-git'
 import { installDependencies } from './install-deps'
-import { writeSidePanels } from './write-sidepanels'
-import { writeServiceWorker } from './write-service-worker'
+import { PromptsResponse } from './prompts'
 import { writeBedframeConfig } from './write-bedframe-config'
+import { writeManifests } from './write-manifests'
+import { writePackageJson } from './write-package-json'
+import { writeServiceWorker } from './write-service-worker'
+import { writeSidePanels } from './write-sidepanels'
+import { writeViteConfig } from './write-vite-config'
 
 export async function makeBed(response: PromptsResponse) {
   // const projectDir = response.extension.name.name
@@ -28,10 +29,10 @@ export async function makeBed(response: PromptsResponse) {
       await execa('cd', [`${projectPath}`]).catch(console.error)
 
       // Write package.json file
-      writePackageJson(response)
+      // writePackageJson(response)
 
       // Write necessary files asynchronously
-      await Promise.all([writeManifests(response), writeViteConfig(response)])
+      // await Promise.all([writeManifests(response), writeViteConfig(response)])
 
       const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
       const stubsPath = path.resolve(path.join(__dirname, 'stubs'))
@@ -102,120 +103,217 @@ export async function makeBed(response: PromptsResponse) {
         }
       }
 
-      await Promise.all([
-        copyFolder(stubs.assets, path.join(destination.root, 'src', 'assets')),
-        copyFolder(stubs.base, destination.root),
-        // copyFolder(stubs.public, path.join(destination.root, 'public')),
-        copyFolder(
-          stubs.components,
-          path.join(destination.root, 'src', 'components')
-        ),
+      const tasks = new Listr([
+        {
+          title: 'Creating package.json...',
+          task: () => writePackageJson(response),
+        },
+        {
+          title: 'Creating vite.config.ts...',
+          task: () => writeViteConfig(response),
+        },
+        {
+          title: 'Creating manifests...',
+          task: () => writeManifests(response),
+        },
+        {
+          title: 'Creating project assets...',
+          task: () =>
+            copyFolder(
+              stubs.assets,
+              path.join(destination.root, 'src', 'assets')
+            ),
+        },
+        {
+          title: 'Creating base project...',
+          task: () => copyFolder(stubs.base, destination.root),
+        },
+        {
+          title: 'Creating project components...',
+          task: () =>
+            copyFolder(
+              stubs.components,
+              path.join(destination.root, 'src', 'components')
+            ),
+        },
+        {
+          title: 'Creating extension popup...',
+          task: () =>
+            extensionType === 'popup'
+              ? copyFolder(
+                  stubs.pages.popup,
+                  path.join(destination.root, 'src', 'pages', 'popup')
+                )
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating extension side panels...',
+          task: () =>
+            extensionType === 'sidepanel'
+              ? writeSidePanels(response)
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating extension devtools panels...',
+          task: () =>
+            extensionType === 'devtools'
+              ? copyFolder(
+                  stubs.pages.devtools,
+                  path.join(destination.root, 'src', 'pages', 'devtools')
+                )
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating options page...',
+          task: () =>
+            optionsPage === 'full-page' || optionsPage === 'embedded'
+              ? copyFolder(
+                  stubs.pages.options,
+                  path.join(destination.root, 'src', 'pages', 'options')
+                )
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating override page...',
+          task: () =>
+            overridePage !== 'none'
+              ? copyOverridePage(overridePage, getOverridePage(overridePage))
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating content script...',
+          task: () => {
+            extensionType === 'overlay'
+              ? copyFolder(
+                  stubs.scripts,
+                  path.join(destination.root, 'src', 'scripts')
+                )
+              : Promise.resolve()
+          },
+        },
+        {
+          title: 'Creating service worker (background script)...',
+          task: () => writeServiceWorker(response),
+        },
+        {
+          title: 'Creating project Typescript configurations...',
+          task: () =>
+            response.development.template.config.language === 'TypeScript'
+              ? copyFolder(stubs.tsconfig, destination.root)
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating style (w/ Tailwind CSS) configurations...',
+          task: () =>
+            response.development.template.config.style === 'Tailwind'
+              ? copyFolder(stubs.style.tailwind, destination.root)
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating style (w/ Styled Components) configurations...',
+          task: () =>
+            response.development.template.config.style === 'Styled Components'
+              ? copyFolder(
+                  stubs.style.styledComponents,
+                  path.join(destination.root, 'src')
+                )
+              : Promise.resolve(),
+        },
+        {
+          title:
+            'Creating Lint & Format (w/ ESLint + Prettier) configurations...',
+          task: () =>
+            response.development.template.config.lintFormat ||
+            response.language === 'TypeScript'
+              ? copyFolder(stubs.lintFormat, destination.root)
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating unit test (w/ Vitest) configurations...',
+          task: () =>
+            hasTests
+              ? copyFolder(stubs.tests, path.join(destination.root, 'src'))
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating git (w/ Github) workflows...',
+          task: () =>
+            response.development.template.config.git
+              ? copyFolder(stubs.github, destination.root)
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating git hooks (w/ Husky) configurations...',
+          task: () =>
+            response.development.template.config.gitHooks
+              ? copyFolder(stubs.gitHooks, destination.root)
+              : Promise.resolve(),
+        },
+        {
+          title:
+            'Creating project versioning + changelog (w/ Changesets) configurations...',
+          task: () =>
+            response.development.template.config.changesets
+              ? copyFolder(stubs.changesets, destination.root)
+              : Promise.resolve(),
+        },
+        {
+          title: 'Creating bedframe.config.ts...',
+          task: () => writeBedframeConfig(response),
+        },
+        {
+          title: 'Installing dependencies...',
+          task: () =>
+            response.development.config.installDeps
+              ? installDependencies(response)
+              : Promise.resolve(),
+        },
+        //   {
+        //     title: 'Initializing git repository',
+        //     skip: () => !response.development.template.config.git,
+        //     task: async () => {
+        //       chdir(projectPath)
+        //       await initializeGitProject(response)
+        //       const { packageManager } = response.development.template.config
+        //       const { installDeps } = response.development.config
+        //       console.log(`>_
 
-        extensionType === 'popup'
-          ? copyFolder(
-              stubs.pages.popup,
-              path.join(destination.root, 'src', 'pages', 'popup')
-            )
-          : Promise.resolve(),
+        //   ${green('Your BED is made! 🚀')}
 
-        extensionType === 'sidepanel'
-          ? copyFolder(
-              stubs.sidepanels,
-              path.join(destination.root, 'src', 'sidepanels')
-            )
-          : Promise.resolve(),
-
-        optionsPage === 'full-page' || optionsPage === 'embedded'
-          ? copyFolder(
-              stubs.pages.options,
-              path.join(destination.root, 'src', 'pages', 'options')
-            )
-          : Promise.resolve(),
-
-        extensionType === 'devtools'
-          ? copyFolder(
-              stubs.pages.devtools,
-              path.join(destination.root, 'src', 'pages', 'devtools')
-            )
-          : Promise.resolve(),
-
-        overridePage !== 'none'
-          ? // ? copyOverridePage(overridePage, stubs.pages.history)
-            copyOverridePage(overridePage, getOverridePage(overridePage))
-          : Promise.resolve(),
-
-        // if we're writing  it e.g. for sidePanel
-        // don't copy over fileses
-        copyFolder(
-          stubs.scripts,
-          path.join(destination.root, 'src', 'scripts')
-        ),
-
-        // Copy TS Config if using TypeScript
-        response.development.template.config.language === 'TypeScript'
-          ? copyFolder(stubs.tsconfig, destination.root)
-          : Promise.resolve(),
-
-        // Copy Tailwind CSS if selected
-        response.development.template.config.style === 'Tailwind'
-          ? copyFolder(stubs.style.tailwind, destination.root)
-          : Promise.resolve(),
-
-        // Copy Styled Components if selected
-        response.development.template.config.style === 'Styled Components'
-          ? copyFolder(
-              stubs.style.styledComponents,
-              path.join(destination.root, 'src')
-            )
-          : Promise.resolve(),
-
-        // Copy Lint & Format files if required
-        response.development.template.config.lintFormat ||
-        response.language === 'TypeScript'
-          ? copyFolder(stubs.lintFormat, destination.root)
-          : Promise.resolve(),
-
-        // Copy Unit Test files if required
-        hasTests
-          ? copyFolder(stubs.tests, path.join(destination.root, 'src'))
-          : Promise.resolve(),
-
-        // Copy Github / release workflow w/ changeset publish action
-        response.development.template.config.git
-          ? copyFolder(stubs.github, destination.root)
-          : Promise.resolve(),
-
-        // Copy Git Hooks with Husky if required
-        response.development.template.config.gitHooks
-          ? copyFolder(stubs.gitHooks, destination.root)
-          : Promise.resolve(),
-
-        // Copy Changesets if required
-        response.development.template.config.changesets
-          ? copyFolder(stubs.changesets, destination.root)
-          : Promise.resolve(),
+        //   ${dim('1.')} cd ${basename(projectPath)}
+        //   ${
+        //     !installDeps
+        //       ? `${dim('2.')} ${packageManager.toLowerCase()} ${
+        //           packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+        //         }`
+        //       : ``
+        //   }
+        //   ${dim(
+        //     installDeps ? `2.` : `3.`
+        //   )} ${packageManager.toLowerCase()} dev ${dim(
+        //         `or ${packageManager.toLowerCase()} dev:all`
+        //       )}
+        // `)
+        //     },
+        //   },
       ])
 
-      writeBedframeConfig(response)
-
-      writeServiceWorker(response)
-
-      if (extensionType === 'sidepanel') {
-        writeSidePanels(response)
-        copyFolder(stubs.sidepanels, path.join(destination.root, 'src'))
-      }
-
-      if (response.development.config.installDeps) {
-        await installDependencies(response)
-      }
-
-      if (response.development.template.config.git) {
-        chdir(projectPath)
-        await initializeGitProject(response)
-        const { packageManager } = response.development.template.config
-        const { installDeps } = response.development.config
-        console.log(`
-        >_
+      tasks
+        .run()
+        .then((anything: any) => {
+          console.log('run tasks then what....', anything)
+        })
+        .catch((error: any) => {
+          console.error('Failed to make BED ::frowny-face::', error)
+        })
+        .finally(async () => {
+          console.log('finally the rock has come back to ..... buffalo!')
+          if (response.development.template.config.git) {
+            chdir(projectPath)
+            await initializeGitProject(response)
+            const { packageManager } = response.development.template.config
+            const { installDeps } = response.development.config
+            console.log(`>_
         
         ${green('Your BED is made! 🚀')}
         
@@ -230,10 +328,173 @@ export async function makeBed(response: PromptsResponse) {
         ${dim(
           installDeps ? `2.` : `3.`
         )} ${packageManager.toLowerCase()} dev ${dim(
-          `or ${packageManager.toLowerCase()} dev:all`
-        )}
+              `or ${packageManager.toLowerCase()} dev:all`
+            )}
       `)
-      }
+          }
+        })
+
+      // await Promise.all([
+      //   copyFolder(stubs.assets, path.join(destination.root, 'src', 'assets')),
+      //   copyFolder(stubs.base, destination.root),
+      //   copyFolder(
+      //     stubs.components,
+      //     path.join(destination.root, 'src', 'components')
+      //   ),
+
+      //   extensionType === 'popup'
+      //     ? copyFolder(
+      //         stubs.pages.popup,
+      //         path.join(destination.root, 'src', 'pages', 'popup')
+      //       )
+      //     : Promise.resolve(),
+
+      //   extensionType === 'sidepanel'
+      //     ? writeSidePanels(response)
+      //     : Promise.resolve(),
+
+      //   extensionType === 'devtools'
+      //     ? copyFolder(
+      //         stubs.pages.devtools,
+      //         path.join(destination.root, 'src', 'pages', 'devtools')
+      //       )
+      //     : Promise.resolve(),
+
+      //   optionsPage === 'full-page' || optionsPage === 'embedded'
+      //     ? copyFolder(
+      //         stubs.pages.options,
+      //         path.join(destination.root, 'src', 'pages', 'options')
+      //       )
+      //     : Promise.resolve(),
+
+      //   overridePage !== 'none'
+      //     ? copyOverridePage(overridePage, getOverridePage(overridePage))
+      //     : Promise.resolve(),
+
+      //   // if we're writing  it e.g. for sidePanel
+      //   // don't copy over fileses
+      //   // copyFolder(
+      //   //   stubs.scripts,
+      //   //   path.join(destination.root, 'src', 'scripts')
+      //   // ),
+      //   writeServiceWorker(response),
+
+      //   // Copy TS Config if using TypeScript
+      //   response.development.template.config.language === 'TypeScript'
+      //     ? copyFolder(stubs.tsconfig, destination.root)
+      //     : Promise.resolve(),
+
+      //   // Copy Tailwind CSS if selected
+      //   response.development.template.config.style === 'Tailwind'
+      //     ? copyFolder(stubs.style.tailwind, destination.root)
+      //     : Promise.resolve(),
+
+      //   // Copy Styled Components if selected
+      //   response.development.template.config.style === 'Styled Components'
+      //     ? copyFolder(
+      //         stubs.style.styledComponents,
+      //         path.join(destination.root, 'src')
+      //       )
+      //     : Promise.resolve(),
+
+      //   // Copy Lint & Format files if required
+      //   response.development.template.config.lintFormat ||
+      //   response.language === 'TypeScript'
+      //     ? copyFolder(stubs.lintFormat, destination.root)
+      //     : Promise.resolve(),
+
+      //   // Copy Unit Test files if required
+      //   hasTests
+      //     ? copyFolder(stubs.tests, path.join(destination.root, 'src'))
+      //     : Promise.resolve(),
+
+      //   // Copy Github / release workflow w/ changeset publish action
+      //   response.development.template.config.git
+      //     ? copyFolder(stubs.github, destination.root)
+      //     : Promise.resolve(),
+
+      //   // Copy Git Hooks with Husky if required
+      //   response.development.template.config.gitHooks
+      //     ? copyFolder(stubs.gitHooks, destination.root)
+      //     : Promise.resolve(),
+
+      //   // Copy Changesets if required
+      //   response.development.template.config.changesets
+      //     ? copyFolder(stubs.changesets, destination.root)
+      //     : Promise.resolve(),
+
+      //   writeBedframeConfig(response),
+
+      //   response.development.config.installDeps
+      //     ? installDependencies(response)
+      //     : Promise.resolve(),
+      // ])
+      //   .then(() => {
+      //     console.log('bruh ......')
+      //   })
+      //   .finally(() => {
+      //     console.log('finally the rock has come back to ..... buffalo!')
+      //     if (response.development.template.config.git) {
+      //       console.log('we should be initializing the repo bruh!!!')
+      //       chdir(projectPath)
+      //       await initializeGitProject(response)
+      //       const { packageManager } = response.development.template.config
+      //       const { installDeps } = response.development.config
+      //       console.log(`
+      //     >_
+
+      //     ${green('Your BED is made! 🚀')}
+
+      //     ${dim('1.')} cd ${basename(projectPath)}
+      //     ${
+      //       !installDeps
+      //         ? `${dim('2.')} ${packageManager.toLowerCase()} ${
+      //             packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+      //           }`
+      //         : ``
+      //     }
+      //     ${dim(
+      //       installDeps ? `2.` : `3.`
+      //     )} ${packageManager.toLowerCase()} dev ${dim(
+      //         `or ${packageManager.toLowerCase()} dev:all`
+      //       )}
+      //   `)
+      //     }
+      //   })
+
+      // writeBedframeConfig(response)
+
+      // writeServiceWorker(response)
+
+      // if (extensionType === 'sidepanel') {
+      //   writeSidePanels(response)
+      // }
+
+      // if (response.development.template.config.git) {
+      //   chdir(projectPath)
+      //   await initializeGitProject(response)
+      //   const { packageManager } = response.development.template.config
+      //   const { installDeps } = response.development.config
+      //   console.log(`
+      //   >_
+
+      //   ${green('Your BED is made! 🚀')}
+
+      //   ${dim('1.')} cd ${basename(projectPath)}
+      //   ${
+      //     !installDeps
+      //       ? `${dim('2.')} ${packageManager.toLowerCase()} ${
+      //           packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+      //         }`
+      //       : ``
+      //   }
+      //   ${dim(
+      //     installDeps ? `2.` : `3.`
+      //   )} ${packageManager.toLowerCase()} dev ${dim(
+      //     `or ${packageManager.toLowerCase()} dev:all`
+      //   )}
+      // `)
+      // }
     } catch (error) {
       console.error(error)
     }

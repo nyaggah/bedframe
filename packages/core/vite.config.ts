@@ -13,15 +13,17 @@ export default defineConfig({
     },
     outDir: 'dist',
     emptyOutDir: true,
-    rollupOptions: {
-      external: ['@crxjs/vite-plugin'],
-    },
   },
   plugins: [
-    externalizeDeps(),
+    externalizeDeps({
+      deps: false,
+    }),
     nodeExternals(),
     dts({
       insertTypesEntry: true,
     }),
   ],
+  optimizeDeps: {
+    include: ['@crxjs/vite-plugin'],
+  },
 })

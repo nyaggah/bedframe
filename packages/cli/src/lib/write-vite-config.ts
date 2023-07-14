@@ -8,7 +8,7 @@ export function viteConfig(response: prompts.Answers<string>): string {
 import { createBedframeConfig } from './bedframe.config'
 
 export default defineConfig(({ command, mode }) => {
-  const config = createBedframeConfig(command, mode)
+  const config = createBedframeConfig({ command, mode })
 
   return {
     root: config.root,

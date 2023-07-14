@@ -12,22 +12,19 @@ export async function initializeGitProject(
     chdir(projectPath)
     await execa('git', ['init'])
     await execa('git', ['add', '.'])
-    // await execa('git', [
-    //   'commit',
-    //   '-am',
-    //   `feat(${projectName}): initial commit. configure BEDframe`,
-    // ])
-    const commitMessage = `feat(${projectName}): initial commit. configure bedframe`
 
+    const commitMessage = `feat(${projectName}): initial commit. configure bedframe`
     const childProcess = execa('git', ['commit', '-am', commitMessage])
 
     // if (childProcess.stdout) {
-    //   // childProcess.stdout.on('data', (_data) => {
-    //   //   // Handle the output data here
-    //   //   // console.log(data)
-    //   // })
+    //   console.log('childProcess.stdout', childProcess.stdout)
+    //   childProcess.stdout.on('data', (data) => {
+    //     // Handle the output data here
+    //     console.log(data)
+    //   })
     // }
 
+    // console.log(childProcess)
     // Wait for the child process to complete
     await childProcess
   } catch (error) {

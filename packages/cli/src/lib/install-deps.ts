@@ -5,7 +5,7 @@ import { projectInstall } from 'pkg-install'
 import { PromptsResponse } from './prompts'
 import fs from 'fs-extra'
 
-export async function installDependencies(response: PromptsResponse) {
+export function installDependencies(response: PromptsResponse): void {
   const projectPath = response.extension.name.path
   const { packageManager } = response.development.template.config
   const packageJson = path.join(projectPath, 'package.json')
@@ -16,24 +16,26 @@ export async function installDependencies(response: PromptsResponse) {
       return
     }
 
-    await execa('cd', [`${projectPath}`])
+    // await
+    execa('cd', [`${projectPath}`])
       .then(async () => {
-        const { stdout } = await projectInstall({
+        // const { stdout } =
+        await projectInstall({
           prefer: packageManager.toLowerCase(),
           cwd: projectPath,
+        }).finally(() => {
+          console.log(`
+          >_
+          
+          ${green('Your BED is made! 🚀')}
+          
+          ${dim('1.')} cd ${basename(projectPath)}
+          ${dim('2.')} ${packageManager.toLowerCase()} dev ${dim(
+            `or ${packageManager.toLowerCase()} dev:all`
+          )}
+        `)
         })
-        console.log(stdout)
-
-        console.log(`
-        >_
-        
-        ${green('Your BED is made! 🚀')}
-        
-        ${dim('1.')} cd ${basename(projectPath)}
-        ${dim('2.')} ${packageManager.toLowerCase()} dev ${dim(
-          `or ${packageManager.toLowerCase()} dev:all`
-        )}
-      `)
+        // console.log(stdout)
       })
       .catch(console.error)
   })

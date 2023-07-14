@@ -46,7 +46,11 @@ export const background: ManifestBackground = {
   type: 'module',
 }
 
-export const devtoolsPage = 'src/pages/devtools/index.html'
+${
+  extensionType === 'devtools'
+    ? `export const devtoolsPage = 'src/pages/devtools/index.html'`
+    : ''
+}
 ${
   optionsPage === 'full-page'
     ? `export const optionsPage = 'src/pages/options/index.html'`
@@ -136,11 +140,11 @@ export default {
   icons,
   action,
   ${optionsPage === 'full-page' ? `optionsPage,` : `optionsUI,`}
-  devtoolsPage,
+  ${extensionType === 'devtools' ? `devtoolsPage,` : ''}
   background,
   ${response.extension.type.name === 'sidepanel' ? `sidePanel,` : ''}
   ${overridePage !== 'none' ? `chromeUrlOverrides,` : ``}  
-  contentScripts,
+  ${response.extension.type.name === 'overlay' ? `contentScripts,` : ''}
   webAccessibleResources,
   commands,
   shared,
