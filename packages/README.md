@@ -1,10 +1,10 @@
 <div>
   >_<br />
   <br />
-  B R O W S E R<br />
-  E X T E N S I O N<br />
-  D E V E L O P M E N T<br />
-  F R A M E W O R K<br />
+  <span style="color:#c792e9">B R O W S E R</span><br />
+  <span style="color: #c3e88d">E X T E N S I O N</span><br />
+  <span style="color: #8addff">D E V E L O P M E N T</span><br />
+  <span style="color: #ffcb6b">F R A M E W O R K</span><br />
 </div>
 
 #

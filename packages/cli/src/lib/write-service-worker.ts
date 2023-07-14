@@ -146,9 +146,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
 
   // const hasFirefox = browsers.includes('firefox')
 
-  const fileContent = (type: ExtensionType): string => {
-    console.log('type', type)
-
+  const fileContent = (_type: ExtensionType): string => {
     const sidePanelContent = isSidePanel ? sidePanels : ``
     const overlayContent = isOverlay ? overlayBrowserAction : ``
     const devtoolsContent = isDevtools ? devtoolsOnConnect : ``

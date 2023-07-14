@@ -19,6 +19,26 @@ root.render(
 )
 
 `
+const sidePanelWelcomeHtmlContent = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sidepanel: Welcome</title>
+    <style>
+      #root {
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./welcome.tsx"></script>
+  </body>
+</html>
+
+`
+
 const sidePanelMainContent = `
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -40,37 +60,103 @@ root.render(
 
 `
 
+const sidePanelMainHtmlContent = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sidepanel: Main</title>
+    <style>
+      #root {
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>
+
+`
+
 export function writeSidePanels(response: prompts.Answers<string>): void {
   const { extension } = response
 
   const rootDir = path.resolve(extension.name.path)
 
   const sidePanelsPath = path.resolve(path.join(rootDir, 'src', 'sidepanels'))
+  const sidePanelsMainPath = path.resolve(path.join(sidePanelsPath, 'main'))
+  const sidePanelsWelcomePath = path.resolve(
+    path.join(sidePanelsPath, 'welcome')
+  )
 
   const sidePanels = [
     {
       name: 'welcome',
-      path: path.resolve(path.join(sidePanelsPath, 'welcome.tsx')),
-      content: sidePanelWelcomeContent,
+      files: [
+        {
+          path: path.resolve(path.join(sidePanelsWelcomePath, 'welcome.tsx')),
+          content: sidePanelWelcomeContent,
+          destination: sidePanelsWelcomePath,
+        },
+        {
+          path: path.resolve(path.join(sidePanelsWelcomePath, 'index.html')),
+          content: sidePanelWelcomeHtmlContent,
+          destination: sidePanelsWelcomePath,
+        },
+      ],
     },
     {
       name: 'main',
-      path: path.resolve(path.join(sidePanelsPath, 'main.tsx')),
-      content: sidePanelMainContent,
+      files: [
+        {
+          path: path.resolve(path.join(sidePanelsMainPath, 'main.tsx')),
+          content: sidePanelMainContent,
+          destination: sidePanelsMainPath,
+        },
+        {
+          path: path.resolve(path.join(sidePanelsMainPath, 'index.html')),
+          content: sidePanelMainHtmlContent,
+          destination: sidePanelsMainPath,
+        },
+      ],
     },
   ]
 
   try {
-    fs.ensureDir(sidePanelsPath).catch(console.error)
-    sidePanels.map((sidepanel) => {
-      fs.ensureFile(sidepanel.path)
-        .then(() =>
-          fs
-            .outputFile(sidepanel.path, sidepanel.content + '\n')
-            .catch((error) => console.error(error))
-        )
-        .catch((error) => console.error(error))
-    })
+    fs.ensureDir(sidePanelsPath)
+      .then(() => {
+        // fs.ensureDir(sidePanelsMainPath)
+        // fs.ensureDir(sidePanelsWelcomePath)
+        sidePanels.map((sidepanel) => {
+          sidepanel.files.map((file) => {
+            fs.ensureDir(file.destination).then(() => {
+              fs.ensureFile(file.path)
+                .then(() => {
+                  // TO diddly DO: do we need ensureFile or ensureDir
+                  // if we use outputFile ?? will create dir if not exists!
+                  fs.outputFile(file.path, file.content)
+                })
+                .catch((error) => console.error(error))
+            })
+          })
+        })
+      })
+      .catch(console.error)
+
+    // fs.ensureFile(sidepanel.path)
+    //   .then(() => {
+    //     fs.outputFile(
+    //       sidepanel.path,
+    //       sidepanel.content.component + '\n'
+    //     ).catch((error) => console.error(error))
+
+    //     fs.outputFile(sidepanel.path, sidepanel.content.html + '\n').catch(
+    //       (error) => console.error(error)
+    //     )
+    //   })
+    //   .catch((error) => console.error(error))
   } catch (error) {
     console.error(error)
   }
