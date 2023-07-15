@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.19
+
+### Patch Changes
+
+- 60f2dd8: feat(changeset): project gen updates; clean up
+
 ## 0.0.18
 
 ### Patch Changes
