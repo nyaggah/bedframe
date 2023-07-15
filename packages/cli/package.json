@@ -53,7 +53,7 @@
     "@commander-js/extra-typings": "^10.0.3",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
-    "@rollup/plugin-typescript": "^11.1.0",
+    "@rollup/plugin-typescript": "^11.1.2",
     "@types/chrome": "^0.0.241",
     "@types/fs-extra": "^11.0.1",
     "@types/listr": "^0.14.4",

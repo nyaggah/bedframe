@@ -115,8 +115,8 @@ importers:
         specifier: ^15.0.2
         version: 15.1.0(rollup@3.25.1)
       '@rollup/plugin-typescript':
-        specifier: ^11.1.0
-        version: 11.1.1(rollup@3.25.1)(tslib@2.5.3)(typescript@4.9.5)
+        specifier: ^11.1.2
+        version: 11.1.2(rollup@3.25.1)(tslib@2.5.3)(typescript@4.9.5)
       '@types/chrome':
         specifier: ^0.0.241
         version: 0.0.241
@@ -231,8 +231,8 @@ importers:
         specifier: ^15.1.0
         version: 15.1.0(rollup@3.26.2)
       '@rollup/plugin-typescript':
-        specifier: ^11.1.1
-        version: 11.1.1(rollup@3.26.2)(tslib@2.5.3)(typescript@5.0.2)
+        specifier: ^11.1.2
+        version: 11.1.2(rollup@3.26.2)(tslib@2.5.3)(typescript@5.0.2)
       rollup-plugin-dts:
         specifier: ^5.3.0
         version: 5.3.0(rollup@3.26.2)(typescript@5.0.2)
@@ -1549,8 +1549,8 @@ packages:
       rollup: 3.26.2
     dev: true
 
-  /@rollup/plugin-typescript@11.1.1(rollup@3.25.1)(tslib@2.5.3)(typescript@4.9.5):
-    resolution: {integrity: sha512-Ioir+x5Bejv72Lx2Zbz3/qGg7tvGbxQZALCLoJaGrkNXak/19+vKgKYJYM3i/fJxvsb23I9FuFQ8CUBEfsmBRg==}
+  /@rollup/plugin-typescript@11.1.2(rollup@3.25.1)(tslib@2.5.3)(typescript@4.9.5):
+    resolution: {integrity: sha512-0ghSOCMcA7fl1JM+0gYRf+Q/HWyg+zg7/gDSc+fRLmlJWcW5K1I+CLRzaRhXf4Y3DRyPnnDo4M2ktw+a6JcDEg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.14.0||^3.0.0
@@ -1569,8 +1569,8 @@ packages:
       typescript: 4.9.5
     dev: true
 
-  /@rollup/plugin-typescript@11.1.1(rollup@3.26.2)(tslib@2.5.3)(typescript@5.0.2):
-    resolution: {integrity: sha512-Ioir+x5Bejv72Lx2Zbz3/qGg7tvGbxQZALCLoJaGrkNXak/19+vKgKYJYM3i/fJxvsb23I9FuFQ8CUBEfsmBRg==}
+  /@rollup/plugin-typescript@11.1.2(rollup@3.26.2)(tslib@2.5.3)(typescript@5.0.2):
+    resolution: {integrity: sha512-0ghSOCMcA7fl1JM+0gYRf+Q/HWyg+zg7/gDSc+fRLmlJWcW5K1I+CLRzaRhXf4Y3DRyPnnDo4M2ktw+a6JcDEg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.14.0||^3.0.0
