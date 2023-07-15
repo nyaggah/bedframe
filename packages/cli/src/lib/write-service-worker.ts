@@ -11,8 +11,7 @@ const onInstalled = (isSidePanel: boolean): string => `
 chrome.runtime.onInstalled.addListener((details): void => {
   ${
     isSidePanel
-      ? `// @ts-expect-error sidePanel not available (yet) from @types/chrome
-  chrome.sidePanel.setOptions({ path: welcomePanel })
+      ? `chrome.sidePanel.setOptions({ path: welcomePanel })
   console.log('[background.ts] > onInstalled > welcomePanel', details)
   `
       : `
@@ -73,16 +72,13 @@ const mainPanel = 'src/sidepanels/main/index.html'
  *  but you can listen to onUpdated events so as to be notified when a URL is set.
  *  */
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {
-  // @ts-expect-error sidePanel not available (yet) from @types/chrome
   const { path } = await chrome.sidePanel.getOptions({ tabId })
   if (path === welcomePanel) {
-    // @ts-expect-error sidePanel not available (yet) from @types/chrome
     chrome.sidePanel.setOptions({ path: mainPanel })
     console.log('[background.ts] > onInstalled > mainPanel')
   }
 })
 
-// @ts-expect-error sidePanel not available (yet) from @types/chrome
 chrome.sidePanel
 .setPanelBehavior({ openPanelOnActionClick: true })
 .catch((error: Error) => console.error(error))
@@ -166,34 +162,3 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
     )
     .catch((error) => console.error(error))
 }
-
-// const sidePanelWecome = 'sidepanels/welcome/index.html'
-// const sidePanelMain = 'sidepanels/main/index.html'
-
-// // @ts-expect-error sidePanel
-// chrome.sidePanel
-// .setPanelBehavior({ openPanelOnActionClick: true })
-// .catch((error: Error) => console.error(error))
-
-// chrome.runtime.onInstalled.addListener(() => {
-//   // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
-//   chrome.sidePanel.setOptions({ path: sidePanelWecome })
-// })
-
-// chrome.tabs.onActivated.addListener(async ({ tabId }) => {
-//   // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
-//   const { path } = await chrome.sidePanel.getOptions({ tabId })
-//   if (path === sidePanelMain) {
-//     // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
-//     chrome.sidePanel.setOptions({ path: sidePanelMain })
-//   }
-// })
-
-// chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, _tab) => {
-//   // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
-//   const { path } = await chrome.sidePanel.getOptions({ tabId })
-//   if (changeInfo.status === 'complete' && path === sidePanelMain) {
-//     // @ts-expect-error until `@types/chrome` adds `sidePanel` typings
-//     chrome.sidePanel.setOptions({ path: sidePanelMain })
-//   }
-// })

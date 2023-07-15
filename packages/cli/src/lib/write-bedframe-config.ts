@@ -9,7 +9,7 @@ import { Answers } from 'prompts'
  * @return {*}  {string}
  */
 const getOverridePage = (overridePage: string): string => {
-  return `${overridePage}: resolve(root, 'pages', '${overridePage}', 'index.html'),\n`
+  return `${overridePage}: resolve(src, 'pages', '${overridePage}', 'index.html'),\n`
 }
 
 /**
@@ -58,7 +58,7 @@ export function createBedframeConfig({ command, mode }: BuildConfig): UserConfig
         {
           name: 'Inter',
           local: 'Inter',
-          src: './src/assets/fonts/inter/*.ttf',
+          src: './assets/fonts/inter/*.ttf',
           weights: {
             'Inter-Regular': 400,
             'Inter-SemiBold': 600,
@@ -71,7 +71,7 @@ export function createBedframeConfig({ command, mode }: BuildConfig): UserConfig
       ${styledComponents ? `macrosPlugin(),` : ''}
     ],
     build: {
-      outDir: resolve(__dirname, 'dist', mode), // 'dist/chrome', 'dist/edge', etc
+      outDir,
       emptyOutDir: true,
       rollupOptions: {
         input: {${
@@ -91,9 +91,9 @@ export function createBedframeConfig({ command, mode }: BuildConfig): UserConfig
         ? `test: {
       globals: true,
       setupFiles: ['./vitest/vitest.setup.ts'],
-      environment: 'jsdom', // 'jsdom' | 'edge-runtime' | 'happy-dom' | 'jsdom'
+      environment: 'jsdom',
       coverage: {
-        provider: 'istanbul', // 'c8' | 'custom' | 'istanbul'
+        provider: 'istanbul',
         reporter: ['text', 'json', 'html'],
       },
       watch: false,
