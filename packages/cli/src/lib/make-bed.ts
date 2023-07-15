@@ -254,10 +254,10 @@ export async function makeBed(response: PromptsResponse) {
               ? copyFolder(stubs.changesets, destination.root)
               : Promise.resolve(),
         },
-        {
-          title: 'Creating bedframe.config.ts...',
-          task: () => writeBedframeConfig(response),
-        },
+        // {
+        //   title: 'Creating bedframe.config.ts...',
+        //   task: () => writeBedframeConfig(response),
+        // },
         {
           title: 'Installing dependencies...',
           task: () =>
@@ -267,9 +267,17 @@ export async function makeBed(response: PromptsResponse) {
         },
       ])
 
-      await tasks.run().catch(console.error)
+      // this is supa getti af!
+      let isResolved = false
+      await tasks
+        .run()
+        .then(() => {
+          isResolved = true
+        })
+        .catch(console.error)
 
-      if (response.development.template.config.git) {
+      console.log('isResolve', isResolved)
+      if (response.development.template.config.git && isResolved) {
         chdir(projectPath)
         await initializeGitProject(response)
         const { packageManager } = response.development.template.config

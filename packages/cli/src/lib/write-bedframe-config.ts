@@ -76,7 +76,8 @@ export function createBedframeConfig({ command, mode }: BuildConfig): UserConfig
       rollupOptions: {
         input: {${
           extensionType === 'sidepanel'
-            ? `welcome: resolve(src, 'sidepanels', 'welcome', 'index.html'),\n`
+            ? `welcome: resolve(src, 'sidepanels', 'welcome', 'index.html'),
+            main: resolve(src, 'sidepanels', 'main', 'index.html'),`
             : ''
         }${
     extensionType === 'devtools'

@@ -7,11 +7,5 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "bedframe.config.ts",
-    "src/manifests",
-    "package.json",
-    "vite.config.ts",
-    "vitest"
-  ]
+  "include": ["src/manifests", "package.json", "vite.config.ts", "src/vitest"]
 }
