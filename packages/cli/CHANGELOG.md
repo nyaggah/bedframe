@@ -1,5 +1,14 @@
 # @bedframe/cli
 
+## 0.0.27
+
+### Patch Changes
+
+- 6ab1217: project gen updates (troubleshoot bundling)
+- b0bc1fe: feat(cli): bump installed core version
+- Updated dependencies [6ab1217]
+  - @bedframe/core@0.0.17
+
 ## 0.0.26
 
 ### Patch Changes
