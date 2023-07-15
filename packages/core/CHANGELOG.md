@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.18
+
+### Patch Changes
+
+- 558f631: project gen updates; bump deps etc
+
 ## 0.0.17
 
 ### Patch Changes

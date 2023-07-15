@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.28
+
+### Patch Changes
+
+- 558f631: project gen updates; bump deps etc
+- Updated dependencies [558f631]
+  - @bedframe/core@0.0.18
+
 ## 0.0.27
 
 ### Patch Changes
