@@ -38,9 +38,9 @@ export async function makeBed(response: PromptsResponse) {
       const stubsPath = path.resolve(path.join(__dirname, 'stubs'))
 
       const stubs = {
-        assets: path.join(stubsPath, 'assets'),
+        // assets: path.join(stubsPath, 'assets'),
         base: path.join(stubsPath, 'base'),
-        // public: path.join(stubsPath, 'public'),
+        public: path.join(stubsPath, 'public'),
         pages: {
           popup: path.join(stubsPath, 'pages', 'popup'),
           newtab: path.join(stubsPath, 'pages', 'newtab'),
@@ -117,12 +117,9 @@ export async function makeBed(response: PromptsResponse) {
           task: () => writeManifests(response),
         },
         {
-          title: 'Creating project assets...',
+          title: 'Creating public assets (icons, custom fonts, etc)...',
           task: () =>
-            copyFolder(
-              stubs.assets,
-              path.join(destination.root, 'src', 'assets')
-            ),
+            copyFolder(stubs.public, path.join(destination.root, 'public')),
         },
         {
           title: 'Creating base project...',
@@ -270,35 +267,32 @@ export async function makeBed(response: PromptsResponse) {
         },
       ])
 
-      tasks
-        .run()
-        .catch(console.error)
-        .finally(async () => {
-          if (response.development.template.config.git) {
-            chdir(projectPath)
-            await initializeGitProject(response)
-            const { packageManager } = response.development.template.config
-            const { installDeps } = response.development.config
-            console.log(`>_
-        
-        ${green('Your BED is made! 🚀')}
-        
-        ${dim('1.')} cd ${basename(projectPath)}
-        ${
-          !installDeps
-            ? `${dim('2.')} ${packageManager.toLowerCase()} ${
-                packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
-              }`
-            : ``
-        }
-        ${dim(
-          installDeps ? `2.` : `3.`
-        )} ${packageManager.toLowerCase()} dev ${dim(
-              `or ${packageManager.toLowerCase()} dev:all`
-            )}
-      `)
-          }
-        })
+      tasks.run().catch(console.error)
+
+      if (response.development.template.config.git) {
+        chdir(projectPath)
+        await initializeGitProject(response)
+        const { packageManager } = response.development.template.config
+        const { installDeps } = response.development.config
+        console.log(`>_
+      
+      ${green('Your BED is made! 🚀')}
+      
+      ${dim('1.')} cd ${basename(projectPath)}
+      ${
+        !installDeps
+          ? `${dim('2.')} ${packageManager.toLowerCase()} ${
+              packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+            }`
+          : ``
+      }
+      ${dim(
+        installDeps ? `2.` : `3.`
+      )} ${packageManager.toLowerCase()} dev ${dim(
+          `or ${packageManager.toLowerCase()} dev:all`
+        )}
+    `)
+      }
     } catch (error) {
       console.error(error)
     }

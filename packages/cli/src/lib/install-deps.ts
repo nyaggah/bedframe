@@ -18,27 +18,25 @@ export function installDependencies(response: PromptsResponse): void {
 
     execa('cd', [`${projectPath}`])
       .then(async () => {
-        await projectInstall({
+        const { stdout } = await projectInstall({
           prefer: packageManager.toLowerCase(),
           cwd: projectPath,
         })
-          .then((installation) => {
-            console.log('installation...', installation)
-          })
-          .finally(() => {
-            if (!initGit) {
-              console.log(`
-          >_
-          
-          ${green('Your BED is made! 🚀')}
-          
-          ${dim('1.')} cd ${basename(projectPath)}
-          ${dim('2.')} ${packageManager.toLowerCase()} dev ${dim(
-                `or ${packageManager.toLowerCase()} dev:all`
-              )}
-        `)
-            }
-          })
+
+        console.log(stdout)
+
+        if (!initGit) {
+          console.log(`
+        >_
+        
+        ${green('Your BED is made! 🚀')}
+        
+        ${dim('1.')} cd ${basename(projectPath)}
+        ${dim('2.')} ${packageManager.toLowerCase()} dev ${dim(
+            `or ${packageManager.toLowerCase()} dev:all`
+          )}
+      `)
+        }
       })
       .catch(console.error)
   })

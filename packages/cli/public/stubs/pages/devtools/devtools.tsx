@@ -8,14 +8,14 @@ const root = createRoot(document.getElementById('root') as HTMLElement)
 // hmmmmm ????
 chrome.action.onClicked.addListener(() => {
   console.log('onclicked...')
-  chrome.tabs.create({ url: 'pages/devtools/index.html' })
+  chrome.tabs.create({ url: 'src/pages/devtools/index.html' })
 })
 
 // Create Devtools page
 chrome.devtools.panels.create(
   'Bedframe (Devtools)',
   'assets/icons/icon-128x128.png',
-  'pages/devtools/index.html',
+  'src/pages/devtools/index.html',
   function (panel) {
     console.log('panel', panel)
     // code invoked on panel creation
@@ -27,7 +27,7 @@ chrome.devtools.panels.elements.createSidebarPane(
   'Bedframe (Devtools Sidebar)',
   function (sidepanel) {
     console.log('sidebar', sidepanel)
-    sidepanel.setPage('pages/devtools/sidepanel.html')
+    sidepanel.setPage('src/pages/devtools/sidepanel.html')
     sidepanel.setHeight('8ex')
     // sidepanel initialization code here
     sidepanel.setObject({ some_data: 'Some data to show' })
