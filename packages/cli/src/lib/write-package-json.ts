@@ -259,7 +259,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.18' },
+        { name: '@bedframe/core', version: '^0.0.19' },
         { name: '@crxjs/vite-plugin', version: '^1.0.14' },
         { name: '@types/chrome', version: '^0.0.241' },
         { name: '@types/react', version: '^18.2.9' },

@@ -7,9 +7,8 @@ const root = createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <StrictMode>
     <SidePanel>
-      {/* <App /> */}
       <div>
-        <p>Options Page (full page)</p>
+        <p>Extension Options</p>
       </div>
     </SidePanel>
   </StrictMode>

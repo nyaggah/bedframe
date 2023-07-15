@@ -267,7 +267,7 @@ export async function makeBed(response: PromptsResponse) {
         },
       ])
 
-      tasks.run().catch(console.error)
+      await tasks.run().catch(console.error)
 
       if (response.development.template.config.git) {
         chdir(projectPath)

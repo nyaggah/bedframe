@@ -51,7 +51,7 @@
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.4.4",
     "vite-plugin-babel-macros": "^1.0.6",
-    "vite-plugin-dts": "^2.1.0",
+    "vite-plugin-dts": "^2.3.0",
     "vite-plugin-externalize-deps": "^0.6.0",
     "vitest": "^0.32.2"
   },
