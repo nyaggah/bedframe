@@ -64,8 +64,8 @@ const eventListeners = (isSidePanel: boolean) =>
   onInstalled(isSidePanel) + onConnect + onStartup + onSuspend
 
 const sidePanels = `
-const welcomePanel = 'sidepanels/welcome/index.html'
-const mainPanel = 'sidepanels/main/index.html'
+const welcomePanel = 'src/sidepanels/welcome/index.html'
+const mainPanel = 'src/sidepanels/main/index.html'
 
 /**
  *  Fires when the active tab in a window changes. 

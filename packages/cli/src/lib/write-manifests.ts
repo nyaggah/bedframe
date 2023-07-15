@@ -25,10 +25,10 @@ import {
 import pkg from '../../package.json'
 
 export const icons = createManifestIcons({
-  16: 'assets/icons/icon-16x16.png',
-  32: 'assets/icons/icon-32x32.png',
-  48: 'assets/icons/icon-48x48.png',
-  128: 'assets/icons/icon-128x128.png',
+  16: 'src/assets/icons/icon-16x16.png',
+  32: 'src/assets/icons/icon-32x32.png',
+  48: 'src/assets/icons/icon-48x48.png',
+  128: 'src/assets/icons/icon-128x128.png',
 })
 
 export const action: ManifestAction = {
@@ -86,11 +86,11 @@ export const contentScripts: ManifestContentScripts = [
 export const webAccessibleResources: ManifestWebAccessibleResources = [
   {
     resources: [
-      'assets/icons/*.png',
-      'assets/fonts/inter/Inter-Bold.ttf',
-      'assets/fonts/inter/Inter-ExtraBold.ttf',
-      'assets/fonts/inter/Inter-Regular.ttf',
-      'assets/fonts/inter/Inter-SemiBold.ttf',
+      'src/assets/icons/*.png',
+      'src/assets/fonts/inter/Inter-Bold.ttf',
+      'src/assets/fonts/inter/Inter-ExtraBold.ttf',
+      'src/assets/fonts/inter/Inter-Regular.ttf',
+      'src/assets/fonts/inter/Inter-SemiBold.ttf',
     ],
     matches: ['<all_urls>'],
   },
@@ -165,7 +165,7 @@ export function manifestForBrowser(
   const { name: extensionType } = type
 
   const optionsUI = `options_ui: {
-    page: 'pages/options/index.html',
+    page: 'src/pages/options/index.html',
     open_in_tab: false,
   }`
 
