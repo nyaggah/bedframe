@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.32
+
+### Patch Changes
+
+- 72d2e02: project gen updates; simpler manifest + no bedframe.config (for now)
+
 ## 0.0.31
 
 ### Patch Changes
