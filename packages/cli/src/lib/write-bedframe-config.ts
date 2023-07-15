@@ -41,13 +41,15 @@ import { getCustomFonts, getManifest, BuildConfig } from '@bedframe/core'
 import { manifests } from './src/manifests'
 
 export function createBedframeConfig({ command, mode }: BuildConfig): UserConfig {
-  const root = resolve(__dirname, './src')
+  const root = __dirname
+  const src = resolve(root, './src')
+  const outDir = resolve(root, 'dist', mode)
 
   return {
     root,
     resolve: {
       alias: {
-        '@': resolve(__dirname, './src'),
+        '@': src,
       },
     },
     plugins: [
@@ -74,11 +76,11 @@ export function createBedframeConfig({ command, mode }: BuildConfig): UserConfig
       rollupOptions: {
         input: {${
           extensionType === 'sidepanel'
-            ? `welcome: resolve(root, 'sidepanels', 'welcome', 'index.html'),\nmain: resolve(root, 'sidepanels', 'main', 'index.html'),\n`
+            ? `welcome: resolve(src, 'sidepanels', 'welcome', 'index.html'),\n`
             : ''
         }${
     extensionType === 'devtools'
-      ? `devtools: resolve(root, 'pages', 'devtools', 'sidepanel.html'),\n`
+      ? `devtools: resolve(src, 'pages', 'devtools', 'sidepanel.html'),\n`
       : ''
   }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
         },

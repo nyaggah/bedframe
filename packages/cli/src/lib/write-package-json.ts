@@ -259,9 +259,9 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.17' },
+        { name: '@bedframe/core', version: '^0.0.18' },
         { name: '@crxjs/vite-plugin', version: '^1.0.14' },
-        { name: '@types/chrome', version: '^0.0.237' },
+        { name: '@types/chrome', version: '^0.0.241' },
         { name: '@types/react', version: '^18.2.9' },
         { name: '@types/react-dom', version: '^18.2.4' },
         { name: '@types/react-frame-component', version: '^4.1.3' },
@@ -288,10 +288,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             { name: 'eslint-plugin-react', version: '^7.32.2' },
             { name: 'eslint-plugin-react-hooks', version: '^4.6.0' },
             { name: 'eslint-plugin-react-refresh', version: '^0.4.1' },
-            // {
-            //   name: 'eslint-config-standard-with-typescript',
-            //   version: '^34.0.0',
-            // },
             { name: 'prettier', version: '^2.8.8' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
         },
