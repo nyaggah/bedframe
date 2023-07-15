@@ -1,7 +1,7 @@
 import { Router } from 'react-chrome-extension-router'
-import { TemplateInfo } from '../TemplateInfo'
 import { GlobalStyles } from '@/styles'
 import { Styled } from './App.Style'
+import { Intro } from '../Intro'
 
 function App(): JSX.Element {
   return (
@@ -9,7 +9,7 @@ function App(): JSX.Element {
       <GlobalStyles />
       <Styled.App>
         <Router>
-          <TemplateInfo />
+          <Intro />
         </Router>
       </Styled.App>
     </>

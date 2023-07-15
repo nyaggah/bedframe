@@ -7,7 +7,7 @@ import fs from 'fs-extra'
 
 export function installDependencies(response: PromptsResponse): void {
   const projectPath = response.extension.name.path
-  const { packageManager } = response.development.template.config
+  const { packageManager, git: initGit } = response.development.template.config
   const packageJson = path.join(projectPath, 'package.json')
 
   fs.readFile(packageJson, 'utf8', async (err, _data) => {
@@ -16,26 +16,29 @@ export function installDependencies(response: PromptsResponse): void {
       return
     }
 
-    // await
     execa('cd', [`${projectPath}`])
       .then(async () => {
-        // const { stdout } =
         await projectInstall({
           prefer: packageManager.toLowerCase(),
           cwd: projectPath,
-        }).finally(() => {
-          console.log(`
+        })
+          .then((installation) => {
+            console.log('installation...', installation)
+          })
+          .finally(() => {
+            if (!initGit) {
+              console.log(`
           >_
           
           ${green('Your BED is made! 🚀')}
           
           ${dim('1.')} cd ${basename(projectPath)}
           ${dim('2.')} ${packageManager.toLowerCase()} dev ${dim(
-            `or ${packageManager.toLowerCase()} dev:all`
-          )}
+                `or ${packageManager.toLowerCase()} dev:all`
+              )}
         `)
-        })
-        // console.log(stdout)
+            }
+          })
       })
       .catch(console.error)
   })
