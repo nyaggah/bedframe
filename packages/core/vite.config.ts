@@ -13,17 +13,26 @@ export default defineConfig({
     },
     outDir: 'dist',
     emptyOutDir: true,
+    rollupOptions: {
+      external: ['fs'],
+      output: {
+        globals: {
+          // kolorist: 'kolorist',
+          '@crxjs/vite-plugin': '@crxjs/vite-plugin',
+        },
+      },
+    },
   },
   plugins: [
     externalizeDeps({
-      deps: false,
+      deps: true,
     }),
     nodeExternals(),
     dts({
       insertTypesEntry: true,
     }),
   ],
-  optimizeDeps: {
-    include: ['@crxjs/vite-plugin'],
-  },
+  // optimizeDeps: {
+  //   include: ['@crxjs/vite-plugin'],
+  // },
 })
