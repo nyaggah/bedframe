@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.29
+
+### Patch Changes
+
+- 21a971e: clean up project gen
+
 ## 0.0.28
 
 ### Patch Changes
