@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.17
+
+### Patch Changes
+
+- 6ab1217: project gen updates (troubleshoot bundling)
+
 ## 0.0.16
 
 ### Patch Changes
