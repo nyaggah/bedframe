@@ -18,16 +18,18 @@ export function installDependencies(response: PromptsResponse): void {
 
     execa('cd', [`${projectPath}`])
       .then(async () => {
-        const stdout = await projectInstall({
+        const { stdout } = await projectInstall({
           prefer: packageManager.toLowerCase(),
           cwd: projectPath,
-        }).then((result) => {
-          console.log(result)
         })
 
         console.log(stdout)
 
         if (!initGit) {
+          console.log(
+            'response.development.template.config',
+            response.development.template.config
+          )
           console.log(`
         >_
         

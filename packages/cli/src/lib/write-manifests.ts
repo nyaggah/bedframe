@@ -11,184 +11,130 @@ export function sharedManifest(response: Answers<string>): string {
   } = response.extension
   const { name: extensionType } = type
 
-  return `
-import {
-  ManifestAction,
-  ManifestBackground,
-  ManifestCommands,
-  ManifestContentScripts,
-  ManifestPermissions,
-  ManifestWebAccessibleResources,
-  createManifestIcons,
-  createManifestSharedFields,
-} from '@bedframe/core'
+  return `import { createManifestBase } from '@bedframe/core'
 import pkg from '../../package.json'
 
-export const icons = createManifestIcons({
-  16: 'assets/icons/icon-16x16.png',
-  32: 'assets/icons/icon-32x32.png',
-  48: 'assets/icons/icon-48x48.png',
-  128: 'assets/icons/icon-128x128.png',
-})
-
-export const action: ManifestAction = {
-  default_icon: icons,
-  default_title: pkg.name,
-  ${
-    extensionType === 'popup'
-      ? `default_popup: 'src/pages/popup/index.html',`
-      : ''
-  }
-}
-
-export const background: ManifestBackground = {
-  service_worker: 'src/scripts/background.ts',
-  type: 'module',
-}
-
-${
-  extensionType === 'devtools'
-    ? `export const devtoolsPage = 'src/pages/devtools/index.html'`
-    : ''
-}
-${
-  optionsPage === 'full-page'
-    ? `export const optionsPage = 'src/pages/options/index.html'`
-    : `export const optionsUI = {
-  page: 'src/pages/options/index.html',
-  open_in_tab: false,
-}`
-}
-
-${
-  extensionType === 'sidepanel'
-    ? `export const sidePanel = {
-  default_path: 'src/sidepanels/welcome/index.html',
-}`
-    : ''
-}
-
-${
-  overridePage !== 'none'
-    ? `export const chromeUrlOverrides = {
-  ${`${overridePage}: 'src/pages/${overridePage}/index.html',`}
-}`
-    : ''
-}
-
-export const contentScripts: ManifestContentScripts = [
-  {
-    js: ['src/scripts/content.tsx'],
-    matches: ['<all_urls>'],
-  },
-]
-
-export const webAccessibleResources: ManifestWebAccessibleResources = [
-  {
-    resources: [
-      'assets/icons/*.png',
-      'assets/fonts/inter/*.ttf',
-    ],
-    matches: ['<all_urls>'],
-  },
-]
-
-export const commands: ManifestCommands = {
-  _execute_action: {
-    suggested_key: {
-      default: 'Ctrl+Shift+1',
-      mac: 'Ctrl+Shift+1',
-      linux: 'Ctrl+Shift+1',
-      windows: 'Ctrl+Shift+1',
-      chromeos: 'Ctrl+Shift+1',
-    },
-  },
-}
-
-export const permissions: ManifestPermissions = [ 
-  'activeTab' ${
-    response.extension.type.name === 'sidepanel'
-      ? `, 
-  'sidePanel'`
-      : ''
-  } 
-]
-
-
-// SHARED FIELDS
-export const shared = createManifestSharedFields({
+export default createManifestBase({
   // Required
+  // - - - - - - - - -
   name: pkg.name,
   version: pkg.version,
   manifest_version: 3,
 
   // Recommended
-  // default_locale: 'en',
+  // - - - - - - - - -
   description: pkg.description,
-  icons,
+  icons: {
+    16: 'assets/icons/icon-16x16.png',
+    32: 'assets/icons/icon-32x32.png',
+    48: 'assets/icons/icon-48x48.png',
+    128: 'assets/icons/icon-128x128.png',
+  },
+  action: {
+    default_icon: {
+      16: 'assets/icons/icon-16x16.png',
+      32: 'assets/icons/icon-32x32.png',
+      48: 'assets/icons/icon-48x48.png',
+      128: 'assets/icons/icon-128x128.png',
+    },
+    default_title: pkg.name,
+    ${
+      extensionType === 'popup'
+        ? `default_popup: 'src/pages/popup/index.html',`
+        : ''
+    }
+  },
 
   // Optional
+  // - - - - - - - - -
   ${response.extension.author.email ? `author: pkg.author.email,` : ''}
-  commands,
-  permissions,
-})
 
-export default {
-  icons,
-  action,
-  ${optionsPage === 'full-page' ? `optionsPage,` : `optionsUI,`}
-  ${extensionType === 'devtools' ? `devtoolsPage,` : ''}
-  background,
-  ${response.extension.type.name === 'sidepanel' ? `sidePanel,` : ''}
-  ${overridePage !== 'none' ? `chromeUrlOverrides,` : ``}  
-  ${response.extension.type.name === 'overlay' ? `contentScripts,` : ''}
-  webAccessibleResources,
-  commands,
-  shared,
-}
+  background: {
+    service_worker: 'src/scripts/background.ts',
+    type: 'module',
+  },
+
+  ${
+    extensionType === 'sidepanel'
+      ? `side_panel: {
+    default_path: 'src/sidepanels/welcome/index.html',
+  },`
+      : ''
+  }    
+
+  ${
+    optionsPage === 'full-page'
+      ? `options_page: 'src/pages/options/index.html',`
+      : `options_ui: {
+    page: 'src/pages/options/index.html',
+    open_in_tab: false,
+  },`
+  }
+
+  ${
+    extensionType === 'devtools'
+      ? `devtools_page: 'src/pages/devtools/index.html',`
+      : ''
+  }  
+  
+  ${
+    overridePage !== 'none'
+      ? `chrome_url_overrides: {
+    ${`${overridePage}: 'src/pages/${overridePage}/index.html',`}
+  },`
+      : ''
+  }    
+
+  ${
+    response.extension.type.name === 'overlay'
+      ? `content_scripts: [
+    {
+      js: ['src/scripts/content.tsx'],
+      matches: ['<all_urls>'],
+    },
+  ],`
+      : ''
+  }
+
+  web_accessible_resources: [
+    {
+      resources: ['assets/icons/*.png', 'assets/fonts/inter/*.ttf'],
+      matches: ['<all_urls>'],
+    },
+  ],
+
+  commands: {
+    _execute_action: {
+      suggested_key: {
+        default: 'Ctrl+Shift+1',
+        mac: 'Ctrl+Shift+1',
+        linux: 'Ctrl+Shift+1',
+        windows: 'Ctrl+Shift+1',
+        chromeos: 'Ctrl+Shift+1',
+      },
+    },
+  },
+
+  permissions: [ 
+    'activeTab' ${
+      response.extension.type.name === 'sidepanel'
+        ? `, 
+    'sidePanel'`
+        : ''
+    } 
+  ],
+})
 
 `
 }
 
-export function manifestForBrowser(
-  response: Answers<string>,
-  browser: Browser
-): string {
-  const {
-    override: overridePage,
-    type,
-    options: optionsPage, // 'full-page' | 'embedded'
-  } = response.extension
-  const { name: extensionType } = type
-
-  const optionsUI = `options_ui: {
-    page: 'src/pages/options/index.html',
-    open_in_tab: false,
-  }`
-
-  return `
-import { createManifest } from '@bedframe/core'
-import config from './manifest.config'
+export function manifestForBrowser(browser: Browser): string {
+  return `import { createManifest } from '@bedframe/core'
+import baseManifest from './manifest.config'
 
 export const ${browser.toLowerCase()} = createManifest(
   {
-    ...config.shared,
-    action: config.action,
-    background: config.background,
-    content_scripts: config.contentScripts,
-    ${
-      optionsPage === 'full-page'
-        ? `options_page: config.optionsPage,`
-        : `options_ui: config.optionsUI,`
-    }
-    ${extensionType === 'devtools' ? `devtools_page: config.devtoolsPage,` : ``}
-    ${extensionType === 'sidepanel' ? 'side_panel: config.sidePanel,' : ``}
-    ${
-      overridePage !== 'none'
-        ? `chrome_url_overrides: config.chromeUrlOverrides,`
-        : ``
-    }
-    web_accessible_resources: config.webAccessibleResources,
+    ...baseManifest,
   },
   '${browser.toLowerCase()}'
 )
@@ -231,10 +177,7 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
       await Promise.all([
         fs.outputFile(manifestIndexPath, `${manifestIndexFile(browsers)}\n`),
         fs.outputFile(sharedManifestPath, `${sharedManifest(response)}\n`),
-        fs.outputFile(
-          manifestPath,
-          `${manifestForBrowser(response, browser)}\n`
-        ),
+        fs.outputFile(manifestPath, `${manifestForBrowser(browser)}\n`),
       ])
     })
     await Promise.all(promises)
