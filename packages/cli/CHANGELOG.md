@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.30
+
+### Patch Changes
+
+- adc2209: feat(changeset): project gen updates;
+
 ## 0.0.29
 
 ### Patch Changes
