@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.31
+
+### Patch Changes
+
+- 60f2dd8: feat(changeset): project gen updates; clean up
+- Updated dependencies [60f2dd8]
+  - @bedframe/core@0.0.19
+
 ## 0.0.30
 
 ### Patch Changes
