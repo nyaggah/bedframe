@@ -2,7 +2,9 @@ import { execa } from 'execa'
 import { chdir, cwd } from 'node:process'
 import { PromptsResponse } from './prompts'
 
-export async function initializeGitProject(response: PromptsResponse) {
+export async function initializeGitProject(
+  response: PromptsResponse
+): Promise<void> {
   const projectPath = response.extension.name.path ?? cwd()
   const projectName = response.extension.name.name ?? 'bedframe-project'
 
@@ -10,22 +12,17 @@ export async function initializeGitProject(response: PromptsResponse) {
     chdir(projectPath)
     await execa('git', ['init'])
     await execa('git', ['add', '.'])
-
+    await execa('git', [
+      'commit',
+      '-am',
+      `feat(${projectName}): initial commit. configure BEDframe`,
+    ])
     const commitMessage = `feat(${projectName}): initial commit. configure bedframe`
     const childProcess = execa('git', ['commit', '-am', commitMessage])
 
-    // if (childProcess.stdout) {
-    //   console.log('childProcess.stdout', childProcess.stdout)
-    //   childProcess.stdout.on('data', (data) => {
-    //     // Handle the output data here
-    //     console.log(data)
-    //   })
-    // }
+    console.log(childProcess)
 
-    // console.log(childProcess)
-    // Wait for the child process to complete
-    // await childProcess
-    return await childProcess
+    await childProcess
   } catch (error) {
     console.error(error)
   }
