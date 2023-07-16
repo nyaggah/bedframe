@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.34
+
+### Patch Changes
+
+- 802c5f2: project gen (make bed) updates
+
 ## 0.0.33
 
 ### Patch Changes
