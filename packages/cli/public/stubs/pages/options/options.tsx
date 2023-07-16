@@ -1,15 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { SidePanel } from '@/components/SidePanel'
+import { Layout } from '@/components/Layout'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <StrictMode>
-    <SidePanel>
+    <Layout>
       <div>
         <p>Extension Options</p>
       </div>
-    </SidePanel>
+    </Layout>
   </StrictMode>
 )

@@ -15,6 +15,7 @@ import { writePackageJson } from './write-package-json'
 import { writeServiceWorker } from './write-service-worker'
 import { writeSidePanels } from './write-sidepanels'
 import { writeViteConfig } from './write-vite-config'
+import { Style } from '@bedframe/core'
 
 export async function makeBed(response: PromptsResponse) {
   // const projectDir = response.extension.name.name
@@ -62,23 +63,49 @@ export async function makeBed(response: PromptsResponse) {
         tests: path.join(stubsPath, 'tests'),
         changesets: path.join(stubsPath, 'changesets'),
         vscode: path.join(stubsPath, 'vscode'),
-        components:
-          response.development.template.config.style === 'Styled Components'
-            ? path.join(stubsPath, 'components', 'styled-components')
-            : path.join(stubsPath, 'components', 'tailwind'),
+        components: (style: Style) => {
+          return {
+            app: path.join(
+              stubsPath,
+              'components',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'App'
+            ),
+            iframe: path.join(
+              stubsPath,
+              'components',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'Iframe'
+            ),
+            intro: path.join(
+              stubsPath,
+              'components',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'Intro'
+            ),
+            layout: path.join(
+              stubsPath,
+              'components',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'Layout'
+            ),
+          }
+        },
       }
 
       const destination = {
         root: path.resolve(response.extension.name.path),
       }
 
-      const { tests: hasTests } = response.development.template.config
+      const { tests: hasTests, style } = response.development.template.config
       const {
         override: overridePage,
         options: optionsPage,
         type,
       } = response.extension
       const { name: extensionType /* position */ } = type
+
+      const styledComponents = style === 'Styled Components'
 
       const copyOverridePage = async (
         overridePage: string,
@@ -127,11 +154,27 @@ export async function makeBed(response: PromptsResponse) {
         },
         {
           title: 'Creating project components...',
-          task: () =>
+          task: () => {
+            const component = stubs.components(style)
             copyFolder(
-              stubs.components,
-              path.join(destination.root, 'src', 'components')
-            ),
+              component.app,
+              path.join(destination.root, 'src', 'components', 'App')
+            )
+            copyFolder(
+              component.intro,
+              path.join(destination.root, 'src', 'components', 'Intro')
+            )
+            copyFolder(
+              component.layout,
+              path.join(destination.root, 'src', 'components', 'Layout')
+            )
+            extensionType === 'overlay'
+              ? copyFolder(
+                  component.iframe,
+                  path.join(destination.root, 'src', 'components', 'Iframe')
+                )
+              : Promise.resolve()
+          },
         },
         {
           title: 'Creating extension popup...',
@@ -218,7 +261,7 @@ export async function makeBed(response: PromptsResponse) {
         },
         {
           title:
-            'Creating Lint & Format (w/ ESLint + Prettier) configurations...',
+            'Creating lint & format (w/ ESLint + Prettier) configurations...',
           task: () =>
             response.development.template.config.lintFormat ||
             response.language === 'TypeScript'
@@ -267,40 +310,38 @@ export async function makeBed(response: PromptsResponse) {
         },
       ])
 
-      // this is supa getti af!
-      let isResolved = false
       await tasks
         .run()
-        .then(() => {
-          isResolved = true
+        .then(async () => {
+          if (response.development.template.config.git) {
+            chdir(projectPath)
+            await initializeGitProject(response).then((res) => {
+              console.log(res?.stdout)
+
+              const { packageManager } = response.development.template.config
+              const { installDeps } = response.development.config
+              console.log(`>_
+          
+          ${green('Your BED is made! 🚀')}
+          
+          ${dim('1.')} cd ${basename(projectPath)}
+          ${
+            !installDeps
+              ? `${dim('2.')} ${packageManager.toLowerCase()} ${
+                  packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+                }`
+              : ``
+          }
+          ${dim(
+            installDeps ? `2.` : `3.`
+          )} ${packageManager.toLowerCase()} dev ${dim(
+                `or ${packageManager.toLowerCase()} dev:all`
+              )}
+        `)
+            })
+          }
         })
         .catch(console.error)
-
-      console.log('isResolve', isResolved)
-      if (response.development.template.config.git && isResolved) {
-        chdir(projectPath)
-        await initializeGitProject(response)
-        const { packageManager } = response.development.template.config
-        const { installDeps } = response.development.config
-        console.log(`>_
-      
-      ${green('Your BED is made! 🚀')}
-      
-      ${dim('1.')} cd ${basename(projectPath)}
-      ${
-        !installDeps
-          ? `${dim('2.')} ${packageManager.toLowerCase()} ${
-              packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
-            }`
-          : ``
-      }
-      ${dim(
-        installDeps ? `2.` : `3.`
-      )} ${packageManager.toLowerCase()} dev ${dim(
-          `or ${packageManager.toLowerCase()} dev:all`
-        )}
-    `)
-      }
     } catch (error) {
       console.error(error)
     }

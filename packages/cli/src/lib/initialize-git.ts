@@ -2,9 +2,7 @@ import { execa } from 'execa'
 import { chdir, cwd } from 'node:process'
 import { PromptsResponse } from './prompts'
 
-export async function initializeGitProject(
-  response: PromptsResponse
-): Promise<void> {
+export async function initializeGitProject(response: PromptsResponse) {
   const projectPath = response.extension.name.path ?? cwd()
   const projectName = response.extension.name.name ?? 'bedframe-project'
 
@@ -26,7 +24,8 @@ export async function initializeGitProject(
 
     // console.log(childProcess)
     // Wait for the child process to complete
-    await childProcess
+    // await childProcess
+    return await childProcess
   } catch (error) {
     console.error(error)
   }
