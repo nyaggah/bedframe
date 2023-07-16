@@ -129,7 +129,7 @@ export function createScriptCommandsFrom(
   response: prompts.Answers<string>
 ): ScriptCommand {
   const { development, browser: browsers } = response
-  const { packageManager } = development.template.config
+  const { packageManager, tests: hasTests } = development.template.config
 
   const devBuildScripts = () => {
     const devScript = createScriptCommand('dev', 'vite')
@@ -200,6 +200,11 @@ export function createScriptCommandsFrom(
     ])
   }
 
+  const testScripts = () => {
+    const testScript = createScriptCommand('test', 'vitest')
+    return hasTests ? convertArrayToObject([testScript]) : null
+  }
+
   const gitHooksScripts = () => {
     const czScript = createScriptCommand('cz', `cz`)
     const postInstallScript = createScriptCommand(
@@ -223,6 +228,7 @@ export function createScriptCommandsFrom(
   return {
     ...devBuildScripts(),
     ...lintFormatScripts(),
+    ...testScripts(),
     ...gitHooksScripts(),
     ...releaseScripts(),
   }
@@ -259,7 +265,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.19' },
+        { name: '@bedframe/core', version: '^0.0.20' },
         { name: '@crxjs/vite-plugin', version: '^1.0.14' },
         { name: '@types/chrome', version: '^0.0.241' },
         { name: '@types/react', version: '^18.2.9' },

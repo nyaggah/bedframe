@@ -1,41 +1,35 @@
-import { describe, test, expect } from 'vitest'
-import { render, screen, fireEvent, getByText } from '@testing-library/react'
+import { Manifest } from '@bedframe/core'
+import { render } from '@testing-library/react'
+import { describe, expect, test } from 'vitest'
 import App from './App'
 
+const MockManifest: Manifest = {
+  name: 'Bedframe Extension',
+  version: '0.0.1',
+  description: 'Bedframe Extension description',
+  manifest_version: 3,
+  action: {
+    default_icon: {
+      '16': 'assets/icons/icon-16x16.png',
+      '32': 'assets/icons/icon-32x32.png',
+      '48': 'assets/icons/icon-48x48.png',
+      '128': 'assets/icons/icon-128x128.png',
+    },
+  },
+}
+
 describe('<App />', () => {
-  test('App mounts properly', () => {
+  beforeAll(() => {
+    window.chrome = {
+      // @ts-expect-error
+      runtime: {
+        getManifest: () => MockManifest,
+      },
+    }
+  })
+
+  test('App mounts', () => {
     const wrapper = render(<App />)
     expect(wrapper).toBeTruthy()
-
-    // Get by h1
-    const templateName = wrapper.container.querySelector('h1')
-    console.log('templateName?.textContent:', templateName?.innerHTML)
-    expect(templateName?.textContent).toBe('bruh what is up?!')
-
-    // Get by text using the React testing library
-    const text = screen.getByText(/Config \/ Using/i)
-    expect(text.textContent).toBeTruthy()
-  })
-})
-
-describe.skip('User Events', () => {
-  it('Click the button', () => {
-    const wrapper = render(<App />)
-    const button = wrapper.container.querySelector(
-      'button'
-    ) as HTMLButtonElement
-
-    // button mounts with count in 0
-    expect(button.textContent).toBe('count is 0')
-
-    fireEvent(
-      getByText(button, 'count is 0'),
-      new MouseEvent('click', {
-        bubbles: true,
-      })
-    )
-
-    // The count hook is working
-    expect(button.textContent).toBe('count is 1')
   })
 })

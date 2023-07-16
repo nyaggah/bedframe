@@ -3,7 +3,7 @@ import path from 'node:path'
 import { Answers } from 'prompts'
 import { Browser } from '@bedframe/core'
 
-export function sharedManifest(response: Answers<string>): string {
+export function writeBaseManifest(response: Answers<string>): string {
   const {
     override: overridePage,
     options: optionsPage,
@@ -48,20 +48,17 @@ export default createManifestBase({
   // Optional
   // - - - - - - - - -
   ${response.extension.author.email ? `author: pkg.author.email,` : ''}
-
   background: {
     service_worker: 'src/scripts/background.ts',
     type: 'module',
   },
-
   ${
     extensionType === 'sidepanel'
       ? `side_panel: {
     default_path: 'src/sidepanels/welcome/index.html',
   },`
       : ''
-  }    
-
+  }
   ${
     optionsPage === 'full-page'
       ? `options_page: 'src/pages/options/index.html',`
@@ -70,13 +67,11 @@ export default createManifestBase({
     open_in_tab: false,
   },`
   }
-
   ${
     extensionType === 'devtools'
       ? `devtools_page: 'src/pages/devtools/index.html',`
       : ''
   }  
-  
   ${
     overridePage !== 'none'
       ? `chrome_url_overrides: {
@@ -84,7 +79,6 @@ export default createManifestBase({
   },`
       : ''
   }    
-
   ${
     response.extension.type.name === 'overlay'
       ? `content_scripts: [
@@ -95,14 +89,12 @@ export default createManifestBase({
   ],`
       : ''
   }
-
   web_accessible_resources: [
     {
       resources: ['assets/icons/*.png', 'assets/fonts/inter/*.ttf'],
       matches: ['<all_urls>'],
     },
   ],
-
   commands: {
     _execute_action: {
       suggested_key: {
@@ -114,9 +106,8 @@ export default createManifestBase({
       },
     },
   },
-
   permissions: [ 
-    'activeTab' ${
+    'activeTab'${
       response.extension.type.name === 'sidepanel'
         ? `, 
     'sidePanel'`
@@ -130,7 +121,7 @@ export default createManifestBase({
 
 export function manifestForBrowser(browser: Browser): string {
   return `import { createManifest } from '@bedframe/core'
-import baseManifest from './manifest.config'
+import baseManifest from './base.manifest'
 
 export const ${browser.toLowerCase()} = createManifest(
   {
@@ -168,7 +159,7 @@ export const manifests = [
 export async function writeManifests(response: Answers<string>): Promise<void> {
   const { browser: browsers, extension } = response
   const manifestDir = path.resolve(extension.name.path, 'src', 'manifests')
-  const sharedManifestPath = path.join(manifestDir, 'manifest.config.ts')
+  const manifestBasePath = path.join(manifestDir, 'base.manifest.ts')
   const manifestIndexPath = path.join(manifestDir, 'index.ts')
 
   try {
@@ -176,7 +167,7 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
       const manifestPath = path.join(manifestDir, `${browser.toLowerCase()}.ts`)
       await Promise.all([
         fs.outputFile(manifestIndexPath, `${manifestIndexFile(browsers)}\n`),
-        fs.outputFile(sharedManifestPath, `${sharedManifest(response)}\n`),
+        fs.outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),
         fs.outputFile(manifestPath, `${manifestForBrowser(browser)}\n`),
       ])
     })
@@ -185,44 +176,3 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
     console.error(error)
   }
 }
-
-/*
-
-// background.ts / service worker
-// ----------------------------
-// https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/functional-samples/cookbook.sidepanel-multiple/service-worker.js
-
-const welcomePage = 'sidepanels/welcome-sp.html';
-const mainPage = 'sidepanels/main-sp.html';
-
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.sidePanel.setOptions({ path: welcomePage });
-});
-
-chrome.tabs.onActivated.addListener(async ({ tabId }) => {
-  const { path } = await chrome.sidePanel.getOptions({ tabId });
-  if (path === welcomePage) {
-    chrome.sidePanel.setOptions({ path: mainPage });
-  }
-});
-// ----------------------------
-
-// manifest.json
-// https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/functional-samples/cookbook.sidepanel-multiple/manifest.json
-
-{
-  "manifest_version": 3,
-  "name": "Multiple side panels",
-  "version": "1.0",
-  "description": "Displays welcome side panel on installation, then shows the main panel",
-  "background": {
-    "service_worker": "service-worker.js"
-  },
-  "icons": {
-    "16": "images/icon-16.png",
-    "48": "images/icon-48.png",
-    "128": "images/icon-128.png"
-  },
-  "permissions": ["sidePanel"]
-}
-*/

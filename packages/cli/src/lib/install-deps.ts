@@ -26,10 +26,6 @@ export function installDependencies(response: PromptsResponse): void {
         console.log(stdout)
 
         if (!initGit) {
-          console.log(
-            'response.development.template.config',
-            response.development.template.config
-          )
           console.log(`
         >_
         
@@ -41,6 +37,7 @@ export function installDependencies(response: PromptsResponse): void {
           )}
       `)
         }
+        return stdout
       })
       .catch(console.error)
   })

@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { SidePanel } from '@/components/SidePanel'
+import { Layout } from '@/components/Layout'
 import { App } from '@/components/App'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
@@ -36,9 +36,9 @@ chrome.devtools.panels.elements.createSidebarPane(
 
 root.render(
   <StrictMode>
-    <SidePanel>
+    <Layout>
       <App />
-    </SidePanel>
+    </Layout>
     <button id="send-button">Send Data to Background</button>
     <div>devtools</div>
   </StrictMode>

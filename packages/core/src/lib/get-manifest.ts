@@ -59,7 +59,7 @@ export function getManifest(
 
     🚀 [mode: ${
       isModeDevelop ? bold('dev') : bold('prod')
-    }] building for ${mode}`)
+    }] building for ${mode}\n`)
   }
 
   return crx({
