@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.33
+
+### Patch Changes
+
+- 55d6bf1: project gen updates galore!
+- Updated dependencies [55d6bf1]
+  - @bedframe/core@0.0.20
+
 ## 0.0.32
 
 ### Patch Changes
