@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.20
+
+### Patch Changes
+
+- 55d6bf1: project gen updates galore!
+
 ## 0.0.19
 
 ### Patch Changes
