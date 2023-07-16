@@ -1,8 +1,6 @@
-// import fs,from 'fs-extra'
-import { dim, green, yellow } from 'kolorist'
-import { promises as fs, constants } from 'fs'
-import path, { join } from 'node:path'
-import { basename } from 'path'
+import { constants, promises as fs } from 'fs'
+import { join } from 'node:path'
+
 /**
  * copyFolder(from, to)
  *
@@ -14,13 +12,11 @@ import { basename } from 'path'
  * @param {string} to
  * @return {*}  {Promise<void>}
  */
-
 export async function copyFolder(from: string, to: string): Promise<void> {
   try {
     const isDestinationExists = await directoryExists(to)
     if (!isDestinationExists) {
       await fs.mkdir(to, { recursive: true })
-      // console.log(`Successfully created ${to}`)
     }
 
     const elements = await fs.readdir(from)
@@ -35,14 +31,8 @@ export async function copyFolder(from: string, to: string): Promise<void> {
 
       if (stats.isFile()) {
         await fs.copyFile(sourcePath, destinationPath)
-        // console.log(
-        //   `Copied ${yellow(basename(from))} template file to ${green(to)}`
-        // )
       } else if (stats.isDirectory()) {
         await copyFolder(sourcePath, destinationPath)
-        // console.log(
-        //   `Copied ${yellow(basename(from))} template folder to ${green(to)}`
-        // )
       }
     }
   } catch (error) {
@@ -50,6 +40,12 @@ export async function copyFolder(from: string, to: string): Promise<void> {
   }
 }
 
+/**
+ *
+ *
+ * @param {string} path
+ * @return {*}  {Promise<boolean>}
+ */
 async function directoryExists(path: string): Promise<boolean> {
   try {
     await fs.access(path, constants.R_OK)
@@ -58,23 +54,3 @@ async function directoryExists(path: string): Promise<boolean> {
     return false
   }
 }
-
-// export async function copyFolder(from: string, to: string): Promise<void> {
-//   fs.ensureDir(to)
-//     .then(async () => console.log(dim(`successfully created ${green(to)})\n`)))
-//     .catch((error) => console.error(error))
-
-//   for (const element of fs.readdirSync(from)) {
-//     const reg = /^__/
-//     const dotName = element.replace(reg, '.')
-//     const elementName = reg.test(element) ? dotName : element
-//     // eslint-disable  no-await-in-loop
-//     if ((await fs.lstat(path.join(from, element))).isFile()) {
-//       fs.copy(path.join(from, element), path.join(to, elementName))
-//       console.log('copied template file to' + to)
-//     } else {
-//       copyFolder(path.join(from, element), path.join(to, elementName))
-//       console.log('copied template FOLDER to' + to)
-//     }
-//   }
-// }

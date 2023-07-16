@@ -18,28 +18,31 @@ import { writeViteConfig } from './write-vite-config'
 import { Style } from '@bedframe/core'
 
 export async function makeBed(response: PromptsResponse) {
-  // const projectDir = response.extension.name.name
   const projectPath = response.extension.name.path
+
+  const destination = {
+    root: path.resolve(response.extension.name.path),
+  }
+
+  const { tests: hasTests, style } = response.development.template.config
+  const {
+    override: overridePage,
+    options: optionsPage,
+    type,
+  } = response.extension
+  const { name: extensionType /* position */ } = type
+  const styledComponents = style === 'Styled Components'
+  const tailwindComponents = style === 'Tailwind'
 
   if (projectPath) {
     try {
-      // Ensure the project directory exists
-      await fs.ensureDir(projectPath).catch(console.error)
-
-      // Change to the project directory
-      await execa('cd', [`${projectPath}`]).catch(console.error)
-
-      // Write package.json file
-      // writePackageJson(response)
-
-      // Write necessary files asynchronously
-      // await Promise.all([writeManifests(response), writeViteConfig(response)])
+      fs.ensureDir(projectPath).catch(console.error)
+      execa('cd', [`${projectPath}`]).catch(console.error)
 
       const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
       const stubsPath = path.resolve(path.join(__dirname, 'stubs'))
 
       const stubs = {
-        // assets: path.join(stubsPath, 'assets'),
         base: path.join(stubsPath, 'base'),
         public: path.join(stubsPath, 'public'),
         pages: {
@@ -92,20 +95,6 @@ export async function makeBed(response: PromptsResponse) {
           }
         },
       }
-
-      const destination = {
-        root: path.resolve(response.extension.name.path),
-      }
-
-      const { tests: hasTests, style } = response.development.template.config
-      const {
-        override: overridePage,
-        options: optionsPage,
-        type,
-      } = response.extension
-      const { name: extensionType /* position */ } = type
-
-      const styledComponents = style === 'Styled Components'
 
       const copyOverridePage = async (
         overridePage: string,
@@ -178,58 +167,51 @@ export async function makeBed(response: PromptsResponse) {
         },
         {
           title: 'Creating extension popup...',
+          enabled: () => extensionType === 'popup',
           task: () =>
-            extensionType === 'popup'
-              ? copyFolder(
-                  stubs.pages.popup,
-                  path.join(destination.root, 'src', 'pages', 'popup')
-                )
-              : Promise.resolve(),
+            copyFolder(
+              stubs.pages.popup,
+              path.join(destination.root, 'src', 'pages', 'popup')
+            ),
         },
         {
           title: 'Creating extension side panels...',
-          task: () =>
-            extensionType === 'sidepanel'
-              ? writeSidePanels(response)
-              : Promise.resolve(),
+          enabled: () => extensionType === 'sidepanel',
+          task: () => writeSidePanels(response),
         },
         {
           title: 'Creating extension devtools panels...',
+          enabled: () => extensionType === 'devtools',
           task: () =>
-            extensionType === 'devtools'
-              ? copyFolder(
-                  stubs.pages.devtools,
-                  path.join(destination.root, 'src', 'pages', 'devtools')
-                )
-              : Promise.resolve(),
+            copyFolder(
+              stubs.pages.devtools,
+              path.join(destination.root, 'src', 'pages', 'devtools')
+            ),
         },
         {
           title: 'Creating options page...',
+          enabled: () =>
+            optionsPage === 'full-page' || optionsPage === 'embedded',
           task: () =>
-            optionsPage === 'full-page' || optionsPage === 'embedded'
-              ? copyFolder(
-                  stubs.pages.options,
-                  path.join(destination.root, 'src', 'pages', 'options')
-                )
-              : Promise.resolve(),
+            copyFolder(
+              stubs.pages.options,
+              path.join(destination.root, 'src', 'pages', 'options')
+            ),
         },
         {
           title: 'Creating override page...',
+          enabled: () => overridePage !== 'none',
           task: () =>
-            overridePage !== 'none'
-              ? copyOverridePage(overridePage, getOverridePage(overridePage))
-              : Promise.resolve(),
+            copyOverridePage(overridePage, getOverridePage(overridePage)),
         },
         {
           title: 'Creating content script...',
-          task: () => {
-            extensionType === 'overlay'
-              ? copyFolder(
-                  stubs.scripts,
-                  path.join(destination.root, 'src', 'scripts')
-                )
-              : Promise.resolve()
-          },
+          enabled: () => extensionType === 'overlay',
+          task: () =>
+            copyFolder(
+              stubs.scripts,
+              path.join(destination.root, 'src', 'scripts')
+            ),
         },
         {
           title: 'Creating service worker (background script)...',
@@ -237,111 +219,86 @@ export async function makeBed(response: PromptsResponse) {
         },
         {
           title: 'Creating project Typescript configurations...',
-          task: () =>
-            response.development.template.config.language === 'TypeScript'
-              ? copyFolder(stubs.tsconfig, destination.root)
-              : Promise.resolve(),
+          enabled: () =>
+            response.development.template.config.language === 'TypeScript',
+          task: () => copyFolder(stubs.tsconfig, destination.root),
         },
         {
           title: 'Creating style (w/ Tailwind CSS) configurations...',
-          task: () =>
-            response.development.template.config.style === 'Tailwind'
-              ? copyFolder(stubs.style.tailwind, destination.root)
-              : Promise.resolve(),
+          enabled: () =>
+            response.development.template.config.style === 'Tailwind',
+          task: () => copyFolder(stubs.style.tailwind, destination.root),
         },
         {
           title: 'Creating style (w/ Styled Components) configurations...',
+          enabled: () =>
+            response.development.template.config.style === 'Styled Components',
           task: () =>
-            response.development.template.config.style === 'Styled Components'
-              ? copyFolder(
-                  stubs.style.styledComponents,
-                  path.join(destination.root, 'src')
-                )
-              : Promise.resolve(),
+            copyFolder(
+              stubs.style.styledComponents,
+              path.join(destination.root, 'src')
+            ),
         },
         {
           title:
             'Creating lint & format (w/ ESLint + Prettier) configurations...',
-          task: () =>
+          enabled: () =>
             response.development.template.config.lintFormat ||
-            response.language === 'TypeScript'
-              ? copyFolder(stubs.lintFormat, destination.root)
-              : Promise.resolve(),
+            response.language === 'TypeScript',
+          task: () => copyFolder(stubs.lintFormat, destination.root),
         },
         {
           title: 'Creating unit test (w/ Vitest) configurations...',
+          enabled: () => hasTests,
           task: () =>
-            hasTests
-              ? copyFolder(stubs.tests, path.join(destination.root, 'src'))
-              : Promise.resolve(),
+            copyFolder(stubs.tests, path.join(destination.root, 'src')),
         },
         {
           title: 'Creating git (w/ Github) workflows...',
-          task: () =>
-            response.development.template.config.git
-              ? copyFolder(stubs.github, destination.root)
-              : Promise.resolve(),
+          enabled: () => response.development.template.config.git,
+          task: () => copyFolder(stubs.github, destination.root),
         },
         {
           title: 'Creating git hooks (w/ Husky) configurations...',
-          task: () =>
-            response.development.template.config.gitHooks
-              ? copyFolder(stubs.gitHooks, destination.root)
-              : Promise.resolve(),
+          enabled: () => response.development.template.config.gitHooks,
+          task: () => copyFolder(stubs.gitHooks, destination.root),
         },
         {
           title:
             'Creating project versioning + changelog (w/ Changesets) configurations...',
-          task: () =>
-            response.development.template.config.changesets
-              ? copyFolder(stubs.changesets, destination.root)
-              : Promise.resolve(),
+          enabled: () => response.development.template.config.changesets,
+          task: () => copyFolder(stubs.changesets, destination.root),
         },
-        // {
-        //   title: 'Creating bedframe.config.ts...',
-        //   task: () => writeBedframeConfig(response),
-        // },
         {
           title: 'Installing dependencies...',
-          task: () =>
-            response.development.config.installDeps
-              ? installDependencies(response)
-              : Promise.resolve(),
+          enabled: () => response.development.config.installDeps,
+          task: async () => await installDependencies(response),
         },
       ])
 
-      await tasks
-        .run()
-        .then(async () => {
-          if (response.development.template.config.git) {
-            chdir(projectPath)
-            await initializeGitProject(response).then((res) => {
-              console.log(res?.stdout)
+      await tasks.run().finally(() => {
+        const { packageManager } = response.development.template.config
+        const { installDeps } = response.development.config
 
-              const { packageManager } = response.development.template.config
-              const { installDeps } = response.development.config
-              console.log(`>_
-          
-          ${green('Your BED is made! 🚀')}
-          
-          ${dim('1.')} cd ${basename(projectPath)}
-          ${
-            !installDeps
-              ? `${dim('2.')} ${packageManager.toLowerCase()} ${
-                  packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
-                }`
-              : ``
-          }
-          ${dim(
-            installDeps ? `2.` : `3.`
-          )} ${packageManager.toLowerCase()} dev ${dim(
-                `or ${packageManager.toLowerCase()} dev:all`
-              )}
+        console.log(`
+    >_
+        
+    ${green('Your BED is made! 🚀')}
+
+    ${dim('1.')} cd ${basename(projectPath)}
+    ${
+      !installDeps
+        ? `${dim('2.')} ${packageManager.toLowerCase()} ${
+            packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
+          }`
+        : ``
+    }${dim(
+          installDeps ? `2.` : `3.`
+        )} ${packageManager.toLowerCase()} dev ${dim(
+          `or ${packageManager.toLowerCase()} dev:all`
+        )}
         `)
-            })
-          }
-        })
-        .catch(console.error)
+      })
     } catch (error) {
       console.error(error)
     }
