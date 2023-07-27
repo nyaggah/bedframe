@@ -10,7 +10,7 @@
   "main": "index.js",
   "dependencies": {
     "eslint": "^7.23.0",
-    "eslint-config-next": "13.4.4",
+    "eslint-config-next": "13.4.12",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "7.32.2",
     "eslint-config-turbo": "latest"
