@@ -47,7 +47,7 @@
     "nanospinner": "^1.1.0",
     "pkg-install": "^1.0.0",
     "prompts": "^2.4.2",
-    "vite": "^4.4.4"
+    "vite": "^4.4.7"
   },
   "devDependencies": {
     "@commander-js/extra-typings": "^10.0.3",
