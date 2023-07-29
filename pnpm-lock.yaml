@@ -42,8 +42,8 @@ importers:
         specifier: '*'
         version: link:packages/eslint-config-bedframe
       eslint-config-prettier:
-        specifier: ^8.8.0
-        version: 8.8.0(eslint@7.32.0)
+        specifier: ^8.9.0
+        version: 8.9.0(eslint@7.32.0)
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -261,8 +261,8 @@ importers:
         specifier: 13.4.12
         version: 13.4.12(eslint@7.32.0)(typescript@4.9.5)
       eslint-config-prettier:
-        specifier: ^8.8.0
-        version: 8.8.0(eslint@7.32.0)
+        specifier: ^8.9.0
+        version: 8.9.0(eslint@7.32.0)
       eslint-config-turbo:
         specifier: latest
         version: 1.10.12(eslint@7.32.0)
@@ -3301,8 +3301,8 @@ packages:
       - supports-color
     dev: false
 
-  /eslint-config-prettier@8.8.0(eslint@7.32.0):
-    resolution: {integrity: sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==}
+  /eslint-config-prettier@8.9.0(eslint@7.32.0):
+    resolution: {integrity: sha512-+sbni7NfVXnOpnRadUA8S28AUlsZt9GjgFvABIRL9Hkn8KqNzOp+7Lw4QWtrwn20KzU3wqu1QoOj2m+7rKRqkA==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
