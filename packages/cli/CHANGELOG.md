@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.35
+
+### Patch Changes
+
+- 2ad08f3: code clean up
+- Updated dependencies [2ad08f3]
+  - @bedframe/core@0.0.21
+
 ## 0.0.34
 
 ### Patch Changes
