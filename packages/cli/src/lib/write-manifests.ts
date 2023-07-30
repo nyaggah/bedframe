@@ -47,7 +47,7 @@ export default createManifestBase({
 
   // Optional
   // - - - - - - - - -
-  ${response.extension.author.email ? `author: pkg.author.email,` : ''}
+  ${response.extension.author.email ? `author: pkg.author.email,` : ``}
   background: {
     service_worker: 'src/scripts/background.ts',
     type: 'module',
@@ -57,7 +57,7 @@ export default createManifestBase({
       ? `side_panel: {
     default_path: 'src/sidepanels/welcome/index.html',
   },`
-      : ''
+      : ``
   }
   ${
     optionsPage === 'full-page'
@@ -70,14 +70,14 @@ export default createManifestBase({
   ${
     extensionType === 'devtools'
       ? `devtools_page: 'src/pages/devtools/index.html',`
-      : ''
+      : ``
   }  
   ${
     overridePage !== 'none'
       ? `chrome_url_overrides: {
     ${`${overridePage}: 'src/pages/${overridePage}/index.html',`}
   },`
-      : ''
+      : ``
   }    
   ${
     response.extension.type.name === 'overlay'
@@ -87,7 +87,7 @@ export default createManifestBase({
       matches: ['<all_urls>'],
     },
   ],`
-      : ''
+      : ``
   }
   web_accessible_resources: [
     {
@@ -111,7 +111,7 @@ export default createManifestBase({
       response.extension.type.name === 'sidepanel'
         ? `, 
     'sidePanel'`
-        : ''
+        : ``
     } 
   ],
 })
