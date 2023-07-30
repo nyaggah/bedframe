@@ -32,11 +32,11 @@ Make, validate, publish and manage cross-browser extensions with ease.
 
 ## Getting Started
 
-Visit https://bedframe.dev/docs to get started with Bedframe.
+Visit https://docs.bedframe.devto get started with Bedframe.
 
 ## Documentation
 
-Visit https://bedframe.dev/docs to view the full documentation.
+Visit https://docs.bedframe.devto view the full documentation.
 
 ## Packages
 
