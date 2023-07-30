@@ -7,11 +7,8 @@ chrome.runtime.onInstalled.addListener((details): void => {
   ${
     isSidePanel
       ? `chrome.sidePanel.setOptions({ path: welcomePanel })
-  console.log('[background.ts] > onInstalled > welcomePanel', details)
-  `
-      : `
-  console.log('[background.ts] > onInstalled', details)
-  `
+  console.log('[background.ts] > onInstalled > welcomePanel', details)`
+      : `console.log('[background.ts] > onInstalled', details)`
   }
 })
 
@@ -19,25 +16,7 @@ chrome.runtime.onInstalled.addListener((details): void => {
 
 const eventListeners = (isSidePanel: boolean) => onInstalled(isSidePanel)
 
-const sidePanels = `
-const welcomePanel = 'src/sidepanels/welcome/index.html'
-const mainPanel = 'src/sidepanels/main/index.html'
-
-chrome.tabs.onActivated.addListener(async ({ tabId }) => {
-  const { path } = await chrome.sidePanel.getOptions({ tabId })
-  if (path === welcomePanel) {
-    chrome.sidePanel.setOptions({ path: mainPanel })
-    console.log('[background.ts] > onInstalled > mainPanel')
-  }
-})
-
-chrome.sidePanel
-.setPanelBehavior({ openPanelOnActionClick: true })
-.catch((error: Error) => console.error(error))
-
-`
-
-const overlayBrowserAction = `
+const browserAction = `
 chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
  chrome.tabs.sendMessage(
    tab.id ?? 0,
@@ -50,11 +29,29 @@ chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
    }
  )
 })
+
+`
+
+const sidePanels = `
+${browserAction}
+const welcomePanel = 'src/sidepanels/welcome/index.html'
+const mainPanel = 'src/sidepanels/main/index.html'
+
+chrome.tabs.onActivated.addListener(async ({ tabId }) => {
+  const { path } = await chrome.sidePanel.getOptions({ tabId })
+  if (path === welcomePanel) {
+    chrome.sidePanel.setOptions({ path: mainPanel })
+  }
+})
+
+chrome.sidePanel
+.setPanelBehavior({ openPanelOnActionClick: true })
+.catch((error: Error) => console.error(error))
+
 `
 
 const devtoolsOnConnect = `
 chrome.runtime.onConnect.addListener((port) => {
-  console.log('chrome.runtime.onConnect > port', port)
   if (port.name === 'devtools-page') {
     port.onMessage.addListener((message) => {
       if (message.action === 'sendData') {
@@ -82,7 +79,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
     path.join(rootDir, 'src', 'scripts', `background.ts`)
   )
 
-  const isPopup = extension.type.name === 'popup' // 'popup' | 'overlay' | 'sidepanel' | 'devtools'
+  const isPopup = extension.type.name === 'popup'
   const isOverlay = extension.type.name === 'overlay'
   const isSidePanel = extension.type.name === 'sidepanel'
   const isDevtools = extension.type.name === 'devtools'
@@ -94,7 +91,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
 
   const fileContent = (_type: ExtensionType): string => {
     const sidePanelContent = isSidePanel ? sidePanels : ``
-    const overlayContent = isOverlay ? overlayBrowserAction : ``
+    const overlayContent = isPopup || isOverlay ? browserAction : ``
     const devtoolsContent = isDevtools ? devtoolsOnConnect : ``
     const content =
       eventListeners(isSidePanel) +
