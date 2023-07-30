@@ -292,9 +292,8 @@ export async function makeBed(response: PromptsResponse) {
             packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
           }`
         : ``
-    }${dim(
-          installDeps ? `2.` : `3.`
-        )} ${packageManager.toLowerCase()} dev ${dim(
+    }
+    ${dim(installDeps ? `2.` : `3.`)} ${packageManager.toLowerCase()} dev ${dim(
           `or ${packageManager.toLowerCase()} dev:all`
         )}
         `)

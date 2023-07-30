@@ -76,7 +76,7 @@ bedframe
   .option('-y, --yes', 'Set up Bedframe preconfigured defaults', false)
   .action((name, options) => {
     if (options) {
-      showIntro = false
+      showIntro = true
     }
     if (name === '.') {
       name = {
