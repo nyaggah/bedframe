@@ -265,7 +265,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.20' },
+        { name: '@bedframe/core', version: '^0.0.21' },
         { name: '@crxjs/vite-plugin', version: '^1.0.14' },
         { name: '@types/chrome', version: '^0.0.241' },
         { name: '@types/react', version: '^18.2.9' },
@@ -302,11 +302,11 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   const style: Partial<DependencyType>[] =
     response.development.template.config.style === 'Styled Components'
       ? [
-          { dependencies: [{ name: 'styled-components', version: '^5.3.8' }] },
+          { dependencies: [{ name: 'styled-components', version: '^6.0.5' }] },
           {
             devDependencies: [
               { name: '@types/styled-components', version: '^5.1.26' },
-              { name: 'babel-plugin-styled-components', version: '^2.1.1' },
+              { name: 'babel-plugin-styled-components', version: '^2.1.4' },
               { name: 'vite-plugin-babel-macros', version: '^1.0.6' }, // <-- if vite + styled-components
             ].sort((a, b) => a.name.localeCompare(b.name)),
           },
@@ -315,8 +315,8 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
           {
             devDependencies: [
               { name: 'autoprefixer', version: '^10.4.14' },
-              { name: 'postcss', version: '^8.4.21' },
-              { name: 'tailwindcss', version: '^3.3.1' },
+              { name: 'postcss', version: '^8.4.27' },
+              { name: 'tailwindcss', version: '^3.3.3' },
             ].sort((a, b) => a.name.localeCompare(b.name)),
           },
         ]
