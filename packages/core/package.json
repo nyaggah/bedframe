@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.241",
-    "@types/node": "^16.18.38",
+    "@types/node": "^16.18.39",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@vitejs/plugin-react": "^4.0.3",
     "eslint-config-bedframe": "*",
@@ -52,7 +52,7 @@
     "vite": "^4.4.7",
     "vite-plugin-babel-macros": "^1.0.6",
     "vite-plugin-dts": "^2.3.0",
-    "vite-plugin-externalize-deps": "^0.6.0",
+    "vite-plugin-externalize-deps": "^0.7.0",
     "vitest": "^0.33.0"
   },
   "lint-staged": {

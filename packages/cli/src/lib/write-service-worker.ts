@@ -3,11 +3,6 @@ import path from 'node:path'
 import prompts from 'prompts'
 
 const onInstalled = (isSidePanel: boolean): string => `
-/**
- *  Fired when the extension is first installed,
- *  when the extension is updated to a new version,
- *  and when Chrome is updated to a new version
- *  */
 chrome.runtime.onInstalled.addListener((details): void => {
   ${
     isSidePanel
@@ -22,55 +17,12 @@ chrome.runtime.onInstalled.addListener((details): void => {
 
 `
 
-const onConnect = `
-/**
- *  Fired when a connection is made from either
- *  an extension process or a content script  */
-chrome.runtime.onConnect.addListener(function (port): void {
-  console.log('[background.ts] > onConnect', port)
-})
-
-`
-
-const onStartup = `
-/**
- *  Fired when a profile that has this extension installed first starts up.
- *  This event is not fired when an incognito profile is started,
- *  even if this extension is operating in 'split' incognito mode */
-chrome.runtime.onStartup.addListener(function (): void {
-  console.log('[background.ts] > onStartup')
-})
-
-`
-
-const onSuspend = `
-/**
- *  Sent to the event page just before it is unloaded.
- *  This gives the extension opportunity to do some clean up.
- *  Note that since the page is unloading,
- *  any asynchronous operations started while handling this event
- *  are not guaranteed to complete.
- *  If more activity for the event page occurs before it gets
- *  unloaded the onSuspendCanceled event will
- *  be sent and the page won't be unloaded  */
-chrome.runtime.onSuspend.addListener(function (): void {
-  console.log('[background.ts] > onSuspend')
-})
-
-`
-
-const eventListeners = (isSidePanel: boolean) =>
-  onInstalled(isSidePanel) + onConnect + onStartup + onSuspend
+const eventListeners = (isSidePanel: boolean) => onInstalled(isSidePanel)
 
 const sidePanels = `
 const welcomePanel = 'src/sidepanels/welcome/index.html'
 const mainPanel = 'src/sidepanels/main/index.html'
 
-/**
- *  Fires when the active tab in a window changes. 
- *  Note that the tab's URL may not be set at the time this event fired, 
- *  but you can listen to onUpdated events so as to be notified when a URL is set.
- *  */
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {
   const { path } = await chrome.sidePanel.getOptions({ tabId })
   if (path === welcomePanel) {
@@ -85,9 +37,7 @@ chrome.sidePanel
 
 `
 
-const overlayBrowserAction = `/**
-*  Fired when an action icon is clicked.
-*  This event will not fire if the action has a popup */
+const overlayBrowserAction = `
 chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
  chrome.tabs.sendMessage(
    tab.id ?? 0,
@@ -102,7 +52,7 @@ chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
 })
 `
 
-const devtoolsOnConnect = `// Listen for connections from the DevTools panel
+const devtoolsOnConnect = `
 chrome.runtime.onConnect.addListener((port) => {
   console.log('chrome.runtime.onConnect > port', port)
   if (port.name === 'devtools-page') {

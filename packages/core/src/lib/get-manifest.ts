@@ -13,6 +13,11 @@ import { PluginOption } from 'vite'
 /**
  * Given the `Mode` i.e. `Browser` target, return the appropriate `Manifest` to build from
  * and pass it to {@link crx`}
+ *
+ * @export
+ * @param {BuildConfig} { command, mode }
+ * @param {BuildTarget[]} targets
+ * @return {*}  {PluginOption[]}
  */
 export function getManifest(
   { command, mode }: BuildConfig,
@@ -24,8 +29,9 @@ export function getManifest(
   const isValidMode = [...Object.values(Browser)].includes(_mode)
   const isCommandDev = command === 'serve'
   const isCommandBuild = command === 'build'
-  const isModeDevelop = isCommandBuild && mode === 'develop'
-  // const isModeProduction = isCommandBuild && mode === 'production'
+  const isModeDevelop = (isCommandDev && isValidMode) || mode === 'develop'
+  // const isModeProduction =
+  //   (isCommandBuild && isValidMode) || mode === 'production'
 
   if (targets.length > 0 && (isCommandDev || isCommandBuild) && !isValidMode) {
     const firstTarget = targets[0].browser.toLowerCase()
@@ -57,9 +63,9 @@ export function getManifest(
       ${lightCyan('D E V E L O P M E N T')}
       ${lightYellow('F R A M E W O R K')}
 
-    🚀 [mode: ${
-      isModeDevelop ? bold('dev') : bold('prod')
-    }] building for ${mode}\n`)
+  🚀 [mode: ${
+    isModeDevelop ? bold('dev') : bold('prod')
+  }] building for ${mode}\n`)
   }
 
   return crx({
