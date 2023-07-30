@@ -52,7 +52,7 @@
     "vite": "^4.4.4",
     "vite-plugin-babel-macros": "^1.0.6",
     "vite-plugin-dts": "^2.3.0",
-    "vite-plugin-externalize-deps": "^0.6.0",
+    "vite-plugin-externalize-deps": "^0.7.0",
     "vitest": "^0.33.0"
   },
   "lint-staged": {
