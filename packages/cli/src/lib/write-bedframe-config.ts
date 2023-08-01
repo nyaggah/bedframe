@@ -21,88 +21,63 @@ const getOverridePage = (overridePage: string): string => {
  *
  */
 export function writeBedframeConfig(response: Answers<string>): void {
-  const { tests: hasTests } = response.development.template.config
+  const {
+    framework,
+    language,
+    packageManager,
+    style,
+    lintFormat,
+    tests,
+    git,
+    gitHooks,
+    commitLint,
+    changesets,
+  } = response.development.template.config
   const {
     override: overridePage,
-    // options: optionsPage,
+    options: optionsPage,
     type,
     name,
+    position,
   } = response.extension
-  const { name: extensionType /* position */ } = type
-  const styledComponents =
-    response.development.template.config.style === 'Styled Components'
+  const { name: extensionType } = type
 
-  const fileContent = `${hasTests ? `/// <reference types="vitest" />` : ''}
-import { UserConfig } from 'vite'
-import { resolve } from 'node:path'
-import react from '@vitejs/plugin-react'
-${styledComponents ? `import macrosPlugin from 'vite-plugin-babel-macros'` : ''}
-import { getCustomFonts, getManifest, BuildConfig } from '@bedframe/core'
-import { manifests } from './src/manifests'
+  const styledComponents = style === 'Styled Components'
 
-export function createBedframeConfig({ command, mode }: BuildConfig): UserConfig {
-  const root = __dirname
-  const src = resolve(root, './src')
-  const outDir = resolve(root, 'dist', mode)
+  const fileContent = `import { manifests } from './src/manifests'
 
-  return {
-    root,
-    resolve: {
-      alias: {
-        '@': src,
+export const bedframeConfig = {
+  browser: manifests.map((target) => target.browser),
+  extension: {
+    type: '${extensionType}',
+    ${position ? `position: '${position}',` : ``}
+    overrides: '${overridePage}',
+    options: '${optionsPage}',
+    manifest: manifests.map((target) => {
+      return {
+        [target.browser]: target.manifest
+      }
+    })
+  },
+  development: {
+    template: {
+      config: {
+        framework: '${framework}',
+        language: '${language}',
+        packageManager: '${packageManager}',
+        style: '${style}',
+        lintFormat: ${lintFormat},
+        tests: ${tests},
+        git: ${git},
+        gitHooks: ${gitHooks},
+        commitLint: ${commitLint},
+        changesets: ${changesets},
       },
     },
-    plugins: [
-      getManifest({ command, mode }, manifests),
-      getCustomFonts([
-        {
-          name: 'Inter',
-          local: 'Inter',
-          src: './assets/fonts/inter/*.ttf',
-          weights: {
-            'Inter-Regular': 400,
-            'Inter-SemiBold': 600,
-            'Inter-Bold': 700,
-            'Inter-ExtraBold': 800,
-          },
-        },
-      ]),
-      react(),
-      ${styledComponents ? `macrosPlugin(),` : ''}
-    ],
-    build: {
-      outDir,
-      emptyOutDir: true,
-      rollupOptions: {
-        input: {${
-          extensionType === 'sidepanel'
-            ? `welcome: resolve(src, 'sidepanels', 'welcome', 'index.html'),
-            main: resolve(src, 'sidepanels', 'main', 'index.html'),`
-            : ''
-        }${
-    extensionType === 'devtools'
-      ? `devtools: resolve(src, 'pages', 'devtools', 'sidepanel.html'),\n`
-      : ''
-  }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
-        },
-      },
-    },
-    ${
-      hasTests
-        ? `test: {
-      globals: true,
-      setupFiles: ['./vitest/vitest.setup.ts'],
-      environment: 'jsdom',
-      coverage: {
-        provider: 'istanbul',
-        reporter: ['text', 'json', 'html'],
-      },
-      watch: false,
-    },`
-        : ''
-    }
-  }
-}`
+  },
+}
+
+`
 
   try {
     const rootDir = path.resolve(name.path)

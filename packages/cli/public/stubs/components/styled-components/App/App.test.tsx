@@ -21,7 +21,7 @@ const MockManifest: Manifest = {
 describe('<App />', () => {
   beforeAll(() => {
     window.chrome = {
-      // @ts-expect-error
+      // @ts-expect-error Type '{ getManifest: () => ManifestV3; }' is missing the following properties from type 'typeof runtime'
       runtime: {
         getManifest: () => MockManifest,
       },

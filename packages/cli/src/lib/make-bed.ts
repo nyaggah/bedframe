@@ -21,9 +21,10 @@ import { writePackageJson } from './write-package-json'
 import { writeServiceWorker } from './write-service-worker'
 import { writeSidePanels } from './write-sidepanels'
 import { writeViteConfig } from './write-vite-config'
+import { writeBedframeConfig } from './write-bedframe-config'
 
 export async function makeBed(response: PromptsResponse) {
-  const projectPath = response.extension.name.path
+  const { name: projectName, path: projectPath } = response.extension.name
 
   const destination = {
     root: path.resolve(response.extension.name.path),
@@ -111,44 +112,62 @@ export async function makeBed(response: PromptsResponse) {
         )
       }
 
-      const getOverridePage = (overridePage: string): string => {
+      const getOverridePage = (
+        overridePage: string
+      ): {
+        name: string
+        path: string
+      } => {
         switch (overridePage) {
           case 'history':
-            return stubs.pages.history
+            return { name: 'history', path: stubs.pages.history }
           case 'newtab':
-            return stubs.pages.newtab
+            return { name: 'newtab', path: stubs.pages.newtab }
           case 'bookmarks':
-            return stubs.pages.bookmarks
+            return { name: 'bookmarks', path: stubs.pages.bookmarks }
           default:
-            return ''
+            return { name: '', path: '' }
         }
       }
 
       const tasks = new Listr(
         [
           {
-            title: 'Creating package.json...',
-            task: () => writePackageJson(response),
+            title: `${dim('>_')}${projectName}`,
+            task: () => {},
           },
           {
-            title: 'Creating vite.config.ts...',
-            task: () => writeViteConfig(response),
+            // title: 'Creating git (w/ Github) workflows...',
+            title: `  ${dim('├ .')}github`,
+            enabled: () => response.development.template.config.git,
+            task: () => copyFolder(stubs.github, destination.root),
           },
           {
-            title: 'Creating manifests...',
-            task: () => writeManifests(response),
+            // title:
+            //   'Creating project versioning + changelog (w/ Changesets) configurations...',
+            title: `  ${dim('├ .')}changeset`,
+            enabled: () => response.development.template.config.changesets,
+            task: () => copyFolder(stubs.changesets, destination.root),
           },
           {
-            title: 'Creating public assets (icons, custom fonts, etc)...',
+            // title: 'Creating git hooks (w/ Husky) configurations...',
+            title: `  ${dim('├ .')}husky`,
+            enabled: () => response.development.template.config.gitHooks,
+            task: () => copyFolder(stubs.gitHooks, destination.root),
+          },
+          {
+            title: `  ${dim('└ ○')} src`,
+            task: () => {},
+          },
+          {
+            // title: 'Creating public assets (icons, custom fonts, etc)...',
+            title: `    ${dim('├ ○')} assets`,
             task: () =>
               copyFolder(stubs.public, path.join(destination.root, 'public')),
           },
           {
-            title: 'Creating base project...',
-            task: () => copyFolder(stubs.base, destination.root),
-          },
-          {
-            title: 'Creating project components...',
+            // title: 'Creating project components...',
+            title: `    ${dim('├ ○')} components`,
             task: () => {
               const component = stubs.components(style)
               copyFolder(
@@ -172,7 +191,13 @@ export async function makeBed(response: PromptsResponse) {
             },
           },
           {
-            title: 'Creating extension popup...',
+            // title: 'Creating manifests...',
+            title: `    ${dim('├ ○')} manifests`,
+            task: () => writeManifests(response),
+          },
+          {
+            // title: 'Creating extension popup...',
+            title: `    ${dim('├ ○')} pages`,
             enabled: () => extensionType === 'popup',
             task: () =>
               copyFolder(
@@ -181,12 +206,13 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            title: 'Creating extension side panels...',
-            enabled: () => extensionType === 'sidepanel',
-            task: () => writeSidePanels(response),
+            title: `    ${dim('└ ○')} pages`,
+            enabled: () => extensionType !== 'popup',
+            task: () => {},
           },
           {
-            title: 'Creating extension devtools panels...',
+            // title: 'Creating extension devtools panels...',
+            title: `      ${dim('├ ○')} devtools`,
             enabled: () => extensionType === 'devtools',
             task: () =>
               copyFolder(
@@ -195,7 +221,18 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            title: 'Creating options page...',
+            // title: 'Creating override page...',
+            title: `      ${dim('├ ○')} ${getOverridePage(overridePage).name}`,
+            enabled: () => overridePage !== 'none',
+            task: () =>
+              copyOverridePage(
+                overridePage,
+                getOverridePage(overridePage).path
+              ),
+          },
+          {
+            // title: 'Creating options page...',
+            title: `      ${dim('└ ○')} options`,
             enabled: () =>
               optionsPage === 'full-page' || optionsPage === 'embedded',
             task: () =>
@@ -205,13 +242,17 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            title: 'Creating override page...',
-            enabled: () => overridePage !== 'none',
-            task: () =>
-              copyOverridePage(overridePage, getOverridePage(overridePage)),
+            title: `    ${dim('└ ○')} scripts`,
+            task: () => {},
           },
           {
-            title: 'Creating content script...',
+            // title: 'Creating service worker (background script)...',
+            title: `      ${dim('├ ○')} background`,
+            task: () => writeServiceWorker(response),
+          },
+          {
+            // title: 'Creating content script...',
+            title: `      ${dim('└ ○')} content`,
             enabled: () => extensionType === 'overlay',
             task: () =>
               copyFolder(
@@ -220,23 +261,14 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            title: 'Creating service worker (background script)...',
-            task: () => writeServiceWorker(response),
+            // title: 'Creating extension side panels...',
+            title: `    ${dim('├ ○')} sidepanels`,
+            enabled: () => extensionType === 'sidepanel',
+            task: () => writeSidePanels(response),
           },
           {
-            title: 'Creating project Typescript configurations...',
-            enabled: () =>
-              response.development.template.config.language === 'TypeScript',
-            task: () => copyFolder(stubs.tsconfig, destination.root),
-          },
-          {
-            title: 'Creating style (w/ Tailwind CSS) configurations...',
-            enabled: () =>
-              response.development.template.config.style === 'Tailwind',
-            task: () => copyFolder(stubs.style.tailwind, destination.root),
-          },
-          {
-            title: 'Creating style (w/ Styled Components) configurations...',
+            // title: 'Creating style (w/ Styled Components) configurations...',
+            title: `    ${dim('├ ○')} styles`,
             enabled: () =>
               response.development.template.config.style ===
               'Styled Components',
@@ -247,34 +279,54 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            title:
-              'Creating lint & format (w/ ESLint + Prettier) configurations...',
+            // title: 'Creating unit test (w/ Vitest) configurations...',
+            title: `    ${dim('└ ○')} vitest`,
+            enabled: () => hasTests,
+            task: () =>
+              copyFolder(stubs.tests, path.join(destination.root, 'src')),
+          },
+          {
+            // title: 'Creating base project... (.gitignore)',
+            title: `  ${dim('├ .')}gitignore`,
+            task: () => copyFolder(stubs.base, destination.root),
+          },
+          {
+            // title:
+            //   'Creating lint & format (w/ ESLint + Prettier) configurations...',
+            title: `  ${dim('├ .')}prettierignore`,
             enabled: () =>
               response.development.template.config.lintFormat ||
               response.language === 'TypeScript',
             task: () => copyFolder(stubs.lintFormat, destination.root),
           },
           {
-            title: 'Creating unit test (w/ Vitest) configurations...',
-            enabled: () => hasTests,
-            task: () =>
-              copyFolder(stubs.tests, path.join(destination.root, 'src')),
+            // title: 'Creating bedframe config...',
+            title: `  ${dim('├ ○')} bedframe.config.ts`,
+            task: () => writeBedframeConfig(response),
           },
           {
-            title: 'Creating git (w/ Github) workflows...',
-            enabled: () => response.development.template.config.git,
-            task: () => copyFolder(stubs.github, destination.root),
+            // title: `Creating package.json...`,
+            title: `  ${dim('├ ○')} package.json`,
+            task: () => writePackageJson(response),
           },
           {
-            title: 'Creating git hooks (w/ Husky) configurations...',
-            enabled: () => response.development.template.config.gitHooks,
-            task: () => copyFolder(stubs.gitHooks, destination.root),
+            // title: 'Creating project Typescript configurations...',
+            title: `  ${dim('├ ○')} tsconfig.json`,
+            enabled: () =>
+              response.development.template.config.language === 'TypeScript',
+            task: () => copyFolder(stubs.tsconfig, destination.root),
           },
           {
-            title:
-              'Creating project versioning + changelog (w/ Changesets) configurations...',
-            enabled: () => response.development.template.config.changesets,
-            task: () => copyFolder(stubs.changesets, destination.root),
+            // title: 'Creating style (w/ Tailwind CSS) configurations...',
+            title: `  ${dim('├ ○')} tailwind.config.ts`,
+            enabled: () =>
+              response.development.template.config.style === 'Tailwind',
+            task: () => copyFolder(stubs.style.tailwind, destination.root),
+          },
+          {
+            // title: 'Creating vite.config.ts...',
+            title: `  ${dim('└ ○')} vite.config.ts`,
+            task: () => writeViteConfig(response),
           },
           {
             title: 'Installing dependencies...',
