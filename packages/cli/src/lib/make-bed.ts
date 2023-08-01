@@ -134,7 +134,6 @@ export async function makeBed(response: PromptsResponse) {
         [
           {
             title: `${dim('>_')}${projectName}`,
-            enabled: () => extensionType !== 'popup',
             task: () => {},
           },
           {
