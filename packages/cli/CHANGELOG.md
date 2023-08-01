@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.37
+
+### Patch Changes
+
+- 3b85a74: project gen updates; release workflow updates; better ux; code clean up
+
 ## 0.0.36
 
 ### Patch Changes
