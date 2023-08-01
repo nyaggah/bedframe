@@ -179,29 +179,29 @@ export function createScriptCommandsFrom(
       `eslint . --report-unused-disable-directives --max-warnings 0`
     )
 
-    const prettierCheckScript = createScriptCommand(
-      'prettier:check',
-      `${packageManager.toLowerCase()} prettier --check .`
-    )
+    // const prettierCheckScript = createScriptCommand(
+    //   'prettier:check',
+    //   `${packageManager.toLowerCase()} prettier --check .`
+    // )
     const prettierWriteScript = createScriptCommand(
-      'prettier:write',
+      'format',
       `${packageManager.toLowerCase()} prettier --write .`
     )
-    const lintFormatScript = createScriptCommand(
-      'lint:format',
-      `${packageManager.toLowerCase()} prettier:write && ${packageManager.toLowerCase()} lint`
-    )
+    // const lintFormatScript = createScriptCommand(
+    //   'lint:format',
+    //   `${packageManager.toLowerCase()} prettier:write && ${packageManager.toLowerCase()} lint`
+    // )
 
     return convertArrayToObject([
-      lintScript,
-      prettierCheckScript,
       prettierWriteScript,
-      lintFormatScript,
+      lintScript,
+      // prettierCheckScript,
+      // lintFormatScript,
     ])
   }
 
   const testScripts = () => {
-    const testScript = createScriptCommand('test', 'vitest')
+    const testScript = createScriptCommand('test', 'vitest run --coverage')
     return hasTests ? convertArrayToObject([testScript]) : null
   }
 
@@ -219,7 +219,7 @@ export function createScriptCommandsFrom(
     // "release": "pnpm lint:format && pnpm build:all && changeset version && changeset publish",
     const releaseScript = createScriptCommand(
       'release',
-      'pnpm lint:format && pnpm build:all && changeset version && changeset publish'
+      'pnpm format && pnpm lint && pnpm build:all && changeset version && changeset publish'
     )
 
     return convertArrayToObject([releaseScript])
@@ -331,6 +331,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             { name: '@testing-library/jest-dom', version: '^5.16.5' },
             { name: '@types/jest', version: '^29.5.2' },
             { name: '@types/testing-library__jest-dom', version: '^5.14.6' },
+            { name: '@vitest/coverage-istanbul', version: '^0.33.0' },
             { name: 'jsdom', version: '^21.1.1' },
             { name: 'vitest', version: '^0.29.8' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
@@ -432,7 +433,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             'react/react-in-jsx-scope': 'off',
             'space-before-function-paren': 'off',
           },
-          ignorePatterns: ['dist', 'node_modules'],
+          ignorePatterns: ['dist', 'node_modules', 'coverage'],
         })
       : {}
     const lintStagedConfig: Partial<ConfigType> = response.development.template
