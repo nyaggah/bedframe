@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.36
+
+### Patch Changes
+
+- 6e7bc03: bump @bedframe/core version on install
+
 ## 0.0.35
 
 ### Patch Changes
