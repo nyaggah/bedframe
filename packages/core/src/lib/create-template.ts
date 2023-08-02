@@ -5,7 +5,7 @@ export interface TemplateConfig {
   framework: Lowercase<Framework> | Capitalize<Framework>
   language: Lowercase<Language> | Capitalize<Language>
   packageManager?: AnyCase<PackageManager>
-  style: Style | boolean
+  style: AnyCase<Style> | boolean
   lintFormat: Record<string, any> | boolean
   tests: Record<string, any> | boolean
   git: Record<string, any> | boolean

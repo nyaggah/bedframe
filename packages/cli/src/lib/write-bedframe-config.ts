@@ -38,9 +38,8 @@ export function writeBedframeConfig(response: Answers<string>): void {
     options: optionsPage,
     type,
     name,
-    position,
   } = response.extension
-  const { name: extensionType } = type
+  const { name: extensionType, position } = type
 
   const styledComponents = style === 'Styled Components'
 
@@ -50,8 +49,8 @@ export const bedframeConfig = {
   browser: manifests.map((target) => target.browser),
   extension: {
     type: '${extensionType}',
-    ${position ? `position: '${position}',` : ``}
-    overrides: '${overridePage}',
+    ${position ? `position: '${position}',` : ''}
+    ${overridePage !== 'none' ? `overrides: '${overridePage}',` : ''}
     options: '${optionsPage}',
     manifest: manifests.map((target) => {
       return {
@@ -62,10 +61,10 @@ export const bedframeConfig = {
   development: {
     template: {
       config: {
-        framework: '${framework}',
-        language: '${language}',
-        packageManager: '${packageManager}',
-        style: '${style}',
+        framework: '${framework.toLowerCase()}',
+        language: '${language.toLowerCase()}',
+        packageManager: '${packageManager.toLowerCase()}',
+        style: '${style.toLowerCase()}',
         lintFormat: ${lintFormat},
         tests: ${tests},
         git: ${git},

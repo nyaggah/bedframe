@@ -1,5 +1,3 @@
-import { PromptType, Falsy, PrevCaller } from 'prompts'
-
 export type BrowserPrompts = {
   browsers: string
 }
@@ -18,8 +16,6 @@ export type ExtensionPrompts = {
   sidebar?: string
   none?: string
   position?: string
-  // type?: string
-  // type?: PromptType | Falsy | PrevCaller<T, PromptType | Falsy>
 }
 
 export type DevelopmentPrompts = {

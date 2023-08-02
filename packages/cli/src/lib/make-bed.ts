@@ -25,11 +25,6 @@ import { writeBedframeConfig } from './write-bedframe-config'
 
 export async function makeBed(response: PromptsResponse) {
   const { name: projectName, path: projectPath } = response.extension.name
-
-  const destination = {
-    root: path.resolve(response.extension.name.path),
-  }
-
   const { tests: hasTests, style } = response.development.template.config
   const {
     override: overridePage,
@@ -37,6 +32,11 @@ export async function makeBed(response: PromptsResponse) {
     type,
   } = response.extension
   const { name: extensionType /* position */ } = type
+
+  const destination = {
+    root: path.resolve(projectPath),
+  }
+
   const styledComponents = style === 'Styled Components'
   const tailwindComponents = style === 'Tailwind'
 
@@ -137,20 +137,16 @@ export async function makeBed(response: PromptsResponse) {
             task: () => {},
           },
           {
-            // title: 'Creating git (w/ Github) workflows...',
             title: `  ${dim('├ .')}github`,
             enabled: () => response.development.template.config.git,
             task: () => copyFolder(stubs.github, destination.root),
           },
           {
-            // title:
-            //   'Creating project versioning + changelog (w/ Changesets) configurations...',
             title: `  ${dim('├ .')}changeset`,
             enabled: () => response.development.template.config.changesets,
             task: () => copyFolder(stubs.changesets, destination.root),
           },
           {
-            // title: 'Creating git hooks (w/ Husky) configurations...',
             title: `  ${dim('├ .')}husky`,
             enabled: () => response.development.template.config.gitHooks,
             task: () => copyFolder(stubs.gitHooks, destination.root),
@@ -160,13 +156,11 @@ export async function makeBed(response: PromptsResponse) {
             task: () => {},
           },
           {
-            // title: 'Creating public assets (icons, custom fonts, etc)...',
             title: `    ${dim('├ ○')} assets`,
             task: () =>
               copyFolder(stubs.public, path.join(destination.root, 'public')),
           },
           {
-            // title: 'Creating project components...',
             title: `    ${dim('├ ○')} components`,
             task: () => {
               const component = stubs.components(style)
@@ -191,12 +185,10 @@ export async function makeBed(response: PromptsResponse) {
             },
           },
           {
-            // title: 'Creating manifests...',
             title: `    ${dim('├ ○')} manifests`,
             task: () => writeManifests(response),
           },
           {
-            // title: 'Creating extension popup...',
             title: `    ${dim('├ ○')} pages`,
             enabled: () => extensionType === 'popup',
             task: () =>
@@ -211,7 +203,6 @@ export async function makeBed(response: PromptsResponse) {
             task: () => {},
           },
           {
-            // title: 'Creating extension devtools panels...',
             title: `      ${dim('├ ○')} devtools`,
             enabled: () => extensionType === 'devtools',
             task: () =>
@@ -221,7 +212,6 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            // title: 'Creating override page...',
             title: `      ${dim('├ ○')} ${getOverridePage(overridePage).name}`,
             enabled: () => overridePage !== 'none',
             task: () =>
@@ -231,7 +221,6 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            // title: 'Creating options page...',
             title: `      ${dim('└ ○')} options`,
             enabled: () =>
               optionsPage === 'full-page' || optionsPage === 'embedded',
@@ -246,12 +235,10 @@ export async function makeBed(response: PromptsResponse) {
             task: () => {},
           },
           {
-            // title: 'Creating service worker (background script)...',
             title: `      ${dim('├ ○')} background`,
             task: () => writeServiceWorker(response),
           },
           {
-            // title: 'Creating content script...',
             title: `      ${dim('└ ○')} content`,
             enabled: () => extensionType === 'overlay',
             task: () =>
@@ -261,13 +248,11 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            // title: 'Creating extension side panels...',
             title: `    ${dim('├ ○')} sidepanels`,
             enabled: () => extensionType === 'sidepanel',
             task: () => writeSidePanels(response),
           },
           {
-            // title: 'Creating style (w/ Styled Components) configurations...',
             title: `    ${dim('├ ○')} styles`,
             enabled: () =>
               response.development.template.config.style ===
@@ -279,20 +264,16 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            // title: 'Creating unit test (w/ Vitest) configurations...',
             title: `    ${dim('└ ○')} vitest`,
             enabled: () => hasTests,
             task: () =>
               copyFolder(stubs.tests, path.join(destination.root, 'src')),
           },
           {
-            // title: 'Creating base project... (.gitignore)',
             title: `  ${dim('├ .')}gitignore`,
             task: () => copyFolder(stubs.base, destination.root),
           },
           {
-            // title:
-            //   'Creating lint & format (w/ ESLint + Prettier) configurations...',
             title: `  ${dim('├ .')}prettierignore`,
             enabled: () =>
               response.development.template.config.lintFormat ||
@@ -300,31 +281,26 @@ export async function makeBed(response: PromptsResponse) {
             task: () => copyFolder(stubs.lintFormat, destination.root),
           },
           {
-            // title: 'Creating bedframe config...',
             title: `  ${dim('├ ○')} bedframe.config.ts`,
             task: () => writeBedframeConfig(response),
           },
           {
-            // title: `Creating package.json...`,
             title: `  ${dim('├ ○')} package.json`,
             task: () => writePackageJson(response),
           },
           {
-            // title: 'Creating project Typescript configurations...',
             title: `  ${dim('├ ○')} tsconfig.json`,
             enabled: () =>
               response.development.template.config.language === 'TypeScript',
             task: () => copyFolder(stubs.tsconfig, destination.root),
           },
           {
-            // title: 'Creating style (w/ Tailwind CSS) configurations...',
             title: `  ${dim('├ ○')} tailwind.config.ts`,
             enabled: () =>
               response.development.template.config.style === 'Tailwind',
             task: () => copyFolder(stubs.style.tailwind, destination.root),
           },
           {
-            // title: 'Creating vite.config.ts...',
             title: `  ${dim('└ ○')} vite.config.ts`,
             task: () => writeViteConfig(response),
           },
@@ -360,8 +336,8 @@ export async function makeBed(response: PromptsResponse) {
         : ''
     }
     ${dim(installDeps ? `2.` : `3.`)} ${packageManager.toLowerCase()} dev ${dim(
-          `or ${packageManager.toLowerCase()} dev:all`
-        )}
+          `or ${packageManager.toLowerCase()} dev:for ${response.browser[0].toLowerCase()}`
+        )}${dim(` or ${packageManager.toLowerCase()} build:all`)}
         `)
       })
     } catch (error) {

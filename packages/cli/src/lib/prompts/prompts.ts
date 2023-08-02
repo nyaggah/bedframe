@@ -307,8 +307,8 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
     inactive: 'No',
   },
 ]
-// : Promise<Bedframe>
-export async function bedframePrompts(projectName: string) {
+
+export async function bedframePrompts(projectName: string): Promise<Bedframe> {
   projectName === undefined ? basename(cwd()) : projectName
   const browsersResponse = await prompts(browserPrompts, {
     // onSubmit: (_prompt, answer, _answers) => console.log('browsers:', answer),
@@ -333,20 +333,6 @@ export async function bedframePrompts(projectName: string) {
     },
   })
 
-  /*
-"type": {
-      "name": "popup"
-    },
-    "override": "newtab"
-
-overrides & type i.e. sidebar, popup, etc    
-
-// SIDEPANEL
-
-"permissions": ["sidePanel"]
-
-  */
-
   const bedframeConfig = createBedframe({
     browser: browsersResponse.browsers,
     extension: {
@@ -359,23 +345,14 @@ overrides & type i.e. sidebar, popup, etc
         email: extensionResponse.author.email,
         url: extensionResponse.author.url,
       },
-      // path: extensionResponse.name.path,
       manifest: browsersResponse.browsers.map((browser: Browser) => {
         return {
           [browser.toLowerCase()]: {
-            // TO diddly DO: use `createManifest()`
-            // or point to `src/manifest/{browser}`
             name: extensionResponse.name.name, // ??
             version: extensionResponse.version,
             manifest_version: 3,
             author: extensionResponse.author?.email,
             description: extensionResponse.description,
-            /*
-            include:
-            - 
-            - override pages
-            options page
-            */
           },
         }
       }),
@@ -388,9 +365,6 @@ overrides & type i.e. sidebar, popup, etc
     },
     development: {
       template: {
-        // name: ,
-        // version: ,
-        // description: ,
         config: {
           framework: developmentResponse.framework,
           language: developmentResponse.language,
@@ -404,14 +378,12 @@ overrides & type i.e. sidebar, popup, etc
           changesets: developmentResponse.changesets,
         },
       },
-      // TO diddly DO: this aint no bedframe object!
       config: {
         installDeps: developmentResponse.installDeps,
       },
     },
   } as any) // TO diddly DO: bruuuuuh! this is a BED; not just any bed but MY BED! type me up, Joey!
+  // ^^^  i think we're expecting type `PromptsResponse`
 
   return bedframeConfig
 }
-
-export default bedframePrompts

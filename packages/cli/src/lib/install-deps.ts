@@ -6,9 +6,8 @@ import { PromptsResponse } from './prompts'
 export async function installDependencies(
   response: PromptsResponse
 ): Promise<void> {
-  const projectPath = response.extension.name.path
+  const { name: projectName, path: projectPath } = response.extension.name
   const { packageManager } = response.development.template.config
-  const projectName = response.extension.name.name ?? 'bedframe-project'
 
   try {
     chdir(projectPath)
