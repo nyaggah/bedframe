@@ -24,7 +24,7 @@ export function viteConfig(response: prompts.Answers<string>): string {
   const styledComponents =
     response.development.template.config.style === 'Styled Components'
 
-  return `import { getCustomFonts, getManifest } from '@bedframe/core'
+  return `import { getFonts, getManifest } from '@bedframe/core'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
@@ -45,7 +45,7 @@ export default defineConfig(({ command, mode }) => {
     },
     plugins: [
       getManifest({ command, mode }, manifests),
-      getCustomFonts([
+      getFonts([
         {
           name: 'Inter',
           local: 'Inter',
@@ -72,7 +72,7 @@ export default defineConfig(({ command, mode }) => {
             : ''
         }${
     extensionType === 'devtools'
-      ? `devtools: resolve(src, 'pages', 'devtools', 'sidepanel.html'),\n`
+      ? `devtools: resolve(src, 'pages', 'devtools', 'panel.html'),`
       : ''
   }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
         },

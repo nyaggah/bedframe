@@ -37,9 +37,6 @@ export async function makeBed(response: PromptsResponse) {
     root: path.resolve(projectPath),
   }
 
-  const styledComponents = style === 'Styled Components'
-  const tailwindComponents = style === 'Tailwind'
-
   if (projectPath) {
     try {
       fs.ensureDir(projectPath).catch(console.error)
@@ -51,13 +48,45 @@ export async function makeBed(response: PromptsResponse) {
       const stubs = {
         base: path.join(stubsPath, 'base'),
         public: path.join(stubsPath, 'public'),
-        pages: {
-          popup: path.join(stubsPath, 'pages', 'popup'),
-          newtab: path.join(stubsPath, 'pages', 'newtab'),
-          options: path.join(stubsPath, 'pages', 'options'),
-          history: path.join(stubsPath, 'pages', 'history'),
-          devtools: path.join(stubsPath, 'pages', 'devtools'),
-          bookmarks: path.join(stubsPath, 'pages', 'bookmarks'),
+        pages: (style: Style) => {
+          return {
+            popup: path.join(
+              stubsPath,
+              'pages',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'popup'
+            ),
+            newtab: path.join(
+              stubsPath,
+              'pages',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'newtab'
+            ),
+            options: path.join(
+              stubsPath,
+              'pages',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'options'
+            ),
+            history: path.join(
+              stubsPath,
+              'pages',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'history'
+            ),
+            devtools: path.join(
+              stubsPath,
+              'pages',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'devtools'
+            ),
+            bookmarks: path.join(
+              stubsPath,
+              'pages',
+              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              'bookmarks'
+            ),
+          }
         },
         sidepanels: path.join(stubsPath, 'sidepanels'),
         tsconfig: path.join(stubsPath, 'tsconfig'),
@@ -120,11 +149,11 @@ export async function makeBed(response: PromptsResponse) {
       } => {
         switch (overridePage) {
           case 'history':
-            return { name: 'history', path: stubs.pages.history }
+            return { name: 'history', path: stubs.pages(style).history }
           case 'newtab':
-            return { name: 'newtab', path: stubs.pages.newtab }
+            return { name: 'newtab', path: stubs.pages(style).newtab }
           case 'bookmarks':
-            return { name: 'bookmarks', path: stubs.pages.bookmarks }
+            return { name: 'bookmarks', path: stubs.pages(style).bookmarks }
           default:
             return { name: '', path: '' }
         }
@@ -193,7 +222,7 @@ export async function makeBed(response: PromptsResponse) {
             enabled: () => extensionType === 'popup',
             task: () =>
               copyFolder(
-                stubs.pages.popup,
+                stubs.pages(style).popup,
                 path.join(destination.root, 'src', 'pages', 'popup')
               ),
           },
@@ -207,7 +236,7 @@ export async function makeBed(response: PromptsResponse) {
             enabled: () => extensionType === 'devtools',
             task: () =>
               copyFolder(
-                stubs.pages.devtools,
+                stubs.pages(style).devtools,
                 path.join(destination.root, 'src', 'pages', 'devtools')
               ),
           },
@@ -226,7 +255,7 @@ export async function makeBed(response: PromptsResponse) {
               optionsPage === 'full-page' || optionsPage === 'embedded',
             task: () =>
               copyFolder(
-                stubs.pages.options,
+                stubs.pages(style).options,
                 path.join(destination.root, 'src', 'pages', 'options')
               ),
           },

@@ -29,9 +29,9 @@ export const StyleEnum = {
 } as const
 
 export const PackageManagerEnum = {
-  Yarn: 'Yarn',
-  Npm: 'Npm',
   PnPm: 'PnPm',
+  Npm: 'Npm',
+  Yarn: 'Yarn',
 } as const
 
 export type Manifest = chrome.runtime.ManifestV3

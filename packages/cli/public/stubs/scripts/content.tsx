@@ -85,7 +85,7 @@ export type MessageResponse = (response?: unknown) => void
 
 const messagesFromReactAppListener = (
   message: Record<string, unknown>,
-  _sender: chrome.runtime.MessageSender, // currently unused. rename to `sender` to user
+  _sender: chrome.runtime.MessageSender, // currently unused. rename to `sender` to use
   response: MessageResponse
 ): void => {
   if (message.action === 'toggle') {
