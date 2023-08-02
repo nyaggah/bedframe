@@ -6,10 +6,7 @@ import { App } from '@/components/App'
 chrome.devtools.panels.create(
   'Bedframe (Panel)',
   'assets/icons/icon-128x128.png',
-  'src/pages/devtools/index.html',
-  function (panel) {
-    console.log({ panel })
-  }
+  'src/pages/devtools/index.html'
 )
 
 chrome.devtools.panels.elements.createSidebarPane(
