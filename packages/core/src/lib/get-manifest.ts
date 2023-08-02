@@ -30,8 +30,6 @@ export function getManifest(
   const isCommandDev = command === 'serve'
   const isCommandBuild = command === 'build'
   const isModeDevelop = (isCommandDev && isValidMode) || mode === 'develop'
-  // const isModeProduction =
-  //   (isCommandBuild && isValidMode) || mode === 'production'
 
   if (targets.length > 0 && (isCommandDev || isCommandBuild) && !isValidMode) {
     const firstTarget = targets[0].browser.toLowerCase()
@@ -46,7 +44,7 @@ export function getManifest(
   const browser = targets.find((t) => t.browser === mode)
   if (!browser) {
     throw new Error(
-      `unknown mode: "${mode}". 'mode' is the browser you're building for. should be one of ${Object.values(
+      `unknown mode "${mode}". 'mode' is the browser you're building for. should be one of ${Object.values(
         Browser
       )
         .join(', ')

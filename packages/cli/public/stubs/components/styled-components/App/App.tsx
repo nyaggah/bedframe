@@ -3,7 +3,7 @@ import { GlobalStyles } from '@/styles'
 import { Styled } from './App.Style'
 import { Intro } from '../Intro'
 
-function App(): JSX.Element {
+export function App(): JSX.Element {
   return (
     <>
       <GlobalStyles />
@@ -15,5 +15,3 @@ function App(): JSX.Element {
     </>
   )
 }
-
-export default App
