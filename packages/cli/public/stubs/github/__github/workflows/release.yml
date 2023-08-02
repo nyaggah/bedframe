@@ -21,7 +21,7 @@ jobs:
           node-version: 16.x
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       - name: Create Release Pull Request # or TO diddly DO: Publish to webstore(s)
         id: changesets
