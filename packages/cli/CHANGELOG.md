@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.38
+
+### Patch Changes
+
+- def1859: updated project gen types; clean up
+- Updated dependencies [def1859]
+  - @bedframe/core@0.0.22
+
 ## 0.0.37
 
 ### Patch Changes
