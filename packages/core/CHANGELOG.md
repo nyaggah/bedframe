@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.22
+
+### Patch Changes
+
+- def1859: updated project gen types; clean up
+
 ## 0.0.21
 
 ### Patch Changes
