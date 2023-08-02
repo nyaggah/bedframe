@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.23
+
+### Patch Changes
+
+- b664c1b: project gen account for tailwind; pages and components
+
 ## 0.0.22
 
 ### Patch Changes

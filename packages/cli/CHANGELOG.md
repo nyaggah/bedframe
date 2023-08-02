@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.39
+
+### Patch Changes
+
+- b664c1b: project gen account for tailwind; pages and components
+- Updated dependencies [b664c1b]
+  - @bedframe/core@0.0.23
+
 ## 0.0.38
 
 ### Patch Changes
