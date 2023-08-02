@@ -10,7 +10,16 @@ import type {
 import { AnyCase } from './utils'
 import { BedframeTemplate } from './create-template'
 
+export type ExtensionType = 'popup' | 'overlay' | 'sidepanel' | 'devtools'
+export type OverrideType = 'none' | 'newtab' | 'history' | 'bookmarks'
+export type PositionType = 'center' | 'left' | 'right'
+export type OptionsType = 'full-page' | 'embedded'
+
 export type Extension = {
+  type: ExtensionType
+  overrides: OverrideType
+  position?: PositionType
+  options: OptionsType
   manifest: OneOrMoreManifests
 }
 
@@ -19,8 +28,8 @@ export type OneOrMoreManifests =
   | {
       [key in
         | keyof typeof BrowserEnum
-        | keyof typeof BrowserEnum as Lowercase<key>]?: Manifest
-    }
+        | keyof typeof BrowserEnum as AnyCase<key>]?: Manifest
+    }[]
 
 export type Development = {
   template: BedframeTemplate

@@ -1,12 +1,11 @@
 import { execa } from 'execa'
-import { chdir, cwd } from 'node:process'
+import { chdir } from 'node:process'
 import { PromptsResponse } from './prompts'
 
 export async function initializeGitProject(
   response: PromptsResponse
 ): Promise<void> {
-  const projectPath = response.extension.name.path ?? cwd()
-  const projectName = response.extension.name.name ?? 'bedframe-project'
+  const { name: projectName, path: projectPath } = response.extension.name
 
   try {
     chdir(projectPath)
