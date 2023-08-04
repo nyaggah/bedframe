@@ -14,7 +14,7 @@ import {
   languages,
   stylingOptions,
 } from './prompts-utils'
-import { basename } from 'node:path'
+import { basename, resolve } from 'node:path'
 import { cwd } from 'node:process'
 
 export function promptInstructions(_type: string = 'multiselect'): string {
@@ -150,7 +150,7 @@ export const extensionPrompts = (
       {
         title: `DevTools`,
         value: 'devtools',
-        description: dim('requires "devtools" permission'),
+        // description: dim('requires "devtools" permission'),
       },
     ],
   },
@@ -172,12 +172,6 @@ export const extensionPrompts = (
     hint: dim('you can override one of these pages'),
     choices: [
       {
-        title: 'None',
-        value: 'none',
-        description: dim('no page overrides'),
-        selected: true,
-      },
-      {
         title: 'New Tab',
         value: 'newtab',
         description: dim('overrides `chrome://newtab` page'),
@@ -192,6 +186,12 @@ export const extensionPrompts = (
         value: 'bookmarks',
         description: dim('overrides `chrome://bookmarks` page'),
       },
+      {
+        title: 'None',
+        value: 'none',
+        description: dim('no page overrides'),
+        selected: true,
+      },
     ],
   },
   {
@@ -201,17 +201,17 @@ export const extensionPrompts = (
     initial: 0,
     choices: [
       {
+        title: `Embedded`,
+        value: 'embedded',
+        description: dim(
+          'options integrated in extensions management page inside browser-native embedded box'
+        ),
+      },
+      {
         title: `Full Page`,
         value: 'full-page',
         description: dim('options displayed in a new tab'),
         selected: true,
-      },
-      {
-        title: `Embedded`,
-        value: 'embedded',
-        description: dim(
-          'integrate options into extensions management page inside browser-native embedded box'
-        ),
       },
     ],
   },
@@ -338,7 +338,7 @@ export async function bedframePrompts(projectName: string): Promise<Bedframe> {
     extension: {
       name: {
         name: extensionResponse.name.name,
-        path: extensionResponse.name.path,
+        path: resolve(extensionResponse.name.path),
       },
       author: {
         name: extensionResponse.author.name,

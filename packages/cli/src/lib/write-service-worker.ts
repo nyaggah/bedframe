@@ -1,3 +1,4 @@
+import { ExtensionType } from '@bedframe/core'
 import fs from 'fs-extra'
 import path from 'node:path'
 import prompts from 'prompts'
@@ -50,23 +51,9 @@ chrome.sidePanel
 
 `
 
-// const devtoolsOnConnect = `
-// chrome.runtime.onConnect.addListener((port) => {
-//   if (port.name === 'devtools-page') {
-//     port.onMessage.addListener((message) => {
-//       if (message.action === 'sendData') {
-//         // Handle data sent from the DevTools panel
-//         console.log('Data received from DevTools panel:', message.data)
-//       }
-//     })
-//   }
-// })
-
-// `
-
 // TO diddly DO: move to @bedframe/core
-type ExtensionType = 'popup' | 'overlay' | 'sidepanel' | 'devtools'
-type ExtensionPosition = 'center' | 'left' | 'right'
+// type ExtensionType = 'popup' | 'overlay' | 'sidepanel' | 'devtools'
+// type ExtensionPosition = 'center' | 'left' | 'right'
 
 export function writeServiceWorker(response: prompts.Answers<string>) {
   const { extension } = response
@@ -77,14 +64,14 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
   const isPopup = extension.type.name === 'popup'
   const isOverlay = extension.type.name === 'overlay'
   const isSidePanel = extension.type.name === 'sidepanel'
-  const isDevtools = extension.type.name === 'devtools'
-  const position: ExtensionPosition = extension.position // 'center' | 'left' | 'right'
+  // const isDevtools = extension.type.name === 'devtools'
+  // const position: PositionType = extension.position // 'center' | 'left' | 'right'
   // const hasFirefox = browsers.includes('firefox')
 
   const fileContent = (_type: ExtensionType): string => {
     const sidePanelContent = isSidePanel ? sidePanels : ``
     const overlayContent = isPopup || isOverlay ? browserAction : ``
-    // const devtoolsContent = isDevtools ? devtoolsOnConnect : ``
+
     const content =
       eventListeners(isSidePanel) + sidePanelContent + overlayContent
 
