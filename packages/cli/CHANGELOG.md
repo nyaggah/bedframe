@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.41
+
+### Patch Changes
+
+- a49c03e: project gen; cli make command graphic
+
 ## 0.0.40
 
 ### Patch Changes
