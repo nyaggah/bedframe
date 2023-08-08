@@ -129,7 +129,15 @@ export function createScriptCommandsFrom(
   response: prompts.Answers<string>
 ): ScriptCommand {
   const { development, browser: browsers } = response
-  const { packageManager, tests: hasTests } = development.template.config
+  const {
+    packageManager,
+    tests: hasTests,
+    lintFormat,
+    gitHooks,
+    changesets,
+  } = development.template.config
+  // const { language, lintFormat, style, tests, git, gitHooks, changesets } =
+  //   response.development.template.config
 
   const devBuildScripts = () => {
     const devScript = createScriptCommand('dev', 'vite')
@@ -192,12 +200,14 @@ export function createScriptCommandsFrom(
     //   `${packageManager.toLowerCase()} prettier:write && ${packageManager.toLowerCase()} lint`
     // )
 
-    return convertArrayToObject([
-      prettierWriteScript,
-      lintScript,
-      // prettierCheckScript,
-      // lintFormatScript,
-    ])
+    return lintFormat
+      ? convertArrayToObject([
+          prettierWriteScript,
+          lintScript,
+          // prettierCheckScript,
+          // lintFormatScript,
+        ])
+      : null
   }
 
   const testScripts = () => {
@@ -212,17 +222,19 @@ export function createScriptCommandsFrom(
       'husky install'
     )
 
-    return convertArrayToObject([czScript, postInstallScript])
+    return gitHooks ? convertArrayToObject([czScript, postInstallScript]) : null
   }
 
   const releaseScripts = () => {
     // "release": "pnpm lint:format && pnpm build:all && changeset version && changeset publish",
     const releaseScript = createScriptCommand(
       'release',
-      'pnpm format && pnpm lint && pnpm build:all && changeset version && changeset publish'
+      `${
+        lintFormat ? 'pnpm format && pnpm lint &&' : ''
+      } build:all && changeset version`
     )
 
-    return convertArrayToObject([releaseScript])
+    return changesets ? convertArrayToObject([releaseScript]) : null
   }
 
   return {

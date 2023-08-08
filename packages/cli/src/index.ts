@@ -20,7 +20,7 @@ const pkg = JSON.parse(
 // const bedframe = new Command()
 // const progOrCommand = standalone ? program : bedframe
 
-let showIntro = true
+let showIntro = false
 
 // program
 const bedframe = new Command()
@@ -34,7 +34,7 @@ bedframe
     `
   ${bold(dim('>_'))}
   
-    ${bold(lightMagenta('B '))}${lightMagenta('R O W S E R')} 
+    ${lightMagenta('B R O W S E R')} 
     ${lightGreen('E X T E N S I O N')} 
     ${lightCyan('D E V E L O P M E N T')}
     ${lightYellow('F R A M E W O R K')}
@@ -77,6 +77,7 @@ bedframe
   .action((name, options) => {
     if (options) {
       showIntro = true
+      promptsIntro()
     }
     if (name === '.') {
       name = {
