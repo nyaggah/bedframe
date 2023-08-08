@@ -44,7 +44,7 @@
     "rollup": "^3.26.3",
     "shx": "^0.3.4",
     "ts-node": "^10.9.1",
-    "tslib": "^2.5.3",
+    "tslib": "^2.6.1",
     "tsx": "^3.12.7",
     "turbo": "latest",
     "typescript": "^4.9.5"

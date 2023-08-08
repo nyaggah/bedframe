@@ -63,8 +63,8 @@ importers:
         specifier: ^10.9.1
         version: 10.9.1(@types/node@16.18.39)(typescript@4.9.5)
       tslib:
-        specifier: ^2.5.3
-        version: 2.5.3
+        specifier: ^2.6.1
+        version: 2.6.1
       tsx:
         specifier: ^3.12.7
         version: 3.12.7
@@ -119,7 +119,7 @@ importers:
         version: 15.1.0(rollup@3.26.3)
       '@rollup/plugin-typescript':
         specifier: ^11.1.2
-        version: 11.1.2(rollup@3.26.3)(tslib@2.5.3)(typescript@4.9.5)
+        version: 11.1.2(rollup@3.26.3)(tslib@2.6.1)(typescript@4.9.5)
       '@types/chrome':
         specifier: ^0.0.241
         version: 0.0.241
@@ -197,8 +197,8 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1(rollup@3.27.0)
       tslib:
-        specifier: ^2.5.3
-        version: 2.5.3
+        specifier: ^2.6.1
+        version: 2.6.1
       typescript:
         specifier: ^4.9.3
         version: 4.9.5
@@ -235,7 +235,7 @@ importers:
         version: 15.1.0(rollup@3.27.0)
       '@rollup/plugin-typescript':
         specifier: ^11.1.2
-        version: 11.1.2(rollup@3.27.0)(tslib@2.5.3)(typescript@5.0.2)
+        version: 11.1.2(rollup@3.27.0)(tslib@2.6.1)(typescript@5.0.2)
       rollup-plugin-dts:
         specifier: ^5.3.1
         version: 5.3.1(rollup@3.27.0)(typescript@5.0.2)
@@ -753,6 +753,7 @@ packages:
   /@commitlint/config-validator@17.6.7:
     resolution: {integrity: sha512-vJSncmnzwMvpr3lIcm0I8YVVDJTzyjy7NZAeXbTXy+MPUdAr9pKyyg7Tx/ebOQ9kqzE6O9WT6jg2164br5UdsQ==}
     engines: {node: '>=v14'}
+    requiresBuild: true
     dependencies:
       '@commitlint/types': 17.4.4
       ajv: 8.12.0
@@ -773,6 +774,7 @@ packages:
   /@commitlint/execute-rule@17.4.0:
     resolution: {integrity: sha512-LIgYXuCSO5Gvtc0t9bebAMSwd68ewzmqLypqI2Kke1rqOqqDbMpYcYfoPfFlv9eyLIh4jocHWwCK5FS7z9icUA==}
     engines: {node: '>=v14'}
+    requiresBuild: true
     dev: true
 
   /@commitlint/format@17.4.4:
@@ -852,6 +854,7 @@ packages:
   /@commitlint/resolve-extends@17.6.7:
     resolution: {integrity: sha512-PfeoAwLHtbOaC9bGn/FADN156CqkFz6ZKiVDMjuC2N5N0740Ke56rKU7Wxdwya8R8xzLK9vZzHgNbuGhaOVKIg==}
     engines: {node: '>=v14'}
+    requiresBuild: true
     dependencies:
       '@commitlint/config-validator': 17.6.7
       '@commitlint/types': 17.4.4
@@ -1507,7 +1510,7 @@ packages:
       is-glob: 4.0.3
       open: 9.1.0
       picocolors: 1.0.0
-      tslib: 2.5.3
+      tslib: 2.6.1
     dev: false
 
   /@rollup/plugin-json@6.0.0(rollup@3.26.3):
@@ -1559,7 +1562,7 @@ packages:
       rollup: 3.27.0
     dev: true
 
-  /@rollup/plugin-typescript@11.1.2(rollup@3.26.3)(tslib@2.5.3)(typescript@4.9.5):
+  /@rollup/plugin-typescript@11.1.2(rollup@3.26.3)(tslib@2.6.1)(typescript@4.9.5):
     resolution: {integrity: sha512-0ghSOCMcA7fl1JM+0gYRf+Q/HWyg+zg7/gDSc+fRLmlJWcW5K1I+CLRzaRhXf4Y3DRyPnnDo4M2ktw+a6JcDEg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1575,11 +1578,11 @@ packages:
       '@rollup/pluginutils': 5.0.2(rollup@3.26.3)
       resolve: 1.22.2
       rollup: 3.26.3
-      tslib: 2.5.3
+      tslib: 2.6.1
       typescript: 4.9.5
     dev: true
 
-  /@rollup/plugin-typescript@11.1.2(rollup@3.27.0)(tslib@2.5.3)(typescript@5.0.2):
+  /@rollup/plugin-typescript@11.1.2(rollup@3.27.0)(tslib@2.6.1)(typescript@5.0.2):
     resolution: {integrity: sha512-0ghSOCMcA7fl1JM+0gYRf+Q/HWyg+zg7/gDSc+fRLmlJWcW5K1I+CLRzaRhXf4Y3DRyPnnDo4M2ktw+a6JcDEg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1595,7 +1598,7 @@ packages:
       '@rollup/pluginutils': 5.0.2(rollup@3.27.0)
       resolve: 1.22.2
       rollup: 3.27.0
-      tslib: 2.5.3
+      tslib: 2.6.1
       typescript: 5.0.2
     dev: true
 
@@ -2811,6 +2814,7 @@ packages:
   /cosmiconfig-typescript-loader@4.3.0(@types/node@16.18.39)(cosmiconfig@8.2.0)(ts-node@10.9.1)(typescript@4.9.5):
     resolution: {integrity: sha512-NTxV1MFfZDLPiBMjxbHRwSh5LaLcPMwNdCutmnHJCKoVnlvldPWlllonKwrsRJ5pYZBIBGRWWU2tfvzxgeSW5Q==}
     engines: {node: '>=12', npm: '>=6'}
+    requiresBuild: true
     peerDependencies:
       '@types/node': '*'
       cosmiconfig: '>=7'
@@ -2837,6 +2841,7 @@ packages:
   /cosmiconfig@8.2.0:
     resolution: {integrity: sha512-3rTMnFJA1tCOPwRxtgF4wd7Ab2qvDbL8jX+3smjIbS4HlZBagTlpERbdN7iAbWlrfxE3M8c27kTwTawQ7st+OQ==}
     engines: {node: '>=14'}
+    requiresBuild: true
     dependencies:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
@@ -4791,6 +4796,7 @@ packages:
 
   /lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
+    requiresBuild: true
     dev: true
 
   /lodash.kebabcase@4.1.1:
@@ -4806,6 +4812,7 @@ packages:
 
   /lodash.mergewith@4.6.2:
     resolution: {integrity: sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==}
+    requiresBuild: true
     dev: true
 
   /lodash.snakecase@4.1.1:
@@ -4821,6 +4828,7 @@ packages:
 
   /lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
+    requiresBuild: true
     dev: true
 
   /lodash.upperfirst@4.3.1:
@@ -5866,7 +5874,7 @@ packages:
   /rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.1
     dev: true
 
   /safe-buffer@5.2.1:
@@ -6289,7 +6297,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/utils': 2.4.1
-      tslib: 2.5.3
+      tslib: 2.6.1
     dev: false
 
   /table@6.8.1:
@@ -6421,8 +6429,8 @@ packages:
   /tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
-  /tslib@2.5.3:
-    resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
+  /tslib@2.6.1:
+    resolution: {integrity: sha512-t0hLfiEKfMUoqhG+U1oid7Pva4bbDPHYfJNiB7BiIjRkj1pyC++4N3huJfqY6aRH6VTB0rvtzQwjM4K6qpfOig==}
 
   /tsutils@3.21.0(typescript@4.9.5):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
