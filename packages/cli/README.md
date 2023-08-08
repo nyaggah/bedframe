@@ -30,6 +30,8 @@
 
 The Bedframe Command Line Interface (CLI) lets you make and manage your BED directly from the terminal.
 
+![Bedframe (Make command)](https://github.com/nyaggah/bedframe/blob/main/packages/cli/public/assets/bedframe-cli--make-command.jpg)
+
 ## Installation
 
 <blockquote>

@@ -32,19 +32,19 @@ Make, validate, publish and manage cross-browser extensions with ease.
 
 ## Getting Started
 
-Visit https://docs.bedframe.devto get started with Bedframe.
+Visit https://bedframe.dev to get started with Bedframe.
 
 ## Documentation
 
-Visit https://docs.bedframe.devto view the full documentation.
+Visit https://docs.bedframe.dev to view the full documentation.
 
 ## Packages
 
 | Package                                      | Version                                                                               | Description                                                         |
 | -------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [create-bedframe](packages/create-bedframe/) | ![create-bedframe version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Standalone [@bedframe/cli](packages/cli) `make` command utility     |
 | [@bedframe/cli](packages/cli/)               | ![@bedframe/cli version](https://img.shields.io/npm/v/@bedframe/cli.svg?label=%20)    | Bedframe CLI utility. Make and manage your BED from the commandline |
 | [@bedframe/core](packages/core/)             | ![@bedframe/core version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20)  | Bedframe core types and functions                                   |
+| [create-bedframe](packages/create-bedframe/) | ![create-bedframe version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Standalone [@bedframe/cli](packages/cli) `make` command utility     |
 
 ## Monorepo Utility Packages
 
@@ -52,6 +52,10 @@ Visit https://docs.bedframe.devto view the full documentation.
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
 | [eslint-config-bedframe](packages/eslint-config-bedframe/) | ![eslint-config-bedframe version](https://img.shields.io/npm/v/eslint-config-bedframe.svg?label=%20) | Shared ESLint configs used in this Turborepo     |
 | [@bedframe/tsconfig](packages/tsconfig/)                   | ![@bedframe/tsconfig version](https://img.shields.io/npm/v/@bedframe/tsconfig.svg?label=%20)         | Shared TypeScript configs used in this Turborepo |
+
+## Authors
+
+- Joe Nyaggah ([@nyaggah](https://twitter.com/nyaggah))
 
 ## License
 

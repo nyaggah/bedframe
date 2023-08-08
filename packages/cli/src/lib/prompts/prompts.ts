@@ -213,6 +213,12 @@ export const extensionPrompts = (
         description: dim('options displayed in a new tab'),
         selected: true,
       },
+      {
+        title: 'None',
+        value: 'none',
+        // description: dim('no options'),
+        selected: true,
+      },
     ],
   },
 ]

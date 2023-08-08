@@ -6,7 +6,7 @@ import { PromptsResponse } from './prompts'
 export async function installDependencies(
   response: PromptsResponse
 ): Promise<void> {
-  const { name: projectName, path: projectPath } = response.extension.name
+  const { path: projectPath } = response.extension.name
   const { packageManager } = response.development.template.config
 
   try {
@@ -20,7 +20,7 @@ export async function installDependencies(
         await execa('git', [
           'commit',
           '-am',
-          `feat(${projectName}): initial commit. configure bedframe`,
+          `feat: initial commit. configure bedframe`,
         ])
       })
     })

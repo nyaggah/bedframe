@@ -269,8 +269,7 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('│ │ ├ ○')} options${dim('/')}`,
-            enabled: () =>
-              optionsPage === 'full-page' || optionsPage === 'embedded',
+            enabled: () => optionsPage !== 'none',
             task: () =>
               copyFolder(
                 stubs.pages(style).options,
@@ -328,7 +327,8 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('├ .')}prettierignore`,
-            enabled: () => lintFormat || language === 'TypeScript',
+            // enabled: () => lintFormat || language === 'TypeScript',
+            enabled: () => lintFormat,
             task: () => copyFolder(stubs.lintFormat, projectPath),
           },
           {
@@ -383,8 +383,8 @@ export async function makeBed(response: PromptsResponse) {
       ${dim('Development:')}
         pnpm dev                ${dim('start dev server')}
         pnpm dev:all            ${dim('opa! broken right meow. so so soweeee!')}
-        pnpm dev:for chrome     ${dim(
-          `start dev server for ${lightGray('chrome')}`
+        pnpm dev:for ${browser[0]}     ${dim(
+          `start dev server for ${lightGray(browser[0])}`
         )}
         
       ${dim('Production:')}
@@ -394,9 +394,9 @@ export async function makeBed(response: PromptsResponse) {
             './dist/<browser>'
           )})`
         )}        
-        pnpm build:for chrome   ${dim(
-          `generate prod build for ${lightGray('chrome')} (${lightGray(
-            './dist/chrome'
+        pnpm build:for ${lightGray(browser[0])}   ${dim(
+          `generate prod build for ${lightGray(browser[0])} (${lightGray(
+            `./dist/${lightGray(browser[0])}`
           )})`
         )}    
         
@@ -409,16 +409,18 @@ export async function makeBed(response: PromptsResponse) {
             ? `${dim('2.')} ${packageManager.toLowerCase()} ${
                 packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
               }`
+            : `${dim(`2.`)} ${packageManager.toLowerCase()} dev:for ${
+                browser[0]
+              }`
+        }
+        ${
+          !installDeps
+            ? `${dim(`3.`)} ${packageManager.toLowerCase()} dev:for ${
+                browser[0]
+              }`
             : ''
         }
-        ${dim(
-          installDeps ? `2.` : `3.`
-        )} ${packageManager.toLowerCase()} dev:for ${browser[0] ?? 'chrome'}
-        
-        `)
-        // ${dim(
-        //   `| ${packageManager.toLowerCase()} dev:for ${response.browser[0].toLowerCase()}`
-        // )}${dim(` | ${packageManager.toLowerCase()} build:all`)}
+      `)
       })
     } catch (error) {
       console.error(error)
