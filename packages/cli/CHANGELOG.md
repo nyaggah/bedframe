@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.40
+
+### Patch Changes
+
+- 122bbfa: project gen updates; better cli ux
+
 ## 0.0.39
 
 ### Patch Changes
