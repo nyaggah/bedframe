@@ -169,8 +169,8 @@ importers:
   packages/core:
     dependencies:
       '@crxjs/vite-plugin':
-        specifier: ^2.0.0-beta.14
-        version: 2.0.0-beta.14
+        specifier: ^2.0.0-beta.18
+        version: 2.0.0-beta.18
     devDependencies:
       '@types/chrome':
         specifier: ^0.0.241
@@ -910,14 +910,15 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@crxjs/vite-plugin@2.0.0-beta.14:
-    resolution: {integrity: sha512-DPhlMbWLjM5lK4VceEWGmlMA82HECHeCfCQOFd+5KmL+2HEJXVpeB3rKpVRQ7GoWhnC3blC6CS0URk6lulLbTQ==}
+  /@crxjs/vite-plugin@2.0.0-beta.18:
+    resolution: {integrity: sha512-3jW20cUE04wTTg8HtoQD7bIL4Nhu91pRX4PHazMu2/tzzSTaR4stW5DHRIJOjFuRpOSCNNpyamyXwxS6qOv7Bg==}
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@webcomponents/custom-elements': 1.6.0
       acorn-walk: 8.2.0
       cheerio: 1.0.0-rc.12
       connect-injector: 0.4.4
+      convert-source-map: 1.9.0
       debug: 4.3.4
       es-module-lexer: 0.10.5
       fast-glob: 3.3.1
@@ -2964,7 +2965,6 @@ packages:
 
   /convert-source-map@1.9.0:
     resolution: {integrity: sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==}
-    dev: true
 
   /cosmiconfig-typescript-loader@5.0.0(@types/node@16.18.39)(cosmiconfig@8.2.0)(typescript@4.9.5):
     resolution: {integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==}

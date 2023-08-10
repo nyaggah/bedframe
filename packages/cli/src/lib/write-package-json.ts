@@ -1,7 +1,7 @@
-import { Manifest, createManifest, Browser, BuildTarget } from '@bedframe/core'
-import prompts from 'prompts'
-import path from 'node:path'
+import { Browser, Manifest } from '@bedframe/core'
 import fs from 'fs-extra'
+import path from 'node:path'
+import prompts from 'prompts'
 
 export type PackageJsonType = Record<string, any> & {
   name: string
@@ -24,56 +24,13 @@ export type ConfigType<K extends string = string> = {
 }
 
 /**
- * createManifestFrom
- *
- * TO diddly DO: for each `Browser`,
- * generate `BuildTarget`
- *
- * ^^^ we use this in `vite.config`
- * to handle the passed in manifests
- * and build for each browser
- * in method `getManifest`
- *
- *
- * @export
- * @param {prompts.Answers<string>} response
- * @return {*}  {BuildTarget}
- */
-export function createManifestFrom(
-  response: prompts.Answers<string>
-): BuildTarget {
-  return createManifest(
-    {
-      name: response.name,
-      version: response.version,
-      manifest_version: 3,
-      description: response.description,
-      author: response.author.email,
-    },
-    'chrome'
-  )
-}
-
-/**
  *
  * convertArrayToObject()
  *
  * @export
  * @param {ScriptCommand[]} arr - each member in shape of package.json script command
- * @return {*}  {ScriptCommand}
+ * @return {*}  {@link ScriptCommand}
  *
- * @example
- *
- * we expect to perform on an array like this:
- * ```json
- * [
- *   { 'build:all': 'concurrently pnpm:build:extension-*' },
- *   { 'build:chrome': 'pnpm build --outDir dist/chrome' },
- *   { 'build:brave': 'pnpm build --outDir dist/brave' },
- *   { 'build:opera': 'pnpm build --outDir dist/opera' },
- *   { 'build:safari': 'pnpm build --outDir dist/safari' },
- * ]
- *```
  */
 export function convertArrayToObject(arr: ScriptCommand[]): ScriptCommand {
   let obj: ScriptCommand = {}
@@ -101,21 +58,7 @@ export function createPackageJson(
 ): PackageJsonType {
   return packageJson
 }
-/**
- * Generate the base package.json scripts
- * Bedframe relies on Vite sos these will
- * be the default Vite build scripts
- *
- * @export
- * @return {*}  {ScriptCommand}
- */
-// export function baseScripts(): ScriptCommand {
-//   return {
-//     // dev: 'vite --mode chrome',
-//     // build: 'tsc && vite build --mode chrome',
-//     // preview: 'vite preview',
-//   }
-// }
+
 /**
  * Conditionally generate the requisite scripts
  * to handle the functionality opted into via
@@ -123,7 +66,7 @@ export function createPackageJson(
  *
  * @export
  * @param {prompts.Answers<string>} response
- * @return {*}  {ScriptCommand}
+ * @return {*}  {@link ScriptCommand}
  */
 export function createScriptCommandsFrom(
   response: prompts.Answers<string>
@@ -187,26 +130,13 @@ export function createScriptCommandsFrom(
       `eslint . --report-unused-disable-directives --max-warnings 0`
     )
 
-    // const prettierCheckScript = createScriptCommand(
-    //   'prettier:check',
-    //   `${packageManager.toLowerCase()} prettier --check .`
-    // )
     const prettierWriteScript = createScriptCommand(
       'format',
       `${packageManager.toLowerCase()} prettier --write .`
     )
-    // const lintFormatScript = createScriptCommand(
-    //   'lint:format',
-    //   `${packageManager.toLowerCase()} prettier:write && ${packageManager.toLowerCase()} lint`
-    // )
 
     return lintFormat
-      ? convertArrayToObject([
-          prettierWriteScript,
-          lintScript,
-          // prettierCheckScript,
-          // lintFormatScript,
-        ])
+      ? convertArrayToObject([prettierWriteScript, lintScript])
       : null
   }
 
@@ -226,7 +156,6 @@ export function createScriptCommandsFrom(
   }
 
   const releaseScripts = () => {
-    // "release": "pnpm lint:format && pnpm build:all && changeset version && changeset publish",
     const releaseScript = createScriptCommand(
       'release',
       `${
@@ -277,7 +206,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.24' },
+        { name: '@bedframe/core', version: '^0.0.25' },
         { name: '@crxjs/vite-plugin', version: '^2.0.0-beta.18' },
         { name: '@types/chrome', version: '^0.0.243' },
         { name: '@types/react', version: '^18.2.9' },
