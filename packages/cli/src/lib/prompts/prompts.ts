@@ -1,21 +1,21 @@
-import { yellow, dim, italic, red } from 'kolorist'
+import { Bedframe, Browser, createBedframe } from '@bedframe/core'
+import { dim, italic, red, yellow } from 'kolorist'
+import { basename, resolve } from 'node:path'
+import { cwd } from 'node:process'
 import prompts, { PromptObject } from 'prompts'
+import {
+  browsers,
+  formatTargetDir,
+  frameworks,
+  languages,
+  packageManagers,
+  stylingOptions,
+} from './prompts-utils'
 import {
   BrowserPrompts,
   DevelopmentPrompts,
   ExtensionPrompts,
 } from './prompts.type'
-import { Bedframe, Browser, createBedframe } from '@bedframe/core'
-import {
-  browsers,
-  formatTargetDir,
-  packageManagers,
-  frameworks,
-  languages,
-  stylingOptions,
-} from './prompts-utils'
-import { basename, resolve } from 'node:path'
-import { cwd } from 'node:process'
 
 export function promptInstructions(_type: string = 'multiselect'): string {
   return `
@@ -42,34 +42,6 @@ export const browserPrompts: PromptObject<keyof BrowserPrompts>[] = [
     instructions: promptInstructions('multiselect'),
   },
 ]
-
-export function extensionPositionPrompts(
-  prev: string
-): PromptObject<keyof ExtensionPrompts> {
-  const choices = () => {
-    if (prev === 'sidebar') {
-      return [
-        { title: `Left`, value: 'left' },
-        { title: `Right`, value: 'right' },
-      ]
-    }
-    if (prev === 'overlay') {
-      return [
-        { title: `Center`, value: 'center' },
-        { title: `Left`, value: 'left' },
-        { title: `Right`, value: 'right' },
-      ]
-    }
-  }
-
-  return {
-    type: (prev) =>
-      prev === 'sidebar' || prev === 'overlay' ? 'select' : null,
-    name: 'position',
-    message: 'Position:',
-    choices: choices(),
-  }
-}
 
 export const extensionPrompts = (
   name: string
@@ -100,7 +72,7 @@ export const extensionPrompts = (
   {
     type: 'list',
     name: 'author',
-    message: 'Author (name, email, url):',
+    message: `Author ${dim('(name, email, url)')}:`,
     initial: '',
     separator: ',',
     format: (value) => {
@@ -120,7 +92,7 @@ export const extensionPrompts = (
   {
     type: 'toggle',
     name: 'private',
-    message: 'Private?',
+    message: 'Private:',
     initial: true,
     active: 'Yes',
     inactive: 'No',
@@ -168,7 +140,7 @@ export const extensionPrompts = (
   {
     type: 'select',
     name: 'override',
-    message: 'Override Page:',
+    message: 'Override page:',
     hint: dim('you can override one of these pages'),
     choices: [
       {
@@ -197,14 +169,14 @@ export const extensionPrompts = (
   {
     type: 'select',
     name: 'options',
-    message: 'Options Page:',
+    message: 'Options page:',
     initial: 0,
     choices: [
       {
         title: `Embedded`,
         value: 'embedded',
         description: dim(
-          'options integrated in extensions management page inside browser-native embedded box'
+          "options in browser-native embedded box on extension's management page"
         ),
       },
       {
@@ -216,7 +188,7 @@ export const extensionPrompts = (
       {
         title: 'None',
         value: 'none',
-        // description: dim('no options'),
+        description: dim('no extension options'),
         selected: true,
       },
     ],
@@ -235,7 +207,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
     type: 'select',
     name: 'framework',
     message: 'Framework:',
-    warn: yellow(' - Currently unavailable'),
+    warn: yellow('currently unavailable'),
     choices: frameworks,
     initial: 0,
   },
@@ -243,7 +215,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
     type: 'select',
     name: 'language',
     message: 'Programming language:',
-    warn: yellow(' - Currently unavailable'),
+    warn: yellow('currently unavailable'),
     choices: languages,
     initial: 0,
   },
@@ -259,7 +231,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
     // maybe just default to yes and don't prompt
     type: 'toggle',
     name: 'lintFormat',
-    message: 'Add linting with formatting?',
+    message: 'Add linting & formatting:',
     initial: true,
     active: 'Yes',
     inactive: 'No',
@@ -267,7 +239,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
   {
     type: 'toggle',
     name: 'tests',
-    message: 'Add Unit tests?',
+    message: 'Add unit tests:',
     initial: true,
     active: 'Yes',
     inactive: 'No',
@@ -275,7 +247,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
   {
     type: 'toggle',
     name: 'git',
-    message: 'Add git?',
+    message: 'Add git',
     initial: true,
     active: 'Yes',
     inactive: 'No',
@@ -283,7 +255,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
   {
     type: (prev) => (prev ? 'toggle' : null),
     name: 'gitHooks',
-    message: 'Add git hooks?',
+    message: 'Add git hooks:',
     initial: true,
     active: 'Yes',
     inactive: 'No',
@@ -291,7 +263,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
   {
     type: (_prev, answers) => (answers.git ? 'toggle' : null),
     name: 'commitLint',
-    message: 'Add commit linting?',
+    message: 'Add commit linting:',
     initial: true,
     active: 'Yes',
     inactive: 'No',
@@ -299,7 +271,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
   {
     type: (_prev, answers) => (answers.git ? 'toggle' : null),
     name: 'changesets',
-    message: 'Add changesets?',
+    message: 'Add changesets:',
     initial: true,
     active: 'Yes',
     inactive: 'No',
@@ -307,7 +279,7 @@ export const developmentPrompts: PromptObject<keyof DevelopmentPrompts>[] = [
   {
     type: 'toggle',
     name: 'installDeps',
-    message: 'Install Dependencies?',
+    message: 'Install dependencies:',
     initial: true,
     active: 'Yes',
     inactive: 'No',

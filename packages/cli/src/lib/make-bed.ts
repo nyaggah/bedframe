@@ -312,7 +312,7 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('├ .')}gitignore`,
-            enabled: () => style === git,
+            enabled: () => git,
             task: () => copyFolder(stubs.base, projectPath),
           },
           {
