@@ -24,8 +24,8 @@ const LanguageEnum = {
 } as const
 
 export const StyleEnum = {
-  'Styled Components': 'Styled Components',
   Tailwind: 'Tailwind',
+  'Styled Components': 'Styled Components',
 } as const
 
 export const PackageManagerEnum = {

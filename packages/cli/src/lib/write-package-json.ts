@@ -277,17 +277,17 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.23' },
-        { name: '@crxjs/vite-plugin', version: '^1.0.14' },
-        { name: '@types/chrome', version: '^0.0.241' },
+        { name: '@bedframe/core', version: '^0.0.24' },
+        { name: '@crxjs/vite-plugin', version: '^2.0.0-beta.18' },
+        { name: '@types/chrome', version: '^0.0.243' },
         { name: '@types/react', version: '^18.2.9' },
-        { name: '@types/react-dom', version: '^18.2.4' },
+        { name: '@types/react-dom', version: '^18.2.7' },
         { name: '@types/react-frame-component', version: '^4.1.3' },
-        { name: '@vitejs/plugin-react', version: '^4.0.0' },
-        { name: 'concurrently', version: '^8.1.0' },
-        { name: 'typescript', version: '^5.1.3' },
+        { name: '@vitejs/plugin-react', version: '^4.0.4' },
+        { name: 'concurrently', version: '^8.2.0' },
+        { name: 'typescript', version: '^5.1.6' },
         { name: 'unplugin-fonts', version: '^1.0.3' },
-        { name: 'vite', version: '^4.3.9' },
+        { name: 'vite', version: '^4.4.9' },
       ].sort((a, b) => a.name.localeCompare(b.name)),
     },
   ]
@@ -297,16 +297,16 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     ? [
         {
           devDependencies: [
-            { name: '@typescript-eslint/eslint-plugin', version: '^5.59.9' },
-            { name: 'eslint', version: '^8.38.0' },
-            { name: 'eslint-plugin-import', version: '^2.25.2' },
-            { name: 'eslint-plugin-n', version: '^15.0.0' },
-            { name: 'eslint-plugin-promise', version: '^6.0.0' },
-            { name: 'eslint-config-prettier', version: '^8.8.0' },
-            { name: 'eslint-plugin-react', version: '^7.32.2' },
+            { name: '@typescript-eslint/eslint-plugin', version: '^6.2.0' },
+            { name: 'eslint', version: '^8.46.0' },
+            { name: 'eslint-plugin-import', version: '^2.28.0' },
+            { name: 'eslint-plugin-n', version: '^16.0.1' },
+            { name: 'eslint-plugin-promise', version: '^6.1.1' },
+            { name: 'eslint-config-prettier', version: '^9.0.0' },
+            { name: 'eslint-plugin-react', version: '^7.33.1' },
             { name: 'eslint-plugin-react-hooks', version: '^4.6.0' },
-            { name: 'eslint-plugin-react-refresh', version: '^0.4.1' },
-            { name: 'prettier', version: '^2.8.8' },
+            { name: 'eslint-plugin-react-refresh', version: '^0.4.3' },
+            { name: 'prettier', version: '^3.0.1' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
         },
       ]
@@ -340,12 +340,12 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
           devDependencies: [
             { name: '@testing-library/react', version: '^14.0.0' },
             { name: '@testing-library/user-event', version: '^14.4.3' },
-            { name: '@testing-library/jest-dom', version: '^5.16.5' },
-            { name: '@types/jest', version: '^29.5.2' },
+            { name: '@testing-library/jest-dom', version: '^5.14.9' },
+            { name: '@types/jest', version: '^29.5.3' },
             { name: '@types/testing-library__jest-dom', version: '^5.14.6' },
-            { name: '@vitest/coverage-istanbul', version: '^0.33.0' },
-            { name: 'jsdom', version: '^21.1.1' },
-            { name: 'vitest', version: '^0.29.8' },
+            { name: '@vitest/coverage-istanbul', version: '^0.34.1' },
+            { name: 'jsdom', version: '^22.1.0' },
+            { name: 'vitest', version: '^0.34.1' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
         },
       ]
@@ -356,8 +356,8 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     ? [
         {
           devDependencies: [
-            { name: 'husky', version: '^8.0.0' },
-            { name: 'lint-staged', version: '^13.1.2' },
+            { name: 'husky', version: '^8.0.3' },
+            { name: 'lint-staged', version: '^13.2.3' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
         },
       ]
@@ -368,8 +368,8 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     ? [
         {
           devDependencies: [
-            { name: '@commitlint/cli', version: '^17.4.4' },
-            { name: '@commitlint/config-conventional', version: '^17.4.4' },
+            { name: '@commitlint/cli', version: '^17.6.7' },
+            { name: '@commitlint/config-conventional', version: '^17.6.7' },
             { name: 'cz-conventional-changelog', version: '^3.3.0' },
             { name: 'commitizen', version: '^4.3.0' },
           ].sort((a, b) => a.name.localeCompare(b.name)),
@@ -379,7 +379,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
 
   const changesets: Partial<DependencyType & ConfigType>[] = response
     .development.template.config.changesets
-    ? [{ devDependencies: [{ name: '@changesets/cli', version: '^2.26.1' }] }]
+    ? [{ devDependencies: [{ name: '@changesets/cli', version: '^2.26.2' }] }]
     : []
 
   /**

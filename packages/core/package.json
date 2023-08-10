@@ -35,7 +35,7 @@
     "rebuild:pack": "rm -rf node_modules pnpm-lock.yaml && pnpm i && pnpm build && pnpm pack"
   },
   "dependencies": {
-    "@crxjs/vite-plugin": "^1.0.14"
+    "@crxjs/vite-plugin": "^2.0.0-beta.14"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.241",

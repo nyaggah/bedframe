@@ -61,7 +61,7 @@ bedframe
   .option(
     '-p, --packageManager <packageManager>',
     'Specify package manager to use',
-    'Yarn'
+    'PnPm'
   )
   .option('-f, --framework <framework>', 'Specify framework to use', 'React')
   .option('-l, --language <language>', 'Specify language to use', 'TypeScript')
