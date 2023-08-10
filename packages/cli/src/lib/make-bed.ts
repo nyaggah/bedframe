@@ -86,19 +86,8 @@ export async function makeBed(response: PromptsResponse) {
         style: {
           styledComponents: path.join(stubsPath, 'style', 'styled-components'),
           tailwind: {
-            base: path.join(stubsPath, 'style', 'tailwind', 'style'),
-            config: path.join(
-              stubsPath,
-              'style',
-              'tailwind',
-              'tailwind.config.cjs'
-            ),
-            postCss: path.join(
-              stubsPath,
-              'style',
-              'tailwind',
-              'postcss.config.cjs'
-            ),
+            base: path.join(stubsPath, 'style', 'tailwind', 'styles'),
+            config: path.join(stubsPath, 'style', 'tailwind', 'config'),
           },
         },
         scripts: path.join(stubsPath, 'scripts'),
@@ -313,7 +302,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyFolder(
                 stubs.style.tailwind.base,
-                path.join(projectPath, 'src')
+                path.join(projectPath, 'src', 'styles')
               ),
           },
           {
@@ -323,11 +312,11 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('├ .')}gitignore`,
+            enabled: () => style === git,
             task: () => copyFolder(stubs.base, projectPath),
           },
           {
             title: `  ${dim('├ .')}prettierignore`,
-            // enabled: () => lintFormat || language === 'TypeScript',
             enabled: () => lintFormat,
             task: () => copyFolder(stubs.lintFormat, projectPath),
           },
@@ -340,21 +329,25 @@ export async function makeBed(response: PromptsResponse) {
             task: () => writePackageJson(response),
           },
           {
-            title: `  ${dim('├ ○')} README${dim('.md')}`,
-            task: () => writeReadMe(response),
+            title: `  ${dim('├ ○')} postcss.config${dim('.ts')}`,
+            enabled: () => style === 'Tailwind',
+            task: () => {},
           },
           {
-            title: `  ${dim('├ ○')} tsconfig${dim('.json')}`,
-            enabled: () => language === 'TypeScript',
-            task: () => copyFolder(stubs.tsconfig, projectPath),
+            title: `  ${dim('├ ○')} README${dim('.md')}`,
+            task: () => writeReadMe(response),
           },
           {
             title: `  ${dim('├ ○')} tailwind.config${dim('.ts')}`,
             enabled: () => style === 'Tailwind',
             task: () => {
               copyFolder(stubs.style.tailwind.config, projectPath)
-              copyFolder(stubs.style.tailwind.postCss, projectPath)
             },
+          },
+          {
+            title: `  ${dim('├ ○')} tsconfig${dim('.json')}`,
+            enabled: () => language === 'TypeScript',
+            task: () => copyFolder(stubs.tsconfig, projectPath),
           },
           {
             title: `  ${dim('└ ○')} vite.config${dim('.ts')}`,
