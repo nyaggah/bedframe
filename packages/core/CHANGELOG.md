@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.26
+
+### Patch Changes
+
+- 545dec7: return to crx v0.0.14 for now
+
 ## 0.0.25
 
 ### Patch Changes
