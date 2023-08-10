@@ -142,8 +142,8 @@ importers:
         specifier: '*'
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^1.10.7
-        version: 1.10.7(eslint@7.32.0)
+        specifier: ^1.10.12
+        version: 1.10.12(eslint@7.32.0)
       rollup:
         specifier: ^3.27.2
         version: 3.27.2
@@ -188,8 +188,8 @@ importers:
         specifier: '*'
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^1.10.7
-        version: 1.10.7(eslint@7.32.0)
+        specifier: ^1.10.12
+        version: 1.10.12(eslint@7.32.0)
       kolorist:
         specifier: ^1.8.0
         version: 1.8.0
@@ -3382,16 +3382,6 @@ packages:
     dependencies:
       eslint: 7.32.0
       eslint-plugin-turbo: 1.10.12(eslint@7.32.0)
-    dev: false
-
-  /eslint-config-turbo@1.10.7(eslint@7.32.0):
-    resolution: {integrity: sha512-0yHt5UlXVph8S4SOvP6gYehLvYjJj6XFKTYOG/WUQbjlcF0OU4pOT1a1juqmmBPWYlvJ0evt7v+RekY4tOopPQ==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      eslint: 7.32.0
-      eslint-plugin-turbo: 1.10.7(eslint@7.32.0)
-    dev: true
 
   /eslint-import-resolver-node@0.3.7:
     resolution: {integrity: sha512-gozW2blMLJCeFpBwugLTGyvVjNoeo1knonXAcatC6bjPBZitotxdWf7Gimr25N4c0AAOo4eOUfaG82IJPDpqCA==}
@@ -3555,16 +3545,6 @@ packages:
     dependencies:
       dotenv: 16.0.3
       eslint: 7.32.0
-    dev: false
-
-  /eslint-plugin-turbo@1.10.7(eslint@7.32.0):
-    resolution: {integrity: sha512-YikBHc75DY9VV1vAFUIBekHLQlxqVT5zTNibK8zBQInCUhF7PvyPJc0xXw5FSz8EYtt4uOV3r0Km3CmFRclS4Q==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      dotenv: 16.0.3
-      eslint: 7.32.0
-    dev: true
 
   /eslint-scope@5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
