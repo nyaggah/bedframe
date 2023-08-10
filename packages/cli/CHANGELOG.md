@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.43
+
+### Patch Changes
+
+- 755ba71: update packages to install, prompt ui updates, code clean up
+- Updated dependencies [755ba71]
+  - @bedframe/core@0.0.24
+
 ## 0.0.42
 
 ### Patch Changes
