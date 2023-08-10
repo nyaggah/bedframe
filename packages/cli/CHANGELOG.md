@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.42
+
+### Patch Changes
+
+- a23e22d: project gen (tailwind) ensure config created correctly
+
 ## 0.0.41
 
 ### Patch Changes
