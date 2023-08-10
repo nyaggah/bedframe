@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.45
+
+### Patch Changes
+
+- 545dec7: return to crx v0.0.14 for now
+- Updated dependencies [545dec7]
+  - @bedframe/core@0.0.26
+
 ## 0.0.44
 
 ### Patch Changes
