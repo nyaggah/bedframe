@@ -87,19 +87,7 @@ export async function makeBed(response: PromptsResponse) {
           styledComponents: path.join(stubsPath, 'style', 'styled-components'),
           tailwind: {
             base: path.join(stubsPath, 'style', 'tailwind', 'styles'),
-            config: path.join(
-              stubsPath,
-              'style',
-              'tailwind',
-              'config'
-              // 'tailwind.config.cjs'
-            ),
-            // postCss: path.join(
-            //   stubsPath,
-            //   'style',
-            //   'tailwind',
-            //   'postcss.config.cjs'
-            // ),
+            config: path.join(stubsPath, 'style', 'tailwind', 'config'),
           },
         },
         scripts: path.join(stubsPath, 'scripts'),
@@ -329,7 +317,6 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('├ .')}prettierignore`,
-            // enabled: () => lintFormat || language === 'TypeScript',
             enabled: () => lintFormat,
             task: () => copyFolder(stubs.lintFormat, projectPath),
           },
