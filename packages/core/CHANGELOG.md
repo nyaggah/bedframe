@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.25
+
+### Patch Changes
+
+- 0ee1e4b: bump installed core version
+
 ## 0.0.24
 
 ### Patch Changes
