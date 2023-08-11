@@ -115,7 +115,7 @@ bedframe-project/
 ```typescript
 function createManifest(
   manifest: Manifest, // chrome.runtime.ManifestV3
-  browser: Browser // "chrome" | "brave" | "opera" | "edge" | "firefox" | "safari"
+  browser: Browser, // "chrome" | "brave" | "opera" | "edge" | "firefox" | "safari"
 ): BuildTarget
 ```
 

@@ -23,19 +23,19 @@ function background(background: ManifestBackground): ManifestBackground {
 }
 
 function sidePanel(
-  sidePanel: any // TO diddly DO: update when @types/chrome catches up
+  sidePanel: any, // TO diddly DO: update when @types/chrome catches up
 ): any {
   return sidePanel
 }
 
 function contentScripts(
-  contentScripts: ManifestContentScripts
+  contentScripts: ManifestContentScripts,
 ): ManifestContentScripts {
   return contentScripts
 }
 
 function webAccessibleResources(
-  webAccessibleResources: ManifestWebAccessibleResources
+  webAccessibleResources: ManifestWebAccessibleResources,
 ): ManifestWebAccessibleResources {
   return webAccessibleResources
 }

@@ -54,7 +54,7 @@ const createScriptCommand = (key: string, value: string): ScriptCommand => {
 }
 
 export function createPackageJson(
-  packageJson: PackageJsonType
+  packageJson: PackageJsonType,
 ): PackageJsonType {
   return packageJson
 }
@@ -69,7 +69,7 @@ export function createPackageJson(
  * @return {*}  {@link ScriptCommand}
  */
 export function createScriptCommandsFrom(
-  response: prompts.Answers<string>
+  response: prompts.Answers<string>,
 ): ScriptCommand {
   const { development, browser: browsers } = response
   const {
@@ -91,14 +91,14 @@ export function createScriptCommandsFrom(
             `dev:all`,
             `concurrently ${browsers
               .map((browser: Browser) => `\"vite --mode ${browser}\"`)
-              .join(' ')}`
+              .join(' ')}`,
           )
         : {}
 
     const buildScript = createScriptCommand('build', 'tsc && vite build')
     const buildForScript = createScriptCommand(
       'build:for',
-      'tsc && vite build --mode'
+      'tsc && vite build --mode',
     )
     const buildAllScript =
       browsers.length > 1
@@ -106,9 +106,9 @@ export function createScriptCommandsFrom(
             `build:all`,
             `concurrently ${browsers
               .map(
-                (browser: Browser) => `\"tsc && vite build --mode ${browser}\"`
+                (browser: Browser) => `\"tsc && vite build --mode ${browser}\"`,
               )
-              .join(' ')}`
+              .join(' ')}`,
           )
         : {}
 
@@ -120,19 +120,19 @@ export function createScriptCommandsFrom(
         buildScript,
         buildForScript,
         buildAllScript,
-      ].filter(Boolean)
+      ].filter(Boolean),
     )
   }
 
   const lintFormatScripts = () => {
     const lintScript = createScriptCommand(
       'lint',
-      `eslint . --report-unused-disable-directives --max-warnings 0`
+      `eslint . --report-unused-disable-directives --max-warnings 0`,
     )
 
     const prettierWriteScript = createScriptCommand(
       'format',
-      `${packageManager.toLowerCase()} prettier --write .`
+      `${packageManager.toLowerCase()} prettier --write .`,
     )
 
     return lintFormat
@@ -149,7 +149,7 @@ export function createScriptCommandsFrom(
     const czScript = createScriptCommand('cz', `cz`)
     const postInstallScript = createScriptCommand(
       'postinstall',
-      'husky install'
+      'husky install',
     )
 
     return gitHooks ? convertArrayToObject([czScript, postInstallScript]) : null
@@ -160,7 +160,7 @@ export function createScriptCommandsFrom(
       'release',
       `${
         lintFormat ? 'pnpm format && pnpm lint &&' : ''
-      } build:all && changeset version`
+      } build:all && changeset version`,
     )
 
     return changesets ? convertArrayToObject([releaseScript]) : null
@@ -324,7 +324,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
    */
   const packageJsonField = (
     key: string,
-    value: any // Partial<ConfigType> // Record<string, any> | string | any[]
+    value: any, // Partial<ConfigType> // Record<string, any> | string | any[]
   ): Partial<ConfigType> => {
     if (key === '') {
       return value
@@ -468,7 +468,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
  * return the Manifest for the first of these
  *
  * @param {*} response
- * @return {*}  {Manifest}
+ * @return {*}  {@link Manifest}
  */
 function getFirstManifestDetails(response: any): Manifest {
   for (const browserKey in response) {
@@ -484,10 +484,10 @@ function getFirstManifestDetails(response: any): Manifest {
  *
  * @export
  * @param {prompts.Answers<string>} response
- * @return {*}  {PackageJsonType}
+ * @return {*}  {@link PackageJsonType}
  */
 export function createPackageJsonFrom(
-  response: prompts.Answers<string>
+  response: prompts.Answers<string>,
 ): PackageJsonType {
   return createPackageJson({
     name: getFirstManifestDetails(response.extension.manifest[0]).name,
@@ -501,6 +501,7 @@ export function createPackageJsonFrom(
     },
     license: response.extension.license ?? 'MIT',
     private: Boolean(response.private) ?? 'true',
+    type: 'module',
     scripts: createScriptCommandsFrom(response),
     ...createDependenciesFrom(response),
   })

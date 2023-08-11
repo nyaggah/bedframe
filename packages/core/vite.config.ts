@@ -1,4 +1,5 @@
 import { resolve } from 'node:path'
+import nodePolyfills from 'rollup-plugin-polyfill-node'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import { externalizeDeps } from 'vite-plugin-externalize-deps'
@@ -10,46 +11,20 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'bedframe',
       fileName: 'bedframe',
+      formats: ['es'],
     },
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
-      external: [
-        'fs',
-        'path',
-        'url',
-        'constants',
-        'os',
-        'util',
-        'stream',
-        'events',
-      ],
-      output: {
-        globals: {
-          // kolorist: 'kolorist',
-          '@crxjs/vite-plugin': '@crxjs/vite-plugin',
-          fs: 'fs',
-          path: 'node:path',
-          url: 'node:url',
-          constants: 'node:constants',
-          os: 'node:os',
-          util: 'node:util',
-          stream: 'node:stream',
-          events: 'node:events',
-        },
-      },
+      external: ['fsevents'],
     },
   },
   plugins: [
-    externalizeDeps({
-      deps: true,
-    }),
+    nodePolyfills(),
     nodeExternals(),
+    externalizeDeps(),
     dts({
       insertTypesEntry: true,
     }),
   ],
-  // optimizeDeps: {
-  //   include: ['@crxjs/vite-plugin'],
-  // },
 })
