@@ -138,7 +138,7 @@ export function manifestIndexFile(browsers: Browser[]): string | string[] {
     const manifestImports = browsers
       .map(
         (browser) =>
-          `import { ${browser.toLowerCase()} } from './${browser.toLowerCase()}'`
+          `import { ${browser.toLowerCase()} } from './${browser.toLowerCase()}'`,
       )
       .toString()
       .replace(/,/g, '\n')

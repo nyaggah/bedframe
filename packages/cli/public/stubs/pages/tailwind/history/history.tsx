@@ -12,5 +12,5 @@ root.render(
         <p>History Override Page</p>
       </div>
     </Layout>
-  </StrictMode>
+  </StrictMode>,
 )

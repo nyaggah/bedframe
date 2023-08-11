@@ -29,17 +29,17 @@ export default [
       string({
         include: `${name}.js`,
       }),
-      string({
-        include: `${name}.cjs`,
-      }),
+      // string({
+      //   include: `${name}.cjs`,
+      // }),
     ],
     output: [
-      {
-        file: `${name}.cjs`,
-        format: 'cjs',
-        sourcemap: true,
-        banner: '#!/usr/bin/env node\n',
-      },
+      // {
+      //   file: `${name}.cjs`,
+      //   format: 'cjs',
+      //   sourcemap: true,
+      //   banner: '#!/usr/bin/env node\n',
+      // },
       {
         file: `${name}.js`,
         format: 'es',

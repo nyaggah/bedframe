@@ -22,14 +22,14 @@ export function toggle(): void {
 
 export function removeRootAndStyles(
   root: string = extension.rootElementId,
-  rootStylesheet: string = extension.rootStylesheetId
+  rootStylesheet: string = extension.rootStylesheetId,
 ): void {
   document.getElementById(root)?.remove()
   document.getElementById(rootStylesheet)?.remove()
 }
 
 export function createAndMountRootStyles(
-  rootId: string = extension.rootElementId
+  rootId: string = extension.rootElementId,
 ): void {
   if (document.getElementById(extension.rootStylesheetId) === null) {
     const rootStyleTextContent = `
@@ -67,7 +67,7 @@ export function createAndMountRoot(): void {
         <Iframe>
           <App />
         </Iframe>
-      </StrictMode>
+      </StrictMode>,
     )
   }
 }
@@ -86,7 +86,7 @@ export type MessageResponse = (response?: unknown) => void
 const messagesFromReactAppListener = (
   message: Record<string, unknown>,
   _sender: chrome.runtime.MessageSender, // currently unused. rename to `sender` to use
-  response: MessageResponse
+  response: MessageResponse,
 ): void => {
   if (message.action === 'toggle') {
     toggle()

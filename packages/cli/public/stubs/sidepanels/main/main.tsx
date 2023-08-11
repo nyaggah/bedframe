@@ -11,5 +11,5 @@ root.render(
         <p>SidePanel: Main</p>
       </div>
     </Layout>
-  </StrictMode>
+  </StrictMode>,
 )

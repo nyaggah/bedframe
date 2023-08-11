@@ -59,7 +59,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
   const { extension } = response
   const rootDir = path.resolve(extension.name.path)
   const serviceWorkerPath = path.resolve(
-    path.join(rootDir, 'src', 'scripts', `background.ts`)
+    path.join(rootDir, 'src', 'scripts', `background.ts`),
   )
   const isPopup = extension.type.name === 'popup'
   const isOverlay = extension.type.name === 'overlay'
@@ -82,7 +82,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
     .then(() =>
       fs
         .outputFile(serviceWorkerPath, fileContent(extension.type.name) + '\n')
-        .catch((error) => console.error(error))
+        .catch((error) => console.error(error)),
     )
     .catch((error) => console.error(error))
 }

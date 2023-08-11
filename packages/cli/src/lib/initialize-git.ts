@@ -3,7 +3,7 @@ import { chdir } from 'node:process'
 import { PromptsResponse } from './prompts'
 
 export async function initializeGitProject(
-  response: PromptsResponse
+  response: PromptsResponse,
 ): Promise<void> {
   const { name: projectName, path: projectPath } = response.extension.name
 

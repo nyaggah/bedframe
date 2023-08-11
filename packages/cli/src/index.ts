@@ -13,7 +13,7 @@ import {
 } from 'kolorist'
 
 const pkg = JSON.parse(
-  readFileSync(new URL('../package.json', import.meta.url), 'utf8')
+  readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
 )
 
 // let standalone = false
@@ -38,7 +38,7 @@ bedframe
     ${lightGreen('E X T E N S I O N')} 
     ${lightCyan('D E V E L O P M E N T')}
     ${lightYellow('F R A M E W O R K')}
-  `
+  `,
   )
 
   // Command: Make
@@ -56,12 +56,12 @@ bedframe
   .option(
     '-b, --browsers <browsers>',
     'Specify comma-separated list of target browsers',
-    'Chrome'
+    'Chrome',
   )
   .option(
     '-p, --packageManager <packageManager>',
     'Specify package manager to use',
-    'PnPm'
+    'PnPm',
   )
   .option('-f, --framework <framework>', 'Specify framework to use', 'React')
   .option('-l, --language <language>', 'Specify language to use', 'TypeScript')

@@ -4,7 +4,7 @@ import { projectInstall } from 'pkg-install'
 import { PromptsResponse } from './prompts'
 
 export async function installDependencies(
-  response: PromptsResponse
+  response: PromptsResponse,
 ): Promise<void> {
   const { path: projectPath } = response.extension.name
   const { packageManager } = response.development.template.config

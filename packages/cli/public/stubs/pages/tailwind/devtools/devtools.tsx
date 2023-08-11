@@ -6,7 +6,7 @@ import { App } from '@/components/App'
 chrome.devtools.panels.create(
   'Bedframe (Panel)',
   'assets/icons/icon-128x128.png',
-  'src/pages/devtools/index.html'
+  'src/pages/devtools/index.html',
 )
 
 chrome.devtools.panels.elements.createSidebarPane(
@@ -17,7 +17,7 @@ chrome.devtools.panels.elements.createSidebarPane(
     panel.setObject({
       data: 'Some data to show',
     })
-  }
+  },
 )
 
 createRoot(document.getElementById('root') as HTMLElement).render(
@@ -25,5 +25,5 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     <Layout>
       <App />
     </Layout>
-  </StrictMode>
+  </StrictMode>,
 )

@@ -83,7 +83,7 @@ export const bedframeConfig = {
     fs.ensureDir(rootDir).catch(console.error)
     fs.outputFile(
       path.join(rootDir, 'bedframe.config.ts'),
-      fileContent + '\n'
+      fileContent + '\n',
     ).catch((error) => console.error(error))
   } catch (error) {
     console.error(error)

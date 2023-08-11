@@ -19,16 +19,16 @@ type ValidatableObjectOrArray =
 function validateObjectOrArray(
   obj: ValidatableObject | ValidatableArray,
   validator: (value: ValidatableValue) => boolean,
-  path: string
+  path: string,
 ): boolean {
   if (Array.isArray(obj)) {
     return obj.every((value, index) =>
-      validateObjectOrArray(value, validator, `${path}[${index}]`)
+      validateObjectOrArray(value, validator, `${path}[${index}]`),
     )
   }
   if (typeof obj === 'object' && obj !== null) {
     return Object.entries(obj).every(([key, value]) =>
-      validateObjectOrArray(value, validator, `${path}.${key}`)
+      validateObjectOrArray(value, validator, `${path}.${key}`),
     )
   }
   return validator(obj)
