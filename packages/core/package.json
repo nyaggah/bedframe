@@ -8,8 +8,8 @@
   "version": "0.0.26",
   "license": "MIT",
   "type": "module",
-  "module": "./dist/bedframe.js",
-  "types": "./dist/index.d.ts",
+  "module": "dist/bedframe.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/bedframe.js",
@@ -33,9 +33,9 @@
     "rebuild:pack": "rm -rf node_modules pnpm-lock.yaml && pnpm i && pnpm build && pnpm pack"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^2.0.0-beta.18",
+    "@crxjs/vite-plugin": "^1.0.14",
     "@types/chrome": "^0.0.243",
-    "@types/node": "^20.4.9",
+    "@types/node": "^20.4.10",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@vitejs/plugin-react": "^4.0.4",
     "eslint-config-bedframe": "^0.0.5",
@@ -51,6 +51,7 @@
     "vite-plugin-babel-macros": "^1.0.6",
     "vite-plugin-dts": "^3.5.1",
     "vite-plugin-externalize-deps": "^0.7.0",
+    "vite-plugin-node-polyfills": "^0.11.1",
     "vitest": "^0.34.1"
   },
   "lint-staged": {
