@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.27
+
+### Patch Changes
+
+- 86f2ccd: fix: troubleshoot esm + globalThis missing... wip
+
 ## 0.0.26
 
 ### Patch Changes

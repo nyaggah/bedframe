@@ -1,5 +1,14 @@
 # @bedframe/cli
 
+## 0.0.46
+
+### Patch Changes
+
+- d0afdaf: fix: esm only; bump eslint packages
+- 86f2ccd: fix: troubleshoot esm + globalThis missing... wip
+- Updated dependencies [86f2ccd]
+  - @bedframe/core@0.0.27
+
 ## 0.0.45
 
 ### Patch Changes
