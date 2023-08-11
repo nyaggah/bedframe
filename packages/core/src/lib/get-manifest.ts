@@ -17,11 +17,11 @@ import { PluginOption } from 'vite'
  * @export
  * @param {BuildConfig} { command, mode }
  * @param {BuildTarget[]} targets
- * @return {*}  {PluginOption[]}
+ * @return {*}  {@link PluginOption[]}
  */
 export function getManifest(
   { command, mode }: BuildConfig,
-  targets: BuildTarget[]
+  targets: BuildTarget[],
 ): PluginOption[] {
   const _mode = `${(mode as string).charAt(0).toUpperCase()}${(
     mode as string
@@ -37,7 +37,7 @@ export function getManifest(
     console.warn(
       isValidMode
         ? `no or invalid 'mode' provided. assuming ${firstTarget}`
-        : ''
+        : '',
     )
   }
 
@@ -45,10 +45,10 @@ export function getManifest(
   if (!browser) {
     throw new Error(
       `unknown mode "${mode}". 'mode' is the browser you're building for. should be one of ${Object.values(
-        Browser
+        Browser,
       )
         .join(', ')
-        .toLowerCase()}`
+        .toLowerCase()}`,
     )
   }
 

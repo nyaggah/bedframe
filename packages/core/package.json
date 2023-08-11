@@ -8,13 +8,11 @@
   "version": "0.0.26",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/bedframe.umd.cjs",
-  "module": "./dist/bedframe.js",
-  "types": "./dist/index.d.ts",
+  "module": "dist/bedframe.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/bedframe.js",
-      "require": "./dist/bedframe.umd.cjs",
       "types": "./dist/index.d.ts",
       "default": "./dist/bedframe.js"
     }
@@ -36,28 +34,31 @@
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
-    "@types/chrome": "^0.0.241",
-    "@types/node": "^16.18.39",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@types/chrome": "^0.0.243",
+    "@types/node": "^20.4.10",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@vitejs/plugin-react": "^4.0.4",
-    "eslint-config-bedframe": "*",
-    "eslint-config-turbo": "^1.10.7",
+    "eslint-config-bedframe": "^0.0.5",
+    "eslint-config-turbo": "^1.10.12",
     "kolorist": "^1.8.0",
+    "rollup": "^3.28.0",
     "rollup-plugin-node-externals": "^6.1.1",
+    "rollup-plugin-polyfill-node": "^0.12.0",
     "tslib": "^2.6.1",
-    "typescript": "^4.9.3",
+    "typescript": "^5.1.6",
     "unplugin-fonts": "^1.0.3",
-    "vite": "^4.4.7",
+    "vite": "^4.4.9",
     "vite-plugin-babel-macros": "^1.0.6",
-    "vite-plugin-dts": "^2.3.0",
+    "vite-plugin-dts": "^3.5.1",
     "vite-plugin-externalize-deps": "^0.7.0",
-    "vitest": "^0.33.0"
+    "vite-plugin-node-polyfills": "^0.11.1",
+    "vitest": "^0.34.1"
   },
   "lint-staged": {
     "*.{md,mdx,css,html,json,js}": [
       "prettier --write ."
     ],
-    "*{js,jsx,ts,tsx }": "eslint --fix"
+    "*{js,jsx,ts,tsx}": "eslint --fix"
   },
   "prettier": {
     "tabWidth": 2,
@@ -77,11 +78,10 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "turbo",
-      "bedframe"
+      "bedframe",
+      "turbo"
     ],
     "parser": "@typescript-eslint/parser",
-    "parserOptions": {},
     "ignorePatterns": [
       "dist"
     ]

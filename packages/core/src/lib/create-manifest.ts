@@ -6,11 +6,11 @@ import { AnyCase, RequiredManifestFields, SharedManifestFields } from './utils'
  * @export
  * @param {Manifest} manifest
  * @param {AnyCase<Browser>} browser
- * @return {*}  {BuildTarget}
+ * @return {*}  {@link BuildTarget}
  */
 export function createManifest(
   manifest: Manifest,
-  browser: AnyCase<Browser>
+  browser: AnyCase<Browser>,
 ): BuildTarget {
   return {
     manifest,
@@ -51,10 +51,10 @@ export function createManifestIcons(icons: ManifestIcons): ManifestIcons {
  *
  * @export
  * @param {RequiredManifestFields} obj
- * @return {*}  {RequiredManifestFields}
+ * @return {*}  {@link RequiredManifestFields}
  */
 export function createManifestRequiredFields(
-  obj: RequiredManifestFields
+  obj: RequiredManifestFields,
 ): RequiredManifestFields {
   return obj
 }
@@ -63,10 +63,10 @@ export function createManifestRequiredFields(
  *
  * @export
  * @param {SharedManifestFields} obj
- * @return {*}  {SharedManifestFields}
+ * @return {*}  {@link SharedManifestFields}
  */
 export function createManifestSharedFields(
-  obj: SharedManifestFields
+  obj: SharedManifestFields,
 ): SharedManifestFields {
   return obj
 }
@@ -78,7 +78,7 @@ export function createManifestSharedFields(
  *
  * @export
  * @param {Manifest} manifest
- * @return {*}  {Manifest}
+ * @return {*}  {@link Manifest}
  */
 export function createManifestBase(manifest: Manifest): Manifest {
   return manifest
