@@ -71,10 +71,10 @@ export default defineConfig(({ command, mode }) => {
             main: resolve(src, 'sidepanels', 'main', 'index.html'),`
             : ''
         }${
-    extensionType === 'devtools'
-      ? `devtools: resolve(src, 'pages', 'devtools', 'panel.html'),`
-      : ''
-  }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
+          extensionType === 'devtools'
+            ? `devtools: resolve(src, 'pages', 'devtools', 'panel.html'),`
+            : ''
+        }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
         },
       },
     },
@@ -104,7 +104,7 @@ export function writeViteConfig(response: prompts.Answers<string>): void {
     .then(() =>
       fs
         .outputFile(viteConfigPath, viteConfig(response) + '\n')
-        .catch((error) => console.error(error))
+        .catch((error) => console.error(error)),
     )
     .catch((error) => console.error(error))
 }

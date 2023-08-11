@@ -12,5 +12,5 @@ root.render(
         <p>Bookmarks Override Page</p>
       </div>
     </Layout>
-  </StrictMode>
+  </StrictMode>,
 )

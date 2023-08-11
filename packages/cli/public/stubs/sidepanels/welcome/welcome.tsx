@@ -10,5 +10,5 @@ root.render(
     <Layout>
       <App />
     </Layout>
-  </StrictMode>
+  </StrictMode>,
 )

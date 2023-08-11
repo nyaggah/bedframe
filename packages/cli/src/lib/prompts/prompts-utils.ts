@@ -96,7 +96,7 @@ export const packageManagers = Object.values(PackageManager).map(
       title: color(_packageManager),
       value: packageManager,
     }
-  }
+  },
 )
 
 export const browsers = Object.values(Browser).map((browser) => {
@@ -116,7 +116,7 @@ export const frameworks = Object.values(Framework).map((framework) => {
     title: color(_framework),
     value: _framework,
     disabled: Boolean(
-      disableOptions(['Lit', 'Preact', 'Svelte', 'Vue']).has(_framework)
+      disableOptions(['Lit', 'Preact', 'Svelte', 'Vue']).has(_framework),
     ),
   }
 })
@@ -141,7 +141,7 @@ export const stylingOptions = Object.values(Style).map((style) => {
 })
 
 export function formatTargetDir(
-  value: string
+  value: string,
 ): Record<'name' | 'path', string> {
   return {
     name: path.basename(value),

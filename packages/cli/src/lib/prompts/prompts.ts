@@ -44,7 +44,7 @@ export const browserPrompts: PromptObject<keyof BrowserPrompts>[] = [
 ]
 
 export const extensionPrompts = (
-  name: string
+  name: string,
 ): PromptObject<keyof ExtensionPrompts>[] => [
   {
     // type: (name) => (name ? null : 'text'),
@@ -53,7 +53,7 @@ export const extensionPrompts = (
     message: 'Project name:',
     initial: name ? name : 'bedframe-project',
     hint: `— Where would you like to create your project? ${yellow(
-      italic(name ? name : './bedframe-project')
+      italic(name ? name : './bedframe-project'),
     )}`,
     format: (answer: string) => formatTargetDir(answer),
   },
@@ -176,7 +176,7 @@ export const extensionPrompts = (
         title: `Embedded`,
         value: 'embedded',
         description: dim(
-          "options in browser-native embedded box on extension's management page"
+          "options in browser-native embedded box on extension's management page",
         ),
       },
       {

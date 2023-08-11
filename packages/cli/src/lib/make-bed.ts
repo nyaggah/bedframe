@@ -47,37 +47,37 @@ export async function makeBed(response: PromptsResponse) {
               stubsPath,
               'pages',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'popup'
+              'popup',
             ),
             newtab: path.join(
               stubsPath,
               'pages',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'newtab'
+              'newtab',
             ),
             options: path.join(
               stubsPath,
               'pages',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'options'
+              'options',
             ),
             history: path.join(
               stubsPath,
               'pages',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'history'
+              'history',
             ),
             devtools: path.join(
               stubsPath,
               'pages',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'devtools'
+              'devtools',
             ),
             bookmarks: path.join(
               stubsPath,
               'pages',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'bookmarks'
+              'bookmarks',
             ),
           }
         },
@@ -103,25 +103,25 @@ export async function makeBed(response: PromptsResponse) {
               stubsPath,
               'components',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'App'
+              'App',
             ),
             iframe: path.join(
               stubsPath,
               'components',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'Iframe'
+              'Iframe',
             ),
             intro: path.join(
               stubsPath,
               'components',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'Intro'
+              'Intro',
             ),
             layout: path.join(
               stubsPath,
               'components',
               style === 'Styled Components' ? 'styled-components' : 'tailwind',
-              'Layout'
+              'Layout',
             ),
           }
         },
@@ -129,16 +129,16 @@ export async function makeBed(response: PromptsResponse) {
 
       const copyOverridePage = async (
         overridePage: string,
-        stubSrc: string
+        stubSrc: string,
       ): Promise<void> => {
         await copyFolder(
           stubSrc,
-          path.join(projectPath, 'src', 'pages', overridePage)
+          path.join(projectPath, 'src', 'pages', overridePage),
         )
       }
 
       const getOverridePage = (
-        overridePage: string
+        overridePage: string,
       ): {
         name: string
         path: string
@@ -200,20 +200,20 @@ export async function makeBed(response: PromptsResponse) {
               const component = stubs.components(style)
               copyFolder(
                 component.app,
-                path.join(projectPath, 'src', 'components', 'App')
+                path.join(projectPath, 'src', 'components', 'App'),
               )
               copyFolder(
                 component.intro,
-                path.join(projectPath, 'src', 'components', 'Intro')
+                path.join(projectPath, 'src', 'components', 'Intro'),
               )
               copyFolder(
                 component.layout,
-                path.join(projectPath, 'src', 'components', 'Layout')
+                path.join(projectPath, 'src', 'components', 'Layout'),
               )
               extensionType === 'overlay'
                 ? copyFolder(
                     component.iframe,
-                    path.join(projectPath, 'src', 'components', 'Iframe')
+                    path.join(projectPath, 'src', 'components', 'Iframe'),
                   )
                 : Promise.resolve()
             },
@@ -228,7 +228,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyFolder(
                 stubs.pages(style).popup,
-                path.join(projectPath, 'src', 'pages', 'popup')
+                path.join(projectPath, 'src', 'pages', 'popup'),
               ),
           },
           {
@@ -242,7 +242,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyFolder(
                 stubs.pages(style).devtools,
-                path.join(projectPath, 'src', 'pages', 'devtools')
+                path.join(projectPath, 'src', 'pages', 'devtools'),
               ),
           },
           {
@@ -253,7 +253,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyOverridePage(
                 overridePage,
-                getOverridePage(overridePage).path
+                getOverridePage(overridePage).path,
               ),
           },
           {
@@ -262,7 +262,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyFolder(
                 stubs.pages(style).options,
-                path.join(projectPath, 'src', 'pages', 'options')
+                path.join(projectPath, 'src', 'pages', 'options'),
               ),
           },
           {
@@ -279,7 +279,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyFolder(
                 stubs.scripts,
-                path.join(projectPath, 'src', 'scripts')
+                path.join(projectPath, 'src', 'scripts'),
               ),
           },
           {
@@ -293,7 +293,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyFolder(
                 stubs.style.styledComponents,
-                path.join(projectPath, 'src')
+                path.join(projectPath, 'src'),
               ),
           },
           {
@@ -302,7 +302,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyFolder(
                 stubs.style.tailwind.base,
-                path.join(projectPath, 'src', 'styles')
+                path.join(projectPath, 'src', 'styles'),
               ),
           },
           {
@@ -359,7 +359,7 @@ export async function makeBed(response: PromptsResponse) {
             task: async () => await installDependencies(response),
           },
         ],
-        { concurrent: true }
+        { concurrent: true },
       )
 
       await tasks.run().finally(() => {
@@ -377,20 +377,20 @@ export async function makeBed(response: PromptsResponse) {
         pnpm dev                ${dim('start dev server')}
         pnpm dev:all            ${dim('opa! broken right meow. so so soweeee!')}
         pnpm dev:for ${browser[0]}     ${dim(
-          `start dev server for ${lightGray(browser[0])}`
+          `start dev server for ${lightGray(browser[0])}`,
         )}
         
       ${dim('Production:')}
         pnpm build
         pnpm build:all          ${dim(
           `generate prod builds for all browsers (${lightGray(
-            './dist/<browser>'
-          )})`
+            './dist/<browser>',
+          )})`,
         )}        
         pnpm build:for ${lightGray(browser[0])}   ${dim(
           `generate prod build for ${lightGray(browser[0])} (${lightGray(
-            `./dist/${lightGray(browser[0])}`
-          )})`
+            `./dist/${lightGray(browser[0])}`,
+          )})`,
         )}    
         
       ${dim('- - -')} 

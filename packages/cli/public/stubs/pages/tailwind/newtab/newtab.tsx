@@ -12,5 +12,5 @@ root.render(
         <p>New Tab Override Page</p>
       </div>
     </Layout>
-  </StrictMode>
+  </StrictMode>,
 )

@@ -13,5 +13,5 @@ root.render(
       </div>
     </Layout>
     <GlobalStyles />
-  </StrictMode>
+  </StrictMode>,
 )

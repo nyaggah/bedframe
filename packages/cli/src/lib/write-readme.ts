@@ -26,7 +26,7 @@ export function writeReadMe(response: prompts.Answers<string>): void {
     .then(() =>
       fs
         .outputFile(readMePath, readMeContent)
-        .catch((error) => console.error(error))
+        .catch((error) => console.error(error)),
     )
     .catch((error) => console.error(error))
 }

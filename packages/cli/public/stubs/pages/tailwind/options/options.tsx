@@ -12,5 +12,5 @@ root.render(
         <p>Extension Options</p>
       </div>
     </Layout>
-  </StrictMode>
+  </StrictMode>,
 )

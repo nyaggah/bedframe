@@ -86,7 +86,7 @@ export function writeSidePanels(response: prompts.Answers<string>): void {
   const sidePanelsPath = path.resolve(path.join(rootDir, 'src', 'sidepanels'))
   const sidePanelsMainPath = path.resolve(path.join(sidePanelsPath, 'main'))
   const sidePanelsWelcomePath = path.resolve(
-    path.join(sidePanelsPath, 'welcome')
+    path.join(sidePanelsPath, 'welcome'),
   )
 
   const sidePanels = [
