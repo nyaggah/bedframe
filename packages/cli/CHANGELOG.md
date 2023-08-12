@@ -1,5 +1,15 @@
 # @bedframe/cli
 
+## 0.0.47
+
+### Patch Changes
+
+- 6980b24: bump installed core version
+- 49c4cac: bump core version
+- a62a118: fix broken build... fix externals
+- Updated dependencies [a62a118]
+  - @bedframe/core@0.0.28
+
 ## 0.0.46
 
 ### Patch Changes
