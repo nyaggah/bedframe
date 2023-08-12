@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import { nodeExternals } from './node-externals'
+import { externalizeDeps } from 'vite-plugin-externalize-deps'
 
 export default defineConfig({
   build: {
@@ -14,16 +15,25 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
-      external: ['@crxjs/vite-plugin'],
+      // external: ['@crxjs/vite-plugin'],
+      output: {
+        globals: {
+          '@crxjs/vite-plugin': '@crxjs/vite-plugin',
+        },
+      },
     },
   },
   plugins: [
+    externalizeDeps({
+      deps: false,
+      // except: ['@crxjs/vite-plugin'],
+    }),
     nodeExternals(),
     dts({
       insertTypesEntry: true,
     }),
   ],
-  // optimizeDeps: {
-  //   include: ['@crxjs/vite-plugin'],
-  // },
+  optimizeDeps: {
+    include: ['@crxjs/vite-plugin'],
+  },
 })
