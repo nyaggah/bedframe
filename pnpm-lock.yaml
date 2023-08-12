@@ -78,8 +78,8 @@ importers:
   packages/cli:
     dependencies:
       '@bedframe/core':
-        specifier: ^0.0.28
-        version: 0.0.28
+        specifier: workspace:*
+        version: link:../core
       commander:
         specifier: ^11.0.0
         version: 11.0.0
@@ -234,7 +234,7 @@ importers:
         version: link:../cli
       '@bedframe/core':
         specifier: '*'
-        version: 0.0.28
+        version: link:../core
     devDependencies:
       '@rollup/plugin-node-resolve':
         specifier: ^15.1.0
@@ -530,10 +530,6 @@ packages:
       '@babel/helper-string-parser': 7.22.5
       '@babel/helper-validator-identifier': 7.22.5
       to-fast-properties: 2.0.0
-
-  /@bedframe/core@0.0.28:
-    resolution: {integrity: sha512-MsP3mRhpFcdN6p7NF/nS7mhoFYZFF38+P5HPLk5iCGn0ptD91TJG8WWrgPSUxwVmJrS12WXaq2fgwiMtFlm1TA==}
-    dev: false
 
   /@changesets/apply-release-plan@6.1.4:
     resolution: {integrity: sha512-FMpKF1fRlJyCZVYHr3CbinpZZ+6MwvOtWUuO8uo+svcATEoc1zRDcj23pAurJ2TZ/uVz1wFHH6K3NlACy0PLew==}
