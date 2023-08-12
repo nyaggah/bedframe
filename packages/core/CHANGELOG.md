@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.28
+
+### Patch Changes
+
+- a62a118: fix broken build... fix externals
+
 ## 0.0.27
 
 ### Patch Changes
