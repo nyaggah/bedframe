@@ -206,7 +206,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.26' },
+        { name: '@bedframe/core', version: '^0.0.27' },
         { name: '@types/chrome', version: '^0.0.243' },
         { name: '@types/react', version: '^18.2.9' },
         { name: '@types/react-dom', version: '^18.2.7' },
