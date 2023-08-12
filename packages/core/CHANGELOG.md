@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.29
+
+### Patch Changes
+
+- a91d1da: global var for crx (troubleshoot)
+
 ## 0.0.28
 
 ### Patch Changes
