@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.48
+
+### Patch Changes
+
+- a91d1da: global var for crx (troubleshoot)
+- Updated dependencies [a91d1da]
+  - @bedframe/core@0.0.29
+
 ## 0.0.47
 
 ### Patch Changes
