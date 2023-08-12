@@ -8,13 +8,13 @@
   "version": "0.0.45",
   "license": "MIT",
   "type": "module",
+  "main": "dist/bedframe.cjs",
   "module": "dist/bedframe.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/bedframe.d.ts",
   "exports": {
     ".": {
       "import": "./dist/bedframe.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/bedframe.js"
+      "require": "./dist/bedframe.cjs"
     }
   },
   "bin": {
@@ -38,7 +38,7 @@
     "lint:format": "pnpm prettier:write && pnpm lint"
   },
   "dependencies": {
-    "@bedframe/core": "*",
+    "@bedframe/core": "workspace:*",
     "commander": "^11.0.0",
     "execa": "^7.2.0",
     "fs-extra": "^11.1.1",

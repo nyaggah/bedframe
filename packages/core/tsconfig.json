@@ -2,9 +2,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite/client", "chrome", "node"],
+    "types": ["chrome", "node"],
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Node",
     "esModuleInterop": false,
     "resolveJsonModule": true,
     "isolatedModules": true,

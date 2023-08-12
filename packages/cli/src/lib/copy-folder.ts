@@ -1,4 +1,4 @@
-import { constants, promises as fs } from 'fs'
+import { constants, promises as fs } from 'node:fs'
 import { join } from 'node:path'
 
 /**
