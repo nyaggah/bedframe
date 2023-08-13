@@ -1,6 +1,11 @@
-import { Framework, Language, PackageManager, Repository, Style } from './types'
+import { Framework, Language, PackageManager, Style } from './types'
 import { AnyCase } from './utils'
-
+/**
+ *
+ *
+ * @export
+ * @interface TemplateConfig
+ */
 export interface TemplateConfig {
   framework: Lowercase<Framework> | Capitalize<Framework>
   language: Lowercase<Language> | Capitalize<Language>
@@ -13,10 +18,11 @@ export interface TemplateConfig {
   commitLint: Record<string, any> | boolean
   changesets: Record<string, any> | boolean
 }
-
 /**
- * createTemplate()
- * @param template config object
+ *
+ *
+ * @export
+ * @interface BedframeTemplate
  */
 export interface BedframeTemplate {
   name?: string
@@ -24,6 +30,11 @@ export interface BedframeTemplate {
   description?: string
   config: TemplateConfig
 }
-
-export const createTemplate = (template: BedframeTemplate): BedframeTemplate =>
+/**
+ *
+ *
+ * @param {BedframeTemplate} template
+ * @return {*}  {@link BedframeTemplate}
+ */
+const createTemplate = (template: BedframeTemplate): BedframeTemplate =>
   template

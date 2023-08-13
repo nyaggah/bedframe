@@ -1,12 +1,12 @@
-import { Manifest } from '@bedframe/core'
+import { createManifestBase } from '@bedframe/core'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 import { App } from './App'
 
-const MockManifest: Manifest = {
+const baseManifestMock = createManifestBase({
   name: 'Bedframe Extension',
   version: '0.0.1',
-  description: 'Bedframe Extension description',
+  description: 'Bedframe extension description',
   manifest_version: 3,
   action: {
     default_icon: {
@@ -16,14 +16,14 @@ const MockManifest: Manifest = {
       '128': 'assets/icons/icon-128x128.png',
     },
   },
-}
+})
 
 describe('<App />', () => {
   beforeAll(() => {
     window.chrome = {
       // @ts-expect-error Type '{ getManifest: () => ManifestV3; }' is missing the following properties from type 'typeof runtime'
       runtime: {
-        getManifest: () => MockManifest,
+        getManifest: () => baseManifestMock,
       },
     }
   })
