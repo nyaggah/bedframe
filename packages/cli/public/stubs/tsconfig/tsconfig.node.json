@@ -11,7 +11,8 @@
     "src/manifests",
     "package.json",
     "vite.config.ts",
-    "src/vitest",
-    "bedframe.config.ts"
+    "tailwind.config.js",
+    "src/_config/bedframe.config.ts",
+    "postcss.config.js"
   ]
 }

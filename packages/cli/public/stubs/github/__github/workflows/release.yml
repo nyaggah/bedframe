@@ -1,30 +1,58 @@
-name: Release
+name: Bedframe Release Workflow
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch: # This line adds manual triggering from the GitHub UI
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
-    name: Release
+  build_and_publish:
+    name: Build & Publish (All)
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - run: npm install pnpm -g
+      - run: pnpm install
+      - run: pnpm build:all
 
-      - name: Setup Node.js 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Create Release Pull Request # or TO diddly DO: Publish to webstore(s)
+      - name: Run changesets/action to determine changesets
         id: changesets
         uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get Package.json Info
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        id: package
+        run: |
+          echo "::set-output name=name::$(jq -r .name package.json)"
+          echo "::set-output name=version::$(jq -r .version package.json)"
+        working-directory: ${{ github.workspace }}
+
+      - name: Zip 🫰 It 🫰 Up 🫰 ! - ('./dist/name-brower-version.zip')
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: npm run pack:all
+
+      - name: Publish - [ C H R O M E ] - Upload to Chrome Web Store (no publish...)
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: |
+          npx chrome-webstore-upload upload \
+            --source ./dist/${{ steps.package.outputs.name }}-chrome-${{ steps.package.outputs.version }}.zip \
+            --extension-id ${{ secrets.GOOGLE_EXTENSION_ID }} \
+            --client-id ${{ secrets.GOOGLE_CLIENT_ID }} \
+            --client-secret ${{ secrets.GOOGLE_CLIENT_SECRET }} \
+            --refresh-token ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+
+      - name: Publish - [ F I R E F O X ] - to AMO from - ('./dist/name-brower-version.zip')
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: |
+          npx web-ext sign \
+            --source-dir ./dist/firefox \
+            --artifacts-dir ./dist \
+            --api-key ${{ secrets.WEB_EXT_API_KEY }} \
+            --api-secret ${{ secrets.WEB_EXT_API_SECRET }} \
+            --channel unlisted \
+            --use-submission-api

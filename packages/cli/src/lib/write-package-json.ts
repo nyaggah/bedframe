@@ -83,13 +83,16 @@ export function createScriptCommandsFrom(
   //   response.development.template.config
 
   const devBuildScripts = () => {
+    const colors = ['magenta', 'green', 'cyan', 'yellow', 'red', 'blue']
     const devScript = createScriptCommand('dev', 'vite')
     const devForScript = createScriptCommand('dev:for', 'vite --mode')
     const devAllScript =
       browsers.length > 1
         ? createScriptCommand(
             `dev:all`,
-            `concurrently ${browsers
+            `concurrently --names \"${browsers.join(', ')}\" -c \"${colors
+              .slice(0, browsers.length)
+              .join(', ')}\" ${browsers
               .map((browser: Browser) => `\"vite --mode ${browser}\"`)
               .join(' ')}`,
           )
@@ -104,10 +107,12 @@ export function createScriptCommandsFrom(
       browsers.length > 1
         ? createScriptCommand(
             `build:all`,
-            `concurrently ${browsers
-              .map(
-                (browser: Browser) => `\"tsc && vite build --mode ${browser}\"`,
-              )
+            `tsc && concurrently --names \"${browsers.join(
+              ', ',
+            )}\" -c \"${colors
+              .slice(0, browsers.length)
+              .join(', ')}\" ${browsers
+              .map((browser: Browser) => `\"vite build --mode ${browser}\"`)
               .join(' ')}`,
           )
         : {}
@@ -206,7 +211,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     },
     {
       devDependencies: [
-        { name: '@bedframe/core', version: '^0.0.29' },
+        { name: '@bedframe/core', version: '^0.0.30' },
         { name: '@types/chrome', version: '^0.0.243' },
         { name: '@types/react', version: '^18.2.9' },
         { name: '@types/react-dom', version: '^18.2.7' },
