@@ -89,6 +89,7 @@ export async function makeBed(response: PromptsResponse) {
           tailwind: {
             base: path.join(stubsPath, 'style', 'tailwind', 'styles'),
             config: path.join(stubsPath, 'style', 'tailwind', 'config'),
+            shadcn: path.join(stubsPath, 'style', 'tailwind', 'shadcn'),
           },
         },
         scripts: path.join(stubsPath, 'scripts'),
@@ -196,6 +197,29 @@ export async function makeBed(response: PromptsResponse) {
             task: () => {},
           },
           {
+            title: `  ${dim('│ ├ ○')} _config${dim('/')}`,
+            task: () => {},
+          },
+          {
+            title: `  ${dim('│ │ ├ ○')} bedframe.config${dim('.ts')}`,
+            task: () => writeBedframeConfig(response),
+          },
+          {
+            title: `  ${dim('│ │ ├ ○')} shadcn.config${dim('.ts')}`,
+            enabled: () => style === 'Tailwind',
+            task: () =>
+              copyFolder(
+                stubs.style.tailwind.shadcn,
+                path.join(projectPath, 'src', '_config', 'shadcn'),
+              ),
+          },
+          {
+            title: `  ${dim('│ │ └ ○')} tests.config${dim('/')}`,
+            enabled: () => tests,
+            task: () =>
+              copyFolder(stubs.tests, path.join(projectPath, 'src', '_config')),
+          },
+          {
             title: `  ${dim('│ ├ ○')} components${dim('/')}`,
             task: () => {
               const component = stubs.components(style)
@@ -300,16 +324,12 @@ export async function makeBed(response: PromptsResponse) {
           {
             title: `  ${dim('│ ├ ○')} styles${dim('/')}`,
             enabled: () => style === 'Tailwind',
-            task: () =>
+            task: () => {
               copyFolder(
                 stubs.style.tailwind.base,
                 path.join(projectPath, 'src', 'styles'),
-              ),
-          },
-          {
-            title: `  ${dim('│ └ ○')} vitest${dim('/')}`,
-            enabled: () => tests,
-            task: () => copyFolder(stubs.tests, path.join(projectPath, 'src')),
+              )
+            },
           },
           {
             title: `  ${dim('├ .')}gitignore`,
@@ -322,17 +342,13 @@ export async function makeBed(response: PromptsResponse) {
             task: () => copyFolder(stubs.lintFormat, projectPath),
           },
           {
-            title: `  ${dim('├ ○')} bedframe.config${dim('.ts')}`,
-            task: () => writeBedframeConfig(response),
+            title: `  ${dim('├ ○')} postcss.config${dim('.ts')}`,
+            enabled: () => style === 'Tailwind',
+            task: () => {},
           },
           {
             title: `  ${dim('├ ○')} package${dim('.json')}`,
             task: () => writePackageJson(response),
-          },
-          {
-            title: `  ${dim('├ ○')} postcss.config${dim('.ts')}`,
-            enabled: () => style === 'Tailwind',
-            task: () => {},
           },
           {
             title: `  ${dim('├ ○')} README${dim('.md')}`,
@@ -346,12 +362,9 @@ export async function makeBed(response: PromptsResponse) {
             },
           },
           {
-            // title: `  ${dim('├ ○')} tsconfig${dim('.json')}`,
-            title: `  ${dim('├ ○')} tsconfig${dim('.json')}
-                      ${dim('├ ○')} tsconfig.node${dim('.json')}`,
+            title: `  ${dim('├ ○')} tsconfig${dim('.json')}`,
             enabled: () => language === 'TypeScript',
             task: () => writeTsConfig(response),
-            // task: () => copyFolder(stubs.tsconfig, projectPath),
           },
           {
             title: `  ${dim('└ ○')} vite.config${dim('.ts')}`,
@@ -370,6 +383,11 @@ export async function makeBed(response: PromptsResponse) {
         const { packageManager } = response.development.template.config
         const { installDeps } = response.development.config
 
+        const pm =
+          packageManager.toLowerCase() === 'npm'
+            ? `${packageManager.toLowerCase()} run`
+            : packageManager.toLowerCase()
+
         console.log(`
   ${bold(dim('>_'))}  ${green('Your BED is made! 🚀')}
       
@@ -378,20 +396,22 @@ export async function makeBed(response: PromptsResponse) {
       Inside that directory, you can run several commands:
 
       ${dim('Development:')}
-        pnpm dev                ${dim('start dev server')}
-        pnpm dev:all            ${dim('opa! broken right meow. so so soweeee!')}
-        pnpm dev:for ${browser[0]}     ${dim(
+        ${pm} dev                ${dim('start dev server')}
+        ${pm} dev:all            ${dim(
+          'opa! broken right meow. so so soweeee!',
+        )}
+        ${pm} dev:for ${browser[0]}     ${dim(
           `start dev server for ${lightGray(browser[0])}`,
         )}
         
       ${dim('Production:')}
-        pnpm build
-        pnpm build:all          ${dim(
+      ${pm} build
+        ${pm} build:all          ${dim(
           `generate prod builds for all browsers (${lightGray(
             './dist/<browser>',
           )})`,
         )}        
-        pnpm build:for ${lightGray(browser[0])}   ${dim(
+        ${pm} build:for ${lightGray(browser[0])}   ${dim(
           `generate prod build for ${lightGray(browser[0])} (${lightGray(
             `./dist/${lightGray(browser[0])}`,
           )})`,
@@ -403,20 +423,10 @@ export async function makeBed(response: PromptsResponse) {
         ${dim('1.')} cd ${basename(projectPath)}
         ${
           !installDeps
-            ? `${dim('2.')} ${packageManager.toLowerCase()} ${
-                packageManager.toLowerCase() !== 'yarn' ? 'install' : ''
-              }`
-            : `${dim(`2.`)} ${packageManager.toLowerCase()} dev:for ${
-                browser[0]
-              }`
+            ? `${dim('2.')} ${packageManager.toLowerCase()} install`
+            : `${dim(`2.`)} ${pm} dev:for ${browser[0]}`
         }
-        ${
-          !installDeps
-            ? `${dim(`3.`)} ${packageManager.toLowerCase()} dev:for ${
-                browser[0]
-              }`
-            : ''
-        }
+        ${!installDeps ? `${dim(`3.`)} ${pm} dev:for ${browser[0]}` : ''}
       `)
       })
     } catch (error) {
