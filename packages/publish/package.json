@@ -80,7 +80,7 @@
     "directory": "packages/publish"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "restricted"
   },
   "dependencies": {
     "chrome-webstore-upload": "^1.0.0",
