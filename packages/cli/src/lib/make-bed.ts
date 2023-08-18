@@ -47,37 +47,37 @@ export async function makeBed(response: PromptsResponse) {
             popup: path.join(
               stubsPath,
               'pages',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'popup',
             ),
             newtab: path.join(
               stubsPath,
               'pages',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'newtab',
             ),
             options: path.join(
               stubsPath,
               'pages',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'options',
             ),
             history: path.join(
               stubsPath,
               'pages',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'history',
             ),
             devtools: path.join(
               stubsPath,
               'pages',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'devtools',
             ),
             bookmarks: path.join(
               stubsPath,
               'pages',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'bookmarks',
             ),
           }
@@ -104,25 +104,25 @@ export async function makeBed(response: PromptsResponse) {
             app: path.join(
               stubsPath,
               'components',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'App',
             ),
             iframe: path.join(
               stubsPath,
               'components',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'Iframe',
             ),
             intro: path.join(
               stubsPath,
               'components',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'Intro',
             ),
             layout: path.join(
               stubsPath,
               'components',
-              style === 'Styled Components' ? 'styled-components' : 'tailwind',
+              style.trim().replace(/\s+/g, '-').toLowerCase(),
               'Layout',
             ),
           }
