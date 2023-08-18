@@ -82,6 +82,9 @@ export function createScriptCommandsFrom(
   // const { language, lintFormat, style, tests, git, gitHooks, changesets } =
   //   response.development.template.config
 
+  const pm = packageManager.toLowerCase()
+  const pmRun = pm === 'npm' ? `${pm} run` : pm
+
   const devBuildScripts = () => {
     const colors = ['magenta', 'green', 'cyan', 'yellow', 'red', 'blue']
     const devScript = createScriptCommand('dev', 'vite')
@@ -90,9 +93,9 @@ export function createScriptCommandsFrom(
       browsers.length > 1
         ? createScriptCommand(
             `dev:all`,
-            `concurrently --names \"${browsers.join(', ')}\" -c \"${colors
+            `concurrently --names \"${browsers.join(',')}\" -c \"${colors
               .slice(0, browsers.length)
-              .join(', ')}\" ${browsers
+              .join(',')}\" ${browsers
               .map((browser: Browser) => `\"vite --mode ${browser}\"`)
               .join(' ')}`,
           )
@@ -107,11 +110,9 @@ export function createScriptCommandsFrom(
       browsers.length > 1
         ? createScriptCommand(
             `build:all`,
-            `tsc && concurrently --names \"${browsers.join(
-              ', ',
-            )}\" -c \"${colors
+            `tsc && concurrently --names \"${browsers.join(',')}\" -c \"${colors
               .slice(0, browsers.length)
-              .join(', ')}\" ${browsers
+              .join(',')}\" ${browsers
               .map((browser: Browser) => `\"vite build --mode ${browser}\"`)
               .join(' ')}`,
           )
@@ -137,7 +138,7 @@ export function createScriptCommandsFrom(
 
     const prettierWriteScript = createScriptCommand(
       'format',
-      `${packageManager.toLowerCase()} prettier --write .`,
+      `${pm} prettier --write .`,
     )
 
     return lintFormat
@@ -164,7 +165,7 @@ export function createScriptCommandsFrom(
     const releaseScript = createScriptCommand(
       'release',
       `${
-        lintFormat ? 'pnpm format && pnpm lint &&' : ''
+        lintFormat ? `${pmRun} format && ${pmRun} lint &&` : ''
       } build:all && changeset version`,
     )
 
@@ -200,6 +201,10 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   devDependencies?: Partial<DependencyType>
   config?: Partial<ConfigType>
 } {
+  const { packageManager } = response.development.template.config
+  const pm = packageManager.toLowerCase()
+  const pmRun = pm === 'npm' ? `${pm} run` : pm
+
   const base: Partial<DependencyType>[] = [
     {
       dependencies: [
@@ -427,10 +432,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
       ? packageJsonField('husky', {
           hooks: {
             'commit-msg': 'commitlint --edit',
-            'pre-commit': `${
-              response.development.template.config.packageManager.toLowerCase() ??
-              'yarn'
-            } lint-staged`,
+            'pre-commit': `${pmRun} lint-staged`,
             'prepare-commit-msg':
               'exec < /dev/tty && node_modules/.bin/cz --hook || true',
           },
