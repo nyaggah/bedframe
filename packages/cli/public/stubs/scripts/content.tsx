@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from '@/components/App/App'
-import { Iframe } from '@/components/Iframe/Iframe'
+import { App } from '@/components/App'
+import { Iframe } from '@/components/Iframe'
 
 const name = chrome.runtime.getManifest().name ?? 'bedframe'
 export const extension = {

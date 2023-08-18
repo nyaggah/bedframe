@@ -405,7 +405,7 @@ export async function makeBed(response: PromptsResponse) {
         )}
         
       ${dim('Production:')}
-      ${pm} build
+        ${pm} build
         ${pm} build:all          ${dim(
           `generate prod builds for all browsers (${lightGray(
             './dist/<browser>',
