@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.49
+
+### Patch Changes
+
+- b0dae68: update release workflow"
+- Updated dependencies [b0dae68]
+  - @bedframe/core@0.0.30
+
 ## 0.0.48
 
 ### Patch Changes
