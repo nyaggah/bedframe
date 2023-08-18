@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.52
+
+### Patch Changes
+
+- bb22f55: fix content script imports; clean up package.json scripts
+
 ## 0.0.51
 
 ### Patch Changes
