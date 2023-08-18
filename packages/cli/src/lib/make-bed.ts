@@ -210,7 +210,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () =>
               copyFolder(
                 stubs.style.tailwind.shadcn,
-                path.join(projectPath, 'src', '_config', 'shadcn'),
+                path.join(projectPath, 'src', '_config'),
               ),
           },
           {
