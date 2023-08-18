@@ -15,6 +15,7 @@ import { writeServiceWorker } from './write-service-worker'
 import { writeSidePanels } from './write-sidepanels'
 import { writeViteConfig } from './write-vite-config'
 import { writeReadMe } from './write-readme'
+import { writeTsConfig } from './write-tsconfig'
 
 export async function makeBed(response: PromptsResponse) {
   const { browser } = response
@@ -345,9 +346,12 @@ export async function makeBed(response: PromptsResponse) {
             },
           },
           {
-            title: `  ${dim('├ ○')} tsconfig${dim('.json')}`,
+            // title: `  ${dim('├ ○')} tsconfig${dim('.json')}`,
+            title: `  ${dim('├ ○')} tsconfig${dim('.json')}
+                      ${dim('├ ○')} tsconfig.node${dim('.json')}`,
             enabled: () => language === 'TypeScript',
-            task: () => copyFolder(stubs.tsconfig, projectPath),
+            task: () => writeTsConfig(response),
+            // task: () => copyFolder(stubs.tsconfig, projectPath),
           },
           {
             title: `  ${dim('└ ○')} vite.config${dim('.ts')}`,

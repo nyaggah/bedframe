@@ -26,6 +26,6 @@
     }
   },
   "include": ["src"],
-  "exclude": ["src/manifests"],
+  "exclude": ["src/manifests", "src/_config/bedframe.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

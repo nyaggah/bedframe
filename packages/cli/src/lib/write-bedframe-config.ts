@@ -43,9 +43,10 @@ export function writeBedframeConfig(response: Answers<string>): void {
 
   const styledComponents = style === 'Styled Components'
 
-  const fileContent = `import { manifests } from './src/manifests'
+  const fileContent = `import { createBedframe } from '@bedframe/core'
+import { manifests } from './src/manifests'
 
-export const bedframeConfig = {
+export default createBedframe({
   browser: manifests.map((target) => target.browser),
   extension: {
     type: '${extensionType}',
@@ -74,7 +75,7 @@ export const bedframeConfig = {
       },
     },
   },
-}
+})
 
 `
 
@@ -82,7 +83,7 @@ export const bedframeConfig = {
     const rootDir = path.resolve(name.path)
     fs.ensureDir(rootDir).catch(console.error)
     fs.outputFile(
-      path.join(rootDir, 'bedframe.config.ts'),
+      path.join(rootDir, 'src', '_config', 'bedframe.config.ts'),
       fileContent + '\n',
     ).catch((error) => console.error(error))
   } catch (error) {

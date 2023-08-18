@@ -62,10 +62,12 @@ export default createManifestBase({
   ${
     optionsPage === 'full-page'
       ? `options_page: 'src/pages/options/index.html',`
-      : `options_ui: {
+      : optionsPage === 'embedded'
+      ? `options_ui: {
     page: 'src/pages/options/index.html',
     open_in_tab: false,
   },`
+      : ``
   }
   ${
     extensionType === 'devtools'

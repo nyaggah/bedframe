@@ -1,8 +1,8 @@
 # Ignore artifacts:
 package-lock.json
+pnpm-lock.yaml
+node_modules
 dist
 coverage
-next-env.d.ts
-.next
 .vscode
-node_modules
+*.local
