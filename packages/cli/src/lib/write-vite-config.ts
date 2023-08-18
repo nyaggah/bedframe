@@ -82,7 +82,7 @@ export default defineConfig(({ command, mode }) => {
       hasTests
         ? `test: {
       globals: true,
-      setupFiles: ['./src/vitest/vitest.setup.ts'],
+      setupFiles: ['./src/_config/tests.config.ts'],
       environment: 'jsdom',
       coverage: {
         provider: 'istanbul',

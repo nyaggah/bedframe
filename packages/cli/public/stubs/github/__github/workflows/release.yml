@@ -1,9 +1,10 @@
-name: Release
+name: Bedframe (picchat.ai) Release Workflow
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch: # This line adds manual triggering from the GitHub UI
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -11,20 +12,44 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js 16.x
+      - name: Set up Node.js 16.x
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Create Release Pull Request # or TO diddly DO: Publish to webstore(s)
+      - name: Build project
+        run: npm run build:for chrome
+
+      - name: Run changesets/action to determine changesets
         id: changesets
         uses: changesets/action@v1
+        with:
+          publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Version & Tag - if there's new changeset(s)
+        if: steps.changesets.outputs.hasChangesets == 'true'
+        run: npx changeset version
+
+      - name: Zip the dist - chrome (if no changesets)
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: npm run zip:chrome
+
+      - name: Publish to Chrome Web Store (if no changesets)
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: |
+          npx chrome-webstore-upload upload \
+            --source ./dist/chrome.zip \
+            --extension-id ${{ secrets.GOOGLE_EXTENSION_ID }} \
+            --client-id ${{ secrets.GOOGLE_CLIENT_ID }} \
+            --client-secret ${{ secrets.GOOGLE_CLIENT_SECRET }} \
+            --refresh-token ${{ secrets.GOOGLE_REFRESH_TOKEN }}
