@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.51
+
+### Patch Changes
+
+- b96f331: project gen refactor; moar readable
+
 ## 0.0.50
 
 ### Patch Changes
