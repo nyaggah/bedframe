@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.30
+
+### Patch Changes
+
+- b0dae68: update release workflow"
+
 ## 0.0.29
 
 ### Patch Changes
