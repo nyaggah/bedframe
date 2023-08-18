@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.50
+
+### Patch Changes
+
+- 1619309: include deps an configs for tailwind + shadcn
+
 ## 0.0.49
 
 ### Patch Changes
