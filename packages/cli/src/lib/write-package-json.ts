@@ -252,15 +252,26 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             devDependencies: [
               { name: '@types/styled-components', version: '^5.1.26' },
               { name: 'babel-plugin-styled-components', version: '^2.1.4' },
-              { name: 'vite-plugin-babel-macros', version: '^1.0.6' }, // <-- if vite + styled-components
+              { name: 'vite-plugin-babel-macros', version: '^1.0.6' },
             ].sort((a, b) => a.name.localeCompare(b.name)),
           },
         ]
       : [
           {
+            dependencies: [
+              { name: '@radix-ui/react-icons', version: '^1.3.0' },
+              { name: '@radix-ui/react-slot', version: '^1.0.2' },
+              { name: 'class-variance-authority', version: '^0.7.0' },
+              { name: 'clsx', version: '^2.0.0' },
+              { name: 'tailwind-merge', version: '^1.14.0' },
+              { name: 'tailwindcss-animate', version: '^1.0.6' },
+            ],
+          },
+          {
             devDependencies: [
-              { name: 'autoprefixer', version: '^10.4.14' },
-              { name: 'postcss', version: '^8.4.27' },
+              { name: '@types/node', version: '^20.5.1' },
+              { name: 'autoprefixer', version: '^10.4.15' },
+              { name: 'postcss', version: '^8.4.28' },
               { name: 'tailwindcss', version: '^3.3.3' },
             ].sort((a, b) => a.name.localeCompare(b.name)),
           },
