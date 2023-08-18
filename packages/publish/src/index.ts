@@ -1,6 +1,6 @@
-import chromeWebstoreUpload from 'chrome-webstore-upload'
-import fs from 'node:fs'
-import { PublishConfig, createPublishConfig } from './lib'
+// import chromeWebstoreUpload from 'chrome-webstore-upload'
+// import fs from 'node:fs'
+// import { PublishConfig, createPublishConfig } from './lib'
 
 /*
 
@@ -11,7 +11,7 @@ import { PublishConfig, createPublishConfig } from './lib'
   should allow in package.json:
   "bedframe:version": "bedframe version",
 
-  
+
   >_ 
   B E D F R A M E
   
@@ -28,28 +28,30 @@ import { PublishConfig, createPublishConfig } from './lib'
   
 */
 
-export default function publish(publishConfig: PublishConfig) {
-  const config = createPublishConfig(publishConfig)
-  const { env, action } = config
-  const store = chromeWebstoreUpload(env)
+// export default function publish(publishConfig: PublishConfig) {
+//   const config = createPublishConfig(publishConfig)
+//   const { env, action } = config
+//   const store = chromeWebstoreUpload(env)
 
-  const createExtension = () => {}
-  const updateExtension = () => {}
-  const publishExtension = () => {}
+//   const createExtension = () => {}
+//   const updateExtension = () => {}
+//   const publishExtension = () => {}
 
-  const run = {
-    create: () => {
-      const zip = fs.createReadStream('./dist/picchat.ai-chrome.zip')
-      store
-        .fetchToken()
-        .then((token: any) => {
-          create(token, zip)
-        })
-        .catch(console.error)
-    },
-    update: () => {
-      upload(true)
-    },
-    publish: () => 'publish()',
-  }
-}
+//   const run = {
+//     create: () => {
+//       const zip = fs.createReadStream('./dist/picchat.ai-chrome.zip')
+//       store
+//         .fetchToken()
+//         .then((token: any) => {
+//           create(token, zip)
+//         })
+//         .catch(console.error)
+//     },
+//     update: () => {
+//       upload(true)
+//     },
+//     publish: () => 'publish()',
+//   }
+// }
+
+export const ddd = {}
