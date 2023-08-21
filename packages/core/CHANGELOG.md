@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.31
+
+### Patch Changes
+
+- 37a44d6: template and bedframe config typings update
+
 ## 0.0.30
 
 ### Patch Changes

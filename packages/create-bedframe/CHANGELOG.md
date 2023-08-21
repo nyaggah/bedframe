@@ -1,5 +1,14 @@
 # create-bedframe
 
+## 0.0.13
+
+### Patch Changes
+
+- 37a44d6: template and bedframe config typings update
+- Updated dependencies [37a44d6]
+  - @bedframe/core@0.0.31
+  - @bedframe/cli@0.0.53
+
 ## 0.0.12
 
 ### Patch Changes
