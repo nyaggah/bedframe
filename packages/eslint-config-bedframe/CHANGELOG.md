@@ -1,5 +1,11 @@
 # eslint-config-bedframe
 
+## 0.0.6
+
+### Patch Changes
+
+- 37a44d6: template and bedframe config typings update
+
 ## 0.0.5
 
 ### Patch Changes

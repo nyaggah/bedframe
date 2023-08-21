@@ -5,7 +5,7 @@
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
   },
-  "version": "0.0.52",
+  "version": "0.0.53",
   "license": "MIT",
   "type": "module",
   "main": "dist/bedframe.cjs",
