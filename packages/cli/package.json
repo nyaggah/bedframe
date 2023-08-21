@@ -52,7 +52,7 @@
   "devDependencies": {
     "@commander-js/extra-typings": "^11.0.0",
     "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-node-resolve": "^15.2.0",
     "@rollup/plugin-typescript": "^11.1.2",
     "@types/chrome": "^0.0.243",
     "@types/fs-extra": "^11.0.1",
