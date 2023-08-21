@@ -57,7 +57,7 @@
     "@types/chrome": "^0.0.243",
     "@types/fs-extra": "^11.0.1",
     "@types/listr": "^0.14.4",
-    "@types/node": "^20.4.10",
+    "@types/node": "^20.5.1",
     "@types/prompts": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "eslint-config-bedframe": "*",
