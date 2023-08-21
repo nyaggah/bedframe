@@ -185,7 +185,7 @@ importers:
         specifier: ^4.0.4
         version: 4.0.4(vite@4.4.9)
       eslint-config-bedframe:
-        specifier: ^0.0.5
+        specifier: ^0.0.6
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
         specifier: ^1.10.12
