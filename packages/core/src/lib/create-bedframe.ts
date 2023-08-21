@@ -13,7 +13,7 @@ export type Extension = {
   position?: PositionType
   options: OptionsType
   manifest: BuildTarget[] // OneOrMoreManifests
-  pages: string | string[] | { [entryAlias: string]: string }
+  pages?: string | string[] | { [entryAlias: string]: string }
   // ^^^ type from rollup input: >> export type InputOption = string | string[] | { [entryAlias: string]: string };
 }
 

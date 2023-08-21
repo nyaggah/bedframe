@@ -11,14 +11,12 @@ export interface TemplateConfig {
   framework: Lowercase<Framework> | Capitalize<Framework>
   language: Lowercase<Language> | Capitalize<Language>
   packageManager: AnyCase<PackageManager>
-  style:
-    | AnyCase<Style>
-    | {
-        framework: AnyCase<Style>
-        components?: string | Record<string, any>
-        fonts?: FontFamily[]
-        theme?: string | Record<string, any>
-      }
+  style: {
+    framework: AnyCase<Style>
+    components?: string | Record<string, any>
+    fonts?: FontFamily[]
+    theme?: string | Record<string, any>
+  }
   lintFormat: Record<string, any> | boolean
   tests: Record<string, any> | boolean // | VitestInlineConfig
   git: Record<string, any> | boolean
