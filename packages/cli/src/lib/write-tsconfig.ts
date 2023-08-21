@@ -53,7 +53,12 @@ export function writeTsConfig(response: Answers<string>): void {
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+
+    /* Path aliases */
+    "paths": {
+      "@/*": ["./src/*"]
+    }    
   },
   "include": [
     "src/manifests",

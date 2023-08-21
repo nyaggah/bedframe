@@ -1,4 +1,4 @@
-import { Browser, Manifest } from '@bedframe/core'
+import { Browser, BuildTarget, Manifest } from '@bedframe/core'
 import fs from 'fs-extra'
 import path from 'node:path'
 import prompts from 'prompts'
@@ -93,9 +93,9 @@ export function createScriptCommandsFrom(
       browsers.length > 1
         ? createScriptCommand(
             `dev:all`,
-            `concurrently --names \"${browsers.join(',')}\" -c \"${colors
-              .slice(0, browsers.length)
-              .join(',')}\" ${browsers
+            `concurrently --group --names \"${browsers.join(
+              ',',
+            )}\" -c \"${colors.slice(0, browsers.length).join(',')}\" ${browsers
               .map((browser: Browser) => `\"vite --mode ${browser}\"`)
               .join(' ')}`,
           )
@@ -106,13 +106,14 @@ export function createScriptCommandsFrom(
       'build:for',
       'tsc && vite build --mode',
     )
+
     const buildAllScript =
       browsers.length > 1
         ? createScriptCommand(
             `build:all`,
-            `tsc && concurrently --names \"${browsers.join(',')}\" -c \"${colors
-              .slice(0, browsers.length)
-              .join(',')}\" ${browsers
+            `tsc && concurrently --group --names \"${browsers.join(
+              ',',
+            )}\" -c \"${colors.slice(0, browsers.length).join(',')}\" ${browsers
               .map((browser: Browser) => `\"vite build --mode ${browser}\"`)
               .join(' ')}`,
           )
@@ -151,6 +152,27 @@ export function createScriptCommandsFrom(
     return hasTests ? convertArrayToObject([testScript]) : null
   }
 
+  const zipScripts = () => {
+    const colors = ['magenta', 'green', 'cyan', 'yellow', 'red', 'blue']
+
+    const zipScripts = browsers.map((b: Browser) => {
+      const browser = b.toLowerCase()
+      return createScriptCommand(
+        `zip:${browser}`,
+        `cd ./dist/${browser} && zip -r ../$npm_package_name@$npm_package_version-${browser}.zip .`,
+      )
+    })
+
+    const zipAllScripts = createScriptCommand(
+      `pack:all`,
+      `concurrently --group --names \"${browsers.join(',')}\" -c \"${colors
+        .slice(0, browsers.length)
+        .join(',')}\" ${packageManager.toLowerCase()}:zip:*`,
+    )
+
+    return convertArrayToObject([zipScripts, zipAllScripts])
+  }
+
   const gitHooksScripts = () => {
     const czScript = createScriptCommand('cz', `cz`)
     const postInstallScript = createScriptCommand(
@@ -162,24 +184,46 @@ export function createScriptCommandsFrom(
   }
 
   const releaseScripts = () => {
-    const releaseScript = createScriptCommand(
-      'release',
-      `${
-        lintFormat ? `${pmRun} format && ${pmRun} lint &&` : ''
-      } build:all && changeset version`,
+    const changesetVersionScript = createScriptCommand(
+      'changeset:version',
+      `changeset version`,
     )
 
-    return changesets ? convertArrayToObject([releaseScript]) : null
+    const gitTagScript = createScriptCommand(
+      'git:tag',
+      `git tag $npm_package_name@$npm_package_version`,
+    )
+
+    const gitPushTagScript = createScriptCommand(
+      'git:pushTag',
+      `git push origin --tags`,
+    )
+
+    const gitReleaseScript = createScriptCommand(
+      'git:release',
+      `gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes`,
+    )
+
+    return changesets
+      ? convertArrayToObject([
+          changesetVersionScript,
+          gitTagScript,
+          gitPushTagScript,
+          gitReleaseScript,
+        ])
+      : null
   }
 
   return {
     ...devBuildScripts(),
     ...lintFormatScripts(),
     ...testScripts(),
+    ...zipScripts(),
     ...gitHooksScripts(),
     ...releaseScripts(),
   }
 }
+
 /**
  * Conditionally generate the `package.json` dependencies
  * opted into via `@bedframe/cli` `Make` command args,
@@ -291,7 +335,6 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
             { name: '@testing-library/user-event', version: '^14.4.3' },
             { name: '@testing-library/jest-dom', version: '^5.14.9' },
             { name: '@types/jest', version: '^29.5.3' },
-            { name: '@types/testing-library__jest-dom', version: '^5.14.6' },
             { name: '@vitest/coverage-istanbul', version: '^0.34.1' },
             { name: 'jsdom', version: '^22.1.0' },
             { name: 'vitest', version: '^0.34.1' },
@@ -401,7 +444,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
       .config.lintFormat
       ? packageJsonField('lint-staged', {
           '*.{css,html,json,js}': ['prettier --write .'],
-          '*{js,ts}': 'eslint . --fix',
+          '*{js,jsx,ts,tsx}': 'eslint . --fix',
         })
       : {}
 
@@ -480,21 +523,16 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
   let configs = { ...getConfigs() }
   return { dependencies, devDependencies, ...configs }
 }
+
 /**
  * For BEDs with multiple Manifests (Browser targets)
  * set by selecting multiple Browsers in cli prompts,
  * return the Manifest for the first of these
- *
- * @param {*} response
+ * @param {BuildTarget[]} buildTarget
  * @return {*}  {@link Manifest}
  */
-function getFirstManifestDetails(response: any): Manifest {
-  for (const browserKey in response) {
-    const browser = response[browserKey] as Manifest
-    return browser
-  }
-
-  throw new Error('Invalid JSON object: No valid Manifest object found')
+function getFirstManifestDetails(buildTarget: BuildTarget[]): Manifest {
+  return buildTarget[0].manifest
 }
 /**
  * Compose the project's `package.json` from the

@@ -1,5 +1,5 @@
 import { BedframeTemplate } from './create-template'
-import type { Browser, BrowserEnum, Manifest } from './types'
+import type { Browser, BrowserEnum, BuildTarget, Manifest } from './types'
 import { AnyCase } from './utils'
 
 export type ExtensionType = 'popup' | 'overlay' | 'sidepanel' | 'devtools'
@@ -12,7 +12,9 @@ export type Extension = {
   overrides: OverrideType
   position?: PositionType
   options: OptionsType
-  manifest: OneOrMoreManifests
+  manifest: BuildTarget[] // OneOrMoreManifests
+  pages?: string | string[] | { [entryAlias: string]: string }
+  // ^^^ type from rollup input: >> export type InputOption = string | string[] | { [entryAlias: string]: string };
 }
 
 export type OneOrMoreManifests =
