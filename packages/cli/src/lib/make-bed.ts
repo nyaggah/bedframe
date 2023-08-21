@@ -1,8 +1,8 @@
-import { Style } from '@bedframe/core'
+import { Browser, Style } from '@bedframe/core'
 import { execa } from 'execa'
 import fs from 'fs-extra'
 import { bold, dim, green, lightGray } from 'kolorist'
-import Listr from 'listr'
+import Listr, { ListrTask } from 'listr'
 import path, { basename } from 'node:path'
 import url from 'node:url'
 import { copyFolder } from './copy-folder'
@@ -157,6 +157,18 @@ export async function makeBed(response: PromptsResponse) {
         }
       }
 
+      const manifestTasksFrom = (browser: Browser[]): ListrTask<any>[] => {
+        return browser.map((b, i) => {
+          const last = browser[b.length - 1]
+          const leader =
+            browser.indexOf(b) === browser.indexOf(last) ? '│ │ └ ○' : '│ │ ├ ○'
+          return {
+            title: `  ${dim(leader)} ${b.toLowerCase()}${dim('.ts')}`,
+            task: () => {},
+          }
+        })
+      }
+
       const tasks = new Listr(
         [
           {
@@ -188,7 +200,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () => {},
           },
           {
-            title: `  ${dim('│ ├ ○')} assets${dim('/')}`,
+            title: `  ${dim('│ └ ○')} assets${dim('/')}`,
             task: () =>
               copyFolder(stubs.public, path.join(projectPath, 'public')),
           },
@@ -214,7 +226,7 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            title: `  ${dim('│ │ └ ○')} tests.config${dim('/')}`,
+            title: `  ${dim('│ │ └ ○')} tests.config${dim('.ts')}`,
             enabled: () => tests,
             task: () =>
               copyFolder(stubs.tests, path.join(projectPath, 'src', '_config')),
@@ -247,6 +259,7 @@ export async function makeBed(response: PromptsResponse) {
             title: `  ${dim('│ ├ ○')} manifests${dim('/')}`,
             task: () => writeManifests(response),
           },
+          ...manifestTasksFrom(browser),
           {
             title: `  ${dim('│ ├ ○')} pages${dim('/')}`,
             enabled: () => extensionType === 'popup',
@@ -282,7 +295,7 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            title: `  ${dim('│ │ ├ ○')} options${dim('/')}`,
+            title: `  ${dim('│ │ └ ○')} options${dim('/')}`,
             enabled: () => optionsPage !== 'none',
             task: () =>
               copyFolder(
@@ -313,7 +326,7 @@ export async function makeBed(response: PromptsResponse) {
             task: () => writeSidePanels(response),
           },
           {
-            title: `  ${dim('│ ├ ○')} styles${dim('/')}`,
+            title: `  ${dim('│ └ ○')} styles${dim('/')}`,
             enabled: () => style === 'Styled Components',
             task: () =>
               copyFolder(
@@ -322,7 +335,7 @@ export async function makeBed(response: PromptsResponse) {
               ),
           },
           {
-            title: `  ${dim('│ ├ ○')} styles${dim('/')}`,
+            title: `  ${dim('│ └ ○')} styles${dim('/')}`,
             enabled: () => style === 'Tailwind',
             task: () => {
               copyFolder(
@@ -340,6 +353,11 @@ export async function makeBed(response: PromptsResponse) {
             title: `  ${dim('├ .')}prettierignore`,
             enabled: () => lintFormat,
             task: () => copyFolder(stubs.lintFormat, projectPath),
+          },
+          {
+            title: `  ${dim('├ ○')} components${dim('.json')}`,
+            enabled: () => style === 'Tailwind',
+            task: () => {},
           },
           {
             title: `  ${dim('├ ○')} postcss.config${dim('.ts')}`,

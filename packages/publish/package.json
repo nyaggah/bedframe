@@ -37,7 +37,7 @@
   "devDependencies": {
     "@bedframe/core": "workspace:*",
     "@types/got": "^9.6.12",
-    "typescript": "^5.0.2",
+    "typescript": "^5.1.6",
     "vite": "^4.4.7",
     "vite-plugin-dts": "^2.3.0"
   },

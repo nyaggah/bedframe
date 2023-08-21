@@ -44,7 +44,7 @@ export function writeBedframeConfig(response: Answers<string>): void {
   const styledComponents = style === 'Styled Components'
 
   const fileContent = `import { createBedframe } from '@bedframe/core'
-import { manifests } from './src/manifests'
+import { manifests } from '../manifests'
 
 export default createBedframe({
   browser: manifests.map((target) => target.browser),
@@ -53,11 +53,7 @@ export default createBedframe({
     ${position ? `position: '${position}',` : ''}
     ${overridePage !== 'none' ? `overrides: '${overridePage}',` : ''}
     options: '${optionsPage}',
-    manifest: manifests.map((target) => {
-      return {
-        [target.browser]: target.manifest
-      }
-    })
+    manifest: manifests,
   },
   development: {
     template: {

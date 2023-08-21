@@ -1,4 +1,10 @@
-import { Bedframe, Browser, createBedframe } from '@bedframe/core'
+import {
+  Bedframe,
+  Browser,
+  BuildTarget,
+  createBedframe,
+  createManifest,
+} from '@bedframe/core'
 import { dim, italic, red, yellow } from 'kolorist'
 import { basename, resolve } from 'node:path'
 import { cwd } from 'node:process'
@@ -311,6 +317,9 @@ export async function bedframePrompts(projectName: string): Promise<Bedframe> {
     },
   })
 
+  // TO diddly DO: techcnially this isn't the bedframe... per se
+  // this is out ouput from the prompts... it's not gonna take
+  // the same shape as the operational bedframe within a projek!
   const bedframeConfig = createBedframe({
     browser: browsersResponse.browsers,
     extension: {
@@ -323,23 +332,27 @@ export async function bedframePrompts(projectName: string): Promise<Bedframe> {
         email: extensionResponse.author.email,
         url: extensionResponse.author.url,
       },
-      manifest: browsersResponse.browsers.map((browser: Browser) => {
-        return {
-          [browser.toLowerCase()]: {
-            name: extensionResponse.name.name, // ??
-            version: extensionResponse.version,
-            manifest_version: 3,
-            author: extensionResponse.author?.email,
-            description: extensionResponse.description,
-          },
-        }
-      }),
+      manifest: browsersResponse.browsers.map(
+        (browser: Browser): BuildTarget => {
+          return createManifest(
+            {
+              name: extensionResponse.name.name, // ??
+              version: extensionResponse.version,
+              manifest_version: 3,
+              author: extensionResponse.author?.email,
+              description: extensionResponse.description,
+            },
+            browser,
+          )
+        },
+      ) as BuildTarget[],
       type: {
         name: extensionResponse.type,
         position: extensionResponse.position, // if position === 'overlay'
       },
       override: extensionResponse.override,
       options: extensionResponse.options,
+      license: extensionResponse.license,
     },
     development: {
       template: {
