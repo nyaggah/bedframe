@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/chrome": "^0.0.243",
     "@types/node": "^20.5.1",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@vitejs/plugin-react": "^4.0.4",
     "eslint-config-bedframe": "^0.0.6",
     "eslint-config-turbo": "^1.10.12",
