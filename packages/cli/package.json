@@ -61,7 +61,7 @@
     "@types/prompts": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "eslint-config-bedframe": "*",
-    "eslint-config-turbo": "^1.10.7",
+    "eslint-config-turbo": "^1.10.13",
     "rollup": "^3.27.2",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-dts": "^5.3.1",
