@@ -28,7 +28,7 @@
 
 Your **B**rowser **E**xtension **D**evelopment Framework
 
-Make, validate, publish and manage cross-browser extensions with ease.
+Make, version, publish cross-browser extensions with ease (continously).
 
 ## Getting Started
 
