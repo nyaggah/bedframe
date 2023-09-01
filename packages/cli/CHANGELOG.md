@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.56
+
+### Patch Changes
+
+- 60be0eb: clean up; bump version to install core/cli
+- Updated dependencies [60be0eb]
+  - @bedframe/core@0.0.33
+
 ## 0.0.55
 
 ### Patch Changes
