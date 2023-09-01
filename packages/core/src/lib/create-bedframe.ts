@@ -1,5 +1,5 @@
 import { BedframeTemplate } from './create-template'
-import type { Browser, BrowserEnum, BuildTarget, Manifest } from './types'
+import type { Browser, BuildTarget } from './types'
 import { AnyCase } from './utils'
 
 export type ExtensionType = 'popup' | 'overlay' | 'sidepanel' | 'devtools'
