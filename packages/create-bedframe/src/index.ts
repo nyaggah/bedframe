@@ -1,3 +1,2 @@
-import { run } from '@bedframe/cli'
-
-run()
+import childProcess from 'node:child_process'
+childProcess.execSync('npx @bedframe/cli@latest make', { stdio: 'inherit' })
