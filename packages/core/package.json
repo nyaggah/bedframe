@@ -39,8 +39,8 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.243",
-    "@types/node": "^20.4.10",
-    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@types/node": "^20.5.1",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@vitejs/plugin-react": "^4.0.4",
     "eslint-config-bedframe": "^0.0.6",
     "eslint-config-turbo": "^1.10.12",
@@ -48,14 +48,14 @@
     "rollup": "^3.28.0",
     "rollup-plugin-node-externals": "^6.1.1",
     "rollup-plugin-polyfill-node": "^0.12.0",
-    "tslib": "^2.6.1",
+    "tslib": "^2.6.2",
     "typescript": "^5.1.6",
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.4.9",
     "vite-plugin-babel-macros": "^1.0.6",
     "vite-plugin-dts": "^3.5.1",
     "vite-plugin-externalize-deps": "^0.7.0",
-    "vitest": "^0.34.1"
+    "vitest": "^0.34.2"
   },
   "lint-staged": {
     "*.{md,mdx,css,html,json,js}": [
