@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.57
+
+### Patch Changes
+
+- bc777d1: strip fs-extra; wrap node-native fs/promises funcs instead
+- Updated dependencies [bc777d1]
+  - @bedframe/core@0.0.34
+
 ## 0.0.56
 
 ### Patch Changes
