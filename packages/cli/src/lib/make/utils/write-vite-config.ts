@@ -29,69 +29,32 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 ${styledComponents ? `import macrosPlugin from 'vite-plugin-babel-macros'` : ''}
-import { manifests } from './src/manifests'
+import { fonts, manifest as manifests, pages${
+    hasTests ? `, tests` : ''
+  } } from './src/_config/bedframe.config'
 
 export default defineConfig(({ command, mode }) => {
-  const root = __dirname
-  const src = resolve(root, './src')
-  const outDir = resolve(root, 'dist', mode)
-
   return {
-    root,
+    root: resolve(__dirname, './src'),
     resolve: {
       alias: {
-        '@': src,
+        '@': resolve(__dirname, './src'),
       },
     },
     plugins: [
       getManifest({ command, mode }, manifests),
-      getFonts([
-        {
-          name: 'Inter',
-          local: 'Inter',
-          src: './assets/fonts/inter/*.ttf',
-          weights: {
-            'Inter-Regular': 400,
-            'Inter-SemiBold': 600,
-            'Inter-Bold': 700,
-            'Inter-ExtraBold': 800,
-          },
-        },
-      ]),
+      getFonts(fonts),
       react(),
       ${styledComponents ? `macrosPlugin(),` : ''}
     ],
     build: {
-      outDir,
+      outDir: resolve(__dirname, 'dist', mode),
       emptyOutDir: true,
       rollupOptions: {
-        input: {${
-          extensionType === 'sidepanel'
-            ? `welcome: resolve(src, 'sidepanels', 'welcome', 'index.html'),
-            main: resolve(src, 'sidepanels', 'main', 'index.html'),`
-            : ''
-        }${
-          extensionType === 'devtools'
-            ? `devtools: resolve(src, 'pages', 'devtools', 'panel.html'),`
-            : ''
-        }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
-        },
+        input: pages,
       },
     },
-    ${
-      hasTests
-        ? `test: {
-      globals: true,
-      setupFiles: ['./src/_config/tests.config.ts'],
-      environment: 'jsdom',
-      coverage: {
-        provider: 'istanbul',
-        reporter: ['text', 'json', 'html'],
-      },
-      watch: false,
-    },`
-        : ''
-    }
+    ${hasTests ? `test: tests,` : ''}
   }
 })
 `

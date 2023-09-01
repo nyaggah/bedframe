@@ -7,7 +7,7 @@ import path, { basename } from 'node:path'
 import url from 'node:url'
 import { copyFolder } from './copy-folder'
 import { installDependencies } from './install-deps'
-import { PromptsResponse } from './prompts'
+import { PromptsResponse } from '../prompts'
 import { writeBedframeConfig } from './write-bedframe-config'
 import { writeManifests } from './write-manifests'
 import { writePackageJson } from './write-package-json'
@@ -16,6 +16,7 @@ import { writeSidePanels } from './write-sidepanels'
 import { writeViteConfig } from './write-vite-config'
 import { writeReadMe } from './write-readme'
 import { writeTsConfig } from './write-tsconfig'
+import { writeMVPworkflow } from './write-mvp-workflow'
 
 export async function makeBed(response: PromptsResponse) {
   const { browser } = response
@@ -41,7 +42,10 @@ export async function makeBed(response: PromptsResponse) {
 
       const stubs = {
         base: path.join(stubsPath, 'base'),
-        public: path.join(stubsPath, 'public'),
+        misc: {
+          viteClientTypes: path.join(stubsPath, 'misc'),
+        },
+        assets: path.join(stubsPath, 'assets'),
         pages: (style: Style) => {
           return {
             popup: path.join(
@@ -159,9 +163,10 @@ export async function makeBed(response: PromptsResponse) {
 
       const manifestTasksFrom = (browser: Browser[]): ListrTask<any>[] => {
         return browser.map((b, i) => {
-          const last = browser[b.length - 1]
-          const leader =
-            browser.indexOf(b) === browser.indexOf(last) ? '│ │ └ ○' : '│ │ ├ ○'
+          // const last = browser[b.length - 1]
+          const isLast = b.length - 1 === i
+          const leader = isLast ? '│ │ └ ○' : '│ │ ├ ○'
+          // browser.indexOf(b) === browser.indexOf(last) ? '│ │ └ ○' : '│ │ ├ ○'
           return {
             title: `  ${dim(leader)} ${b.toLowerCase()}${dim('.ts')}`,
             task: () => {},
@@ -183,7 +188,10 @@ export async function makeBed(response: PromptsResponse) {
           {
             title: `  ${dim('├ .')}github${dim('/')}`,
             enabled: () => git,
-            task: () => copyFolder(stubs.github, projectPath),
+            task: () => {
+              copyFolder(stubs.github, projectPath)
+              writeMVPworkflow(response)
+            },
           },
           {
             title: `  ${dim('├ .')}changeset${dim('/')}`,
@@ -195,18 +203,22 @@ export async function makeBed(response: PromptsResponse) {
             enabled: () => gitHooks,
             task: () => copyFolder(stubs.gitHooks, projectPath),
           },
-          {
-            title: `  ${dim('├ ○')} public${dim('/')}`,
-            task: () => {},
-          },
+          // {
+          //   title: `  ${dim('├ ○')} public${dim('/')}`,
+          //   task: () => {},
+          // },
           {
             title: `  ${dim('│ └ ○')} assets${dim('/')}`,
             task: () =>
-              copyFolder(stubs.public, path.join(projectPath, 'public')),
+              copyFolder(stubs.assets, path.join(projectPath, 'src', 'assets')),
           },
           {
             title: `  ${dim('├ ○')} src${dim('/')}`,
-            task: () => {},
+            task: () =>
+              copyFolder(
+                stubs.misc.viteClientTypes,
+                path.join(projectPath, 'src'),
+              ),
           },
           {
             title: `  ${dim('│ ├ ○')} _config${dim('/')}`,
@@ -407,29 +419,25 @@ export async function makeBed(response: PromptsResponse) {
             : packageManager.toLowerCase()
 
         console.log(`
-  ${bold(dim('>_'))}  ${green('Your BED is made! 🚀')}
+  ${bold(dim('>_'))}  ${green('your BED is made! 🚀')}      
       
-      Created ${green(projectName)} at ${green(projectPath)}
+      created ${green(projectName)} at ${green(projectPath)}
+      
+      inside that directory, you can run several commands:
 
-      Inside that directory, you can run several commands:
-
-      ${dim('Development:')}
-        ${pm} dev                ${dim('start dev server')}
-        ${pm} dev:all            ${dim(
-          'opa! broken right meow. so so soweeee!',
-        )}
-        ${pm} dev:for ${browser[0]}     ${dim(
+      ${dim('development:')}
+        ${pm} dev            ${dim('start dev server for all browsers')}
+        ${pm} dev ${browser[0]}     ${dim(
           `start dev server for ${lightGray(browser[0])}`,
         )}
         
-      ${dim('Production:')}
-        ${pm} build
-        ${pm} build:all          ${dim(
+      ${dim('production:')}
+        ${pm} build          ${dim(
           `generate prod builds for all browsers (${lightGray(
             './dist/<browser>',
           )})`,
         )}        
-        ${pm} build:for ${lightGray(browser[0])}   ${dim(
+        ${pm} build ${lightGray(browser[0])}   ${dim(
           `generate prod build for ${lightGray(browser[0])} (${lightGray(
             `./dist/${lightGray(browser[0])}`,
           )})`,
@@ -437,15 +445,17 @@ export async function makeBed(response: PromptsResponse) {
         
       ${dim('- - -')} 
 
-      Suggested next steps:
+      suggested next steps:
         ${dim('1.')} cd ${basename(projectPath)}
         ${
           !installDeps
             ? `${dim('2.')} ${packageManager.toLowerCase()} install`
-            : `${dim(`2.`)} ${pm} dev:for ${browser[0]}`
+            : `${dim(`2.`)} ${pm} dev ${browser[0]}`
+          // : `${dim(`2.`)} ${pm} dev`
         }
-        ${!installDeps ? `${dim(`3.`)} ${pm} dev:for ${browser[0]}` : ''}
-      `)
+        ${!installDeps ? `${dim(`3.`)} ${pm} dev ${browser[0]}` : ''}
+        `)
+        // ${!installDeps ? `${dim(`3.`)} ${pm} dev}` : ''}
       })
     } catch (error) {
       console.error(error)

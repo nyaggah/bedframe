@@ -1,4 +1,4 @@
-import { Browser, BuildTarget, Manifest } from '@bedframe/core'
+import { Browser, Manifest } from '@bedframe/core'
 import fs from 'fs-extra'
 import path from 'node:path'
 import prompts from 'prompts'
@@ -261,6 +261,7 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
     {
       devDependencies: [
         { name: '@bedframe/core', version: '^0.0.30' },
+        { name: '@bedframe/cli', version: '^0.0.53' },
         { name: '@types/chrome', version: '^0.0.243' },
         { name: '@types/react', version: '^18.2.9' },
         { name: '@types/react-dom', version: '^18.2.7' },
@@ -531,8 +532,9 @@ export function createDependenciesFrom(response: prompts.Answers<string>): {
  * @param {BuildTarget[]} buildTarget
  * @return {*}  {@link Manifest}
  */
-function getFirstManifestDetails(buildTarget: BuildTarget[]): Manifest {
-  return buildTarget[0].manifest
+// eslint-disable-next no-explicit-any
+function getFirstManifestDetails(buildTarget: any): Manifest {
+  return buildTarget.manifest
 }
 /**
  * Compose the project's `package.json` from the

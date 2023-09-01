@@ -26,3 +26,10 @@ dist-ssr
 
 # Tests
 coverage
+
+# local env files
+.env
+.env*
+.env.local
+.env.development
+.env.production

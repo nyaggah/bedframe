@@ -40,7 +40,7 @@ export default createManifestBase({
     default_title: pkg.name,
     ${
       extensionType === 'popup'
-        ? `default_popup: 'src/pages/popup/index.html',`
+        ? `default_popup: 'pages/popup/index.html',`
         : ''
     }
   },
@@ -49,35 +49,35 @@ export default createManifestBase({
   // - - - - - - - - -
   ${response.extension.author.email ? `author: pkg.author.email,` : ``}
   background: {
-    service_worker: 'src/scripts/background.ts',
+    service_worker: 'scripts/background.ts',
     type: 'module',
   },
   ${
     extensionType === 'sidepanel'
       ? `side_panel: {
-    default_path: 'src/sidepanels/welcome/index.html',
+    default_path: 'sidepanels/welcome/index.html',
   },`
       : ``
   }
   ${
     optionsPage === 'full-page'
-      ? `options_page: 'src/pages/options/index.html',`
+      ? `options_page: 'pages/options/index.html',`
       : optionsPage === 'embedded'
       ? `options_ui: {
-    page: 'src/pages/options/index.html',
+    page: 'pages/options/index.html',
     open_in_tab: false,
   },`
       : ``
   }
   ${
     extensionType === 'devtools'
-      ? `devtools_page: 'src/pages/devtools/index.html',`
+      ? `devtools_page: 'pages/devtools/index.html',`
       : ``
   }  
   ${
     overridePage !== 'none'
       ? `chrome_url_overrides: {
-    ${`${overridePage}: 'src/pages/${overridePage}/index.html',`}
+    ${`${overridePage}: 'pages/${overridePage}/index.html',`}
   },`
       : ``
   }    
@@ -85,7 +85,7 @@ export default createManifestBase({
     response.extension.type.name === 'overlay'
       ? `content_scripts: [
     {
-      js: ['src/scripts/content.tsx'],
+      js: ['scripts/content.tsx'],
       matches: ['<all_urls>'],
     },
   ],`
@@ -121,8 +121,82 @@ export default createManifestBase({
 `
 }
 
-export function manifestForBrowser(browser: Browser): string {
-  return `import { createManifest } from '@bedframe/core'
+export function manifestForBrowser(
+  response: Answers<string>,
+  browser: Browser,
+): string {
+  const {
+    name: { name: projectName },
+    options: optionsPage,
+    type,
+  } = response.extension
+  const { name: extensionType } = type
+
+  const optionsUIorPage =
+    optionsPage === 'embedded' ? `options_ui` : `options_page`
+  const firefoxManifest = `import { createManifest } from '@bedframe/core'
+import baseManifest from './base.manifest'
+
+let { permissions } = baseManifest
+const { ${optionsUIorPage}${
+    extensionType === 'sidepanel' ? `, side_panel` : ''
+  }, ...rest } = baseManifest
+  
+${
+  extensionType === 'sidepanel'
+    ? `side_panel = {
+  default_icon: baseManifest.action.default_icon,
+  default_title: baseManifest.name,
+  default_panel: baseManifest.side_panel.default_path,
+}`
+    : ''
+}
+${
+  optionsPage === 'full-page' || optionsPage === 'embedded'
+    ? `const optionsUI = {
+  page: ${optionsPage === 'full-page' ? `options_page` : 'options_ui.page'},
+}`
+    : ''
+}
+permissions = ['activeTab', 'scripting'] // <--- update as necessary
+
+export const firefox = createManifest(
+  {
+    ...rest,
+    ${extensionType === 'sidepanel' ? `sidebar_action: side_panel,` : ''}
+    browser_specific_settings: {
+      gecko: {
+        id: 'bedframe-${projectName
+          .trim()
+          .replace(/\s+/g, '-')
+          .toLowerCase()}', // <--- update as necessary
+      },
+    },
+    ${
+      optionsPage === 'full-page' || optionsPage === 'embedded'
+        ? `options_ui: optionsUI,`
+        : ''
+    }
+    permissions: permissions,
+  },
+  'firefox',
+)
+
+/*
+  N O T E :
+
+  Sidebar Action:
+    - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/sidebar_action
+    - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Sidebars#specifying_sidebars
+  Browser Specific Settings
+    - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings#examples
+    - https://extensionworkshop.com/documentation/develop/extensions-and-the-add-on-id/#when-do-you-need-an-add-on-id
+*/
+`
+  const isFirefox = browser.toLowerCase() === 'firefox'
+  return isFirefox
+    ? firefoxManifest
+    : `import { createManifest } from '@bedframe/core'
 import baseManifest from './base.manifest'
 
 export const ${browser.toLowerCase()} = createManifest(
@@ -170,7 +244,10 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
       await Promise.all([
         fs.outputFile(manifestIndexPath, `${manifestIndexFile(browsers)}\n`),
         fs.outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),
-        fs.outputFile(manifestPath, `${manifestForBrowser(browser)}\n`),
+        fs.outputFile(
+          manifestPath,
+          `${manifestForBrowser(response, browser)}\n`,
+        ),
       ])
     })
     await Promise.all(promises)

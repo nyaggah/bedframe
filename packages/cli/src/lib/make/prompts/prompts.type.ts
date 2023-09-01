@@ -30,6 +30,7 @@ export type DevelopmentPrompts = {
   commitLint: string
   changesets: string
   installDeps: string
+  yes?: boolean
 }
 
 export type PromptsResponse = Record<string, any>

@@ -1,7 +1,7 @@
 import { execa } from 'execa'
 import { chdir } from 'node:process'
 import { projectInstall } from 'pkg-install'
-import { PromptsResponse } from './prompts'
+import { PromptsResponse } from '../prompts'
 
 export async function installDependencies(
   response: PromptsResponse,

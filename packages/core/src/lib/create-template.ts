@@ -42,5 +42,5 @@ export interface BedframeTemplate {
  * @param {BedframeTemplate} template
  * @return {*}  {@link BedframeTemplate}
  */
-const createTemplate = (template: BedframeTemplate): BedframeTemplate =>
+export const createTemplate = (template: BedframeTemplate): BedframeTemplate =>
   template

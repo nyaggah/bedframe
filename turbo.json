@@ -1,7 +1,23 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": ["TS_NODE_PROJECT", "NODE_ENV"],
+  "globalEnv": [
+    "TS_NODE_PROJECT",
+    "NODE_ENV",
+    "EXTENSION_ID",
+    "CLIENT_ID",
+    "CLIENT_SECRET",
+    "REFRESH_TOKEN",
+    "PACKAGE_NAME",
+    "PACKAGE_VERSION",
+    "WEB_EXT_API_KEY",
+    "WEB_EXT_API_SECRET",
+    "EDGE_PRODUCT_ID",
+    "EDGE_CLIENT_ID",
+    "EDGE_CLIENT_SECRET",
+    "npm_package_name",
+    "npm_package_version"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],

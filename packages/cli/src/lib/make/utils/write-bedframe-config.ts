@@ -9,7 +9,8 @@ import { Answers } from 'prompts'
  * @return {*}  {string}
  */
 const getOverridePage = (overridePage: string): string => {
-  return `${overridePage}: resolve(src, 'pages', '${overridePage}', 'index.html'),\n`
+  // return `${overridePage}: resolve(src, 'pages', '${overridePage}', 'index.html'),\n`
+  return `${overridePage}: 'src/pages/${overridePage}/index.html',\n`
 }
 
 /**
@@ -27,7 +28,7 @@ export function writeBedframeConfig(response: Answers<string>): void {
     packageManager,
     style,
     lintFormat,
-    tests,
+    tests: hasTests,
     git,
     gitHooks,
     commitLint,
@@ -41,12 +42,12 @@ export function writeBedframeConfig(response: Answers<string>): void {
   } = response.extension
   const { name: extensionType, position } = type
 
-  const styledComponents = style === 'Styled Components'
+  const isTailwind = style === 'Tailwind'
 
   const fileContent = `import { createBedframe } from '@bedframe/core'
 import { manifests } from '../manifests'
 
-export default createBedframe({
+export const bedframeConfig = createBedframe({
   browser: manifests.map((target) => target.browser),
   extension: {
     type: '${extensionType}',
@@ -54,6 +55,17 @@ export default createBedframe({
     ${overridePage !== 'none' ? `overrides: '${overridePage}',` : ''}
     options: '${optionsPage}',
     manifest: manifests,
+    pages: {${
+      extensionType === 'sidepanel'
+        ? `welcome: 'src/sidepanels/welcome/index.html',
+        main: 'src/sidepanels/main/index.html',`
+        : ''
+    }${
+      extensionType === 'devtools'
+        ? `devtools: 'src/pages/devtools/panel.html',`
+        : ''
+    }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
+    },    
   },
   development: {
     template: {
@@ -61,9 +73,43 @@ export default createBedframe({
         framework: '${framework.toLowerCase()}',
         language: '${language.toLowerCase()}',
         packageManager: '${packageManager.toLowerCase()}',
-        style: '${style.toLowerCase()}',
+        style: {
+          framework: '${style.toLowerCase()}',
+          ${
+            isTailwind
+              ? `components: 'shadcn',
+          theme: 'new-york',`
+              : ''
+          }
+          fonts: [
+            {
+              name: 'Inter',
+              local: 'Inter',
+              src: './assets/fonts/inter/*.ttf',
+              weights: {
+                'Inter-Regular': 400,
+                'Inter-SemiBold': 600,
+                'Inter-Bold': 700,
+                'Inter-ExtraBold': 800,
+              },
+            },
+          ],
+        },
         lintFormat: ${lintFormat},
-        tests: ${tests},
+        ${
+          hasTests
+            ? `tests: {
+          globals: true,
+          setupFiles: ['./src/_config/tests.config.ts'],
+          environment: 'jsdom',
+          coverage: {
+            provider: 'istanbul',
+            reporter: ['text', 'json', 'html'],
+          },
+          watch: false,
+        },`
+            : ''
+        }        
         git: ${git},
         gitHooks: ${gitHooks},
         commitLint: ${commitLint},
@@ -72,6 +118,22 @@ export default createBedframe({
     },
   },
 })
+/**
+ *
+ * E X P O R T
+ * H E L P E R S
+ *
+ * you can import and destructure these in vite.config.ts
+ * directly from the bedframeConfig object.
+ * this feels cleaner, si o no?
+ *
+ */
+
+export const { manifest, pages } = bedframeConfig.extension
+export const {
+  style: { fonts },
+  tests,
+} = bedframeConfig.development.template.config
 
 `
 

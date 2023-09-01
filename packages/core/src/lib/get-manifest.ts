@@ -11,8 +11,10 @@ import { Browser, BuildConfig, BuildTarget } from './types'
 import { PluginOption } from 'vite'
 
 /**
- * Given the `Mode` i.e. `Browser` target, return the appropriate `Manifest` to build from
- * and pass it to {@link crx`}
+ * Given the {@link Mode} i.e. {@link Browser} target,
+ * return the appropriate Manifest (of undelying type)
+ * {@link ManifestV3Export} to build from and
+ * pass it to {@link crx}
  *
  * @export
  * @param {BuildConfig} { command, mode }
@@ -53,20 +55,22 @@ export function getManifest(
   }
 
   if (isValidMode) {
-    console.log(`
-    ${bold(dim('>_'))}
-      
-      ${lightMagenta('B R O W S E R')}
-      ${lightGreen('E X T E N S I O N')}
-      ${lightCyan('D E V E L O P M E N T')}
-      ${lightYellow('F R A M E W O R K')}
+    console.log(`${bold(dim('>_'))}
+    
+  ${lightMagenta('B R O W S E R')}
+  ${lightGreen('E X T E N S I O N')}
+  ${lightCyan('D E V E L O P M E N T')}
+  ${lightYellow('F R A M E W O R K')}
 
-  🚀 [mode: ${
-    isModeDevelop ? bold('dev') : bold('prod')
-  }] building for ${mode}\n`)
+[mode: ${
+      isModeDevelop ? bold('dev') : bold('prod')
+    }] building for ${mode} 🚀\n`)
   }
 
   return crx({
     manifest: browser.manifest as ManifestV3Export,
+    contentScripts: {
+      preambleCode: false,
+    },
   })
 }

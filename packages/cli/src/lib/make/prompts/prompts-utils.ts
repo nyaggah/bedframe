@@ -19,11 +19,6 @@ import {
 } from '@bedframe/core'
 import path from 'node:path'
 
-export type TemplateConfig = {
-  source: Record<string, any>
-  destination: Record<string, any>
-}
-
 export type ColorType = (str: string | number) => string
 export type VariantColor = {
   name: string
@@ -105,7 +100,10 @@ export const browsers = Object.values(Browser).map((browser) => {
   return {
     title: color(_browser.toLowerCase()),
     value: _browser.toLowerCase(),
-    disabled: Boolean(disableOptions(['Firefox', 'Safari']).has(_browser)),
+    // disabled: Boolean(disableOptions(['Firefox', 'Safari']).has(_browser)),
+    // ^^^ TO diddly DO: technically you can build for ALL browsers right meow
+    // but the "P" in the real MVP (i.e. the Publish in the `Make Version Publish` workflow)
+    // only works for Chrome, FF and Edge partially... rest is WIP!
   }
 })
 
@@ -116,7 +114,9 @@ export const frameworks = Object.values(Framework).map((framework) => {
     title: color(_framework),
     value: _framework,
     disabled: Boolean(
-      disableOptions(['Lit', 'Preact', 'Svelte', 'Vue']).has(_framework),
+      disableOptions(['Lit', 'Preact', 'Svelte', 'Vanilla', 'Vue']).has(
+        _framework,
+      ),
     ),
   }
 })
