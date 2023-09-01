@@ -1,6 +1,5 @@
 import { Browser, Style } from '@bedframe/core'
 import { execa } from 'execa'
-import fs from 'fs-extra'
 import { bold, dim, green, lightGray } from 'kolorist'
 import Listr, { ListrTask } from 'listr'
 import path, { basename } from 'node:path'
@@ -17,6 +16,7 @@ import { writeViteConfig } from './write-vite-config'
 import { writeReadMe } from './write-readme'
 import { writeTsConfig } from './write-tsconfig'
 import { writeMVPworkflow } from './write-mvp-workflow'
+import { ensureDir } from './utils.fs'
 
 export async function makeBed(response: PromptsResponse) {
   const { browser } = response
@@ -30,11 +30,11 @@ export async function makeBed(response: PromptsResponse) {
     options: optionsPage,
     type,
   } = response.extension
-  const { name: extensionType /* position */ } = type
+  const { name: extensionType } = type
 
   if (projectPath) {
     try {
-      fs.ensureDir(projectPath).catch(console.error)
+      ensureDir(projectPath).catch(console.error)
       execa('cd', [`${projectPath}`]).catch(console.error)
 
       const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
@@ -163,10 +163,8 @@ export async function makeBed(response: PromptsResponse) {
 
       const manifestTasksFrom = (browser: Browser[]): ListrTask<any>[] => {
         return browser.map((b, i) => {
-          // const last = browser[b.length - 1]
           const isLast = b.length - 1 === i
           const leader = isLast ? '│ │ └ ○' : '│ │ ├ ○'
-          // browser.indexOf(b) === browser.indexOf(last) ? '│ │ └ ○' : '│ │ ├ ○'
           return {
             title: `  ${dim(leader)} ${b.toLowerCase()}${dim('.ts')}`,
             task: () => {},
@@ -203,10 +201,6 @@ export async function makeBed(response: PromptsResponse) {
             enabled: () => gitHooks,
             task: () => copyFolder(stubs.gitHooks, projectPath),
           },
-          // {
-          //   title: `  ${dim('├ ○')} public${dim('/')}`,
-          //   task: () => {},
-          // },
           {
             title: `  ${dim('│ └ ○')} assets${dim('/')}`,
             task: () =>
@@ -451,11 +445,9 @@ export async function makeBed(response: PromptsResponse) {
           !installDeps
             ? `${dim('2.')} ${packageManager.toLowerCase()} install`
             : `${dim(`2.`)} ${pm} dev ${browser[0]}`
-          // : `${dim(`2.`)} ${pm} dev`
         }
         ${!installDeps ? `${dim(`3.`)} ${pm} dev ${browser[0]}` : ''}
         `)
-        // ${!installDeps ? `${dim(`3.`)} ${pm} dev}` : ''}
       })
     } catch (error) {
       console.error(error)

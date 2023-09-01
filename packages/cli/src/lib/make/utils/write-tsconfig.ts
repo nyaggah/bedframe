@@ -1,6 +1,6 @@
-import fs from 'fs-extra'
 import path from 'node:path'
 import { Answers } from 'prompts'
+import { ensureDir, outputFile } from './utils.fs'
 /**
  * create the `tsconfig.ts` & `tsconfig.node.json` based on prompt responses
  *
@@ -74,11 +74,11 @@ export function writeTsConfig(response: Answers<string>): void {
 
   try {
     const rootDir = path.resolve(name.path)
-    fs.ensureDir(rootDir).catch(console.error)
-    fs.outputFile(path.join(rootDir, 'tsconfig.json'), tsConfig).catch(
-      (error) => console.error(error),
+    ensureDir(rootDir).catch(console.error)
+    outputFile(path.join(rootDir, 'tsconfig.json'), tsConfig).catch((error) =>
+      console.error(error),
     )
-    fs.outputFile(path.join(rootDir, 'tsconfig.node.json'), tsConfigNode).catch(
+    outputFile(path.join(rootDir, 'tsconfig.node.json'), tsConfigNode).catch(
       (error) => console.error(error),
     )
   } catch (error) {

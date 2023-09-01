@@ -4,8 +4,6 @@ import { cwd } from 'node:process'
 import { modifyFeaturesForFirefox, modifyManifestForFirefox } from '../lib'
 import { dim } from 'kolorist'
 
-// try for ./src/_config/bedframe.config.ts
-// get manifest > browser(s)... use default all
 export const codeModCommand = new Command('codemod')
   .argument('<browser>', 'browser name')
   .description(
@@ -50,7 +48,7 @@ export const codeModCommand = new Command('codemod')
         console.error(`unsupported browser: ${browser}`)
         process.exit(1)
       }
-      // TO diddly DO: un-spaghetti-fy this my boi!
+      // ^^^ TO diddly DO: un-spaghetti-fy this my boi!
     }
 
     if (options.features) {

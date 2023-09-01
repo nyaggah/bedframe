@@ -90,17 +90,3 @@ makeCommand
       await makeBed(response).catch(console.error)
     })
   })
-
-/*
-  if (
-    !name ||
-    !options.name ||
-    !options.version ||
-    !options.browsers ||
-    !options.packageManager ||
-    !options.framework ||
-    !options.language ||
-    !options.style
-  ) {
-    }
-*/
