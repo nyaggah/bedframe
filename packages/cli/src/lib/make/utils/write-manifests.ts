@@ -1,7 +1,7 @@
 import { Browser } from '@bedframe/core'
-import path from 'node:path'
+import path, { join } from 'node:path'
 import { Answers } from 'prompts'
-import { outputFile } from './utils.fs'
+import { ensureDir, ensureFile, outputFile } from './utils.fs'
 
 export function writeBaseManifest(response: Answers<string>): string {
   const {
@@ -158,7 +158,8 @@ ${
 }`
     : ''
 }
-permissions = ['activeTab', 'scripting'] // <--- update as necessary
+
+permissions = ['activeTab']
 
 export const firefox = createManifest(
   {
@@ -177,7 +178,7 @@ export const firefox = createManifest(
         ? `options_ui: optionsUI,`
         : ''
     }
-    permissions: permissions,
+    permissions,
   },
   'firefox',
 )
@@ -233,6 +234,7 @@ export const manifests = [
 }
 
 export async function writeManifests(response: Answers<string>): Promise<void> {
+  console.log('writeManifests > response.browser', response.browser)
   const { browser: browsers, extension } = response
   const manifestDir = path.resolve(extension.name.path, 'src', 'manifests')
   const manifestBasePath = path.join(manifestDir, 'base.manifest.ts')
@@ -241,11 +243,30 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
   try {
     const promises = browsers.map(async (browser: Browser) => {
       const manifestPath = path.join(manifestDir, `${browser.toLowerCase()}.ts`)
-      await Promise.all([
-        outputFile(manifestIndexPath, `${manifestIndexFile(browsers)}\n`),
-        outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),
-        outputFile(manifestPath, `${manifestForBrowser(response, browser)}\n`),
-      ])
+      ensureDir(join(manifestDir))
+        .then(() => {
+          ensureFile(manifestIndexPath)
+            .then(() =>
+              outputFile(manifestIndexPath, `${manifestIndexFile(browsers)}\n`),
+            )
+            .catch((error) => console.error(error))
+
+          ensureFile(manifestBasePath)
+            .then(() =>
+              outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),
+            )
+            .catch((error) => console.error(error))
+
+          ensureFile(manifestPath)
+            .then(() =>
+              outputFile(
+                manifestPath,
+                `${manifestForBrowser(response, browser)}\n`,
+              ),
+            )
+            .catch((error) => console.error(error))
+        })
+        .catch((error) => console.error(error))
     })
     await Promise.all(promises)
   } catch (error) {

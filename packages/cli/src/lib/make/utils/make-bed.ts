@@ -30,7 +30,7 @@ export async function makeBed(response: PromptsResponse) {
     options: optionsPage,
     type,
   } = response.extension
-  const { name: extensionType /* position */ } = type
+  const { name: extensionType } = type
 
   if (projectPath) {
     try {
@@ -163,10 +163,8 @@ export async function makeBed(response: PromptsResponse) {
 
       const manifestTasksFrom = (browser: Browser[]): ListrTask<any>[] => {
         return browser.map((b, i) => {
-          // const last = browser[b.length - 1]
           const isLast = b.length - 1 === i
           const leader = isLast ? '│ │ └ ○' : '│ │ ├ ○'
-          // browser.indexOf(b) === browser.indexOf(last) ? '│ │ └ ○' : '│ │ ├ ○'
           return {
             title: `  ${dim(leader)} ${b.toLowerCase()}${dim('.ts')}`,
             task: () => {},
@@ -203,10 +201,6 @@ export async function makeBed(response: PromptsResponse) {
             enabled: () => gitHooks,
             task: () => copyFolder(stubs.gitHooks, projectPath),
           },
-          // {
-          //   title: `  ${dim('├ ○')} public${dim('/')}`,
-          //   task: () => {},
-          // },
           {
             title: `  ${dim('│ └ ○')} assets${dim('/')}`,
             task: () =>
@@ -451,11 +445,9 @@ export async function makeBed(response: PromptsResponse) {
           !installDeps
             ? `${dim('2.')} ${packageManager.toLowerCase()} install`
             : `${dim(`2.`)} ${pm} dev ${browser[0]}`
-          // : `${dim(`2.`)} ${pm} dev`
         }
         ${!installDeps ? `${dim(`3.`)} ${pm} dev ${browser[0]}` : ''}
         `)
-        // ${!installDeps ? `${dim(`3.`)} ${pm} dev}` : ''}
       })
     } catch (error) {
       console.error(error)

@@ -29,6 +29,7 @@ export async function outputFile(
   fileContent: string,
 ): Promise<void> {
   try {
+    console.log({ filePath, fileContent })
     await writeFile(filePath, fileContent + '\n')
   } catch (error) {
     console.error(error)

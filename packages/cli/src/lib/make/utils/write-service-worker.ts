@@ -1,7 +1,7 @@
 import { ExtensionType } from '@bedframe/core'
 import path from 'node:path'
 import prompts from 'prompts'
-import { ensureFile, outputFile } from './utils.fs'
+import { ensureDir, ensureFile, outputFile } from './utils.fs'
 
 const onInstalled = (isSidePanel: boolean): string => `
 chrome.runtime.onInstalled.addListener((details): void => {
@@ -78,12 +78,15 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
     return content
   }
 
-  ensureFile(serviceWorkerPath)
-    .then(() =>
-      outputFile(
-        serviceWorkerPath,
-        fileContent(extension.type.name) + '\n',
-      ).catch((error) => console.error(error)),
-    )
-    .catch((error) => console.error(error))
+  const scriptsDir = path.join(rootDir, 'src', 'scripts')
+  ensureDir(scriptsDir).then(() => {
+    ensureFile(serviceWorkerPath)
+      .then(() =>
+        outputFile(
+          serviceWorkerPath,
+          fileContent(extension.type.name) + '\n',
+        ).catch((error) => console.error(error)),
+      )
+      .catch((error) => console.error(error))
+  })
 }
