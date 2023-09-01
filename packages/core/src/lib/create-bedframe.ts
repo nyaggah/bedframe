@@ -12,18 +12,10 @@ export type Extension = {
   overrides: OverrideType
   position?: PositionType
   options: OptionsType
-  manifest: BuildTarget[] // OneOrMoreManifests
+  manifest: BuildTarget[]
   pages?: string | string[] | { [entryAlias: string]: string }
   // ^^^ type from rollup input: >> export type InputOption = string | string[] | { [entryAlias: string]: string };
 }
-
-export type OneOrMoreManifests =
-  | Manifest
-  | {
-      [key in
-        | keyof typeof BrowserEnum
-        | keyof typeof BrowserEnum as AnyCase<key>]?: Manifest
-    }[]
 
 export type Development = {
   template: BedframeTemplate
