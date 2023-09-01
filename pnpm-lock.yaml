@@ -206,8 +206,8 @@ importers:
         specifier: ^0.0.6
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^1.10.12
-        version: 1.10.12(eslint@8.48.0)
+        specifier: ^1.10.13
+        version: 1.10.13(eslint@8.48.0)
       kolorist:
         specifier: ^1.8.0
         version: 1.8.0
@@ -3948,15 +3948,6 @@ packages:
       eslint: 8.48.0
     dev: true
 
-  /eslint-config-turbo@1.10.12(eslint@8.48.0):
-    resolution: {integrity: sha512-z3jfh+D7UGYlzMWGh+Kqz++hf8LOE96q3o5R8X4HTjmxaBWlLAWG+0Ounr38h+JLR2TJno0hU9zfzoPNkR9BdA==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      eslint: 8.48.0
-      eslint-plugin-turbo: 1.10.12(eslint@8.48.0)
-    dev: true
-
   /eslint-config-turbo@1.10.13(eslint@8.47.0):
     resolution: {integrity: sha512-Ffa0SxkRCPMtfUX/HDanEqsWoLwZTQTAXO9W4IsOtycb2MzJDrVcLmoFW5sMwCrg7gjqbrC4ZJoD+1SPPzIVqg==}
     peerDependencies:
@@ -4132,15 +4123,6 @@ packages:
       semver: 6.3.1
       string.prototype.matchall: 4.0.8
     dev: false
-
-  /eslint-plugin-turbo@1.10.12(eslint@8.48.0):
-    resolution: {integrity: sha512-uNbdj+ohZaYo4tFJ6dStRXu2FZigwulR1b3URPXe0Q8YaE7thuekKNP+54CHtZPH9Zey9dmDx5btAQl9mfzGOw==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      dotenv: 16.0.3
-      eslint: 8.48.0
-    dev: true
 
   /eslint-plugin-turbo@1.10.13(eslint@8.47.0):
     resolution: {integrity: sha512-el4AAmn0zXmvHEyp1h0IQMfse10Vy8g5Vbg4IU3+vD9CSj5sDbX07iFVt8sCKg7og9Q5FAa9mXzlCf7t4vYgzg==}
