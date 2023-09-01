@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.55
+
+### Patch Changes
+
+- 6146772: code cleanup
+
 ## 0.0.54
 
 ### Patch Changes
