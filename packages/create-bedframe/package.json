@@ -5,7 +5,7 @@
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
   },
-  "version": "0.0.14",
+  "version": "0.0.15",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -39,8 +39,8 @@
     "lint:format": "pnpm prettier:write && pnpm lint"
   },
   "dependencies": {
-    "@bedframe/cli": "^0.0.55",
-    "@bedframe/core": "^0.0.32"
+    "@bedframe/cli": "^0.0.56",
+    "@bedframe/core": "^0.0.33"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.1",
