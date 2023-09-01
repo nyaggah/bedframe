@@ -2,6 +2,8 @@ import { Command } from 'commander'
 import fetch from 'node-fetch'
 import childProcess from 'node:child_process'
 import fs from 'node:fs'
+import { join, resolve } from 'node:path'
+import { cwd } from 'node:process'
 
 type ChromeUploadConfig = {
   extensionId: string
@@ -38,7 +40,14 @@ function uploadToChrome(
   packageName: string,
   packageVersion: string,
 ) {
-  const zipPath = `./dist/${packageName}@${packageVersion}-chrome.zip`
+  // const zipPath = `./dist/${packageName}@${packageVersion}-chrome.zip`
+  const zipName = `${
+    packageName ? packageName : process.env.npm_package_name
+  }@${
+    packageVersion ? packageVersion : process.env.npm_package_version
+  }-chrome.zip`
+  const zipPath = resolve(join(cwd(), 'dist', zipName))
+
   // ^^^ TO diddly DO: allow for variable 'zipPath name'
 
   if (fs.existsSync(zipPath)) {
@@ -68,8 +77,11 @@ function uploadToChrome(
  * @param {FirefoxUploadConfig} config
  */
 function uploadToFirefox(config: FirefoxUploadConfig) {
-  const sourceDir = './dist/firefox'
-  const artifactsDir = './dist'
+  // const zipName = `${process.env.npm_package_name}@${process.env.npm_package_version}-firefox.zip`
+  // const zipPath = resolve(join(cwd(), 'dist', zipName))
+
+  const sourceDir = resolve(join(cwd(), 'dist', 'firefox'))
+  const artifactsDir = resolve(join(cwd(), 'dist'))
 
   const signCmd = `npx web-ext sign \
     --source-dir ${sourceDir} \
@@ -138,11 +150,17 @@ async function uploadToEdge(
   packageVersion: string,
 ) {
   try {
-    const accessToken = await getEdgeAccessToken(config)
+    // const packagePath = `./dist/${packageName}@${packageVersion}-edge.zip`
+    const zipName = `${
+      packageName ? packageName : process.env.npm_package_name
+    }@${
+      packageVersion ? packageVersion : process.env.npm_package_version
+    }-chrome.zip`
+    const zipPath = resolve(join(cwd(), 'dist', zipName))
 
+    const accessToken = await getEdgeAccessToken(config)
     const uploadUrl = `https://api.addons.microsoftedge.microsoft.com/v1/products/${config.productId}/submissions/draft/package`
-    const packagePath = `./dist/${packageName}@${packageVersion}-edge.zip`
-    const packageStream = fs.createReadStream(packagePath)
+    const packageStream = fs.createReadStream(zipPath)
 
     const response = await fetch(uploadUrl, {
       method: 'POST',
