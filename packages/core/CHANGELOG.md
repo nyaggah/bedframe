@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.32
+
+### Patch Changes
+
+- 5671c14: typings updates
+
 ## 0.0.31
 
 ### Patch Changes

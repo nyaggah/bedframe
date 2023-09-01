@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.54
+
+### Patch Changes
+
+- fcba27b: feat(workspace): code re-org + better cli dx
+- Updated dependencies [5671c14]
+  - @bedframe/core@0.0.32
+
 ## 0.0.53
 
 ### Patch Changes
