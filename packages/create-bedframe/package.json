@@ -39,8 +39,8 @@
     "lint:format": "pnpm prettier:write && pnpm lint"
   },
   "dependencies": {
-    "@bedframe/cli": "^0.0.56",
-    "@bedframe/core": "^0.0.33"
+    "@bedframe/cli": "workspace:^",
+    "@bedframe/core": "workspace:^"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.1",

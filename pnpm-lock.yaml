@@ -248,10 +248,10 @@ importers:
   packages/create-bedframe:
     dependencies:
       '@bedframe/cli':
-        specifier: ^0.0.55
+        specifier: workspace:^
         version: link:../cli
       '@bedframe/core':
-        specifier: ^0.0.32
+        specifier: workspace:^
         version: link:../core
     devDependencies:
       '@rollup/plugin-node-resolve':
