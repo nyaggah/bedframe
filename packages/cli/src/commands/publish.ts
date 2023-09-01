@@ -40,15 +40,15 @@ function uploadToChrome(
   packageName: string,
   packageVersion: string,
 ) {
-  // const zipPath = `./dist/${packageName}@${packageVersion}-chrome.zip`
   const zipName = `${
     packageName ? packageName : process.env.npm_package_name
   }@${
-    packageVersion ? packageVersion : process.env.npm_package_version
-  }-chrome.zip`
+    packageVersion
+      ? packageVersion
+      : `${process.env.npm_package_version}
+  -chrome.zip`
+  }`
   const zipPath = resolve(join(cwd(), 'dist', zipName))
-
-  // ^^^ TO diddly DO: allow for variable 'zipPath name'
 
   if (fs.existsSync(zipPath)) {
     const uploadCmd = `npx chrome-webstore-upload upload \
@@ -77,9 +77,6 @@ function uploadToChrome(
  * @param {FirefoxUploadConfig} config
  */
 function uploadToFirefox(config: FirefoxUploadConfig) {
-  // const zipName = `${process.env.npm_package_name}@${process.env.npm_package_version}-firefox.zip`
-  // const zipPath = resolve(join(cwd(), 'dist', zipName))
-
   const sourceDir = resolve(join(cwd(), 'dist', 'firefox'))
   const artifactsDir = resolve(join(cwd(), 'dist'))
 
@@ -150,12 +147,14 @@ async function uploadToEdge(
   packageVersion: string,
 ) {
   try {
-    // const packagePath = `./dist/${packageName}@${packageVersion}-edge.zip`
     const zipName = `${
       packageName ? packageName : process.env.npm_package_name
     }@${
-      packageVersion ? packageVersion : process.env.npm_package_version
-    }-chrome.zip`
+      packageVersion
+        ? packageVersion
+        : `${process.env.npm_package_version}
+    -edge.zip`
+    }`
     const zipPath = resolve(join(cwd(), 'dist', zipName))
 
     const accessToken = await getEdgeAccessToken(config)
