@@ -1,5 +1,13 @@
 # create-bedframe
 
+## 0.0.14
+
+### Patch Changes
+
+- 6146772: code cleanup
+- Updated dependencies [6146772]
+  - @bedframe/cli@0.0.55
+
 ## 0.0.13
 
 ### Patch Changes
