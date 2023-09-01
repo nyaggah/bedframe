@@ -85,7 +85,7 @@ makeCommand
       // ^^^ TO diddly DO: don't we already have a formatProjectName func ??
       // use that else... its off to 🍝-ville!
     }
-    const projectName = name ? name : 'bedframe-project'
+    const projectName = name ? name : undefined
     bedframePrompts(projectName, options).then(async (response) => {
       await makeBed(response).catch(console.error)
     })

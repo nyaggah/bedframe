@@ -35,27 +35,27 @@
     "rebuild:pack": "rm -rf node_modules pnpm-lock.yaml && pnpm i && pnpm build && pnpm pack"
   },
   "dependencies": {
-    "@crxjs/vite-plugin": "^2.0.0-beta.17"
+    "@crxjs/vite-plugin": "^2.0.0-beta.18"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.243",
-    "@types/node": "^20.5.1",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@types/chrome": "^0.0.244",
+    "@types/node": "^20.5.7",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@vitejs/plugin-react": "^4.0.4",
-    "eslint-config-bedframe": "^0.0.6",
+    "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^1.10.13",
     "kolorist": "^1.8.0",
     "rollup": "^3.28.1",
     "rollup-plugin-node-externals": "^6.1.1",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "tslib": "^2.6.2",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.4.9",
     "vite-plugin-babel-macros": "^1.0.6",
-    "vite-plugin-dts": "^3.5.1",
+    "vite-plugin-dts": "^3.5.3",
     "vite-plugin-externalize-deps": "^0.7.0",
-    "vitest": "^0.34.2"
+    "vitest": "^0.34.3"
   },
   "lint-staged": {
     "*.{md,mdx,css,html,json,js}": [

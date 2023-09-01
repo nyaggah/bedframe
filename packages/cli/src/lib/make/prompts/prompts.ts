@@ -234,7 +234,6 @@ export const extensionPrompts = (
 export const developmentPrompts = (
   options: any,
 ): PromptObject<keyof DevelopmentPrompts>[] => {
-  console.log('developmentPrompts >>>>>>>>', { options })
   const initialValue = {
     packageManager: 0,
     framework: 0,
