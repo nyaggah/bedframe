@@ -14,11 +14,9 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "build:link": "turbo run build:link",
-    "preview": "turbo run preview",
-    "prettier:check": "turbo run prettier:check",
-    "prettier": "turbo run prettier",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "build:pack": "turbo run build:pack",
+    "format_": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "turbo run format",
     "lint": "turbo run lint",
     "lint:format": "turbo run lint:format",
     "cz": "cz",
@@ -30,7 +28,6 @@
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
     "@types/chrome": "^0.0.244",
-    "@types/fs-extra": "^11.0.1",
     "@types/node": "^20.5.7",
     "@types/prompts": "^2.4.4",
     "commitizen": "^4.3.0",
@@ -48,12 +45,6 @@
     "tsx": "^3.12.7",
     "turbo": "^1.10.13",
     "typescript": "^5.2.2"
-  },
-  "lint-staged": {
-    "*.{css,html,json,js}": [
-      "prettier --write ."
-    ],
-    "*{js,ts}": "eslint --fix"
   },
   "prettier": {
     "tabWidth": 2,

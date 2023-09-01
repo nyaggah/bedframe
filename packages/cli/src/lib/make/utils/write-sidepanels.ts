@@ -1,6 +1,6 @@
-import fs from 'fs-extra'
 import path from 'node:path'
 import prompts from 'prompts'
+import { ensureDir, ensureFile, outputFile } from './utils.fs'
 
 const sidePanelWelcomeContent = `
 import { StrictMode } from 'react'
@@ -123,18 +123,16 @@ export function writeSidePanels(response: prompts.Answers<string>): void {
   ]
 
   try {
-    fs.ensureDir(sidePanelsPath)
+    ensureDir(sidePanelsPath)
       .then(() => {
-        // fs.ensureDir(sidePanelsMainPath)
-        // fs.ensureDir(sidePanelsWelcomePath)
         sidePanels.map((sidepanel) => {
           sidepanel.files.map((file) => {
-            fs.ensureDir(file.destination).then(() => {
-              fs.ensureFile(file.path)
+            ensureDir(file.destination).then(() => {
+              ensureFile(file.path)
                 .then(() => {
                   // TO diddly DO: do we need ensureFile or ensureDir
                   // if we use outputFile ?? will create dir if not exists!
-                  fs.outputFile(file.path, file.content)
+                  outputFile(file.path, file.content)
                 })
                 .catch((error) => console.error(error))
             })
@@ -142,19 +140,6 @@ export function writeSidePanels(response: prompts.Answers<string>): void {
         })
       })
       .catch(console.error)
-
-    // fs.ensureFile(sidepanel.path)
-    //   .then(() => {
-    //     fs.outputFile(
-    //       sidepanel.path,
-    //       sidepanel.content.component + '\n'
-    //     ).catch((error) => console.error(error))
-
-    //     fs.outputFile(sidepanel.path, sidepanel.content.html + '\n').catch(
-    //       (error) => console.error(error)
-    //     )
-    //   })
-    //   .catch((error) => console.error(error))
   } catch (error) {
     console.error(error)
   }

@@ -1,7 +1,7 @@
-import fs from 'fs-extra'
+import { Browser } from '@bedframe/core'
 import path from 'node:path'
 import { Answers } from 'prompts'
-import { Browser } from '@bedframe/core'
+import { outputFile } from './utils.fs'
 
 export function writeBaseManifest(response: Answers<string>): string {
   const {
@@ -242,12 +242,9 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
     const promises = browsers.map(async (browser: Browser) => {
       const manifestPath = path.join(manifestDir, `${browser.toLowerCase()}.ts`)
       await Promise.all([
-        fs.outputFile(manifestIndexPath, `${manifestIndexFile(browsers)}\n`),
-        fs.outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),
-        fs.outputFile(
-          manifestPath,
-          `${manifestForBrowser(response, browser)}\n`,
-        ),
+        outputFile(manifestIndexPath, `${manifestIndexFile(browsers)}\n`),
+        outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),
+        outputFile(manifestPath, `${manifestForBrowser(response, browser)}\n`),
       ])
     })
     await Promise.all(promises)

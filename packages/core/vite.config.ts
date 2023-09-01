@@ -15,7 +15,6 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
-      // external: ['@crxjs/vite-plugin'],
       output: {
         globals: {
           '@crxjs/vite-plugin': '@crxjs/vite-plugin',
@@ -26,7 +25,6 @@ export default defineConfig({
   plugins: [
     externalizeDeps({
       deps: false,
-      // except: ['@crxjs/vite-plugin'],
     }),
     nodeExternals(),
     dts({

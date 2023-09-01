@@ -1,6 +1,6 @@
 import path from 'node:path'
 import prompts from 'prompts'
-import fs from 'fs-extra'
+import { writeFile } from './utils.fs'
 
 /**
  * Write the composed package.json (from `createPackageJsonFrom` method)
@@ -264,5 +264,5 @@ export function writePackageJson(response: prompts.Answers<string>): void {
 
   const destinationRoot = path.resolve(response.extension.name.path)
   const destinationPackageJson = path.join(destinationRoot, 'package.json')
-  fs.writeFile(destinationPackageJson, packageJson + '\n').catch(console.error)
+  writeFile(destinationPackageJson, packageJson + '\n').catch(console.error)
 }

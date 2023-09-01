@@ -1,6 +1,6 @@
-import fs from 'fs-extra'
 import path from 'node:path'
 import prompts from 'prompts'
+import { ensureFile, outputFile } from './utils.fs'
 
 /**
  * construct override page url to resolve in vite/bedfframe configs
@@ -63,11 +63,11 @@ export default defineConfig(({ command, mode }) => {
 export function writeViteConfig(response: prompts.Answers<string>): void {
   const rootDir = path.resolve(response.extension.name.path)
   const viteConfigPath = path.resolve(path.join(rootDir, `vite.config.ts`))
-  fs.ensureFile(viteConfigPath)
+  ensureFile(viteConfigPath)
     .then(() =>
-      fs
-        .outputFile(viteConfigPath, viteConfig(response) + '\n')
-        .catch((error) => console.error(error)),
+      outputFile(viteConfigPath, viteConfig(response) + '\n').catch((error) =>
+        console.error(error),
+      ),
     )
     .catch((error) => console.error(error))
 }

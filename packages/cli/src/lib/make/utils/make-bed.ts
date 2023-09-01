@@ -1,6 +1,5 @@
 import { Browser, Style } from '@bedframe/core'
 import { execa } from 'execa'
-import fs from 'fs-extra'
 import { bold, dim, green, lightGray } from 'kolorist'
 import Listr, { ListrTask } from 'listr'
 import path, { basename } from 'node:path'
@@ -17,6 +16,7 @@ import { writeViteConfig } from './write-vite-config'
 import { writeReadMe } from './write-readme'
 import { writeTsConfig } from './write-tsconfig'
 import { writeMVPworkflow } from './write-mvp-workflow'
+import { ensureDir } from './utils.fs'
 
 export async function makeBed(response: PromptsResponse) {
   const { browser } = response
@@ -34,7 +34,7 @@ export async function makeBed(response: PromptsResponse) {
 
   if (projectPath) {
     try {
-      fs.ensureDir(projectPath).catch(console.error)
+      ensureDir(projectPath).catch(console.error)
       execa('cd', [`${projectPath}`]).catch(console.error)
 
       const __dirname = path.dirname(url.fileURLToPath(import.meta.url))

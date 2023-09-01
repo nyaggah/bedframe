@@ -25,14 +25,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:watch": "tsc && vite build --watch",
-    "build:link": "pnpm build && chmod 755 ./dist && pnpm link --global",
-    "preview": "vite preview",
+    "format": "prettier --write .",
     "lint": "eslint \"**/*.ts*\" --report-unused-disable-directives --max-warnings 0",
-    "prettier:check": "pnpm prettier --check .",
-    "prettier:write": "pnpm prettier --write .",
-    "lint:format": "pnpm prettier:write && pnpm lint",
-    "rebuild:pack": "rm -rf node_modules pnpm-lock.yaml && pnpm i && pnpm build && pnpm pack"
+    "lint:format": "pnpm format && pnpm lint",
+    "build:pack": "pnpm build && pnpm pack"
   },
   "dependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.18"
@@ -61,7 +57,7 @@
     "*.{md,mdx,css,html,json,js}": [
       "prettier --write ."
     ],
-    "*{js,jsx,ts,tsx}": "eslint --fix"
+    "*.{js,jsx,ts,tsx}": "eslint . --fix"
   },
   "prettier": {
     "tabWidth": 2,

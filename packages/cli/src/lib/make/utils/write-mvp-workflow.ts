@@ -1,6 +1,6 @@
-import fs from 'fs-extra'
 import { join, resolve } from 'node:path'
 import { Answers } from 'prompts'
+import { outputFile } from './utils.fs'
 
 type EnvironmentVariables = {
   chrome: ChromeEnvironment
@@ -212,5 +212,5 @@ ${
   `,
   }
 
-  fs.outputFile(file.path, file.content).catch((error) => console.error(error))
+  outputFile(file.path, file.content).catch((error) => console.error(error))
 }

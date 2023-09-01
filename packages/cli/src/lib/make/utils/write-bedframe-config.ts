@@ -1,6 +1,6 @@
-import fs from 'fs-extra'
 import path from 'node:path'
 import { Answers } from 'prompts'
+import { ensureDir, outputFile } from './utils.fs'
 
 /**
  * construct override page url to resolve in vite/bedfframe configs
@@ -139,8 +139,8 @@ export const {
 
   try {
     const rootDir = path.resolve(name.path)
-    fs.ensureDir(rootDir).catch(console.error)
-    fs.outputFile(
+    ensureDir(rootDir).catch(console.error)
+    outputFile(
       path.join(rootDir, 'src', '_config', 'bedframe.config.ts'),
       fileContent + '\n',
     ).catch((error) => console.error(error))

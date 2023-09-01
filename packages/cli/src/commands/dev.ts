@@ -7,7 +7,7 @@ import { join } from 'node:path'
 import { cwd } from 'node:process'
 
 /**
- * executes command to start vite production build process for 1, more or all browsers
+ * executes command to start vite development server for 1, more or all browsers
  * the command will start all processes concurrently but group the output sequentially
  *
  * @param {AnyCase<Browser>[]} [browsers=[]]

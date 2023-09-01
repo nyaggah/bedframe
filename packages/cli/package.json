@@ -19,7 +19,8 @@
     }
   },
   "bin": {
-    "bedframe": "./dist/bedframe.js"
+    "bedframe": "./dist/bedframe.js",
+    "bed": "./dist/bedframe.js"
   },
   "files": [
     "/dist",
@@ -29,20 +30,15 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "build": "pnpm clean && tsc && rollup -c",
-    "bed": "tsx ./src/index.ts",
-    "bedframe:validate": "tsx ./src/lib/validate-manifest.ts --name=mycoolioextendo --version=0.0.0 --manifest_version=3",
-    "build:watch": "pnpm dist --watch",
-    "build:link": "pnpm build && chmod 755 ./dist && pnpm link --global",
+    "format": "prettier --write .",
     "lint": "eslint \"**/*.ts*\" --report-unused-disable-directives --max-warnings 0",
-    "prettier:check": "pnpm prettier --check .",
-    "prettier:write": "pnpm prettier --write .",
-    "lint:format": "pnpm prettier:write && pnpm lint"
+    "lint:format": "pnpm format && pnpm lint",
+    "build:pack": "pnpm build && pnpm pack"
   },
   "dependencies": {
     "@bedframe/core": "workspace:*",
     "commander": "^11.0.0",
     "execa": "^8.0.1",
-    "fs-extra": "^11.1.1",
     "got": "^13.0.0",
     "kolorist": "^1.8.0",
     "listr": "^0.14.3",
@@ -58,30 +54,29 @@
     "@rollup/plugin-node-resolve": "^15.2.1",
     "@rollup/plugin-typescript": "^11.1.3",
     "@types/chrome": "^0.0.244",
-    "@types/fs-extra": "^11.0.1",
     "@types/got": "^9.6.12",
-    "@types/listr": "^0.14.4",
+    "@types/listr": "^0.14.5",
     "@types/node": "^20.5.7",
     "@types/prompts": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "concurrently": "^8.2.1",
-    "eslint-config-bedframe": "^0.0.6",
+    "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^1.10.13",
     "rollup": "^3.28.1",
     "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-dts": "^6.0.0",
+    "rollup-plugin-dts": "^6.0.1",
     "rollup-plugin-esbuild": "^5.0.0",
     "rollup-plugin-string": "^3.0.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^3.12.7",
+    "tsx": "^3.12.8",
     "typescript": "^5.2.2"
   },
   "lint-staged": {
     "*.{css,html,json,js}": [
       "prettier --write ."
     ],
-    "*{js,ts}": "eslint --fix"
+    "*.{js,jsx,ts,tsx}": "eslint . --fix"
   },
   "prettier": {
     "tabWidth": 2,
