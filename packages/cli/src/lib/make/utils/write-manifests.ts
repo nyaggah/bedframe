@@ -144,10 +144,10 @@ const { ${optionsUIorPage}${
   
 ${
   extensionType === 'sidepanel'
-    ? `side_panel = {
+    ? `const sidePanel = {
   default_icon: baseManifest.action.default_icon,
   default_title: baseManifest.name,
-  default_panel: baseManifest.side_panel.default_path,
+  default_panel: side_panel.default_path,
 }`
     : ''
 }
@@ -163,7 +163,7 @@ permissions = ['activeTab', 'scripting'] // <--- update as necessary
 export const firefox = createManifest(
   {
     ...rest,
-    ${extensionType === 'sidepanel' ? `sidebar_action: side_panel,` : ''}
+    ${extensionType === 'sidepanel' ? `sidebar_action: sidePanel,` : ''}
     browser_specific_settings: {
       gecko: {
         id: 'bedframe-${projectName
