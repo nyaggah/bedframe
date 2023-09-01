@@ -9,7 +9,7 @@ import {
   versionCommand,
   zipCommand,
 } from './commands'
-import { bedframePrompts, makeBed, promptsIntro } from './lib'
+import { promptsIntro } from './lib'
 
 const pkg = JSON.parse(
   readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
@@ -20,15 +20,15 @@ program
   .name(pkg.name)
   .description(pkg.description)
   .version(`${pkg.name}@${pkg.version}`)
-  .enablePositionalOptions() // Allow program options before subcommands
-  .passThroughOptions() // Allow pass through options
+  .enablePositionalOptions()
+  .passThroughOptions()
   .addHelpText('beforeAll', promptsIntro())
 
 program
   .addCommand(makeCommand)
   .addCommand(versionCommand)
   .addCommand(publishCommand)
-  // ^^^ M V P : main commands
+
   .addCommand(devCommand)
   .addCommand(buildCommand)
   .addCommand(codeModCommand)
@@ -43,7 +43,3 @@ export async function run() {
 }
 
 run()
-
-export { bedframePrompts, makeBed, promptsIntro }
-// ^^^ TO diddly DO: these are re-exported here for the benefit of create-bedframe package
-// which... still needs a lil reworking
