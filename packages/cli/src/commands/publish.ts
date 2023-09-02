@@ -27,6 +27,7 @@ type EdgeUploadConfig = {
 interface SubmissionResponse {
   id: string
 }
+
 /**
  * Upload to Chrome Web Store
  * for the time being this function uses
@@ -88,8 +89,8 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
     --api-key ${config.apiKey} \
     --api-secret ${config.apiSecret} \
     --channel unlisted \
-    --timeout 30000  \
     --use-submission-api`
+  // --timeout 30000  \
 
   try {
     const output = childProcess.execSync(signCmd, { stdio: 'pipe' }).toString()
@@ -105,6 +106,7 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
     console.error('error publishing to Firefox:', error)
   }
 }
+
 /**
  * get access token (jwt) for api calls
  *
@@ -134,6 +136,7 @@ async function getEdgeAccessToken(config: EdgeUploadConfig): Promise<string> {
   const responseBody = (await response.json()) as { access_token: string }
   return responseBody.access_token
 }
+
 /**
  * Upload to MS Edge Add-Ons
  * currently can only update extension already created
@@ -156,6 +159,7 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
 
     const accessToken = await getEdgeAccessToken(config)
     const uploadUrl = `https://api.addons.microsoftedge.microsoft.com/v1/products/${config.productId}/submissions/draft/package`
+
     const packageStream = fs.createReadStream(zipPath)
 
     const response = await fetch(uploadUrl, {
@@ -166,6 +170,8 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
       },
       body: packageStream,
     })
+    console.log('getEdgeAccessToken (uploadUrl) :', uploadUrl)
+    console.log({ response })
 
     if (!response.ok) {
       throw new Error(`failed to upload Edge extension: ${response.statusText}`)
@@ -226,13 +232,15 @@ export const publishCommand = new Command('publish')
           process.env.PACKAGE_NAME ?? process.env.npm_package_name
         }@${
           process.env.PACKAGE_VERSION ?? process.env.npm_package_version
-        }-edge.zip`
+        }-chrome.zip`
         const zipPath = resolve(join(cwd(), 'dist', zipName))
 
         console.log(lightMagenta('publishCommand (chrome) :'), {
-          zipName,
-          zipPath,
+          name: process.env.PACKAGE_NAME,
+          version: process.env.PACKAGE_VERSION,
+          zip: zipPath,
         })
+
         const chromeConfig: ChromeUploadConfig = {
           extensionId: process.env.EXTENSION_ID || '',
           clientId: process.env.CLIENT_ID || '',
@@ -259,8 +267,9 @@ export const publishCommand = new Command('publish')
         const zipPath = resolve(join(cwd(), 'dist', zipName))
 
         console.log(lightMagenta('publishCommand (edge) :'), {
-          zipName,
-          zipPath,
+          name: process.env.PACKAGE_NAME,
+          version: process.env.PACKAGE_VERSION,
+          zip: zipPath,
         })
 
         const edgeConfig: EdgeUploadConfig = {
