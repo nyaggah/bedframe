@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.58
+
+### Patch Changes
+
+- ac3be72: construct zipPath from root dir
+
 ## 0.0.57
 
 ### Patch Changes
