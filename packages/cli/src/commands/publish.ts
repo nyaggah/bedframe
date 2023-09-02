@@ -77,6 +77,11 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
   const sourceDir = resolve(join(cwd(), 'dist', 'firefox'))
   const artifactsDir = resolve(join(cwd(), 'dist'))
 
+  console.log(lightMagenta('publishCommand (firefox) :'), {
+    sourceDir,
+    artifactsDir,
+  })
+
   const signCmd = `npx web-ext sign \
     --source-dir ${sourceDir} \
     --artifacts-dir ${artifactsDir} \
@@ -140,25 +145,14 @@ async function getEdgeAccessToken(config: EdgeUploadConfig): Promise<string> {
  */
 async function uploadToEdge(config: EdgeUploadConfig, source: string) {
   try {
-    // const zipName = `${
-    //   packageName ? packageName : process.env.npm_package_name
-    // }@${
-    //   packageVersion
-    //     ? packageVersion
-    //     : `${process.env.npm_package_version}
-    // -edge.zip`
-    // }`
-    // const zipPath = resolve(join(cwd(), 'dist', zipName))
-
     const zipName = source
       ? source
       : `${process.env.PACKAGE_NAME ?? process.env.npm_package_name}@${
           process.env.PACKAGE_VERSION ?? process.env.npm_package_version
-        }
-  -edge.zip`
+        }-edge.zip`
     const zipPath = resolve(join(cwd(), 'dist', zipName))
 
-    console.log(lightMagenta('uploadToEdge() >'), { source, zipName, zipPath })
+    console.log(lightMagenta('uploadToEdge:'), { source, zipName, zipPath })
 
     const accessToken = await getEdgeAccessToken(config)
     const uploadUrl = `https://api.addons.microsoftedge.microsoft.com/v1/products/${config.productId}/submissions/draft/package`
@@ -217,7 +211,7 @@ export const publishCommand = new Command('publish')
           selectedBrowsers.includes('firefox') ||
           selectedBrowsers.includes('edge'))
       ) {
-        console.log(`publishing ${selectedBrowsers}`)
+        console.log(lightMagenta('publishing...'), selectedBrowsers)
       }
 
       if (!selectedBrowsers || selectedBrowsers.length === 0) {
@@ -227,20 +221,18 @@ export const publishCommand = new Command('publish')
         return
       }
 
-      // const packageName = process.env.PACKAGE_NAME || ''
-      // const packageVersion = process.env.PACKAGE_VERSION || ''
-      const zipName = `${
-        process.env.PACKAGE_NAME ?? process.env.npm_package_name
-      }@${process.env.PACKAGE_VERSION ?? process.env.npm_package_version}
-  -edge.zip`
-      const zipPath = resolve(join(cwd(), 'dist', zipName))
-
-      console.log(lightMagenta('publishCommand >'), {
-        zipName,
-        zipPath,
-      })
-
       if (selectedBrowsers.includes('chrome')) {
+        const zipName = `${
+          process.env.PACKAGE_NAME ?? process.env.npm_package_name
+        }@${
+          process.env.PACKAGE_VERSION ?? process.env.npm_package_version
+        }-edge.zip`
+        const zipPath = resolve(join(cwd(), 'dist', zipName))
+
+        console.log(lightMagenta('publishCommand (chrome) :'), {
+          zipName,
+          zipPath,
+        })
         const chromeConfig: ChromeUploadConfig = {
           extensionId: process.env.EXTENSION_ID || '',
           clientId: process.env.CLIENT_ID || '',
@@ -259,6 +251,18 @@ export const publishCommand = new Command('publish')
       }
 
       if (selectedBrowsers.includes('edge')) {
+        const zipName = `${
+          process.env.PACKAGE_NAME ?? process.env.npm_package_name
+        }@${
+          process.env.PACKAGE_VERSION ?? process.env.npm_package_version
+        }-edge.zip`
+        const zipPath = resolve(join(cwd(), 'dist', zipName))
+
+        console.log(lightMagenta('publishCommand (edge) :'), {
+          zipName,
+          zipPath,
+        })
+
         const edgeConfig: EdgeUploadConfig = {
           productId: process.env.EDGE_PRODUCT_ID || '',
           clientId: process.env.EDGE_CLIENT_ID || '',
