@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.63
+
+### Patch Changes
+
+- 0d9006a: publish troublshoot...
+
 ## 0.0.62
 
 ### Patch Changes
