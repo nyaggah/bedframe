@@ -1,9 +1,9 @@
 import { Command } from 'commander'
-import { lightMagenta } from 'kolorist'
+import { lightCyan, lightGreen, lightMagenta, lightYellow } from 'kolorist'
 import fetch from 'node-fetch'
 import childProcess from 'node:child_process'
 import fs from 'node:fs'
-import { join, resolve } from 'node:path'
+import { basename, join, resolve } from 'node:path'
 import { cwd } from 'node:process'
 
 type ChromeUploadConfig = {
@@ -56,7 +56,8 @@ function uploadToChrome(config: ChromeUploadConfig, source: string) {
       --client-secret ${config.clientSecret} \
       --refresh-token ${config.refreshToken}`
 
-    childProcess.execSync(uploadCmd, { stdio: 'inherit' })
+    const output = childProcess.execSync(uploadCmd, { stdio: 'inherit' })
+    console.log({ output })
   } else {
     console.error(`zip file not found at path: ${zipPath}`)
     process.exit()
@@ -78,10 +79,8 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
   const sourceDir = resolve(join(cwd(), 'dist', 'firefox'))
   const artifactsDir = resolve(join(cwd(), 'dist'))
 
-  console.log(lightMagenta('publishCommand (firefox) :'), {
-    sourceDir,
-    artifactsDir,
-  })
+  const zipName = `${process.env.PACKAGE_NAME}@${process.env.PACKAGE_VERSION}-firefox.zip`
+  const zipPath = resolve(artifactsDir, zipName)
 
   const signCmd = `npx web-ext sign \
     --source-dir ${sourceDir} \
@@ -89,18 +88,29 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
     --api-key ${config.apiKey} \
     --api-secret ${config.apiSecret} \
     --channel unlisted \
+    --timeout 30000  \
     --use-submission-api`
-  // --timeout 30000  \
 
   try {
     const output = childProcess.execSync(signCmd, { stdio: 'pipe' }).toString()
 
+    console.log({ output })
+
     if (output.includes('WebExtError: Approval: timeout')) {
       console.log(
-        'API has timed out. the extension might still be under review...',
+        lightYellow(
+          'API has timed out. the extension might still be under review...',
+        ),
       )
     } else {
       console.log('uploaded successfully.')
+      console.log(`
+• ${lightMagenta('F I R E F O X :')}
+└ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
+  • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
+  • zip: ${lightYellow(`${basename(zipPath)}`)}
+  • date/time: ${new Date().toLocaleString().replace(',', '')}
+`)
     }
   } catch (error) {
     console.error('error publishing to Firefox:', error)
@@ -164,8 +174,6 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
         }-edge.zip`
     const zipPath = resolve(join(cwd(), 'dist', zipName))
 
-    console.log(lightMagenta('uploadToEdge:'), { source, zipName, zipPath })
-
     const accessToken = await getEdgeAccessToken(config)
     const uploadUrl = `https://api.addons.microsoftedge.microsoft.com/v1/products/${config.productId}/submissions/draft/package`
 
@@ -190,6 +198,14 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
     const submissionResponse = (await response.json()) as SubmissionResponse
     const submissionId = submissionResponse.id
     const submissionUrl = `https://partner.microsoft.com/en-us/dashboard/microsoftedge/${config.productId}/submissions/${submissionId}`
+
+    console.log(`
+• ${lightMagenta('E D G E:')}
+└ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
+  • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
+  • zip: ${lightYellow(`${basename(zipPath)}`)}
+  • date/time: ${new Date().toLocaleString().replace(',', '')}
+`)
 
     console.log(
       `Edge extension uploaded successfully. submission url: ${submissionUrl}`,
@@ -245,11 +261,13 @@ export const publishCommand = new Command('publish')
         }-chrome.zip`
         const zipPath = resolve(join(cwd(), 'dist', zipName))
 
-        console.log(lightMagenta('publishCommand (chrome) :'), {
-          name: process.env.PACKAGE_NAME,
-          version: process.env.PACKAGE_VERSION,
-          zip: zipPath,
-        })
+        console.log(`
+• ${lightMagenta('C H R O M E:')}
+└ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
+  • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
+  • zip: ${lightYellow(`${basename(zipPath)}`)}
+  • date/time: ${new Date().toLocaleString().replace(',', '')}
+`)
 
         const chromeConfig: ChromeUploadConfig = {
           extensionId: process.env.EXTENSION_ID || '',
@@ -274,13 +292,6 @@ export const publishCommand = new Command('publish')
         }@${
           process.env.PACKAGE_VERSION ?? process.env.npm_package_version
         }-edge.zip`
-        const zipPath = resolve(join(cwd(), 'dist', zipName))
-
-        console.log(lightMagenta('publishCommand (edge) :'), {
-          name: process.env.PACKAGE_NAME,
-          version: process.env.PACKAGE_VERSION,
-          zip: zipPath,
-        })
 
         const edgeConfig: EdgeUploadConfig = {
           productId: process.env.EDGE_PRODUCT_ID || '',
