@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.60
+
+### Patch Changes
+
+- 7ef3100: refactor the zip command, output should work meow
+
 ## 0.0.59
 
 ### Patch Changes
