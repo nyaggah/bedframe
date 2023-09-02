@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.59
+
+### Patch Changes
+
+- db7b1de: feat(commands): zip / publish update zipPath construction... maybe güd meow ? 🤷 lets bill o'reilly it!
+
 ## 0.0.58
 
 ### Patch Changes
