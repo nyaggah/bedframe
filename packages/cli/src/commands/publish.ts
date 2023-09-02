@@ -1,4 +1,5 @@
 import { Command } from 'commander'
+import { lightMagenta } from 'kolorist'
 import fetch from 'node-fetch'
 import childProcess from 'node:child_process'
 import fs from 'node:fs'
@@ -35,20 +36,16 @@ interface SubmissionResponse {
  * @param {string} packageName
  * @param {string} packageVersion
  */
-function uploadToChrome(
-  config: ChromeUploadConfig,
-  packageName: string,
-  packageVersion: string,
-) {
-  const zipName = packageName
-    ? packageName
-    : `${process.env.npm_package_name}@${
-        packageVersion
-          ? packageVersion
-          : `${process.env.npm_package_version}
+function uploadToChrome(config: ChromeUploadConfig, source: string) {
+  const zipName = source
+    ? source
+    : `${process.env.PACKAGE_NAME ?? process.env.npm_package_name}@${
+        process.env.PACKAGE_VERSION ?? process.env.npm_package_version
+      }
   -chrome.zip`
-      }`
   const zipPath = resolve(join(cwd(), 'dist', zipName))
+
+  console.log('uploadToChrome() >', { source, zipName, zipPath })
 
   if (fs.existsSync(zipPath)) {
     const uploadCmd = `npx chrome-webstore-upload upload \
@@ -141,21 +138,27 @@ async function getEdgeAccessToken(config: EdgeUploadConfig): Promise<string> {
  * @param {string} packageName
  * @param {string} packageVersion
  */
-async function uploadToEdge(
-  config: EdgeUploadConfig,
-  packageName: string,
-  packageVersion: string,
-) {
+async function uploadToEdge(config: EdgeUploadConfig, source: string) {
   try {
-    const zipName = `${
-      packageName ? packageName : process.env.npm_package_name
-    }@${
-      packageVersion
-        ? packageVersion
-        : `${process.env.npm_package_version}
-    -edge.zip`
-    }`
+    // const zipName = `${
+    //   packageName ? packageName : process.env.npm_package_name
+    // }@${
+    //   packageVersion
+    //     ? packageVersion
+    //     : `${process.env.npm_package_version}
+    // -edge.zip`
+    // }`
+    // const zipPath = resolve(join(cwd(), 'dist', zipName))
+
+    const zipName = source
+      ? source
+      : `${process.env.PACKAGE_NAME ?? process.env.npm_package_name}@${
+          process.env.PACKAGE_VERSION ?? process.env.npm_package_version
+        }
+  -edge.zip`
     const zipPath = resolve(join(cwd(), 'dist', zipName))
+
+    console.log(lightMagenta('uploadToEdge() >'), { source, zipName, zipPath })
 
     const accessToken = await getEdgeAccessToken(config)
     const uploadUrl = `https://api.addons.microsoftedge.microsoft.com/v1/products/${config.productId}/submissions/draft/package`
@@ -224,8 +227,18 @@ export const publishCommand = new Command('publish')
         return
       }
 
-      const packageName = process.env.PACKAGE_NAME || ''
-      const packageVersion = process.env.PACKAGE_VERSION || ''
+      // const packageName = process.env.PACKAGE_NAME || ''
+      // const packageVersion = process.env.PACKAGE_VERSION || ''
+      const zipName = `${
+        process.env.PACKAGE_NAME ?? process.env.npm_package_name
+      }@${process.env.PACKAGE_VERSION ?? process.env.npm_package_version}
+  -edge.zip`
+      const zipPath = resolve(join(cwd(), 'dist', zipName))
+
+      console.log(lightMagenta('publishCommand >'), {
+        zipName,
+        zipPath,
+      })
 
       if (selectedBrowsers.includes('chrome')) {
         const chromeConfig: ChromeUploadConfig = {
@@ -234,7 +247,7 @@ export const publishCommand = new Command('publish')
           clientSecret: process.env.CLIENT_SECRET || '',
           refreshToken: process.env.REFRESH_TOKEN || '',
         }
-        uploadToChrome(chromeConfig, packageName, packageVersion)
+        uploadToChrome(chromeConfig, zipName)
       }
 
       if (selectedBrowsers.includes('firefox')) {
@@ -251,7 +264,7 @@ export const publishCommand = new Command('publish')
           clientId: process.env.EDGE_CLIENT_ID || '',
           clientSecret: process.env.EDGE_CLIENT_SECRET || '',
         }
-        uploadToEdge(edgeConfig, packageName, packageVersion)
+        uploadToEdge(edgeConfig, zipName)
       }
     } catch (error) {
       console.error('failed to publish project:', error)
