@@ -40,14 +40,14 @@ function uploadToChrome(
   packageName: string,
   packageVersion: string,
 ) {
-  const zipName = `${
-    packageName ? packageName : process.env.npm_package_name
-  }@${
-    packageVersion
-      ? packageVersion
-      : `${process.env.npm_package_version}
+  const zipName = packageName
+    ? packageName
+    : `${process.env.npm_package_name}@${
+        packageVersion
+          ? packageVersion
+          : `${process.env.npm_package_version}
   -chrome.zip`
-  }`
+      }`
   const zipPath = resolve(join(cwd(), 'dist', zipName))
 
   if (fs.existsSync(zipPath)) {
@@ -196,9 +196,16 @@ export const publishCommand = new Command('publish')
   )
   .option(
     '-b, --browsers <browsers...>',
-    'specify browsers to publish (chrome,firefox,edge)',
+    'specify browsers to publish (chrome, firefox, edge)',
   )
   .action(async (options) => {
+    // TO diddly DO:
+    // actually handle multiple browsers --browsers
+    // option... run through below conditional for all browsers
+    // found in ./src/manifests/index.ts array --> []
+    // ^^^ update this when there's a moar betta way to grab all
+    // browsers from project. e.g. esm import that ts and process
+    // the func to return the pojo bedframeConfig
     try {
       const selectedBrowsers = options.browsers
       if (
