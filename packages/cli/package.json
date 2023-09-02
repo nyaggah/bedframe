@@ -5,7 +5,7 @@
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
   },
-  "version": "0.0.63",
+  "version": "0.0.64",
   "license": "MIT",
   "type": "module",
   "main": "dist/bedframe.cjs",
@@ -56,7 +56,7 @@
     "@types/chrome": "^0.0.244",
     "@types/got": "^9.6.12",
     "@types/listr": "^0.14.5",
-    "@types/node": "^20.5.7",
+    "@types/node": "^20.5.8",
     "@types/prompts": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "concurrently": "^8.2.1",

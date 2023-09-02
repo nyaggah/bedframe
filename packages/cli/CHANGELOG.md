@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.64
+
+### Patch Changes
+
+- 635b0d7: env troubleshoot edge productId for token getting... should work meow
+
 ## 0.0.63
 
 ### Patch Changes
