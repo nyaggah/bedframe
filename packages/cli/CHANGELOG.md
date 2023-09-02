@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.62
+
+### Patch Changes
+
+- f5792b6: fix issue w/ zip dir/name formatting
+
 ## 0.0.61
 
 ### Patch Changes
