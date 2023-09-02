@@ -20,26 +20,30 @@ import { cwd } from 'node:process'
 function executeZipCommand(browser: any, options: any): void {
   console.log({ browser, options })
 
-  const distDir = options.outDir
+  const sourceDir = options.outDir
     ? options.outDir
     : resolve(join(process.cwd(), 'dist', browser.toLowerCase()))
 
   const zipName = options.name
     ? options.name
-    : `${process.env.npm_package_name}@$${
+    : `${process.env.npm_package_name}@${
         process.env.npm_package_version
       }-${browser.toLowerCase()}.zip`
 
-  const zipPath = resolve(join(cwd(), 'dist', zipName))
+  const distDir = options.distDir
+    ? options.distDir
+    : resolve(join(process.cwd(), 'dist'))
 
-  const command = `cd ${distDir} && zip -r ../${zipPath} .`
+  const zipPath = join(distDir, zipName)
+
+  const command = `cd ${sourceDir} && zip -r ../${zipName} ./`
 
   execa(command, { shell: true, stdio: 'inherit' })
     .then(() => {
       console.log(
-        `successfully zipped ${lightMagenta(distDir)} directory to ${lightGreen(
-          resolve(join(distDir, '..', zipPath)),
-        )}`,
+        `successfully zipped ${lightMagenta(
+          sourceDir,
+        )} directory to ${lightGreen(zipPath)}`,
       )
     })
     .catch((error) => {
@@ -52,8 +56,12 @@ zipCommand
   .description('zip browser dist directories')
   .argument('[browsers]', 'list of browser names')
   .option(
+    '-s, --sourceDir <sourceDir>',
+    'dist dir to create archive from (e.g. -s ./dist/<browser>)',
+  )
+  .option(
     '-d, --distDir <distDir>',
-    'current dist dir to create archive from (e.g. -d ./dist/<browser>)',
+    'directory to generate the zip into (default: ./dist)',
   )
   .option('-n, --name <name>', 'what to name the zip file (including .zip)')
   .action(async (browsers: any, options: any) => {
