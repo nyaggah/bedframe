@@ -110,6 +110,15 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
 /**
  * get access token (jwt) for api calls
  *
+ *  -X POST \
+ *  -H "Content-Type: application/x-www-form-urlencoded" \
+ *  -d "client_id=<CLIENT_ID>" \
+ *  -d "scope=https://api.addons.microsoftedge.microsoft.com/.default" \
+ *  -d "client_secret=<CLIENT_SECRET>" \
+ *  -d "grant_type=client_credentials" \
+ *  -v \
+ *  https://login.microsoftonline.com/<PRODUCT_ID>/oauth2/v2.0/token
+ *
  * @param {EdgeUploadConfig} config
  * @return {*}  {Promise<string>}
  */
@@ -171,6 +180,7 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
       body: packageStream,
     })
     console.log('getEdgeAccessToken (uploadUrl) :', uploadUrl)
+
     console.log({ response })
 
     if (!response.ok) {
