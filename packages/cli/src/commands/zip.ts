@@ -4,7 +4,7 @@ import { execa } from 'execa'
 import { dim, lightGreen, lightMagenta } from 'kolorist'
 // import { execSync } from 'node:child_process'
 import fs from 'node:fs'
-import path, { join } from 'node:path'
+import path, { join, resolve } from 'node:path'
 import { cwd } from 'node:process'
 
 // const browserList = ['chrome', 'brave', 'opera', 'edge', 'firefox', 'safari']
@@ -18,17 +18,19 @@ import { cwd } from 'node:process'
  * @param {*} options
  */
 function executeZipCommand(browser: any, options: any): void {
-  const zipName =
-    options.name ||
-    `${process.env.npm_package_name}@${process.env.npm_package_version}-${browser}.zip`
+  console.log({ browser, options })
 
-  const distDir =
-    options.outDir || path.join(process.cwd(), 'dist', browser.toLowerCase())
-  const zipPath = zipName ? zipName : path.join(distDir, zipName)
+  const distDir = options.outDir
+    ? options.outDir
+    : resolve(join(process.cwd(), 'dist', browser.toLowerCase()))
 
-  // execSync(`cd ${distDir} && zip -r ../${zipPath} .`, {
-  //   stdio: 'inherit',
-  // })
+  const zipName = options.name
+    ? options.name
+    : `${process.env.npm_package_name}@$${
+        process.env.npm_package_version
+      }-${browser.toLowerCase()}.zip`
+
+  const zipPath = resolve(join(cwd(), 'dist', zipName))
 
   const command = `cd ${distDir} && zip -r ../${zipPath} .`
 
@@ -36,7 +38,7 @@ function executeZipCommand(browser: any, options: any): void {
     .then(() => {
       console.log(
         `successfully zipped ${lightMagenta(distDir)} directory to ${lightGreen(
-          path.resolve(path.join(distDir, '..', zipPath)),
+          resolve(join(distDir, '..', zipPath)),
         )}`,
       )
     })
@@ -55,6 +57,7 @@ zipCommand
   )
   .option('-n, --name <name>', 'what to name the zip file (including .zip)')
   .action(async (browsers: any, options: any) => {
+    console.log({ browsers })
     try {
       const manifestsIndex = join(cwd(), 'src', 'manifests', 'index.ts')
       fs.readFile(manifestsIndex, 'utf-8', (err, data) => {
