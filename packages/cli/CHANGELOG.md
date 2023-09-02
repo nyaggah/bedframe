@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.65
+
+### Patch Changes
+
+- 2eecb22: mvp workflow publish ci feedback/ dx
+
 ## 0.0.64
 
 ### Patch Changes
