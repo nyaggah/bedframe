@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.67
+
+### Patch Changes
+
+- d3215e8: update cli version installed on project gen
+
 ## 0.0.66
 
 ### Patch Changes
