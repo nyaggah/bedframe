@@ -35,7 +35,7 @@ async function executeDevScript(
         )}\" ${browsers
           .sort((a, b) => a.localeCompare(b))
           .map((name) => `\"vite --mode ${name}\"`)
-          .join(' ')}`
+          .join('')}`
 
   console.log(dim('command [dev]:'), lightGreen(command) + '\n')
   if (browsers.length > 1) {
@@ -131,10 +131,15 @@ export const devCommand = new Command('dev')
         .substring(searchIndex.start, searchIndex.end + 1)
         .toLowerCase()
 
-      const array = manifestsArrayText
+      const _array = manifestsArrayText
+        .trim()
         .slice(1, -1)
-        .split(', ') as AnyCase<Browser>[]
+        .split(',') as AnyCase<Browser>[]
 
-      !browser ? executeDevScript(array) : executeDevScript(browser)
+      const browserArray = _array.map((browser: AnyCase<Browser>) =>
+        browser.trim().toLowerCase(),
+      ) as AnyCase<Browser>[]
+
+      !browser ? executeDevScript(browserArray) : executeDevScript(browser)
     })
   })
