@@ -1,5 +1,13 @@
 # create-bedframe
 
+## 0.0.25
+
+### Patch Changes
+
+- e9805b9: quality of life type stuffs; code cleanups
+- Updated dependencies [e9805b9]
+  - @bedframe/cli@0.0.66
+
 ## 0.0.24
 
 ### Patch Changes
