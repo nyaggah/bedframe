@@ -1,22 +1,22 @@
 import { Browser, Style } from '@bedframe/core'
 import { execa } from 'execa'
-import { bold, dim, green, lightGray } from 'kolorist'
+import { bold, dim, lightGray, green as lightGreen } from 'kolorist'
 import Listr, { ListrTask } from 'listr'
 import path, { basename } from 'node:path'
 import url from 'node:url'
+import { PromptsResponse } from '../prompts'
 import { copyFolder } from './copy-folder'
 import { installDependencies } from './install-deps'
-import { PromptsResponse } from '../prompts'
+import { ensureDir } from './utils.fs'
 import { writeBedframeConfig } from './write-bedframe-config'
 import { writeManifests } from './write-manifests'
+import { writeMVPworkflow } from './write-mvp-workflow'
 import { writePackageJson } from './write-package-json'
+import { writeReadMe } from './write-readme'
 import { writeServiceWorker } from './write-service-worker'
 import { writeSidePanels } from './write-sidepanels'
-import { writeViteConfig } from './write-vite-config'
-import { writeReadMe } from './write-readme'
 import { writeTsConfig } from './write-tsconfig'
-import { writeMVPworkflow } from './write-mvp-workflow'
-import { ensureDir } from './utils.fs'
+import { writeViteConfig } from './write-vite-config'
 
 export async function makeBed(response: PromptsResponse) {
   const { browser } = response
@@ -413,9 +413,9 @@ export async function makeBed(response: PromptsResponse) {
             : packageManager.toLowerCase()
 
         console.log(`
-  ${bold(dim('>_'))}  ${green('your BED is made! 🚀')}      
+  ${bold(dim('>_'))}  ${lightGreen('your BED is made! 🚀')}      
       
-      created ${green(projectName)} at ${green(projectPath)}
+      created ${lightGreen(projectName)} at ${lightGreen(projectPath)}
       
       inside that directory, you can run several commands:
 

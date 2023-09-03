@@ -40,17 +40,15 @@ Bedframe uses the offically supported Vite template presets. Vite requires <a hr
 <br />
 
 ```bash
-# with npx
-npx create bedframe
+#  with pnpm
+ pnpm dlx create-bedframe@latest
 
-# with npm
-npm create bedframe
+# with npx
+npx create-bedframe@latest
 
 # with yarn
-yarn create bedframe
+yarn create-bedframe@latest
 
-#  with pnpm
-pnpm create bedframe
 ```
 
 Then follow the prompts!
@@ -60,33 +58,27 @@ You can specify the `project name` as the first argument of the `make` command. 
 ```bash
 # scaffold project called `chrome-extension`
 
-# with npx
-npx create bedframe chrome-extension
+# with pnpm
+pnpm dlx create-bedframe@latest chrome-extension
 
-# with npm
-npm create bedframe chrome-extension
+# with npx
+npx create-bedframe@latest chrome-extension
 
 # with yarn
-yarn create bedframe chrome-extension
-
-#  with pnpm
-pnpm create bedframe chrome-extension
+yarn create-bedframe@latest chrome-extension
 ```
 
 ```bash
 # scaffold project in the current directory
 
-# with npm
-npx create bedframe .
+# with pnpm
+pnpm dlx create-bedframe@latest .
 
-# with npm
-npm create bedframe .
+# with npx
+npx create-bedframe@latest .
 
 # with yarn
-yarn create bedframe .
-
-#  with pnpm
-pnpm create bedframe .
+yarn create-bedframe@latest .
 ```
 
 You will then be prompted to configure your BED, picking `Framework`, `Language`, `Browser` to target, etc. All configurations can be manually edited once you generate the project.
@@ -97,27 +89,30 @@ You will then be prompted to configure your BED, picking `Framework`, `Language`
 
 ### Args
 
-**Name**
+<details>
+  <summary>Name</summary>
+  
+  The CLI `name` argument sets manifests' `name` property (required) which is a short, plain text string (maximum of 45 characters) that identifies the extension. For example:
+  
+  ```json
+  {
+    "name": "My extension name"
+  }
+  ```
+  
+  You can specify a locale-specific string; see [Internationalization](#) for details.
+  
+  It is displayed in the following locations:
+  
+  - Install dialog
+  - Extensions page (chrome://extensions)
+  - [Chrome Web Store](https://chrome.google.com/webstore)
+  
+  See also [Short Name](#).
+  
+</details>
 
-The CLI `name` argument sets manifests' `name` property (required) which is a short, plain text string (maximum of 45 characters) that identifies the extension. For example:
-
-```json
-{
-  "name": "My extension name"
-}
-```
-
-You can specify a locale-specific string; see [Internationalization](#) for details.
-
-It is displayed in the following locations:
-
-- Install dialog
-- Extensions page (chrome://extensions)
-- [Chrome Web Store](https://chrome.google.com/webstore)
-
-See also [Short Name](#).
-
-### Flags
+### Flags / Options
 
 You can optionally by-pass the prompts if you pass in the requisite flags to the `make` command.
 
@@ -144,82 +139,257 @@ If any required configuration isn't passed in via `flags` the CLI will prompt yo
 
 ### Options
 
-| Flag (short) | Flag (long)                                              | Type           | Description                                     | Default      |
-| ------------ | -------------------------------------------------------- | -------------- | ----------------------------------------------- | ------------ |
-| -v           | --version                                                | string         | Specify project version                         | "0.0.1"      |
-| -b           | --browsers                                               | Browser[]      | Specify comma-separated list of target browsers | [ "Chrome" ] |
-| -p           | <span style="white-space:nowrap">--packageManager</span> | PackageManager | Specify package manager to use                  | "Yarn"       |
-| -f           | --framework                                              | Framework      | Specify framework to use                        | "React"      |
-| -l           | --language                                               | Language       | Specify language to use                         | "TypeScript" |
-| -s           | --style                                                  | Style          | Specify CSS solution to use                     | "Tailwind"   |
-| -o           | --lintFormat                                             | boolean        | Configure linting with formatting               | true         |
-| -g           | --git                                                    | boolean        | Initialize git source control                   | true         |
-| -h           | --gitHooks                                               | boolean        | Add git hooks (Husky + lint staged)             | true         |
-| -t           | --tests                                                  | boolean        | Add tests (Vitest + Testing Library + jsdom)    | true         |
-| -c           | --commitLint                                             | boolean        | Add commit linting                              | true         |
-| -x           | --changesets                                             | boolean        | Add changesets                                  | true         |
-| -i           | --installDeps                                            | boolean        | Add &amp; install dependencies                  | true         |
-| -y           | --yes                                                    | boolean        | Set up Bedframe w/ preconfigured defaults       | false        |
-|              | --help                                                   |                | display help for command                        |              |
+| Flag (short) | Flag (long)            | Type           | Description                                     | Default    |
+| ------------ | ---------------------- | -------------- | ----------------------------------------------- | ---------- |
+| -v           | --version              | string         | Specify project version                         | 0.0.1      |
+| -b           | --browsers             | Browser[]      | Specify comma-separated list of target browsers | chrome     |
+| -p           | --packageManager&nbsp; | PackageManager | Specify package manager to use                  | yarn       |
+| -f           | --framework            | Framework      | Specify framework to use                        | react      |
+| -l           | --language             | Language       | Specify language to use                         | typescript |
+| -s           | --style                | Style          | Specify CSS solution to use                     | tailwind   |
+| -o           | --lintFormat           | boolean        | Configure linting with formatting               | true       |
+| -g           | --git                  | boolean        | Initialize git source control                   | true       |
+| -h           | --gitHooks             | boolean        | Add git hooks (Husky + lint staged)             | true       |
+| -t           | --tests                | boolean        | Add tests (Vitest + Testing Library + jsdom)    | true       |
+| -c           | --commitLint           | boolean        | Add commit linting                              | true       |
+| -x           | --changesets           | boolean        | Add changesets                                  | true       |
+| -i           | --installDeps          | boolean        | Add &amp; install dependencies                  | true       |
+| -y           | --yes                  | boolean        | Set up Bedframe w/ preconfigured defaults       | false      |
+|              | --help                 |                | display help for command                        |            |
 
-### Package Manager
-
+<details>
+<summary>Package Manager</summary>
 Pick from either npm, yarn or pnpm
 
-### Version
+</details>
 
-The `version` passed in via the Bedframe CLI make command flag (`-v, --version`) or via prompt response is used to set the `version` for both your project's package.json and the (one or more) manifests for the extension(s) in your project.
+<details>
+  <summary>Version</summary>
+  
+  The `version` passed in via the Bedframe CLI make command flag (`-v, --version`) or via prompt response is used to set the `version` for both your project's package.json and the (one or more) manifests for the extension(s) in your project.
+  
+  <blockquote>
+  <h4>Note</h4>
+  The `version` in manifest.json is not in semVer while the `version` in pacakge.json must be parseable by <a href="https://github.com/npm/node-semver">node-semver</a>. If you find the two need to be different in your project, you can alternatively pass in the Version Name flag (`--versionName`) and this will be the semVer-valid `version` used in the package.json and as `version_name` in manifest.json.
+  </blockquote>
+  <Br />
+  
+  One to four dot-separated integers identifying the version of this extension. A couple of rules apply to the integers:
+  
+  The integers must be between `0` and `65535`, inclusive.
+  Non-zero integers can't start with `0`. For example, `032` is invalid because it begins with a zero.
+  They must not be all zero. For example, `0` and `0.0.0.0` are invalid while `0.1.0.0` is valid.
+  
+  Here are some examples of valid versions:
+  
+  - `"version": "1"`
+  - `"version": "1.0"`
+  - `"version": "2.10.2"`
+  - `"version": "3.1.2.4567"`
+  
+  If the published extension has a newer version string than the installed extension, then the extension is automatically updated.
+  
+  The comparison starts with the leftmost integers. Then, if those integers are equal, the integers to the right are compared, and so on. For example, `1.2.0` is a newer version than `1.1.9.9999`.
+  
+  A missing integer is equal to zero. For example, `1.1.9.9999` is newer than `1.1`, and `1.1.9.9999` is older than `1.2`.
+  
+</details>
 
-<blockquote>
+<details><summary>Browser</summary></details>
+<details><summary>framework</summary></details>
+<details><summary>language</summary></details>
+<details><summary>style</summary></details>
+<details><summary>lintFormat</summary></details>
+<details><summary>git</summary></details>
+<details><summary>gitHooks</summary></details>
+<details><summary>tests</summary></details>
+<details><summary>commitLint</summary></details>
+<details><summary>changesets</summary></details>
+<details><summary>installDeps</summary></details>
+<details><summary>yes</summary></details>
+<details><summary>help</summary></details>
+
+</details>
+
+### V E R S I O N
+
+create or update git release of current version
+
+<details>
+<summary>Command Details</summary>
+
+```bash
+>_
+
+  B R O W S E R
+  E X T E N S I O N
+  D E V E L O P M E N T
+  F R A M E W O R K
+
+Usage: @bedframe/cli version [options]
+
+create or update git release of current version (changeset version)
+
+Options:
+  --ignore <package>  skip a package from being published
+  --snapshot          create a snapshot release for testing
+  -h, --help          display help for command
+```
+
+</details>
+
+### P U B L I S H
+
+publish new or update existing extension(s)
+
+<details>
+<summary>Command Details</summary>
 <br />
-<h4>Note</h4>
-The `version` in manifest.json is not in semVer while the `version` in pacakge.json must be parseable by <a href="https://github.com/npm/node-semver">node-semver</a>. If you find the two need to be different in your project, you can alternatively pass in the Version Name flag (`--versionName`) and this will be the semVer-valid `version` used in the package.json and as `version_name` in manifest.json.
-<br />
-<br />
-</blockquote>
-<Br />
 
-One to four dot-separated integers identifying the version of this extension. A couple of rules apply to the integers:
+```bash
+>_
 
-The integers must be between `0` and `65535`, inclusive.
-Non-zero integers can't start with `0`. For example, `032` is invalid because it begins with a zero.
-They must not be all zero. For example, `0` and `0.0.0.0` are invalid while `0.1.0.0` is valid.
+B R O W S E R
+E X T E N S I O N
+D E V E L O P M E N T
+F R A M E W O R K
 
-Here are some examples of valid versions:
+Usage: @bedframe/cli publish [options]
 
-- `"version": "1"`
-- `"version": "1.0"`
-- `"version": "2.10.2"`
-- `"version": "3.1.2.4567"`
+• publish new or update existing extension(s)
+├ • C W S: Chrome Web Store
+├ • A M O: Mozilla/Firefox Add-ons
+└ • M E A: MS Edge Add-ons
 
-If the published extension has a newer version string than the installed extension, then the extension is automatically updated.
+Options:
+-b, --browsers <browsers...> specify browsers to publish (chrome,firefox,edge)
+-h, --help display help for command
+```
 
-The comparison starts with the leftmost integers. Then, if those integers are equal, the integers to the right are compared, and so on. For example, `1.2.0` is a newer version than `1.1.9.9999`.
+</details>
 
-A missing integer is equal to zero. For example, `1.1.9.9999` is newer than `1.1`, and `1.1.9.9999` is older than `1.2`.
+### D E V
 
-### Browser
+start vite dev server for 1 or more browsers.<br />
+alias for vite dev w/ --mode &lt;browser&gt;
 
-### framework
+<details>
+  <summary>Command Details</summary>
+  
+  ```bash
+  >_
+  
+    B R O W S E R
+    E X T E N S I O N
+    D E V E L O P M E N T
+    F R A M E W O R K
+  
+  Usage: @bedframe/cli dev [options] [browsers]
+  
+  start Vite dev server for one or more browsers concurrently
+  
+  Options:
+    -h, --help  display help for command
+  ```
+  
+  ```bash
+  > bedframe dev
+  6 BEDs starting vite dev server! 🚀
+  └ dist/
+    ├ brave/
+    ├ chrome/
+    ├ edge/
+    ├ firefox/
+    ├ opera/
+    └ safari/
+  ```
+  
+</details>
 
-### language
+### B U I L D
 
-### style
+generate prod builds for 1 or more browsers<br />
+alias for vite build w/ --mode &lt;browser&gt;
 
-### lintFormat
+<details>
+  <summary>Command Details</summary>
+  
+  ```bash
+  >_
+  
+    B R O W S E R
+    E X T E N S I O N
+    D E V E L O P M E N T
+    F R A M E W O R K
+  
+  Usage: @bedframe/cli build [options] [browsers]
+  
+  generate prod builds for 1 or more browsers concurrently
+  
+  Options:
+    -h, --help  display help for command
+  ```
+  
+</details>
 
-### git
+### C O D E M O D
 
-### gitHooks
+perform after-build manifest and features code mods
 
-### tests
+<details>
+  <summary>Command Details</summary>
 
-### commitLint
+```bash
+>_
 
-### changesets
+B R O W S E R
+E X T E N S I O N
+D E V E L O P M E N T
+F R A M E W O R K
 
-### installDeps
+Usage: @bedframe/cli codemod [options] <browser>
 
-### yes
+perform after-build manifest and features code mods (🍝) by browser
 
-### help
+Arguments:
+browser browser name
+
+Options:
+--manifest perform manifest.json codemods (default: true)
+--features perform in-code features codemods (default: true)
+-h, --help display help for command
+
+```
+
+</details>
+
+### Z I P
+
+create zip archive(s) for 1 or more browsers
+
+<details>
+<summary>Command Details</summary>
+
+```bash
+>_
+
+  B R O W S E R
+  E X T E N S I O N
+  D E V E L O P M E N T
+  F R A M E W O R K
+
+Usage: @bedframe/cli zip [options] [browsers]
+
+zip browser dist directories
+
+Arguments:
+  browsers                 list of browser names
+
+Options:
+  -d, --distDir <distDir>  current dist dir to create archive from (e.g. -d
+                           ./dist/<browser>)
+  -n, --name <name>        what to name the zip file (including .zip)
+  -h, --help               display help for command
+```
+
+</details>

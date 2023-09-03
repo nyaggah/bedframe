@@ -102,14 +102,14 @@ ${
     : ''
 }
       - name: 'Codemod - Perform some spaghetti 🤌 🤌 🤌'
-        # Until we can properly polyfill the namespaces and
-        # browser-specific apis like 'browser.runtime' and 'chrome.runtime', etc
-        # we need to perform some after build code mods. not ideal, but...
+        # todo: polyfill namespaces and browser-specific apis 
+        # e.g. 'browser.runtime' and 'chrome.runtime', etc
+        # perform some after-build code mods. not ideal, but...
         # https://youtu.be/RlwlV4hcBac?t=21
         # - - -
-        # Bedframe builds for MV3 and while Firefox, et al support MV3 there
-        # is some divergence... for now we're doing after-build code mods
-        # but ideally we'd do this within the vite/crx build process...
+        # bedframe builds for MV3 and while Firefox, et al support MV3 there
+        # is some divergence... this performs after-build codemods on manifest
+        # and feature code but ideally this should happen within the vite/crx dev/build process...
         # but... until then... spaghetti-ville!
         id: codeMod
         run: npx bedframe codemod firefox

@@ -151,13 +151,13 @@ export const extensionPrompts = (
           title: `Side Panel`,
           value: 'sidepanel',
           description: dim(
-            'requires "sidePanel" permission (Chrome Beta 114+)',
+            'requires "sidePanel" permission (for Chrome Beta 114+)',
           ),
         },
         {
           title: `DevTools`,
           value: 'devtools',
-          // description: dim('requires "devtools" permission'),
+          description: dim('requires "devtools" permission'),
         },
       ],
     },
@@ -223,7 +223,9 @@ export const extensionPrompts = (
         {
           title: 'None',
           value: 'none',
-          description: dim('no extension options'),
+          description: dim(
+            'no extension options. note: consider giving users options',
+          ),
           selected: true,
         },
       ],
@@ -379,7 +381,7 @@ export async function bedframePrompts(
   )
 
   if (options.name) {
-    extensionResponse.name = formatTargetDir(options.name)
+    extensionResponse.name = options.name
   }
   if (options.version) {
     extensionResponse.version = options.version
@@ -400,7 +402,7 @@ export async function bedframePrompts(
     extensionResponse.type = options.type
   }
   if (options.type === 'overlay' && options.position) {
-    extensionResponse.position = 'center' // options.position
+    extensionResponse.position = options.position
   }
   if (options.override) {
     extensionResponse.override = options.override

@@ -16,7 +16,9 @@ fi
 # npx --no -- commitlint --edit "${1}"
 # # npx commitlint --edit $1
 # # ^^^ is a crase to do it like this.
-# # user _still_ goes through prompts to enter standardize commit message
+# # user _still_ goes through prompts to enter standardized commit message
 # # sooooo don't require a `git commit -m "dont require this"`
 # # should just trigger on `git commit [enter]`
 # # but ensure we don't open vi after. we've got our message
+# #
+# # my brother in christ! leave this as an exercise for the user, damn!

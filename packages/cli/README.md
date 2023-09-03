@@ -157,7 +157,7 @@ Options:
   --override <override>                  specify page to override (newtab)
   --options <options>                    specify whether to and how render options (embedded)
   -p, --packageManager <packageManager>  Specify package manager to use (pnpm)
-  -f, --framework/lib <framework>        specify framework to use (react)
+  -f, --framework <framework>        specify framework to use (react)
   -l, --language <language>              specify language to use (typescript)
   -s, --style <style>                    specify CSS framework to use (tailwind)
   -o, --lintFormat                       add linting with formatting (true)

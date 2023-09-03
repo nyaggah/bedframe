@@ -3,11 +3,18 @@ import path from 'node:path'
 import prompts from 'prompts'
 import { ensureDir, ensureFile, outputFile } from './utils.fs'
 
+/**
+ * construct code block for onInstalled
+ * e.g. sidePanel-specific code
+ *
+ * @param {boolean} isSidePanel
+ * @return {*}  {string}
+ */
 const onInstalled = (isSidePanel: boolean): string => `
 chrome.runtime.onInstalled.addListener((details): void => {
   ${
     isSidePanel
-      ? `chrome.sidePanel.setOptions({ path: welcomePanel })
+      ? `chrome.sidePanel.setOptions({ path: sidePanel.welcome })
   console.log('[background.ts] > onInstalled > welcomePanel', details)`
       : `console.log('[background.ts] > onInstalled', details)`
   }
@@ -33,28 +40,33 @@ chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
 
 `
 
-const sidePanels = `
-${browserAction}
-const welcomePanel = 'src/sidepanels/welcome/index.html'
-const mainPanel = 'src/sidepanels/main/index.html'
-
-chrome.tabs.onActivated.addListener(async ({ tabId }) => {
-  const { path } = await chrome.sidePanel.getOptions({ tabId })
-  if (path === welcomePanel) {
-    chrome.sidePanel.setOptions({ path: mainPanel })
-  }
-})
+const sidePanels = `const sidePanel = {
+  welcome: 'sidepanels/welcome/index.html'
+  main: 'sidepanels/main/index.html'
+}
 
 chrome.sidePanel
 .setPanelBehavior({ openPanelOnActionClick: true })
 .catch((error: Error) => console.error(error))
 
+chrome.tabs.onActivated.addListener(async ({ tabId }) => {
+  const { path } = await chrome.sidePanel.getOptions({ tabId })
+  if (path === welcomePanel) {
+    chrome.sidePanel.setOptions({ path: sidePanel.main })
+  }
+})
+
+${browserAction}
 `
-
-// TO diddly DO: move to @bedframe/core
-// type ExtensionType = 'popup' | 'overlay' | 'sidepanel' | 'devtools'
-// type ExtensionPosition = 'center' | 'left' | 'right'
-
+/**
+ * write the service workder (background) scripts based on
+ * prompt responses. will include base configs for
+ * popup, overlay, sidepanel, and devtools type extensions
+ *
+ *
+ * @export
+ * @param {prompts.Answers<string>} response
+ */
 export function writeServiceWorker(response: prompts.Answers<string>) {
   const { extension } = response
   const rootDir = path.resolve(extension.name.path)
