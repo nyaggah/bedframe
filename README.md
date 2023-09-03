@@ -28,7 +28,7 @@
 
 Your **B**rowser **E**xtension **D**evelopment Framework
 
-Make, version, publish cross-browser extensions with ease (continously).
+Make, Version &amp; Publish cross-browser extensions (continously)with ease.
 
 ## Getting Started
 

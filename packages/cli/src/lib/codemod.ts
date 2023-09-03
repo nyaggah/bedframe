@@ -1,5 +1,5 @@
 import { Manifest } from '@bedframe/core'
-import { dim, green, red } from 'kolorist'
+import { dim, lightGreen, lightRed } from 'kolorist'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -18,7 +18,7 @@ export function modifyManifestForFirefox(
     console.log(
       dim(`todo: polyfill namespaces and browser-specific apis 
 e.g. 'browser.runtime' and 'chrome.runtime', etc
-perform some after build code mods. not ideal, but...
+perform some after-build code mods. not ideal, but...
 https://youtu.be/RlwlV4hcBac?t=21
 - - -
 bedframe builds for MV3 and while Firefox, et al support MV3 there
@@ -39,8 +39,12 @@ but... until then... spaghetti-ville!\n`),
           },
         }
 
-        console.log(red(`- from:\n${JSON.stringify(oldBackground, null, 2)}\n`))
-        console.log(green(`+ to:\n${JSON.stringify(newBackground, null, 2)}\n`))
+        console.log(
+          lightRed(`- from:\n${JSON.stringify(oldBackground, null, 2)}\n`),
+        )
+        console.log(
+          lightGreen(`+ to:\n${JSON.stringify(newBackground, null, 2)}\n`),
+        )
 
         manifestContent.background.scripts = [
           manifestContent.background.service_worker,
@@ -116,8 +120,8 @@ export function replaceInFile(
     fs.writeFileSync(filePath, updatedContent, 'utf-8')
     console.log(`
 file: ${path.basename(filePath)}
-  ${red(`- from: ${searchString}`)}
-  ${green(`+ to:   ${replaceString}`)}
+  ${lightRed(`- from: ${searchString}`)}
+  ${lightGreen(`+ to:   ${replaceString}`)}
 
   `)
   }

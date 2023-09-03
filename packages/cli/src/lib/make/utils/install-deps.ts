@@ -2,7 +2,16 @@ import { execa } from 'execa'
 import { chdir } from 'node:process'
 import { projectInstall } from 'pkg-install'
 import { PromptsResponse } from '../prompts'
-
+/**
+ * install dependencies, initialize git and
+ * make first commit
+ *
+ * todo: the install should be separate from the git
+ *
+ * @export
+ * @param {PromptsResponse} response
+ * @return {*}  {Promise<void>}
+ */
 export async function installDependencies(
   response: PromptsResponse,
 ): Promise<void> {

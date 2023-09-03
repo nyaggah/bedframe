@@ -47,7 +47,7 @@ makeCommand
     `Specify package manager to use (${dim('pnpm')})`,
   )
   .option(
-    '-f, --framework/lib <framework>',
+    '-f, --framework <framework>',
     `specify framework to use (${dim('react')})`,
   )
   .option(

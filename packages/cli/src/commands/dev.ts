@@ -1,7 +1,7 @@
 import { AnyCase, Browser } from '@bedframe/core'
 import { Command } from 'commander'
 import { execa } from 'execa'
-import { dim, green, magenta } from 'kolorist'
+import { dim, lightGreen, magenta } from 'kolorist'
 import fs from 'node:fs'
 import { join } from 'node:path'
 import { cwd } from 'node:process'
@@ -37,7 +37,7 @@ async function executeDevScript(
           .map((name) => `\"vite --mode ${name}\"`)
           .join(' ')}`
 
-  console.log(dim('command [dev]:'), green(command) + '\n')
+  console.log(dim('command [dev]:'), lightGreen(command) + '\n')
   if (browsers.length > 1) {
     console.log(
       dim(`
@@ -54,7 +54,7 @@ bedframe dev -
     )
   }
   const browsersLength = browsers.length - 1
-  console.log(`${green(
+  console.log(`${lightGreen(
     `${magenta(browsers.length)} ${
       browsers.length > 1 ? 'BEDs' : 'BED'
     } starting vite dev server! 🚀`,
@@ -71,7 +71,7 @@ ${dim('└')} dist${dim('/')}${browsers
     .then(() => {
       const browsersLength = browsers.length - 1
       console.log(`
-${green(
+${lightGreen(
   `${magenta(browsers.length)} ${
     browsers.length > 1 ? 'BEDs' : 'BED'
   } made! 🚀`,

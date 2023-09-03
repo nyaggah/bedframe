@@ -1,5 +1,11 @@
 import { Command } from 'commander'
-import { lightCyan, lightGreen, lightMagenta, lightYellow } from 'kolorist'
+import {
+  lightCyan,
+  lightGreen,
+  lightMagenta,
+  lightRed,
+  lightYellow,
+} from 'kolorist'
 import fetch from 'node-fetch'
 import childProcess from 'node:child_process'
 import fs from 'node:fs'
@@ -46,8 +52,6 @@ function uploadToChrome(config: ChromeUploadConfig, source: string) {
   -chrome.zip`
   const zipPath = resolve(join(cwd(), 'dist', zipName))
 
-  console.log('uploadToChrome() >', { source, zipName, zipPath })
-
   if (fs.existsSync(zipPath)) {
     const uploadCmd = `npx chrome-webstore-upload upload \
       --source ${zipPath} \
@@ -56,8 +60,7 @@ function uploadToChrome(config: ChromeUploadConfig, source: string) {
       --client-secret ${config.clientSecret} \
       --refresh-token ${config.refreshToken}`
 
-    const output = childProcess.execSync(uploadCmd, { stdio: 'inherit' })
-    console.log({ output })
+    childProcess.execSync(uploadCmd, { stdio: 'inherit' })
   } else {
     console.error(`zip file not found at path: ${zipPath}`)
     process.exit()
@@ -93,9 +96,7 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
 
   try {
     const output = childProcess.execSync(signCmd, { stdio: 'pipe' }).toString()
-
     console.log({ output })
-
     if (output.includes('WebExtError: Approval: timeout')) {
       console.log(
         lightYellow(
@@ -113,7 +114,15 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
 `)
     }
   } catch (error) {
-    console.error('error publishing to Firefox:', error)
+    console.log(
+      lightYellow(
+        'note: this API will usually quickly success in uploading your extension but the automatic approval/signing will usually timeout and you will see an error below. check for an email from Mozilla Add-ons for confirmation.',
+      ),
+    )
+    console.error(
+      lightYellow('error uploading to Firefox:'),
+      lightRed(`${error}`),
+    )
   }
 }
 
@@ -187,9 +196,6 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
       },
       body: packageStream,
     })
-    console.log('getEdgeAccessToken (uploadUrl) :', uploadUrl)
-
-    console.log({ response })
 
     if (!response.ok) {
       throw new Error(`failed to upload Edge extension: ${response.statusText}`)
@@ -211,7 +217,7 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
       `Edge extension uploaded successfully. submission url: ${submissionUrl}`,
     )
   } catch (error) {
-    console.error('error uploading to Edge:', error)
+    console.error(lightYellow('error uploading to Edge:'), lightRed(`${error}`))
   }
 }
 
@@ -243,7 +249,10 @@ export const publishCommand = new Command('publish')
           selectedBrowsers.includes('firefox') ||
           selectedBrowsers.includes('edge'))
       ) {
-        console.log(lightMagenta('publishing...'), selectedBrowsers)
+        console.log(
+          lightMagenta('>_ publishing...'),
+          selectedBrowsers.join(', ').toLowerCase(),
+        )
       }
 
       if (!selectedBrowsers || selectedBrowsers.length === 0) {
@@ -261,14 +270,12 @@ export const publishCommand = new Command('publish')
         }-chrome.zip`
         const zipPath = resolve(join(cwd(), 'dist', zipName))
 
-        console.log(`
-• ${lightMagenta('C H R O M E:')}
+        console.log(`• ${lightMagenta('C H R O M E:')}
 └ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
   • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
   • zip: ${lightYellow(`${basename(zipPath)}`)}
   • date/time: ${new Date().toLocaleString().replace(',', '')}
 `)
-
         const chromeConfig: ChromeUploadConfig = {
           extensionId: process.env.EXTENSION_ID || '',
           clientId: process.env.CLIENT_ID || '',
