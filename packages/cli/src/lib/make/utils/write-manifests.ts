@@ -234,7 +234,6 @@ export const manifests = [
 }
 
 export async function writeManifests(response: Answers<string>): Promise<void> {
-  console.log('writeManifests > response.browser', response.browser)
   const { browser: browsers, extension } = response
   const manifestDir = path.resolve(extension.name.path, 'src', 'manifests')
   const manifestBasePath = path.join(manifestDir, 'base.manifest.ts')

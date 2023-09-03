@@ -116,7 +116,7 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
   } catch (error) {
     console.log(
       lightYellow(
-        'note: this API will usually quickly success in uploading your extension but the automatic approval/signing will usually timeout and you will see an error below. check for an email from Mozilla Add-ons for confirmation.',
+        'note: this API will usually succeed uploading your extension but the automatic approval/signing will usually timeout and you will see an error. check for an email from Mozilla Add-ons for confirmation.',
       ),
     )
     console.error(
@@ -198,7 +198,9 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
     })
 
     if (!response.ok) {
-      throw new Error(`failed to upload Edge extension: ${response.statusText}`)
+      throw new Error(
+        `failed to upload Edge extension https://www.youtube.com/watch?v=fmpw7fO8iFs&t=25s: ${response.statusText}`,
+      )
     }
 
     const submissionResponse = (await response.json()) as SubmissionResponse

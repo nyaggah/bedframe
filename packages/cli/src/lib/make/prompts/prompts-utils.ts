@@ -104,7 +104,7 @@ export const browsers = Object.values(Browser).map((browser) => {
     // ^^^ TO diddly DO: technically you can build for ALL browsers right meow
     // but the "P" in the real MVP (i.e. the Publish in the `Make Version Publish` workflow)
     // only works for Chrome, FF and Edge partially... rest is WIP!
-    // https://youtu.be/fmpw7fO8iFs?si=gsnbq1pijDRIOe3W&t=25
+    // https://www.youtube.com/watch?v=fmpw7fO8iFs&t=25s
   }
 })
 

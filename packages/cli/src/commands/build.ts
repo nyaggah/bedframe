@@ -103,10 +103,15 @@ export const buildCommand = new Command('build')
         .substring(searchIndex.start, searchIndex.end + 1)
         .toLowerCase()
 
-      const array = manifestsArrayText
+      const _array = manifestsArrayText
+        .trim()
         .slice(1, -1)
-        .split(', ') as AnyCase<Browser>[]
+        .split(',') as AnyCase<Browser>[]
 
-      !browser ? executeBuildScript(array) : executeBuildScript(browser)
+      const browserArray = _array.map((browser: AnyCase<Browser>) =>
+        browser.trim().toLowerCase(),
+      ) as AnyCase<Browser>[]
+
+      !browser ? executeBuildScript(browserArray) : executeBuildScript(browser)
     })
   })
