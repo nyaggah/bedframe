@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.66
+
+### Patch Changes
+
+- e9805b9: quality of life type stuffs; code cleanups
+
 ## 0.0.65
 
 ### Patch Changes
