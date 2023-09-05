@@ -199,7 +199,7 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
 
     if (!response.ok) {
       throw new Error(
-        `failed to upload Edge extension https://www.youtube.com/watch?v=fmpw7fO8iFs&t=25s: ${response.statusText}`,
+        `failed to upload Edge extension... this method is slightly buggy at the moment... https://www.youtube.com/watch?v=fmpw7fO8iFs&t=25s : ${response.statusText}`,
       )
     }
 

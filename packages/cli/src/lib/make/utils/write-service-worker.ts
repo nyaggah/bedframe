@@ -41,8 +41,8 @@ chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
 `
 
 const sidePanels = `const sidePanel = {
-  welcome: 'sidepanels/welcome/index.html'
-  main: 'sidepanels/main/index.html'
+  welcome: chrome.runtime.getURL('sidepanels/welcome/index.html'),
+  main: chrome.runtime.getURL('sidepanels/main/index.html'),
 }
 
 chrome.sidePanel

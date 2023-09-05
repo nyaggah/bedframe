@@ -30,7 +30,7 @@
 
 The Bedframe Command Line Interface (CLI) lets you make and manage your BED directly from the terminal.
 
-![Bedframe (Make command)](https://github.com/nyaggah/bedframe/blob/main/packages/cli/public/assets/bedframe-cli--make-command.jpg)
+![Bedframe CLI](https://github.com/nyaggah/bedframe/blob/main/packages/cli/public/assets/bedframe-cli-png)
 
 ## Installation
 
@@ -41,14 +41,14 @@ The Bedframe Command Line Interface (CLI) lets you make and manage your BED dire
 </blockquote>
 
 ```bash
+#  with pnpm
+pnpm add @bedframe/cli -g
+
 # with npm
 npm install @bedframe/cli -g
 
 # with yarn
 yarn add @bedframe/cli -g
-
-#  with pnpm
-pnpm add @bedframe/cli -g
 ```
 
 After installation, you will have access to the `bedframe` executable in your command line. You can verify that it is properly installed by simply running `bedframe`, which should present you with an intro and help message.
@@ -113,6 +113,8 @@ bedframe make .
 ```
 
 You will then be prompted to configure your BED, picking `Framework`, `Language`, `Browser` to target, etc. All configurations can be manually edited once you generate the project.
+
+![Bedframe (Make command)](https://github.com/nyaggah/bedframe/blob/main/packages/cli/public/assets/bedframe-cli--make-command.jpg)
 
 ## Commands
 

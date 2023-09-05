@@ -41,7 +41,7 @@ Bedframe uses the offically supported Vite template presets. Vite requires <a hr
 
 ```bash
 #  with pnpm
- pnpm dlx create-bedframe@latest
+pnpm dlx create-bedframe@latest
 
 # with npx
 npx create-bedframe@latest
