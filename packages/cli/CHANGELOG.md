@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.68
+
+### Patch Changes
+
+- 5f006c2: update readmes; code clean up
+- Updated dependencies [5f006c2]
+  - @bedframe/core@0.0.35
+
 ## 0.0.67
 
 ### Patch Changes
