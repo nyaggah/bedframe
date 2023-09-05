@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.69
+
+### Patch Changes
+
+- 3800dd1: image location fix
+
 ## 0.0.68
 
 ### Patch Changes
