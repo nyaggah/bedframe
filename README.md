@@ -29,6 +29,7 @@
 <!-- ![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://raw.githubusercontent.com/nyaggah/bedframe/main/packages/cli/public/assets/bedframe-masthead.png) -->
 
 ![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://github.com/nyaggah/bedframe/assets/284415/d545dea4-129e-42f0-82fd-5e856c655e61)
+![bedframe-cli](https://github.com/nyaggah/bedframe/assets/284415/512540dd-18b7-4fbe-9ebe-861722b83a97)
 
 Your **B**rowser **E**xtension **D**evelopment Framework
 
