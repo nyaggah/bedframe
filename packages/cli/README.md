@@ -26,11 +26,11 @@
 
 ## **@bedframe/cli**
 
+![Bedframe CLI](https://raw.githubusercontent.com/nyaggah/bedframe/main/packages/cli/public/assets/bedframe-cli.png)
+
 <!-- Your Browser Extension Development Framework (dev utility) -->
 
 The Bedframe Command Line Interface (CLI) lets you make and manage your BED directly from the terminal.
-
-![Bedframe CLI](https://github.com/nyaggah/bedframe/blob/main/packages/cli/public/assets/bedframe-cli-png)
 
 ## Installation
 
@@ -114,7 +114,7 @@ bedframe make .
 
 You will then be prompted to configure your BED, picking `Framework`, `Language`, `Browser` to target, etc. All configurations can be manually edited once you generate the project.
 
-![Bedframe (Make command)](https://github.com/nyaggah/bedframe/blob/main/packages/cli/public/assets/bedframe-cli--make-command.jpg)
+![Bedframe (Make command)](https://raw.githubusercontent.com/nyaggah/bedframe/main/packages/cli/public/assets/bedframe-cli--make-command.jpg)
 
 ## Commands
 
