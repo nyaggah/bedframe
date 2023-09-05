@@ -26,7 +26,9 @@
 
 ## **@bedframe/cli**
 
-![Bedframe CLI](https://raw.githubusercontent.com/nyaggah/bedframe/main/packages/cli/public/assets/bedframe-cli.png)
+![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://github.com/nyaggah/bedframe/assets/284415/d545dea4-129e-42f0-82fd-5e856c655e61)
+<img src="https://github.com/nyaggah/bedframe/assets/284415/257191a2-6c7c-4bcb-86d9-8372194d68d7" alt="Bedframe - Make, Version & Publish cross-browser extensions continously with ease" />
+
 
 <!-- Your Browser Extension Development Framework (dev utility) -->
 
