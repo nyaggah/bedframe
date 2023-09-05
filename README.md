@@ -26,25 +26,33 @@
 
 ## [B E D F R A M E](https://bedframe.dev)
 
+![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://github.com/nyaggah/bedframe/blob/main/packages/cli/public/assets/bedframe-masthead.png)
+
 Your **B**rowser **E**xtension **D**evelopment Framework
 
-Make, Version &amp; Publish cross-browser extensions (continously)with ease.
+Make, Version &amp; Publish cross-browser extensions (continously) with ease.
 
 ## Getting Started
 
-Visit https://bedframe.dev to get started with Bedframe.
+```bash
+pnpm add @bedframe/cli -g
+
+bedframe make # ...follow prompts 👍
+```
+
+Visit https://bedframe.dev to join early access.
 
 ## Documentation
 
-Visit https://docs.bedframe.dev to view the full documentation.
+Visit https://bedframe.dev/docs <small>(coming soon)</small> to view the full documentation.
 
 ## Packages
 
-| Package                                      | Version                                                                               | Description                                                         |
-| -------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [@bedframe/cli](packages/cli/)               | ![@bedframe/cli version](https://img.shields.io/npm/v/@bedframe/cli.svg?label=%20)    | Bedframe CLI utility. Make and manage your BED from the commandline |
-| [@bedframe/core](packages/core/)             | ![@bedframe/core version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20)  | Bedframe core types and functions                                   |
-| [create-bedframe](packages/create-bedframe/) | ![create-bedframe version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Standalone [@bedframe/cli](packages/cli) `make` command utility     |
+| Package                                      | Version                                                                               | Description                                                            |
+| -------------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [@bedframe/cli](packages/cli/)               | ![@bedframe/cli version](https://img.shields.io/npm/v/@bedframe/cli.svg?label=%20)    | Bedframe CLI. Make, Version and Publish your BED from the command line |
+| [@bedframe/core](packages/core/)             | ![@bedframe/core version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20)  | Bedframe core types and functions                                      |
+| [create-bedframe](packages/create-bedframe/) | ![create-bedframe version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Standalone [@bedframe/cli](packages/cli) `make` command utility        |
 
 ## Monorepo Utility Packages
 

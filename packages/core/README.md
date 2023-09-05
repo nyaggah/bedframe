@@ -38,14 +38,14 @@ Your Browser Extension Development Framework (core types &amp; funcs)
 </blockquote>
 
 ```bash
+#  with pnpm
+pnpm add @bedframe/core -D
+
 # with npm
 npm install @bedframe/core -D
 
 # with yarn
 yarn add @bedframe/core -D
-
-#  with pnpm
-pnpm add @bedframe/core -D
 ```
 
 ## Scaffolding Your First Bedframe Project

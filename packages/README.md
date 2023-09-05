@@ -32,11 +32,11 @@ The `packages` directory contains the main Bedframe packages as well us the Turb
 
 ## Packages
 
-| Package                              | Version                                                                               | Description                                                         |
-| ------------------------------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [create-bedframe](/create-bedframe/) | ![create-bedframe version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Standalone [@bedframe/cli](packages/cli) `make` command utility     |
-| [@bedframe/cli](/cli/)               | ![@bedframe/cli version](https://img.shields.io/npm/v/@bedframe/cli.svg?label=%20)    | Bedframe CLI utility. Make and manage your BED from the commandline |
-| [@bedframe/core](/core/)             | ![@bedframe/core version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20)  | Bedframe core types and functions                                   |
+| Package                                       | Version                                                                               | Description                                                            |
+| --------------------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [@bedframe/cli](/packages/cli/)               | ![@bedframe/cli version](https://img.shields.io/npm/v/@bedframe/cli.svg?label=%20)    | Bedframe CLI. Make, Version and Publish your BED from the command line |
+| [@bedframe/core](/packages/core/)             | ![@bedframe/core version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20)  | Bedframe core types and functions                                      |
+| [create-bedframe](/packages/create-bedframe/) | ![create-bedframe version](https://img.shields.io/npm/v/@bedframe/core.svg?label=%20) | Standalone [@bedframe/cli](packages/cli) `make` command utility        |
 
 ## Monorepo Utility Packages
 
