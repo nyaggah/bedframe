@@ -13,11 +13,11 @@
   <a aria-label="Bedframe logo" href="https://bedframe.dev">
     <img src="https://img.shields.io/badge/BEDFRAME-7a46fc.svg?style=for-the-badge&logo=Bedframe&labelColor=CCC">
   </a>
-  <a aria-label="@bedframe/core - NPM version" href="https://www.npmjs.com/package/@bedframe/core">
-    <img alt="@bedframe/core - NPM version" src="https://img.shields.io/npm/v/@bedframe/core.svg?style=for-the-badge&labelColor=000000">
-  </a>
   <a aria-label="@bedframe/cli - NPM version" href="https://www.npmjs.com/package/@bedframe/cli">
     <img alt="@bedframe/cli - NPM version" src="https://img.shields.io/npm/v/@bedframe/cli.svg?style=for-the-badge&labelColor=000000">
+  </a>
+  <a aria-label="@bedframe/core - NPM version" href="https://www.npmjs.com/package/@bedframe/core">
+    <img alt="@bedframe/core - NPM version" src="https://img.shields.io/npm/v/@bedframe/core.svg?style=for-the-badge&labelColor=000000">
   </a>
   <a aria-label="License" href="https://github.com/nyaggah/bedframe/blob/main/LICENSE">
     <img alt="License" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
@@ -29,7 +29,7 @@
 <!-- ![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://raw.githubusercontent.com/nyaggah/bedframe/main/packages/cli/public/assets/bedframe-masthead.png) -->
 
 ![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://github.com/nyaggah/bedframe/assets/284415/d545dea4-129e-42f0-82fd-5e856c655e61)
-
+![bedframe-cli](https://github.com/nyaggah/bedframe/assets/284415/512540dd-18b7-4fbe-9ebe-861722b83a97)
 
 Your **B**rowser **E**xtension **D**evelopment Framework
 
