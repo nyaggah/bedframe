@@ -27,8 +27,7 @@
 ## **@bedframe/cli**
 
 ![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://github.com/nyaggah/bedframe/assets/284415/d545dea4-129e-42f0-82fd-5e856c655e61)
-<img src="https://github.com/nyaggah/bedframe/assets/284415/257191a2-6c7c-4bcb-86d9-8372194d68d7" alt="Bedframe - Make, Version & Publish cross-browser extensions continously with ease" />
-
+![bedframe-cli](https://github.com/nyaggah/bedframe/assets/284415/512540dd-18b7-4fbe-9ebe-861722b83a97)
 
 <!-- Your Browser Extension Development Framework (dev utility) -->
 
@@ -116,7 +115,9 @@ bedframe make .
 
 You will then be prompted to configure your BED, picking `Framework`, `Language`, `Browser` to target, etc. All configurations can be manually edited once you generate the project.
 
-![Bedframe (Make command)](https://raw.githubusercontent.com/nyaggah/bedframe/main/packages/cli/public/assets/bedframe-cli--make-command.jpg)
+<!--![Bedframe (Make command)](https://raw.githubusercontent.com/nyaggah/bedframe/main/packages/cli/public/assets/bedframe-cli--make-command.jpg)-->
+<img src="https://github.com/nyaggah/bedframe/assets/284415/257191a2-6c7c-4bcb-86d9-8372194d68d7" alt="Bedframe - Make, Version & Publish cross-browser extensions continously with ease" />
+
 
 ## Commands
 
