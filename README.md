@@ -26,7 +26,7 @@
 
 ## [B E D F R A M E](https://bedframe.dev)
 
-![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://github.com/nyaggah/bedframe/blob/main/packages/cli/public/assets/bedframe-masthead.png)
+![Bedframe - Make, Version & Publish cross-browser extensions continously with ease](https://raw.githubusercontent.com/nyaggah/bedframe/main/packages/cli/public/assets/bedframe-masthead.png)
 
 Your **B**rowser **E**xtension **D**evelopment Framework
 

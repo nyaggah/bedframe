@@ -108,6 +108,7 @@
     "url": "https://github.com/nyaggah/bedframe.git",
     "directory": "packages/cli"
   },
+  "homepage": "https://bedframe.dev",
   "publishConfig": {
     "access": "public"
   },
