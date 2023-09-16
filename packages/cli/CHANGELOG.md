@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.70
+
+### Patch Changes
+
+- a657e15: templates, commands, utility funcs updates
+
 ## 0.0.69
 
 ### Patch Changes
