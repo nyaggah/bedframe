@@ -35,8 +35,8 @@ export function writeMVPworkflow(response: Answers<string>) {
     packageManager,
     tests: hasTests,
     lintFormat,
-    gitHooks,
-    changesets,
+    // gitHooks,
+    // changesets,
   } = development.template.config
 
   const pm = packageManager.toLowerCase()
@@ -84,8 +84,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      ${pm !== 'pnpm' ? `- run: npm ci` : ''}
-
+      ${
+        pm === 'pnpm'
+          ? `- run: npm install pnpm -g
+      - run: pnpm install`
+          : `- run: npm ci`
+      }
+      
       - name: '[ M A K E ] : Build ${projectName} - all browsers'
         id: buildProject
         # this expects you to have a package.json script called: "build"
@@ -106,7 +111,7 @@ ${
         id: unitTest
         # this expects you to have a package.json script called "test"
         run: |
-          echo "vitest setup currently broken... runs ${pmRun} test"
+          echo "expects you to have a package.json script called test"
 
         `
     : ''

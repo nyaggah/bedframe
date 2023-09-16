@@ -74,7 +74,6 @@ makeCommand
   )
 
   .action((name, options) => {
-    console.log({ name, options })
     if (options) {
       promptsIntro()
     }
