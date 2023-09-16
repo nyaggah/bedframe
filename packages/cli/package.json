@@ -67,7 +67,7 @@
     "rollup-plugin-string": "^3.0.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^3.12.8",
+    "tsx": "^3.12.10",
     "typescript": "^5.2.2"
   },
   "lint-staged": {
