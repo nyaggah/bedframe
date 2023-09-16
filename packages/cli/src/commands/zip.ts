@@ -1,10 +1,10 @@
 import { AnyCase, Browser } from '@bedframe/core'
 import { Command } from 'commander'
 import { execa } from 'execa'
-import { dim, lightGreen, lightMagenta } from 'kolorist'
+import { dim, lightCyan, lightGreen, lightMagenta, lightYellow } from 'kolorist'
 // import { execSync } from 'node:child_process'
-import fs from 'node:fs'
-import path, { join, resolve } from 'node:path'
+import fs, { readFileSync } from 'node:fs'
+import path, { basename, join, resolve } from 'node:path'
 import { cwd } from 'node:process'
 
 // const browserList = ['chrome', 'brave', 'opera', 'edge', 'firefox', 'safari']
@@ -18,7 +18,7 @@ import { cwd } from 'node:process'
  * @param {*} options
  */
 function executeZipCommand(browser: any, options: any): void {
-  console.log({ browser, options })
+  const pkg = JSON.parse(readFileSync(join(cwd(), 'package.json'), 'utf8'))
 
   const sourceDir = options.outDir
     ? options.outDir
@@ -40,11 +40,14 @@ function executeZipCommand(browser: any, options: any): void {
 
   execa(command, { shell: true, stdio: 'inherit' })
     .then(() => {
-      console.log(
-        `successfully zipped ${lightMagenta(
-          sourceDir,
-        )} directory to ${lightGreen(zipPath)}`,
-      )
+      console.log(`• successfully zipped ${lightGreen(basename(sourceDir))} 🚀
+└ • browser: ${dim('./dist/')}${lightMagenta(
+        `${process.env.PACKAGE_NAME ?? pkg?.name}`,
+      )}
+  • archive: ${dim('./dist/')}${lightYellow(`${basename(zipPath)}`)}
+  • version: ${lightCyan(`${process.env.PACKAGE_VERSION ?? pkg?.version}`)}
+  • date/time: ${lightCyan(new Date().toLocaleString().replace(',', ''))}
+        `)
     })
     .catch((error) => {
       console.error('an error occurred while running commands:', error)
@@ -65,7 +68,6 @@ zipCommand
   )
   .option('-n, --name <name>', 'what to name the zip file (including .zip)')
   .action(async (browsers: any, options: any) => {
-    console.log({ browsers })
     try {
       const manifestsIndex = join(cwd(), 'src', 'manifests', 'index.ts')
       fs.readFile(manifestsIndex, 'utf-8', (err, data) => {

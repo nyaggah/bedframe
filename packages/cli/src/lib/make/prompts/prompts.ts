@@ -381,7 +381,7 @@ export async function bedframePrompts(
   )
 
   if (options.name) {
-    extensionResponse.name = options.name
+    extensionResponse.name = formatTargetDir(options.name)
   }
   if (options.version) {
     extensionResponse.version = options.version

@@ -110,27 +110,27 @@ importers:
         version: 11.0.0(commander@11.0.0)
       '@rollup/plugin-json':
         specifier: ^6.0.0
-        version: 6.0.0(rollup@3.28.1)
+        version: 6.0.0(rollup@3.29.0)
       '@rollup/plugin-node-resolve':
         specifier: ^15.2.1
-        version: 15.2.1(rollup@3.28.1)
+        version: 15.2.1(rollup@3.29.0)
       '@rollup/plugin-typescript':
         specifier: ^11.1.3
-        version: 11.1.3(rollup@3.28.1)(tslib@2.6.2)(typescript@5.2.2)
+        version: 11.1.3(rollup@3.29.0)(tslib@2.6.2)(typescript@5.2.2)
       '@types/chrome':
-        specifier: ^0.0.244
-        version: 0.0.244
+        specifier: ^0.0.245
+        version: 0.0.245
       '@types/listr':
         specifier: ^0.14.5
         version: 0.14.5
       '@types/node':
-        specifier: ^20.5.8
+        specifier: ^20.5.9
         version: 20.5.9
       '@types/prompts':
         specifier: ^2.4.4
         version: 2.4.4
       '@typescript-eslint/eslint-plugin':
-        specifier: ^6.5.0
+        specifier: ^6.6.0
         version: 6.6.0(@typescript-eslint/parser@6.6.0)(eslint@8.48.0)(typescript@5.2.2)
       concurrently:
         specifier: ^8.2.1
@@ -142,17 +142,17 @@ importers:
         specifier: ^1.10.13
         version: 1.10.13(eslint@8.48.0)
       rollup:
-        specifier: ^3.28.1
-        version: 3.28.1
+        specifier: ^3.29.0
+        version: 3.29.0
       rollup-plugin-copy:
-        specifier: ^3.4.0
+        specifier: ^3.5.0
         version: 3.5.0
       rollup-plugin-dts:
         specifier: ^6.0.1
-        version: 6.0.1(rollup@3.28.1)(typescript@5.2.2)
+        version: 6.0.1(rollup@3.29.0)(typescript@5.2.2)
       rollup-plugin-esbuild:
         specifier: ^5.0.0
-        version: 5.0.0(esbuild@0.19.2)(rollup@3.28.1)
+        version: 5.0.0(esbuild@0.19.2)(rollup@3.29.0)
       rollup-plugin-string:
         specifier: ^3.0.0
         version: 3.0.0
@@ -241,16 +241,16 @@ importers:
     devDependencies:
       '@rollup/plugin-node-resolve':
         specifier: ^15.2.1
-        version: 15.2.1(rollup@3.28.1)
+        version: 15.2.1(rollup@3.29.0)
       '@rollup/plugin-typescript':
         specifier: ^11.1.3
-        version: 11.1.3(rollup@3.28.1)(tslib@2.6.2)(typescript@5.2.2)
+        version: 11.1.3(rollup@3.29.0)(tslib@2.6.2)(typescript@5.2.2)
       rollup-plugin-dts:
         specifier: ^6.0.1
-        version: 6.0.1(rollup@3.28.1)(typescript@5.2.2)
+        version: 6.0.1(rollup@3.29.0)(typescript@5.2.2)
       rollup-plugin-esbuild:
         specifier: ^5.0.0
-        version: 5.0.0(esbuild@0.19.2)(rollup@3.28.1)
+        version: 5.0.0(esbuild@0.19.2)(rollup@3.29.0)
       rollup-plugin-string:
         specifier: ^3.0.0
         version: 3.0.0
@@ -262,7 +262,7 @@ importers:
         version: 4.4.9(@types/node@20.5.9)
       vite-plugin-dts:
         specifier: ^3.5.3
-        version: 3.5.3(@types/node@20.5.9)(rollup@3.28.1)(typescript@5.2.2)(vite@4.4.9)
+        version: 3.5.3(@types/node@20.5.9)(rollup@3.29.0)(typescript@5.2.2)(vite@4.4.9)
 
   packages/eslint-config-bedframe:
     dependencies:
@@ -1525,7 +1525,7 @@ packages:
       rollup: 3.28.1
     dev: true
 
-  /@rollup/plugin-json@6.0.0(rollup@3.28.1):
+  /@rollup/plugin-json@6.0.0(rollup@3.29.0):
     resolution: {integrity: sha512-i/4C5Jrdr1XUarRhVu27EEwjt4GObltD7c+MkCIpO2QIbojw8MUs+CCTqOphQi3Qtg1FLmYt+l+6YeoIf51J7w==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1534,11 +1534,11 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
-      rollup: 3.28.1
+      '@rollup/pluginutils': 5.0.4(rollup@3.29.0)
+      rollup: 3.29.0
     dev: true
 
-  /@rollup/plugin-node-resolve@15.2.1(rollup@3.28.1):
+  /@rollup/plugin-node-resolve@15.2.1(rollup@3.29.0):
     resolution: {integrity: sha512-nsbUg588+GDSu8/NS8T4UAshO6xeaOfINNuXeVHcKV02LJtoRaM1SiOacClw4kws1SFiNhdLGxlbMY9ga/zs/w==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1547,16 +1547,16 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
+      '@rollup/pluginutils': 5.0.4(rollup@3.29.0)
       '@types/resolve': 1.20.2
       deepmerge: 4.3.1
       is-builtin-module: 3.2.1
       is-module: 1.0.0
       resolve: 1.22.4
-      rollup: 3.28.1
+      rollup: 3.29.0
     dev: true
 
-  /@rollup/plugin-typescript@11.1.3(rollup@3.28.1)(tslib@2.6.2)(typescript@5.2.2):
+  /@rollup/plugin-typescript@11.1.3(rollup@3.29.0)(tslib@2.6.2)(typescript@5.2.2):
     resolution: {integrity: sha512-8o6cNgN44kQBcpsUJTbTXMTtb87oR1O0zgP3Dxm71hrNgparap3VujgofEilTYJo+ivf2ke6uy3/E5QEaiRlDA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1569,9 +1569,9 @@ packages:
       tslib:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
+      '@rollup/pluginutils': 5.0.4(rollup@3.29.0)
       resolve: 1.22.4
-      rollup: 3.28.1
+      rollup: 3.29.0
       tslib: 2.6.2
       typescript: 5.2.2
     dev: true
@@ -1597,6 +1597,21 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.28.1
+    dev: true
+
+  /@rollup/pluginutils@5.0.4(rollup@3.29.0):
+    resolution: {integrity: sha512-0KJnIoRI8A+a1dqOYLxH8vBf8bphDmty5QvIm2hqm7oFCFYKCAZWWd2hXgMibaPsNDhI0AtpYfQZJG47pt/k4g==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@types/estree': 1.0.1
+      estree-walker: 2.0.2
+      picomatch: 2.3.1
+      rollup: 3.29.0
     dev: true
 
   /@rushstack/eslint-patch@1.3.3:
@@ -1720,6 +1735,13 @@ packages:
 
   /@types/chrome@0.0.244:
     resolution: {integrity: sha512-pC8kBWuUqGhG6S5d3E44a2f1TA2XHX/sXfCIrrDpA4K65Ozzw3mYQjuvMOTdSUCx4HjJhp4zuZh6fKOH3UdA1g==}
+    dependencies:
+      '@types/filesystem': 0.0.32
+      '@types/har-format': 1.2.12
+    dev: true
+
+  /@types/chrome@0.0.245:
+    resolution: {integrity: sha512-bBdONkLO8wMbJK6iG0Q8ShFuh67Grnod+5OpClJaa8MuKJXP/Kjl3f8wRYeMOnQ0Q8HDgpUlopu8bvl9siR8/A==}
     dependencies:
       '@types/filesystem': 0.0.32
       '@types/har-format': 1.2.12
@@ -5794,7 +5816,7 @@ packages:
       is-plain-object: 3.0.1
     dev: true
 
-  /rollup-plugin-dts@6.0.1(rollup@3.28.1)(typescript@5.2.2):
+  /rollup-plugin-dts@6.0.1(rollup@3.29.0)(typescript@5.2.2):
     resolution: {integrity: sha512-XJbCldVrp4TLc2Hg4DfrRiJgzJ73uhZB0sPSDizgdlrhSJ1bsIkkRMkwRKNQYgkbfMz4CHLdbnFKVivHE0vsPA==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -5802,26 +5824,26 @@ packages:
       typescript: ^4.5 || ^5.0
     dependencies:
       magic-string: 0.30.3
-      rollup: 3.28.1
+      rollup: 3.29.0
       typescript: 5.2.2
     optionalDependencies:
       '@babel/code-frame': 7.22.13
     dev: true
 
-  /rollup-plugin-esbuild@5.0.0(esbuild@0.19.2)(rollup@3.28.1):
+  /rollup-plugin-esbuild@5.0.0(esbuild@0.19.2)(rollup@3.29.0):
     resolution: {integrity: sha512-1cRIOHAPh8WQgdQQyyvFdeOdxuiyk+zB5zJ5+YOwrZP4cJ0MT3Fs48pQxrZeyZHcn+klFherytILVfE4aYrneg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     peerDependencies:
       esbuild: '>=0.10.1'
       rollup: ^1.20.0 || ^2.0.0 || ^3.0.0
     dependencies:
-      '@rollup/pluginutils': 5.0.4(rollup@3.28.1)
+      '@rollup/pluginutils': 5.0.4(rollup@3.29.0)
       debug: 4.3.4
       es-module-lexer: 1.3.0
       esbuild: 0.19.2
       joycon: 3.1.1
       jsonc-parser: 3.2.0
-      rollup: 3.28.1
+      rollup: 3.29.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5866,6 +5888,14 @@ packages:
 
   /rollup@3.28.1:
     resolution: {integrity: sha512-R9OMQmIHJm9znrU3m3cpE8uhN0fGdXiawME7aZIpQqvpS/85+Vt1Hq1/yVIcYfOmaQiHjvXkQAoJukvLpau6Yw==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
+  /rollup@3.29.0:
+    resolution: {integrity: sha512-nszM8DINnx1vSS+TpbWKMkxem0CDWk3cSit/WWCBVs9/JZ1I/XLwOsiUglYuYReaeWWSsW9kge5zE5NZtf/a4w==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -6787,6 +6817,30 @@ packages:
       - supports-color
     dev: true
 
+  /vite-plugin-dts@3.5.3(@types/node@20.5.9)(rollup@3.29.0)(typescript@5.2.2)(vite@4.4.9):
+    resolution: {integrity: sha512-h94j/+SR1PhLR9jnEtcjZILagE2QZBAV8V1y3T2Ujcet1VI0Et4dZSU1W8fbnp6obB7B3/b8hArqdi2/9HuH+w==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      typescript: '*'
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      '@microsoft/api-extractor': 7.36.4(@types/node@20.5.9)
+      '@rollup/pluginutils': 5.0.4(rollup@3.29.0)
+      '@vue/language-core': 1.8.8(typescript@5.2.2)
+      debug: 4.3.4
+      kolorist: 1.8.0
+      typescript: 5.2.2
+      vite: 4.4.9(@types/node@20.5.9)
+      vue-tsc: 1.8.8(typescript@5.2.2)
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
+    dev: true
+
   /vite-plugin-externalize-deps@0.7.0(vite@4.4.9):
     resolution: {integrity: sha512-do2gPrR79Tm8UKcqsw3RTAtN4YO8GkVRBckWdJWINZ3Qdp3KN9S1oyUZxKszTB/iyg4zdOUweLOeBI8t86QVow==}
     peerDependencies:
@@ -6826,7 +6880,7 @@ packages:
       '@types/node': 20.5.9
       esbuild: 0.18.20
       postcss: 8.4.29
-      rollup: 3.28.1
+      rollup: 3.29.0
     optionalDependencies:
       fsevents: 2.3.3
 

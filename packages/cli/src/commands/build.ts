@@ -29,7 +29,7 @@ async function executeBuildScript(
 
   const command =
     browsers.length === 1
-      ? `vite build --mode ${browsers[0].toLowerCase()}`
+      ? `vite build --mode ${browsers[0].toLowerCase()} `
       : `concurrently --group --names \"${names}\" -c \"${colors.join(
           ',',
         )}\" ${browsers
@@ -58,7 +58,7 @@ ${dim('└')} dist${dim('/')}${browsers
   `)
     })
     .catch((error) => {
-      console.error('An error occurred while running commands:', error)
+      console.error('an error occurred while running commands:', error)
     })
 }
 
