@@ -51,7 +51,7 @@ chrome.sidePanel
 
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {
   const { path } = await chrome.sidePanel.getOptions({ tabId })
-  if (path === welcomePanel) {
+  if (path === sidePanel.welcome) {
     chrome.sidePanel.setOptions({ path: sidePanel.main })
   }
 })

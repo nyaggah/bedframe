@@ -10,9 +10,9 @@ import { writeFile } from './utils.fs'
  * @param {prompts.Answers<string>} response
  */
 export function writePackageJson(response: prompts.Answers<string>): void {
-  const { manifest, license, isPrivate } = response.extension
+  const { manifest, author, license, isPrivate } = response.extension
   const projectName = manifest[0].manifest.name
-  const projectAuthor = manifest[0].manifest.author
+  const projectAuthor = author
   const projectVersion = manifest[0].manifest.version
   const projectDescription = manifest[0].manifest.description
 
@@ -82,7 +82,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "react-chrome-extension-router": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-frame-component": "^5.2.6",
-    ${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
+${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
     ${
       isStyle.tailwind
         ? `"@radix-ui/react-dropdown-menu": "^2.0.5",
@@ -101,7 +101,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.69",
+    "@bedframe/cli": "^0.0.70",
     "@bedframe/core": "^0.0.35",
     ${
       changesets
@@ -126,12 +126,12 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/react-frame-component": "^4.1.3",
-    ${
-      isStyle.styledComponents
-        ? `"@types/styled-components": "^5.1.26",
+${
+  isStyle.styledComponents
+    ? `"@types/styled-components": "^5.1.26",
     "babel-plugin-styled-components": "^2.1.4",`
-        : ''
-    }
+    : ''
+}
     "@vitejs/plugin-react": "^4.0.4",
     "concurrently": "^8.2.1",
     ${

@@ -35,9 +35,13 @@ export function writeMVPworkflow(response: Answers<string>) {
     packageManager,
     tests: hasTests,
     lintFormat,
-    gitHooks,
-    changesets,
+    // gitHooks,
+    // changesets,
   } = development.template.config
+
+  const pm = packageManager.toLowerCase()
+  const pmRun = pm === 'npm' ? `${pm} run` : pm
+
   const workflowPath = resolve(
     join(projectPath, '.github', 'workflows', 'mvp.yml'),
   )
@@ -76,21 +80,28 @@ concurrency: \$\{{ github.workflow }\}-\$\{{ github.ref }\}
 
 jobs:
   make_version_publish:
-    name: Make, Version & Publish (all browsers)
+    name: Make, Version & Publish
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm ci
-
+      ${
+        pm === 'pnpm'
+          ? `- run: npm install pnpm -g
+      - run: pnpm install`
+          : `- run: npm ci`
+      }
+      
       - name: '[ M A K E ] : Build ${projectName} - all browsers'
         id: buildProject
-        run: npm run build
+        # this expects you to have a package.json script called: "build"
+        run: ${pmRun} build
 ${
   lintFormat
     ? ` 
       - name: 'Format & Lint - Run Prettier + ESLint'
         id: lintFormat
-        run: npm run format && npm run lint`
+        # this expects you to have a package.json script called "lint:format"
+        run: ${pmRun} lint:format`
     : ''
 }  
 ${
@@ -98,32 +109,38 @@ ${
     ? ` 
       - name: 'Unit Test - run unit test suite'
         id: unitTest
-        run: npm run test`
+        # this expects you to have a package.json script called "test"
+        run: |
+          echo "expects you to have a package.json script called test"
+
+        `
     : ''
 }
       - name: 'Codemod - Perform some spaghetti 🤌 🤌 🤌'
         # todo: polyfill namespaces and browser-specific apis 
         # e.g. 'browser.runtime' and 'chrome.runtime', etc
-        # perform some after-build code mods. not ideal, but...
+        #
+        # for now, perform some after-build code mods. not ideal, but...
         # https://youtu.be/RlwlV4hcBac?t=21
         # - - -
         # bedframe builds for MV3 and while Firefox, et al support MV3 there
         # is some divergence... this performs after-build codemods on manifest
-        # and feature code but ideally this should happen within the vite/crx dev/build process...
+        # and feature code which ideally should happen during vite/crx dev and build processes...
         # but... until then... spaghetti-ville!
         id: codeMod
-        run: npx bedframe codemod firefox
+        # this expects you to have a package.json script called "codemod"
+        run: ${pmRun} codemod firefox
 
       - name: '[ V E R S I O N ] : Create or Update Release Pull Request - Version Changes'
         id: changesets
         uses: changesets/action@v1
         with:
-          # this expects you to have a npm script called bedframe:version that will internally trigger \`changeset version\`.
-          version: npm run bedframe:version
+          # this expects you to have a package.json script called "bedframe:version" that will internally trigger \`changeset version\`.
+          version: ${pmRun} bedframe:version
         env:
           GITHUB_TOKEN: \$\{{ secrets.GITHUB_TOKEN }\}
 
-      - name: 'Get version version info from package.json'
+      - name: 'Get current version info from package.json'
         if: steps.changesets.outputs.hasChangesets == 'false'
         id: package
         run: |
@@ -146,7 +163,8 @@ ${
       - name: 'Create Release Archive(s) - zip 🫰 it 🫰 up 🫰 !'
         id: zip
         if: steps.changesets.outputs.hasChangesets == 'false'
-        run: npm run zip
+        # this expects you to have a package.json script called "zip"
+        run: ${pmRun} zip
 
       - name: 'Create a git release w/ notes & release archive(s)'
         id: gitRelease
@@ -161,8 +179,9 @@ ${
       - name: '[ P U B L I S H ] : Chrome - upload to Chrome Web Store'
         id: publishChrome
         if: steps.changesets.outputs.hasChangesets == 'false'
+        # this expects you to have a package.json script called "bedframe:publish"
         run: |
-          npm run bedframe:publish chrome
+          ${pmRun} bedframe:publish chrome
         env:
           ${publishVar.chrome.extensionId}: \$\{{ secrets.${
             publishVar.chrome.extensionId
@@ -182,8 +201,9 @@ ${
       - name: 'Firefox - upload to AMO'
         id: publishFirefox
         if: steps.changesets.outputs.hasChangesets == 'false'
+        # this expects you to have a package.json script called "bedframe:publish"
         run: |
-          npm run bedframe:publish firefox
+          ${pmRun} bedframe:publish firefox
         env:
           ${publishVar.firefox.key}: \$\{{ secrets.${publishVar.firefox.key} }\}
           ${publishVar.firefox.secret}: \$\{{ secrets.${
@@ -195,8 +215,9 @@ ${
       - name: 'MS Edge - upload to MS Edge Add-ons'
         id: publishEdge
         if: steps.changesets.outputs.hasChangesets == 'false'
+        # this expects you to have a package.json script called "bedframe:publish"
         run: |
-          npm run bedframe:publish edge
+          ${pmRun} bedframe:publish edge
         env:
           ${publishVar.edge.productId}: \$\{{ secrets.${
             publishVar.edge.productId

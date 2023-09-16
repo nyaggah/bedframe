@@ -192,6 +192,16 @@ export async function makeBed(response: PromptsResponse) {
             },
           },
           {
+            title: `  ${dim('│ ├ ○')} workflows${dim('/')}`,
+            task: () => {},
+          },
+          {
+            title: `  ${dim('│ │ └ ○')} mvp${dim('.yml')} ${dim(
+              '👈 the M V P of your B E D !',
+            )}`,
+            task: () => {},
+          },
+          {
             title: `  ${dim('├ .')}changeset${dim('/')}`,
             enabled: () => changesets,
             task: () => copyFolder(stubs.changesets, projectPath),
@@ -200,11 +210,6 @@ export async function makeBed(response: PromptsResponse) {
             title: `  ${dim('├ .')}husky${dim('/')}`,
             enabled: () => gitHooks,
             task: () => copyFolder(stubs.gitHooks, projectPath),
-          },
-          {
-            title: `  ${dim('│ └ ○')} assets${dim('/')}`,
-            task: () =>
-              copyFolder(stubs.assets, path.join(projectPath, 'src', 'assets')),
           },
           {
             title: `  ${dim('├ ○')} src${dim('/')}`,
@@ -236,6 +241,19 @@ export async function makeBed(response: PromptsResponse) {
             enabled: () => tests,
             task: () =>
               copyFolder(stubs.tests, path.join(projectPath, 'src', '_config')),
+          },
+          {
+            title: `  ${dim('│ ├ ○')} assets${dim('/')}`,
+            task: () =>
+              copyFolder(stubs.assets, path.join(projectPath, 'src', 'assets')),
+          },
+          {
+            title: `  ${dim('│ │ └ ○')} fonts${dim('/')}`,
+            task: () => {},
+          },
+          {
+            title: `  ${dim('│ │ └ ○')} icons${dim('/')}`,
+            task: () => {},
           },
           {
             title: `  ${dim('│ ├ ○')} components${dim('/')}`,
@@ -407,10 +425,13 @@ export async function makeBed(response: PromptsResponse) {
         const { packageManager } = response.development.template.config
         const { installDeps } = response.development.config
 
-        const pm =
-          packageManager.toLowerCase() === 'npm'
-            ? `${packageManager.toLowerCase()} run`
-            : packageManager.toLowerCase()
+        const browserList = browser
+          .slice(0, 3)
+          .map((a: Browser) => a)
+          .join(',')
+
+        const pm = packageManager.toLowerCase()
+        const pmRun = pm === 'npm' ? `${pm} run` : pm
 
         console.log(`
   ${bold(dim('>_'))}  ${lightGreen('your BED is made! 🚀')}      
@@ -420,22 +441,38 @@ export async function makeBed(response: PromptsResponse) {
       inside that directory, you can run several commands:
 
       ${dim('development:')}
-        ${pm} dev            ${dim('start dev server for all browsers')}
-        ${pm} dev ${browser[0]}     ${dim(
+        ${pmRun} dev                         ${dim(
+          'start dev server for all browsers',
+        )}
+        ${pmRun} dev ${browser[0]}                  ${dim(
           `start dev server for ${lightGray(browser[0])}`,
         )}
+        ${
+          browser.length > 1
+            ? `${pmRun} dev ${browserList}      ${dim(
+                `start dev servers for ${lightGray(browserList)}`,
+              )}`
+            : browser
+        }
         
       ${dim('production:')}
-        ${pm} build          ${dim(
+        ${pmRun} build                       ${dim(
           `generate prod builds for all browsers (${lightGray(
             './dist/<browser>',
           )})`,
         )}        
-        ${pm} build ${lightGray(browser[0])}   ${dim(
+        ${pmRun} build ${lightGray(browser[0])}                ${dim(
           `generate prod build for ${lightGray(browser[0])} (${lightGray(
             `./dist/${lightGray(browser[0])}`,
           )})`,
-        )}    
+        )}
+        ${
+          browser.length > 1
+            ? `${pmRun} build ${browserList}    ${dim(
+                `generate prod builds for ${lightGray(browserList)}`,
+              )}`
+            : browser
+        }         
         
       ${dim('- - -')} 
 
@@ -443,10 +480,10 @@ export async function makeBed(response: PromptsResponse) {
         ${dim('1.')} cd ${basename(projectPath)}
         ${
           !installDeps
-            ? `${dim('2.')} ${packageManager.toLowerCase()} install`
-            : `${dim(`2.`)} ${pm} dev ${browser[0]}`
+            ? `${dim('2.')} ${pm} install`
+            : `${dim(`2.`)} ${pmRun} dev ${browser[0]}`
         }
-        ${!installDeps ? `${dim(`3.`)} ${pm} dev ${browser[0]}` : ''}
+        ${!installDeps ? `${dim(`3.`)} ${pmRun} dev ${browser[0]}` : ''}
         `)
       })
     } catch (error) {
