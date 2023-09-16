@@ -62,7 +62,7 @@
     "eslint-config-turbo": "^1.10.13",
     "rollup": "^3.29.2",
     "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-dts": "^6.0.1",
+    "rollup-plugin-dts": "^6.0.2",
     "rollup-plugin-esbuild": "^5.0.0",
     "rollup-plugin-string": "^3.0.0",
     "ts-node": "^10.9.1",
