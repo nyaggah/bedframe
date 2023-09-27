@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.36
+
+### Patch Changes
+
+- f40a7ec: fix devtools setPage urls
+
 ## 0.0.35
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.71
+
+### Patch Changes
+
+- f40a7ec: fix devtools setPage urls
+- Updated dependencies [f40a7ec]
+  - @bedframe/core@0.0.36
+
 ## 0.0.70
 
 ### Patch Changes
