@@ -101,8 +101,8 @@ ${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.70",
-    "@bedframe/core": "^0.0.35",
+    "@bedframe/cli": "^0.0.71",
+    "@bedframe/core": "^0.0.36",
     ${
       changesets
         ? `"@changesets/cli": "^2.26.2",
