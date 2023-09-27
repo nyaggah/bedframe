@@ -24,6 +24,7 @@ export function getFonts(fonts: FontFamily[]) {
           name: f.name,
           local: f.local,
           src: f.src,
+          // TO diddly DO: allow for f.transform here. user can have custom transform
           transform(font) {
             if (!fontWeights) return null
             if (font.basename in fontWeights) {

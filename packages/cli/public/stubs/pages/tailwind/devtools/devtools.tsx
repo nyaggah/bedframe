@@ -8,13 +8,13 @@ import '@/styles/style.css'
 chrome.devtools.panels.create(
   'Bedframe (Panel)',
   'assets/icons/icon-128x128.png',
-  'src/pages/devtools/index.html',
+  'pages/devtools/index.html',
 )
 
 chrome.devtools.panels.elements.createSidebarPane(
   'Bedframe (Side Panel)',
   function (panel) {
-    panel.setPage('src/pages/devtools/panel.html')
+    panel.setPage('pages/devtools/panel.html')
     panel.setHeight('8ex')
     panel.setObject({
       data: 'Some data to show',
