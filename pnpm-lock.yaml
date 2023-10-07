@@ -139,8 +139,8 @@ importers:
         specifier: workspace:^
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^1.10.14
-        version: 1.10.14(eslint@8.51.0)
+        specifier: ^1.10.15
+        version: 1.10.15(eslint@8.51.0)
       rollup:
         specifier: ^3.29.4
         version: 3.29.4
@@ -191,8 +191,8 @@ importers:
         specifier: workspace:^
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^1.10.14
-        version: 1.10.14(eslint@8.51.0)
+        specifier: ^1.10.15
+        version: 1.10.15(eslint@8.51.0)
       kolorist:
         specifier: ^1.8.0
         version: 1.8.0
@@ -3407,15 +3407,6 @@ packages:
     dependencies:
       eslint: 8.51.0
 
-  /eslint-config-turbo@1.10.14(eslint@8.51.0):
-    resolution: {integrity: sha512-ZeB+IcuFXy1OICkLuAplVa0euoYbhK+bMEQd0nH9+Lns18lgZRm33mVz/iSoH9VdUzl/1ZmFmoK+RpZc+8R80A==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      eslint: 8.51.0
-      eslint-plugin-turbo: 1.10.14(eslint@8.51.0)
-    dev: true
-
   /eslint-config-turbo@1.10.15(eslint@8.51.0):
     resolution: {integrity: sha512-76mpx2x818JZE26euen14utYcFDxOahZ9NaWA+6Xa4pY2ezVKVschuOxS96EQz3o3ZRSmcgBOapw/gHbN+EKxQ==}
     peerDependencies:
@@ -3423,7 +3414,6 @@ packages:
     dependencies:
       eslint: 8.51.0
       eslint-plugin-turbo: 1.10.15(eslint@8.51.0)
-    dev: false
 
   /eslint-import-resolver-node@0.3.9:
     resolution: {integrity: sha512-WFj2isz22JahUv+B788TlO3N6zL3nNJGU8CcZbPZvVEkBPaJdCV4vy5wyghty5ROFbCRnm132v8BScu5/1BQ8g==}
@@ -3582,15 +3572,6 @@ packages:
       string.prototype.matchall: 4.0.9
     dev: false
 
-  /eslint-plugin-turbo@1.10.14(eslint@8.51.0):
-    resolution: {integrity: sha512-sBdBDnYr9AjT1g4lR3PBkZDonTrMnR4TvuGv5W0OiF7z9az1rI68yj2UHJZvjkwwcGu5mazWA1AfB0oaagpmfg==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      dotenv: 16.0.3
-      eslint: 8.51.0
-    dev: true
-
   /eslint-plugin-turbo@1.10.15(eslint@8.51.0):
     resolution: {integrity: sha512-Tv4QSKV/U56qGcTqS/UgOvb9HcKFmWOQcVh3HEaj7of94lfaENgfrtK48E2CckQf7amhKs1i+imhCsNCKjkQyA==}
     peerDependencies:
@@ -3598,7 +3579,6 @@ packages:
     dependencies:
       dotenv: 16.0.3
       eslint: 8.51.0
-    dev: false
 
   /eslint-scope@7.2.2:
     resolution: {integrity: sha512-dOt21O7lTMhDM+X9mB4GX+DZrZtCUJPL/wlcTqxyrx5IvO0IYtILdtrQGQp+8n5S0gwSVmOf9NQrjMOgfQZlIg==}
