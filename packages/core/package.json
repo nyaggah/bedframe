@@ -42,7 +42,7 @@
     "eslint-config-turbo": "^1.10.15",
     "kolorist": "^1.8.0",
     "rollup": "^3.29.4",
-    "rollup-plugin-node-externals": "^6.1.1",
+    "rollup-plugin-node-externals": "^6.1.2",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
