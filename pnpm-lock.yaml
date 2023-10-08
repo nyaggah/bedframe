@@ -200,8 +200,8 @@ importers:
         specifier: ^3.29.4
         version: 3.29.4
       rollup-plugin-node-externals:
-        specifier: ^6.1.1
-        version: 6.1.1(rollup@3.29.4)
+        specifier: ^6.1.2
+        version: 6.1.2(rollup@3.29.4)
       rollup-plugin-polyfill-node:
         specifier: ^0.12.0
         version: 0.12.0(rollup@3.29.4)
@@ -5887,11 +5887,11 @@ packages:
       - supports-color
     dev: true
 
-  /rollup-plugin-node-externals@6.1.1(rollup@3.29.4):
-    resolution: {integrity: sha512-127OFMkpH5rBVlRHRBDUMk1m1sGuzbGy7so5aj/IkpUb2r3+wOWjR/erUzd2ChEQWPsxsyQG6xpYYvPBAdcBRA==}
+  /rollup-plugin-node-externals@6.1.2(rollup@3.29.4):
+    resolution: {integrity: sha512-2TWan0u0/zHcgPrKpIPgKSY8OMqwDAYD380I0hxx7iUQw8mrN34DWwG9sQUMEo5Yy4xd6/5QEAySYgiKN9fdBQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
-      rollup: ^3.0.0
+      rollup: ^3.0.0 || ^4.0.0
     dependencies:
       rollup: 3.29.4
     dev: true
