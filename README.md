@@ -37,6 +37,8 @@ Make, Version &amp; Publish cross-browser extensions (continously) with ease.
 
 ## Getting Started
 
+Visit [@bedframe/cli getting started guide](https://github.com/nyaggah/bedframe/tree/main/packages/cli#installation)
+
 ```bash
 pnpm add @bedframe/cli -g
 
