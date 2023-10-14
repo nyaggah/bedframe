@@ -78,8 +78,8 @@ importers:
         specifier: workspace:*
         version: link:../core
       commander:
-        specifier: ^11.0.0
-        version: 11.0.0
+        specifier: ^11.1.0
+        version: 11.1.0
       execa:
         specifier: ^8.0.1
         version: 8.0.1
@@ -107,7 +107,7 @@ importers:
     devDependencies:
       '@commander-js/extra-typings':
         specifier: ^11.0.0
-        version: 11.0.0(commander@11.0.0)
+        version: 11.0.0(commander@11.1.0)
       '@rollup/plugin-json':
         specifier: ^6.0.0
         version: 6.0.0(rollup@3.29.4)
@@ -729,12 +729,12 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@commander-js/extra-typings@11.0.0(commander@11.0.0):
+  /@commander-js/extra-typings@11.0.0(commander@11.1.0):
     resolution: {integrity: sha512-06ol6Kn5gPjFY6v0vWOZ84nQwyqhZdaeZCHYH3vhwewjpOEjniF1KHZxh18887G3poWiJ8qyq5pb6ANuiddfPQ==}
     peerDependencies:
       commander: 11.0.x
     dependencies:
-      commander: 11.0.0
+      commander: 11.1.0
     dev: true
 
   /@commitlint/cli@17.7.1:
@@ -2736,6 +2736,11 @@ packages:
 
   /commander@11.0.0:
     resolution: {integrity: sha512-9HMlXtt/BNoYr8ooyjjNRdIilOTkVJXB+GhxMTtOKwk0R4j4lS4NpjuqmRxroBfnfTSHQIHQB7wryHhXarNjmQ==}
+    engines: {node: '>=16'}
+    dev: true
+
+  /commander@11.1.0:
+    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
 
   /commander@9.5.0:

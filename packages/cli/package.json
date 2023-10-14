@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@bedframe/core": "workspace:*",
-    "commander": "^11.0.0",
+    "commander": "^11.1.0",
     "execa": "^8.0.1",
     "kolorist": "^1.8.0",
     "listr": "^0.14.3",
