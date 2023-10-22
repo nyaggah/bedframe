@@ -1,5 +1,15 @@
 # create-bedframe
 
+## 0.0.31
+
+### Patch Changes
+
+- 9234577: bump deps + actually fix issue w/ postcss (hopefully) 🙃
+- Updated dependencies [17aa31f]
+- Updated dependencies [9234577]
+  - @bedframe/cli@0.0.72
+  - @bedframe/core@0.0.37
+
 ## 0.0.30
 
 ### Patch Changes
