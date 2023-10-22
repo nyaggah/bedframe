@@ -101,8 +101,8 @@ ${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.71",
-    "@bedframe/core": "^0.0.36",
+    "@bedframe/cli": "^0.0.72",
+    "@bedframe/core": "^0.0.37",
     ${
       changesets
         ? `"@changesets/cli": "^2.26.2",
@@ -121,8 +121,8 @@ ${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
     "@vitest/coverage-istanbul": "^0.34.3",`
         : ''
     }
-    "@types/node": "^20.5.7",
-    "@types/chrome": "^0.0.244",
+    "@types/node": "^20.8.7",
+    "@types/chrome": "^0.0.248",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/react-frame-component": "^4.1.3",
@@ -165,7 +165,7 @@ ${
     }  
     ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.2.2",` : ''}
     "unplugin-fonts": "^1.0.3",
-    "vite": "^4.4.9"${
+    "vite": "^4.5.0"${
       isStyle.styledComponents
         ? `,
     "vite-plugin-babel-macros": "^1.0.6"`
