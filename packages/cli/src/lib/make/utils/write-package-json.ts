@@ -159,7 +159,7 @@ ${
     ${
       isStyle.tailwind
         ? `"autoprefixer": "^10.4.15",
-    "postcss": "^8.4.29",
+    "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",`
         : ''
     }  
