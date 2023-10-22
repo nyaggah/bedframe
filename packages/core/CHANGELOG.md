@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.37
+
+### Patch Changes
+
+- 9234577: bump deps + actually fix issue w/ postcss (hopefully) 🙃
+
 ## 0.0.36
 
 ### Patch Changes
