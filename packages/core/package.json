@@ -41,7 +41,7 @@
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^1.10.16",
     "kolorist": "^1.8.0",
-    "rollup": "^4.1.4",
+    "rollup": "^4.4.1",
     "rollup-plugin-node-externals": "^6.1.2",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "tslib": "^2.6.2",
