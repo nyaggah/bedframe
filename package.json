@@ -29,7 +29,7 @@
     "@commitlint/config-conventional": "^18.1.0",
     "@types/chrome": "^0.0.251",
     "@types/node": "^20.9.0",
-    "@types/prompts": "^2.4.7",
+    "@types/prompts": "^2.4.8",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.52.0",
