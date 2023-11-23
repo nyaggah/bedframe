@@ -172,8 +172,8 @@ importers:
   packages/core:
     dependencies:
       '@crxjs/vite-plugin':
-        specifier: ^2.0.0-beta.19
-        version: 2.0.0-beta.19
+        specifier: ^2.0.0-beta.21
+        version: 2.0.0-beta.21
     devDependencies:
       '@types/chrome':
         specifier: ^0.0.251
@@ -905,8 +905,8 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@crxjs/vite-plugin@2.0.0-beta.19:
-    resolution: {integrity: sha512-MHJgSwRktpb436ANPoR67cosjCZ6cpq472h4ImAs8POVw8NxZyNMTX4ayoRgTzmCNy2Xve3oOYt/pm+GO9+XfQ==}
+  /@crxjs/vite-plugin@2.0.0-beta.21:
+    resolution: {integrity: sha512-kSXgHHqCXASqJ8NmY94+KLGVwdtkJ0E7KsRQ+vbMpRliJ5ze0xnSk0l41p4txlUysmEoqaeo4Xb7rEFdcU2zjQ==}
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@webcomponents/custom-elements': 1.6.0
