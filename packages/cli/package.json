@@ -45,7 +45,7 @@
     "node-fetch": "^3.3.2",
     "pkg-install": "^1.0.0",
     "prompts": "^2.4.2",
-    "vite": "^4.5.0"
+    "vite": "^4.5.1"
   },
   "devDependencies": {
     "@commander-js/extra-typings": "^11.1.0",
