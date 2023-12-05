@@ -121,8 +121,8 @@ importers:
         specifier: ^0.0.251
         version: 0.0.251
       '@types/listr':
-        specifier: ^0.14.7
-        version: 0.14.7
+        specifier: ^0.14.9
+        version: 0.14.9
       '@types/node':
         specifier: ^20.10.0
         version: 20.10.0
@@ -1997,8 +1997,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: false
 
-  /@types/listr@0.14.7:
-    resolution: {integrity: sha512-NnlutIHVCfJE1BkTKE/qCAmJRV2p+VOf28Wj9ytQ3cEg49enXEShBzoiVXCdZnztpNEh70zxbwZZoS9TEz2Jwg==}
+  /@types/listr@0.14.9:
+    resolution: {integrity: sha512-Ncsy/jtO/HZYrupLGcnp1BOswZVsNvggjIjnf2EZ1xECfU4hxcQ3FWvFEyR+/DXssz0HDm74Op/tEsyrB3eV5w==}
     dependencies:
       '@types/node': 20.10.0
       rxjs: 6.6.7
