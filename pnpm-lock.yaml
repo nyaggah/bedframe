@@ -203,8 +203,8 @@ importers:
         specifier: ^6.1.2
         version: 6.1.2(rollup@4.6.1)
       rollup-plugin-polyfill-node:
-        specifier: ^0.12.0
-        version: 0.12.0(rollup@4.6.1)
+        specifier: ^0.13.0
+        version: 0.13.0(rollup@4.6.1)
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
@@ -6153,10 +6153,10 @@ packages:
       rollup: 4.6.1
     dev: true
 
-  /rollup-plugin-polyfill-node@0.12.0(rollup@4.6.1):
-    resolution: {integrity: sha512-PWEVfDxLEKt8JX1nZ0NkUAgXpkZMTb85rO/Ru9AQ69wYW8VUCfDgP4CGRXXWYni5wDF0vIeR1UoF3Jmw/Lt3Ug==}
+  /rollup-plugin-polyfill-node@0.13.0(rollup@4.6.1):
+    resolution: {integrity: sha512-FYEvpCaD5jGtyBuBFcQImEGmTxDTPbiHjJdrYIp+mFIwgXiXabxvKUK7ZT9P31ozu2Tqm9llYQMRWsfvTMTAOw==}
     peerDependencies:
-      rollup: ^1.20.0 || ^2.0.0 || ^3.0.0
+      rollup: ^1.20.0 || ^2.0.0 || ^3.0.0 || ^4.0.0
     dependencies:
       '@rollup/plugin-inject': 5.0.5(rollup@4.6.1)
       rollup: 4.6.1
