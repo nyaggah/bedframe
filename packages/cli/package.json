@@ -55,7 +55,7 @@
     "@types/chrome": "^0.0.251",
     "@types/listr": "^0.14.9",
     "@types/node": "^20.10.0",
-    "@types/prompts": "^2.4.8",
+    "@types/prompts": "^2.4.9",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "concurrently": "^8.2.2",
     "eslint-config-bedframe": "workspace:^",
