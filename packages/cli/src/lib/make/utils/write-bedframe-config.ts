@@ -47,7 +47,7 @@ export function writeBedframeConfig(response: Answers<string>): void {
   const fileContent = `import { createBedframe } from '@bedframe/core'
 import { manifests } from '../manifests'
 
-export const bedframeConfig = createBedframe({
+export default createBedframe({
   browser: manifests.map((target) => target.browser),
   extension: {
     type: '${extensionType}',
@@ -55,16 +55,17 @@ export const bedframeConfig = createBedframe({
     ${overridePage !== 'none' ? `overrides: '${overridePage}',` : ''}
     options: '${optionsPage}',
     manifest: manifests,
-    pages: {${
-      extensionType === 'sidepanel'
-        ? `welcome: 'src/sidepanels/welcome/index.html',
+    pages: {
+      ${
+        extensionType === 'sidepanel'
+          ? `welcome: 'src/sidepanels/welcome/index.html',
         main: 'src/sidepanels/main/index.html',`
-        : ''
-    }${
-      extensionType === 'devtools'
-        ? `devtools: 'src/pages/devtools/panel.html',`
-        : ''
-    }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
+          : ''
+      }${
+        extensionType === 'devtools'
+          ? `devtools: 'src/pages/devtools/panel.html',`
+          : ''
+      }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
     },    
   },
   development: {
@@ -101,10 +102,11 @@ export const bedframeConfig = createBedframe({
             ? `tests: {
           globals: true,
           setupFiles: ['./_config/tests.config.ts'],
-          environment: 'jsdom',
+          environment: 'happy-dom',
           coverage: {
             provider: 'istanbul',
             reporter: ['text', 'json', 'html'],
+            reportsDirectory: '../coverage',
           },
           watch: false,
         },`
@@ -118,22 +120,6 @@ export const bedframeConfig = createBedframe({
     },
   },
 })
-/**
- *
- * E X P O R T
- * H E L P E R S
- *
- * you can import and destructure these in vite.config.ts
- * directly from the bedframeConfig object.
- * this feels cleaner, si o no?
- *
- */
-
-export const { manifest, pages } = bedframeConfig.extension
-export const {
-  style: { fonts },
-  tests,
-} = bedframeConfig.development.template.config
 
 `
 

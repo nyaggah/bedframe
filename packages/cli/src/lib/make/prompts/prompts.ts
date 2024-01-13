@@ -159,6 +159,11 @@ export const extensionPrompts = (
           value: 'devtools',
           description: dim('requires "devtools" permission'),
         },
+        // {
+        //   title: `Page Override`,
+        //   value: 'pageOverride',
+        //   description: dim("override 'new tab', 'history' or 'bookmarks' page"),
+        // },
       ],
     },
     {
@@ -173,6 +178,7 @@ export const extensionPrompts = (
       ],
     },
     {
+      // type: (prev) => (prev === 'pageOverride' ? 'select' : null), // <--- if the type is page override
       type: 'select',
       name: 'override',
       message: 'Override page:',
@@ -213,12 +219,12 @@ export const extensionPrompts = (
           description: dim(
             "options in browser-native embedded box on extension's management page",
           ),
+          selected: true,
         },
         {
           title: `Full Page`,
           value: 'full-page',
           description: dim('options displayed in a new tab'),
-          selected: true,
         },
         {
           title: 'None',
@@ -226,7 +232,6 @@ export const extensionPrompts = (
           description: dim(
             'no extension options. note: consider giving users options',
           ),
-          selected: true,
         },
       ],
     },
