@@ -1,5 +1,14 @@
 # @bedframe/cli
 
+## 0.0.72
+
+### Patch Changes
+
+- 17aa31f: dep bump; postcss fix
+- 9234577: bump deps + actually fix issue w/ postcss (hopefully) 🙃
+- Updated dependencies [9234577]
+  - @bedframe/core@0.0.37
+
 ## 0.0.71
 
 ### Patch Changes

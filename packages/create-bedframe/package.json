@@ -5,7 +5,7 @@
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
   },
-  "version": "0.0.30",
+  "version": "0.0.31",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -44,9 +44,9 @@
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.0",
     "rollup-plugin-string": "^3.0.0",
-    "typescript": "^5.2.2",
-    "vite": "^4.5.0",
-    "vite-plugin-dts": "^3.6.0"
+    "typescript": "^5.3.3",
+    "vite": "^4.5.1",
+    "vite-plugin-dts": "^3.7.0"
   },
   "lint-staged": {
     "*.{md,mdx,css,html,json,js}": [

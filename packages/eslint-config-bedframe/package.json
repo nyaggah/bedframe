@@ -10,13 +10,13 @@
   "main": "index.js",
   "dependencies": {
     "eslint": "^8.51.0",
-    "eslint-config-next": "13.4.19",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-next": "13.5.6",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "7.33.2",
     "eslint-config-turbo": "latest"
   },
   "devDependencies": {
-    "typescript": "^5.1.6"
+    "typescript": "^5.3.3"
   },
   "repository": {
     "type": "git",
