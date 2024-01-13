@@ -36,12 +36,23 @@ interface SubmissionResponse {
 
 /**
  * Upload to Chrome Web Store
+ *
  * for the time being this function uses
  * chrome-webstore-upload package
  *
- * @param {ChromeUploadConfig} config
- * @param {string} packageName
- * @param {string} packageVersion
+ * @param {ChromeUploadConfig} config `{ extensionId, clientId, clientSecrete, refreshToken }`
+ * @param {string} source
+ *
+ * @example
+ * ```bash
+ *  npx chrome-webstore-upload upload \
+ *  --source ${zipPath} \
+ *  --extension-id ${config.extensionId} \
+ *  --client-id ${config.clientId} \
+ *  --client-secret ${config.clientSecret} \
+ *  --refresh-token ${config.refreshToken}
+ * ```
+ *
  */
 function uploadToChrome(config: ChromeUploadConfig, source: string) {
   const zipName = source
@@ -72,11 +83,25 @@ function uploadToChrome(config: ChromeUploadConfig, source: string) {
  *
  * there's an upstream issue with this api. while the upload
  * will usually succeed, the approval might time out.
- * this func will time out the api after 30000 and error messages should
+ * this func will time out the api after `30_000ms` and error messages should
  * hopefully be useful... check your email for approval confirmation later.
  * or check AMO Dashboard to see if it succeeded 👍
  *
  * @param {FirefoxUploadConfig} config
+ *
+ * @example
+ *
+ *```bash
+ * npx web-ext sign \
+ *   --source-dir ${sourceDir} \ # resolve(join(cwd(), 'dist', 'firefox'))
+ *   --artifacts-dir ${artifactsDir} \ # resolve(join(cwd(), 'dist'))
+ *   --api-key ${config.apiKey} \
+ *   --api-secret ${config.apiSecret} \
+ *   --channel unlisted \
+ *   --timeout 30000  \
+ *   --use-submission-api
+ * ```
+ *
  */
 function uploadToFirefox(config: FirefoxUploadConfig) {
   const sourceDir = resolve(join(cwd(), 'dist', 'firefox'))
@@ -128,7 +153,7 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
 
 /**
  * get access token (jwt) for api calls
- *
+ * ```bash
  *  -X POST \
  *  -H "Content-Type: application/x-www-form-urlencoded" \
  *  -d "client_id=<CLIENT_ID>" \
@@ -137,6 +162,7 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
  *  -d "grant_type=client_credentials" \
  *  -v \
  *  https://login.microsoftonline.com/<PRODUCT_ID>/oauth2/v2.0/token
+ * ```
  *
  * @param {EdgeUploadConfig} config
  * @return {*}  {Promise<string>}
@@ -167,12 +193,13 @@ async function getEdgeAccessToken(config: EdgeUploadConfig): Promise<string> {
 
 /**
  * Upload to MS Edge Add-Ons
+ *
  * currently can only update extension already created
- * in the MS Partner Center Edge Dashboard
+ * in the MS Partner Center Edge Dashboard. so create a project
+ * in the dashboard first, then this workflow should work.
  *
  * @param {EdgeUploadConfig} config
- * @param {string} packageName
- * @param {string} packageVersion
+ * @param {string} source
  */
 async function uploadToEdge(config: EdgeUploadConfig, source: string) {
   try {

@@ -40,7 +40,7 @@ export function writeMVPworkflow(response: Answers<string>) {
   } = development.template.config
 
   const pm = packageManager.toLowerCase()
-  const pmRun = pm === 'npm' ? `${pm} run` : pm
+  const pmRun = pm === 'npm' || pm === 'pnpm' ? `${pm} run` : pm
 
   const workflowPath = resolve(
     join(projectPath, '.github', 'workflows', 'mvp.yml'),
@@ -110,10 +110,7 @@ ${
       - name: 'Unit Test - run unit test suite'
         id: unitTest
         # this expects you to have a package.json script called "test"
-        run: |
-          echo "expects you to have a package.json script called test"
-
-        `
+        run: ${pmRun} test`
     : ''
 }
       - name: 'Codemod - Perform some spaghetti 🤌 🤌 🤌'
@@ -135,8 +132,8 @@ ${
         id: changesets
         uses: changesets/action@v1
         with:
-          # this expects you to have a package.json script called "bedframe:version" that will internally trigger \`changeset version\`.
-          version: ${pmRun} bedframe:version
+          # this expects you to have a package.json script called "version" that will internally trigger \`changeset version\`.
+          version: ${pmRun} version
         env:
           GITHUB_TOKEN: \$\{{ secrets.GITHUB_TOKEN }\}
 
@@ -169,8 +166,7 @@ ${
       - name: 'Create a git release w/ notes & release archive(s)'
         id: gitRelease
         if: steps.changesets.outputs.hasChangesets == 'false' && env.RELEASE_EXISTS != 'true'
-        run: |
-          gh release create \$\{{ steps.package.outputs.PACKAGE_NAME }\}@\$\{{ steps.package.outputs.PACKAGE_VERSION }\} ./dist/*.zip --generate-notes
+        run: ${pmRun} release
         env:
           GITHUB_TOKEN: \$\{{ secrets.GITHUB_TOKEN }\}
           PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
@@ -179,9 +175,8 @@ ${
       - name: '[ P U B L I S H ] : Chrome - upload to Chrome Web Store'
         id: publishChrome
         if: steps.changesets.outputs.hasChangesets == 'false'
-        # this expects you to have a package.json script called "bedframe:publish"
-        run: |
-          ${pmRun} bedframe:publish chrome
+        # this expects you to have a package.json script called "publish"
+        run: ${pmRun} publish chrome
         env:
           ${publishVar.chrome.extensionId}: \$\{{ secrets.${
             publishVar.chrome.extensionId
@@ -201,9 +196,8 @@ ${
       - name: 'Firefox - upload to AMO'
         id: publishFirefox
         if: steps.changesets.outputs.hasChangesets == 'false'
-        # this expects you to have a package.json script called "bedframe:publish"
-        run: |
-          ${pmRun} bedframe:publish firefox
+        # this expects you to have a package.json script called "publish"
+        run: ${pmRun} publish firefox
         env:
           ${publishVar.firefox.key}: \$\{{ secrets.${publishVar.firefox.key} }\}
           ${publishVar.firefox.secret}: \$\{{ secrets.${
@@ -215,9 +209,8 @@ ${
       - name: 'MS Edge - upload to MS Edge Add-ons'
         id: publishEdge
         if: steps.changesets.outputs.hasChangesets == 'false'
-        # this expects you to have a package.json script called "bedframe:publish"
-        run: |
-          ${pmRun} bedframe:publish edge
+        # this expects you to have a package.json script called "publish"
+        run: ${pmRun} publish edge
         env:
           ${publishVar.edge.productId}: \$\{{ secrets.${
             publishVar.edge.productId

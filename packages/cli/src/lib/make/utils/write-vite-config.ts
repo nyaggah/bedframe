@@ -28,10 +28,14 @@ export function viteConfig(response: prompts.Answers<string>): string {
 import react from '@vitejs/plugin-react'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
+import bedframeConfig from "./src/_config/bedframe.config"
 ${styledComponents ? `import macrosPlugin from 'vite-plugin-babel-macros'` : ''}
-import { fonts, manifest as manifests, pages${
-    hasTests ? `, tests` : ''
-  } } from './src/_config/bedframe.config'
+
+const { manifest, pages } = bedframeConfig.extension
+const {
+	style: { fonts },
+  ${hasTests ? 'tests,' : ''}
+} = bedframeConfig.development.template.config  
 
 export default defineConfig(({ command, mode }) => {
   return {
@@ -42,7 +46,7 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     plugins: [
-      getManifest({ command, mode }, manifests),
+      getManifest({ command, mode }, manifest),
       getFonts(fonts),
       react(),
       ${styledComponents ? `macrosPlugin(),` : ''}

@@ -10,6 +10,7 @@ import { writeFile } from './utils.fs'
  * @param {prompts.Answers<string>} response
  */
 export function writePackageJson(response: prompts.Answers<string>): void {
+  const { browser: browsers } = response
   const { manifest, author, license, isPrivate } = response.extension
   const projectName = manifest[0].manifest.name
   const projectAuthor = author
@@ -56,13 +57,13 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   "scripts": {
     "dev": "bedframe dev",
     "build": "tsc && bedframe build",
-    ${changesets ? `"bedframe:version": "bedframe version",` : ''}
+    ${changesets ? `"version": "bedframe version",` : ''}
     ${
       git
-        ? `"git:release": "gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes",`
+        ? `"release": "gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes",`
         : ''
     }
-    "bedframe:publish": "bedframe publish -b",
+    "publish": "bedframe publish -b",
     ${
       lintFormat
         ? `"format": "prettier --write .",
@@ -74,7 +75,11 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     ${commitLint ? `"commit": "lint-staged && cz",` : ''}
     "zip": "bedframe zip",
     "codemod": "bedframe codemod",
-    "convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --no-open --app-name $npm_package_name@$npm_package_version-safari-web-extension",
+    ${
+      browsers.includes('safari')
+        ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --no-open --app-name $npm_package_name@$npm_package_version-safari-web-extension"`
+        : ''
+    }${browsers.includes('safari') && gitHooks ? ',' : ''} 
     ${gitHooks ? `"postinstall": "husky install"` : ''}
   },
   "dependencies": {
@@ -101,8 +106,8 @@ ${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.72",
-    "@bedframe/core": "^0.0.37",
+    "@bedframe/cli": "^0.0.73",
+    "@bedframe/core": "^0.0.38",
     ${
       changesets
         ? `"@changesets/cli": "^2.26.2",
@@ -116,7 +121,7 @@ ${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.5.4",
-    "jsdom": "^22.1.0",
+    "happy-dom": "^12.9.1",
     "vitest": "^0.34.3",
     "@vitest/coverage-istanbul": "^0.34.3",`
         : ''
@@ -231,9 +236,9 @@ ${
     "tabWidth": 2,
     "semi": false,
     "singleQuote": true
-  },`
+  }`
       : ''
-  }
+  }${lintFormat && commitLint ? ',' : ''}
   ${
     commitLint
       ? `"commitlint": {
@@ -245,9 +250,9 @@ ${
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },`
+  }`
       : ''
-  }
+  }${commitLint && gitHooks ? ',' : ''}
   ${
     gitHooks
       ? `"husky": {

@@ -50,7 +50,9 @@
     "vite": "^4.5.0",
     "vite-plugin-babel-macros": "^1.0.6",
     "vite-plugin-dts": "^3.6.0",
-    "vite-plugin-externalize-deps": "^0.7.0",
+    "vite-plugin-externalize-deps": "^0.7.0"
+  },
+  "peerDependencies": {
     "vitest": "^0.34.6"
   },
   "lint-staged": {
