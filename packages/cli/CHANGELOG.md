@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.73
+
+### Patch Changes
+
+- 89225b0: fixes trailing comma issue (cli) + bump deps + minor qol updates
+- Updated dependencies [89225b0]
+  - @bedframe/core@0.0.38
+
 ## 0.0.72
 
 ### Patch Changes
