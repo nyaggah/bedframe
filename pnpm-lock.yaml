@@ -18,8 +18,8 @@ importers:
         specifier: ^18.4.4
         version: 18.4.4
       '@types/chrome':
-        specifier: ^0.0.256
-        version: 0.0.256
+        specifier: ^0.0.258
+        version: 0.0.258
       '@types/node':
         specifier: ^20.11.0
         version: 20.11.0
@@ -118,8 +118,8 @@ importers:
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.9.5)(tslib@2.6.2)(typescript@5.3.3)
       '@types/chrome':
-        specifier: ^0.0.256
-        version: 0.0.256
+        specifier: ^0.0.258
+        version: 0.0.258
       '@types/listr':
         specifier: ^0.14.9
         version: 0.14.9
@@ -185,8 +185,8 @@ importers:
         version: 0.34.6
     devDependencies:
       '@types/chrome':
-        specifier: ^0.0.256
-        version: 0.0.256
+        specifier: ^0.0.258
+        version: 0.0.258
       '@types/node':
         specifier: ^20.11.0
         version: 20.11.0
@@ -1883,8 +1883,8 @@ packages:
     resolution: {integrity: sha512-qQR1dr2rGIHYlJulmr8Ioq3De0Le9E4MJ5AiaeAETJJpndT1uUNHsGFK3L/UIu+rbkQSdj8J/w2bCsBZc/Y5fQ==}
     dev: false
 
-  /@types/chrome@0.0.256:
-    resolution: {integrity: sha512-NleTQw4DNzhPwObLNuQ3i3nvX1rZ1mgnx5FNHc2KP+Cj1fgd3BrT5yQ6Xvs+7H0kNsYxCY+lxhiCwsqq3JwtEg==}
+  /@types/chrome@0.0.258:
+    resolution: {integrity: sha512-vicJi6cg2zaFuLmLY7laG6PHBknjKFusPYlaKQ9Zlycskofy71rStlGvW07MUuqUIVorZf8k5KH+zeTTGcH2dQ==}
     dependencies:
       '@types/filesystem': 0.0.35
       '@types/har-format': 1.2.15
