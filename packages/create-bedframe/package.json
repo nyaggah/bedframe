@@ -42,7 +42,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "rollup-plugin-dts": "^6.1.0",
-    "rollup-plugin-esbuild": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.1",
     "rollup-plugin-string": "^3.0.0",
     "typescript": "^5.3.3",
     "vite": "^4.5.2",
