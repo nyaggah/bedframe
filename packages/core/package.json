@@ -39,7 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint-config-bedframe": "workspace:^",
-    "eslint-config-turbo": "^1.11.3",
+    "eslint-config-turbo": "^1.12.2",
     "kolorist": "^1.8.0",
     "rollup": "^4.9.5",
     "rollup-plugin-node-externals": "^6.1.2",
