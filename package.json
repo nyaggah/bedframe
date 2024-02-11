@@ -28,7 +28,7 @@
     "@commitlint/cli": "^18.6.0",
     "@commitlint/config-conventional": "^18.6.0",
     "@types/chrome": "^0.0.260",
-    "@types/node": "^20.11.16",
+    "@types/node": "^20.11.17",
     "@types/prompts": "^2.4.9",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
