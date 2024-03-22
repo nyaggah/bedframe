@@ -2,7 +2,7 @@ import type { AnyCase, Browser } from '@bedframe/core'
 import { Command } from 'commander'
 import { execa } from 'execa'
 import { dim, lightGreen, magenta } from 'kolorist'
-import { getBrowserArray } from 'src/lib/get-browser-array'
+import { getBrowserArray } from '../lib/get-browser-array'
 
 /**
  * executes command to start vite production build process for 1, more or all browsers
@@ -11,7 +11,7 @@ import { getBrowserArray } from 'src/lib/get-browser-array'
  * @param {AnyCase<Browser>[]} [browsers=[]]
  * @return {*}  {Promise<void>}
  */
-async function executeBuildScript(
+export async function executeBuildScript(
   browsers: AnyCase<Browser>[] = [], // maybe default to `getBrowserList() ?? allBrowsers` here ??
 ): Promise<void> {
   const browserColors = ['magenta', 'green', 'cyan', 'yellow', 'red', 'blue']
@@ -66,5 +66,5 @@ export const buildCommand = new Command('build')
   .arguments('[browsers]')
   .action(async (browser) => {
     const browserArray = getBrowserArray()
-    !browser ? executeBuildScript(browserArray) : executeBuildScript(browser)
+    executeBuildScript(!browser ? browserArray : browser)
   })

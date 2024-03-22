@@ -2,7 +2,7 @@ import type { AnyCase, Browser } from '@bedframe/core'
 import { Command } from 'commander'
 import { execa } from 'execa'
 import { dim, lightGreen, magenta } from 'kolorist'
-import { getBrowserArray } from 'src/lib/get-browser-array'
+import { getBrowserArray } from '../lib/get-browser-array'
 
 /**
  * executes command to start vite development server for 1, more or all browsers

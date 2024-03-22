@@ -5,7 +5,7 @@ import { dim, lightCyan, lightGreen, lightMagenta, lightYellow } from 'kolorist'
 import { readFileSync } from 'node:fs'
 import { basename, join, resolve } from 'node:path'
 import { cwd } from 'node:process'
-import { getBrowserArray } from 'src/lib/get-browser-array'
+import { getBrowserArray } from '../lib/get-browser-array'
 
 /**
  * drop into the dist dir for the browser you want to zip
