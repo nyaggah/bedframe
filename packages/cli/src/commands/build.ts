@@ -12,10 +12,9 @@ import { getBrowserArray } from '../lib/get-browser-array'
  * @return {*}  {Promise<void>}
  */
 export async function executeBuildScript(
-  browsers: AnyCase<Browser>[] = [], // maybe default to `getBrowserList() ?? allBrowsers` here ??
+  browsers: AnyCase<Browser>[] = [],
 ): Promise<void> {
   const browserColors = ['magenta', 'green', 'cyan', 'yellow', 'red', 'blue']
-  // TO diddly DO: ^^^ we have color/ browser helper functions in @bedframe/core... use that
 
   const colorMap: Record<string, string> = {}
   browsers.map((browserName, index) => {
