@@ -1,10 +1,11 @@
-import { Browser, Style } from '@bedframe/core'
+import type { Browser } from '@bedframe/core'
 import { execa } from 'execa'
 import { bold, dim, lightGray, green as lightGreen } from 'kolorist'
-import Listr, { ListrTask } from 'listr'
+import Listr, { type ListrTask } from 'listr'
 import path, { basename } from 'node:path'
+import { promises as fs } from 'node:fs'
 import url from 'node:url'
-import { PromptsResponse } from '../prompts'
+import type { PromptsResponse } from '../prompts'
 import { copyFolder } from './copy-folder'
 import { installDependencies } from './install-deps'
 import { ensureDir } from './utils.fs'
@@ -21,7 +22,7 @@ import { writeViteConfig } from './write-vite-config'
 export async function makeBed(response: PromptsResponse) {
   const { browser } = response
   const { name: projectName, path: projectPath } = response.extension.name
-  const { language, lintFormat, style, tests, git, gitHooks, changesets } =
+  const { language, lintFormat, tests, git, gitHooks, changesets } =
     response.development.template.config
   const { installDeps } = response.development.config
 
@@ -46,90 +47,58 @@ export async function makeBed(response: PromptsResponse) {
           viteClientTypes: path.join(stubsPath, 'misc'),
         },
         assets: path.join(stubsPath, 'assets'),
-        pages: (style: Style) => {
-          return {
-            popup: path.join(
-              stubsPath,
-              'pages',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'popup',
-            ),
-            newtab: path.join(
-              stubsPath,
-              'pages',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'newtab',
-            ),
-            options: path.join(
-              stubsPath,
-              'pages',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'options',
-            ),
-            history: path.join(
-              stubsPath,
-              'pages',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'history',
-            ),
-            devtools: path.join(
-              stubsPath,
-              'pages',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'devtools',
-            ),
-            bookmarks: path.join(
-              stubsPath,
-              'pages',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'bookmarks',
-            ),
-          }
+        pages: {
+          main: path.join(stubsPath, 'pages', 'main.html'),
+          devtools: path.join(stubsPath, 'pages', 'devtools.html'),
+          devtoolsPanel: path.join(stubsPath, 'pages', 'devtools-panel.html'),
+          sidepanelWelcome: path.join(
+            stubsPath,
+            'pages',
+            'sidepanel-welcome.html',
+          ),
+          sidepanelMain: path.join(stubsPath, 'pages', 'sidepanel-main.html'),
+          options: path.join(stubsPath, 'pages', 'options.html'),
+          newtab: path.join(stubsPath, 'pages', 'newtab.html'),
+          history: path.join(stubsPath, 'pages', 'history.html'),
+          bookmarks: path.join(stubsPath, 'pages', 'bookmarks.html'),
         },
-        sidepanels: path.join(stubsPath, 'sidepanels'),
+        messages: path.join(stubsPath, 'messages'),
         tsconfig: path.join(stubsPath, 'tsconfig'),
         style: {
-          styledComponents: path.join(stubsPath, 'style', 'styled-components'),
-          tailwind: {
-            base: path.join(stubsPath, 'style', 'tailwind', 'styles'),
-            config: path.join(stubsPath, 'style', 'tailwind', 'config'),
-            shadcn: path.join(stubsPath, 'style', 'tailwind', 'shadcn'),
-          },
+          base: path.join(stubsPath, 'style', 'styles'),
+          config: path.join(stubsPath, 'style', 'config'),
+          shadcn: path.join(stubsPath, 'style', 'shadcn'),
         },
         scripts: path.join(stubsPath, 'scripts'),
         lintFormat: path.join(stubsPath, 'lint-format'),
         github: path.join(stubsPath, 'github'),
         gitHooks: path.join(stubsPath, 'git-hooks'),
-        tests: path.join(stubsPath, 'tests'),
+        testConfig: path.join(stubsPath, 'test-config'),
+        tests: {
+          app: path.join(stubsPath, 'tests', 'app.test.tsx'),
+        },
         changesets: path.join(stubsPath, 'changesets'),
         vscode: path.join(stubsPath, 'vscode'),
-        components: (style: Style) => {
-          return {
-            app: path.join(
-              stubsPath,
-              'components',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'App',
-            ),
-            iframe: path.join(
-              stubsPath,
-              'components',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'Iframe',
-            ),
-            intro: path.join(
-              stubsPath,
-              'components',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'Intro',
-            ),
-            layout: path.join(
-              stubsPath,
-              'components',
-              style.trim().replace(/\s+/g, '-').toLowerCase(),
-              'Layout',
-            ),
-          }
+        components: {
+          app: path.join(stubsPath, 'components', 'app.tsx'),
+          bookmarks: path.join(stubsPath, 'components', 'bookmarks.tsx'),
+          devtools: path.join(stubsPath, 'components', 'devtools.tsx'),
+          history: path.join(stubsPath, 'components', 'history.tsx'),
+          intro: path.join(stubsPath, 'components', 'intro.tsx'),
+          layout: path.join(stubsPath, 'components', 'layout.tsx'),
+          main: path.join(stubsPath, 'components', 'main.tsx'),
+          newtab: path.join(stubsPath, 'components', 'newtab.tsx'),
+          options: path.join(stubsPath, 'components', 'options.tsx'),
+          sidepanelMain: path.join(
+            stubsPath,
+            'components',
+            'sidepanel-main.tsx',
+          ),
+          sidepanelWelcome: path.join(
+            stubsPath,
+            'components',
+            'sidepanel-welcome.tsx',
+          ),
         },
       }
 
@@ -137,10 +106,12 @@ export async function makeBed(response: PromptsResponse) {
         overridePage: string,
         stubSrc: string,
       ): Promise<void> => {
-        await copyFolder(
-          stubSrc,
-          path.join(projectPath, 'src', 'pages', overridePage),
-        )
+        const pagesDir = path.join(projectPath, 'src', 'pages')
+        ensureDir(pagesDir)
+          .then(() =>
+            fs.copyFile(stubSrc, path.join(pagesDir, `${overridePage}.html`)),
+          )
+          .catch(console.error)
       }
 
       const getOverridePage = (
@@ -151,11 +122,11 @@ export async function makeBed(response: PromptsResponse) {
       } => {
         switch (overridePage) {
           case 'history':
-            return { name: 'history', path: stubs.pages(style).history }
+            return { name: 'history', path: stubs.pages.history }
           case 'newtab':
-            return { name: 'newtab', path: stubs.pages(style).newtab }
+            return { name: 'newtab', path: stubs.pages.newtab }
           case 'bookmarks':
-            return { name: 'bookmarks', path: stubs.pages(style).bookmarks }
+            return { name: 'bookmarks', path: stubs.pages.bookmarks }
           default:
             return { name: '', path: '' }
         }
@@ -229,18 +200,31 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('│ │ ├ ○')} shadcn.config${dim('.ts')}`,
-            enabled: () => style === 'Tailwind',
             task: () =>
               copyFolder(
-                stubs.style.tailwind.shadcn,
+                stubs.style.shadcn,
                 path.join(projectPath, 'src', '_config'),
               ),
           },
           {
             title: `  ${dim('│ │ └ ○')} tests.config${dim('.ts')}`,
             enabled: () => tests,
-            task: () =>
-              copyFolder(stubs.tests, path.join(projectPath, 'src', '_config')),
+            task: async () => {
+              copyFolder(
+                stubs.testConfig,
+                path.join(projectPath, 'src', '_config'),
+              )
+
+              try {
+                const testDir = path.join(projectPath, 'src', '__tests__')
+                const destinationPath = path.join(testDir, 'app.test.tsx')
+                ensureDir(testDir)
+                  .then(() => fs.copyFile(stubs.tests.app, destinationPath))
+                  .catch((error) => console.error(error))
+              } catch (error) {
+                console.error(error)
+              }
+            },
           },
           {
             title: `  ${dim('│ ├ ○')} assets${dim('/')}`,
@@ -258,25 +242,67 @@ export async function makeBed(response: PromptsResponse) {
           {
             title: `  ${dim('│ ├ ○')} components${dim('/')}`,
             task: () => {
-              const component = stubs.components(style)
-              copyFolder(
-                component.app,
-                path.join(projectPath, 'src', 'components', 'App'),
-              )
-              copyFolder(
-                component.intro,
-                path.join(projectPath, 'src', 'components', 'Intro'),
-              )
-              copyFolder(
-                component.layout,
-                path.join(projectPath, 'src', 'components', 'Layout'),
-              )
-              extensionType === 'overlay'
-                ? copyFolder(
-                    component.iframe,
-                    path.join(projectPath, 'src', 'components', 'Iframe'),
-                  )
-                : Promise.resolve()
+              const componentsDir = path.join(projectPath, 'src', 'components')
+              try {
+                ensureDir(componentsDir)
+                  .then(() => {
+                    fs.copyFile(
+                      stubs.components.app,
+                      path.join(componentsDir, 'app.tsx'),
+                    )
+                    fs.copyFile(
+                      stubs.components.layout,
+                      path.join(componentsDir, 'layout.tsx'),
+                    )
+                    fs.copyFile(
+                      stubs.components.intro,
+                      path.join(componentsDir, 'intro.tsx'),
+                    )
+                    if (overridePage === 'newtab') {
+                      fs.copyFile(
+                        stubs.components.newtab,
+                        path.join(componentsDir, 'newtab.tsx'),
+                      )
+                    }
+                    if (overridePage === 'history') {
+                      fs.copyFile(
+                        stubs.components.history,
+                        path.join(componentsDir, 'history.tsx'),
+                      )
+                    }
+                    if (overridePage === 'bookmarks') {
+                      fs.copyFile(
+                        stubs.components.bookmarks,
+                        path.join(componentsDir, 'bookmarks.tsx'),
+                      )
+                    }
+                    if (extensionType === 'sidepanel') {
+                      fs.copyFile(
+                        stubs.components.sidepanelMain,
+                        path.join(componentsDir, 'sidepanel-main.tsx'),
+                      )
+                      fs.copyFile(
+                        stubs.components.sidepanelWelcome,
+                        path.join(componentsDir, 'sidepanel-welcome.tsx'),
+                      )
+                    }
+                    if (extensionType === 'devtools') {
+                      fs.copyFile(
+                        stubs.components.devtools,
+                        path.join(componentsDir, 'devtools.tsx'),
+                      )
+                    }
+                    if (optionsPage !== 'none') {
+                      fs.copyFile(
+                        stubs.components.options,
+                        path.join(componentsDir, 'options.tsx'),
+                      )
+                    }
+                  })
+                  .catch((error) => console.error(error))
+              } catch (error) {
+                console.error(error)
+              }
             },
           },
           {
@@ -285,54 +311,52 @@ export async function makeBed(response: PromptsResponse) {
           },
           ...manifestTasksFrom(browser),
           {
+            title: `  ${dim('│ ├ ○')} messages${dim('/')}`,
+            enabled: () => extensionType === 'overlay',
+            task: () =>
+              copyFolder(
+                stubs.messages,
+                path.join(projectPath, 'src', 'messages'),
+              ),
+          },
+          {
             title: `  ${dim('│ ├ ○')} pages${dim('/')}`,
-            enabled: () => extensionType === 'popup',
-            task: () =>
-              copyFolder(
-                stubs.pages(style).popup,
-                path.join(projectPath, 'src', 'pages', 'popup'),
-              ),
-          },
-          {
-            title: `  ${dim('│ ├ ○')} pages${dim('/')}`,
-            enabled: () => extensionType !== 'popup',
-            task: () => {},
-          },
-          {
-            title: `  ${dim('│ │ ├ ○')} devtools${dim('/')}`,
-            enabled: () => extensionType === 'devtools',
-            task: () =>
-              copyFolder(
-                stubs.pages(style).devtools,
-                path.join(projectPath, 'src', 'pages', 'devtools'),
-              ),
-          },
-          {
-            title: `  ${dim('│ │ ├ ○')} ${
-              getOverridePage(overridePage).name
-            }${dim('/')}`,
-            enabled: () => overridePage !== 'none',
-            task: () =>
-              copyOverridePage(
-                overridePage,
-                getOverridePage(overridePage).path,
-              ),
-          },
-          {
-            title: `  ${dim('│ │ └ ○')} options${dim('/')}`,
-            enabled: () => optionsPage !== 'none',
-            task: () =>
-              copyFolder(
-                stubs.pages(style).options,
-                path.join(projectPath, 'src', 'pages', 'options'),
-              ),
+            task: () => {
+              const pagesDir = path.join(projectPath, 'src', 'pages')
+              const componentsDir = path.join(projectPath, 'src', 'components')
+              if (extensionType === 'popup' || extensionType === 'overlay') {
+                ensureDir(pagesDir)
+                  .then(() => {
+                    fs.copyFile(
+                      stubs.pages.main,
+                      path.join(pagesDir, 'main.html'),
+                    )
+                    fs.copyFile(
+                      stubs.components.main,
+                      path.join(componentsDir, 'main.tsx'),
+                    )
+                  })
+                  .catch((error) => console.error(error))
+              }
+              copyOverridePage(overridePage, getOverridePage(overridePage).path)
+              if (optionsPage !== 'none') {
+                ensureDir(pagesDir)
+                  .then(() => {
+                    fs.copyFile(
+                      stubs.pages.options,
+                      path.join(pagesDir, 'options.html'),
+                    )
+                  })
+                  .catch((error) => console.error(error))
+              }
+            },
           },
           {
             title: `  ${dim('│ ├ ○')} scripts${dim('/')}`,
             task: () => {},
           },
           {
-            title: `  ${dim('│ ├ ├ ○')} background${dim('.ts')}`,
+            title: `  ${dim('│ ├ ├ ○')} service-worker${dim('.ts')}`,
             task: () => writeServiceWorker(response),
           },
           {
@@ -351,19 +375,9 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('│ └ ○')} styles${dim('/')}`,
-            enabled: () => style === 'Styled Components',
-            task: () =>
-              copyFolder(
-                stubs.style.styledComponents,
-                path.join(projectPath, 'src'),
-              ),
-          },
-          {
-            title: `  ${dim('│ └ ○')} styles${dim('/')}`,
-            enabled: () => style === 'Tailwind',
             task: () => {
               copyFolder(
-                stubs.style.tailwind.base,
+                stubs.style.base,
                 path.join(projectPath, 'src', 'styles'),
               )
             },
@@ -380,12 +394,10 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('├ ○')} components${dim('.json')}`,
-            enabled: () => style === 'Tailwind',
             task: () => {},
           },
           {
             title: `  ${dim('├ ○')} postcss.config${dim('.ts')}`,
-            enabled: () => style === 'Tailwind',
             task: () => {},
           },
           {
@@ -398,9 +410,8 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('├ ○')} tailwind.config${dim('.ts')}`,
-            enabled: () => style === 'Tailwind',
             task: () => {
-              copyFolder(stubs.style.tailwind.config, projectPath)
+              copyFolder(stubs.style.config, projectPath)
             },
           },
           {
@@ -481,9 +492,9 @@ export async function makeBed(response: PromptsResponse) {
         ${
           !installDeps
             ? `${dim('2.')} ${pm} install`
-            : `${dim(`2.`)} ${pmRun} dev ${browser[0]}`
+            : `${dim('2.')} ${pmRun} dev ${browser[0]}`
         }
-        ${!installDeps ? `${dim(`3.`)} ${pmRun} dev ${browser[0]}` : ''}
+        ${!installDeps ? `${dim('3.')} ${pmRun} dev ${browser[0]}` : ''}
         `)
       })
     } catch (error) {

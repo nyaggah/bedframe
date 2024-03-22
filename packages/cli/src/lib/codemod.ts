@@ -1,4 +1,4 @@
-import { Manifest } from '@bedframe/core'
+import type { Manifest } from '@bedframe/core'
 import { dim, lightGreen, lightRed } from 'kolorist'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -9,9 +9,10 @@ export function modifyManifestForFirefox(
 ): void {
   try {
     const manifestJson = path.join(browserSpecificDistDir, 'manifest.json')
-    const manifestContent: Manifest | Record<string, any> = JSON.parse(
+    // const manifestContent: Manifest | Record<string, any> = JSON.parse(
+    const manifestContent = JSON.parse(
       fs.readFileSync(manifestJson, 'utf-8'),
-    )
+    ) satisfies Manifest
 
     console.log('\n- - - - - - - - - \n')
     console.log(`C O D E M O D : ${browser} manifest\n`)
@@ -27,6 +28,7 @@ and feature code but ideally this should happen within the vite/crx dev/build pr
 but... until then... spaghetti-ville!\n`),
     )
 
+    manifestContent
     // Modify the "background" section
     if (manifestContent.background) {
       if (manifestContent.background.service_worker) {

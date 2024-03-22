@@ -1,10 +1,8 @@
-import { AnyCase, Browser } from '@bedframe/core'
+import type { AnyCase, Browser } from '@bedframe/core'
 import { Command } from 'commander'
 import { execa } from 'execa'
 import { dim, lightGreen, magenta } from 'kolorist'
-import fs from 'node:fs'
-import { join } from 'node:path'
-import { cwd } from 'node:process'
+import { getBrowserArray } from 'src/lib/get-browser-array'
 
 /**
  * executes command to start vite development server for 1, more or all browsers
@@ -37,7 +35,7 @@ async function executeDevScript(
           .map((name) => `\"vite --mode ${name}\"`)
           .join('')}`
 
-  console.log(dim('command [dev]:'), lightGreen(command) + '\n')
+  console.log(dim('command [dev]:'), `${lightGreen(command)}\n`)
   if (browsers.length > 1) {
     console.log(
       dim(`
@@ -95,51 +93,7 @@ export const devCommand = new Command('dev')
   .description('start Vite dev server for one or more browsers concurrently')
   .arguments('[browsers]')
   .action(async (browser) => {
-    const manifestsIndex = join(cwd(), 'src', 'manifests', 'index.ts')
-    fs.readFile(manifestsIndex, 'utf-8', (err, data) => {
-      if (err) {
-        console.error('error reading the file:', err)
-        return
-      }
+    const browserArray = getBrowserArray()
 
-      const searchIndex = {
-        start: data.indexOf('['),
-        end: data.indexOf(']'),
-      }
-      // ^^ search for this ---> [chrome, brave, opera, edge, firefox, safari]
-
-      if (
-        searchIndex.start === -1 ||
-        searchIndex.end === -1 ||
-        searchIndex.end <= searchIndex.start
-      ) {
-        console.error('manifests array not found in the file.')
-        // TO diddly DO: include helpful message... solutions
-        // e.g. do you have file in expected location? etc.
-        return
-      }
-
-      if (browser && !Array.isArray(browser) && browser.length > 1) {
-        // if e.g. command is `bedframe dev safari,edge,firefox`
-        // then 'browser' will be 'safari,edge,firefox' as Browser[]
-        browser = browser
-          .split(',')
-          .map((browser: AnyCase<Browser>) => browser.trim().toLowerCase())
-      }
-
-      const manifestsArrayText = data
-        .substring(searchIndex.start, searchIndex.end + 1)
-        .toLowerCase()
-
-      const _array = manifestsArrayText
-        .trim()
-        .slice(1, -1)
-        .split(',') as AnyCase<Browser>[]
-
-      const browserArray = _array.map((browser: AnyCase<Browser>) =>
-        browser.trim().toLowerCase(),
-      ) as AnyCase<Browser>[]
-
-      !browser ? executeDevScript(browserArray) : executeDevScript(browser)
-    })
+    !browser ? executeDevScript(browserArray) : executeDevScript(browser)
   })

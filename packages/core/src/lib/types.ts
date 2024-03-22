@@ -1,4 +1,5 @@
-import { AnyCase, createEnum } from './utils'
+import type { ManifestV3Export } from '@crxjs/vite-plugin'
+import { type AnyCase, createEnum } from './utils'
 
 export const FrameworkEnum = {
   React: 'React',
@@ -25,16 +26,25 @@ const LanguageEnum = {
 
 export const StyleEnum = {
   Tailwind: 'Tailwind',
-  'Styled Components': 'Styled Components',
 } as const
 
 export const PackageManagerEnum = {
+  // Bun: "Bun", // https://youtu.be/fmpw7fO8iFs?si=KBXSZerQRCdQ0U1c&t=25
   PnPm: 'PnPm',
   Npm: 'Npm',
   Yarn: 'Yarn',
 } as const
 
-export type Manifest = chrome.runtime.ManifestV3
+export type Manifest = ManifestV3Export & {
+  browser_specific_settings?: {
+    gecko?: {
+      id: string
+      strict_min_version?: string
+      strict_max_version?: string
+    }
+  }
+}
+
 export type ManifestIcons = chrome.runtime.ManifestIcons
 export type ManifestBackground = chrome.runtime.ManifestV3['background']
 export type ManifestContentScripts =
@@ -53,7 +63,6 @@ export type BrowserEnumType<T extends string> = {
   [browser in BrowserName<T>]: BrowserName<T>
 }
 
-// vite.config crx({manifest}) config
 export type BuildMode = AnyCase<Browser>
 export type BuildTarget = {
   manifest: Manifest
@@ -62,18 +71,17 @@ export type BuildTarget = {
 export type BuildConfig = {
   command?: 'build' | 'serve'
   mode?: AnyCase<Browser> | string | undefined
-  // ^^^ `Browser` for @bedframe-specific build modes... rest for vite and pals
 }
 
 export interface Repository {
-  type: string // will be set to 'git' if user selects to user --source-control=git
-  url?: string // valid git repo URL
+  type: string
+  url?: string
   bugs?: Bugs
 }
 
 export interface Bugs {
-  url?: string // valid  URL
-  email?: string // validate
+  url?: string
+  email?: string
 }
 
 export type Browser = (typeof BrowserEnum)[keyof typeof BrowserEnum]

@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { Answers } from 'prompts'
+import type { Answers } from 'prompts'
 import { ensureDir, ensureFile, outputFile } from './utils.fs'
 
 /**
@@ -9,8 +9,7 @@ import { ensureDir, ensureFile, outputFile } from './utils.fs'
  * @return {*}  {string}
  */
 const getOverridePage = (overridePage: string): string => {
-  // return `${overridePage}: resolve(src, 'pages', '${overridePage}', 'index.html'),\n`
-  return `${overridePage}: 'src/pages/${overridePage}/index.html',\n`
+  return `${overridePage}: 'src/pages/${overridePage}.html',\n`
 }
 
 /**
@@ -40,7 +39,7 @@ export function writeBedframeConfig(response: Answers<string>): void {
     type,
     name,
   } = response.extension
-  const { name: extensionType, position } = type
+  const { name: extensionType } = type
 
   const isTailwind = style === 'Tailwind'
 
@@ -51,19 +50,18 @@ export default createBedframe({
   browser: manifests.map((target) => target.browser),
   extension: {
     type: '${extensionType}',
-    ${position ? `position: '${position}',` : ''}
-    ${overridePage !== 'none' ? `overrides: '${overridePage}',` : ''}
+    ${overridePage ? `overrides: '${overridePage}',` : 'none'}
     options: '${optionsPage}',
     manifest: manifests,
     pages: {
       ${
         extensionType === 'sidepanel'
-          ? `welcome: 'src/sidepanels/welcome/index.html',
-        main: 'src/sidepanels/main/index.html',`
+          ? `welcome: 'src/pages/sidepanel-welcome.html',
+        main: 'src/pages/sidepanel-main.html',`
           : ''
-      }${
+      }${extensionType === 'overlay' ? `overlay: 'src/pages/main.html',` : ''}${
         extensionType === 'devtools'
-          ? `devtools: 'src/pages/devtools/panel.html',`
+          ? `devtools: 'src/pages/devtools.html',`
           : ''
       }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
     },    
@@ -130,7 +128,7 @@ export default createBedframe({
     ensureDir(configDir)
       .then(() => {
         ensureFile(configFilePath).then(() =>
-          outputFile(configFilePath, fileContent + '\n'),
+          outputFile(configFilePath, `${fileContent}\n`),
         )
       })
       .catch((error) => console.error(error))

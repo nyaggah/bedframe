@@ -1,5 +1,5 @@
 import { join, resolve } from 'node:path'
-import prompts from 'prompts'
+import type prompts from 'prompts'
 import { ensureFile, outputFile } from './utils.fs'
 
 export function writeReadMe(response: prompts.Answers<string>): void {
@@ -36,7 +36,7 @@ ${backTicks}bash
   │ │ ├ ○ newtab/
   │ │ └ ○ options/
   │ ├ ○ scripts/
-  │ ├ └ ○ background.ts
+  │ ├ └ ○ service-worker.ts
   │ └ ○ styles/
   ├ .gitignore
   ├ .prettierignore

@@ -1,6 +1,6 @@
-import { Browser } from '@bedframe/core'
+import type { Browser } from '@bedframe/core'
 import path, { join } from 'node:path'
-import { Answers } from 'prompts'
+import type { Answers } from 'prompts'
 import { ensureDir, ensureFile, outputFile } from './utils.fs'
 
 export function writeBaseManifest(response: Answers<string>): string {
@@ -11,10 +11,10 @@ export function writeBaseManifest(response: Answers<string>): string {
   } = response.extension
   const { name: extensionType } = type
 
-  return `import { createManifestBase } from '@bedframe/core'
+  return `import { type Manifest, createManifestBase } from '@bedframe/core'
 import pkg from '../../package.json'
 
-export default createManifestBase({
+export const baseManifest: Manifest = createManifestBase({
   // Required
   // - - - - - - - - -
   name: pkg.name,
@@ -38,48 +38,42 @@ export default createManifestBase({
       128: 'assets/icons/icon-128x128.png',
     },
     default_title: pkg.name,
-    ${
-      extensionType === 'popup'
-        ? `default_popup: 'pages/popup/index.html',`
-        : ''
-    }
+    ${extensionType === 'popup' ? `default_popup: 'pages/main.html',` : ''}
   },
 
   // Optional
   // - - - - - - - - -
-  ${response.extension.author.email ? `author: pkg.author.email,` : ``}
+  ${response.extension.author.email ? 'author: pkg.author.email,' : ''}
   background: {
-    service_worker: 'scripts/background.ts',
+    service_worker: 'scripts/service-worker.ts',
     type: 'module',
   },
   ${
     extensionType === 'sidepanel'
       ? `side_panel: {
-    default_path: 'sidepanels/welcome/index.html',
+    default_path: 'pages/sidepanel-main.html',
   },`
-      : ``
+      : ''
   }
   ${
     optionsPage === 'full-page'
-      ? `options_page: 'pages/options/index.html',`
+      ? `options_page: 'pages/options.html',`
       : optionsPage === 'embedded'
-      ? `options_ui: {
-    page: 'pages/options/index.html',
+        ? `options_ui: {
+    page: 'pages/options.html',
     open_in_tab: false,
   },`
-      : ``
+        : ''
   }
   ${
-    extensionType === 'devtools'
-      ? `devtools_page: 'pages/devtools/index.html',`
-      : ``
+    extensionType === 'devtools' ? `devtools_page: 'pages/devtools.html',` : ''
   }  
   ${
     overridePage !== 'none'
       ? `chrome_url_overrides: {
-    ${`${overridePage}: 'pages/${overridePage}/index.html',`}
+    ${`${overridePage}: 'pages/${overridePage}.html',`}
   },`
-      : ``
+      : ''
   }    
   ${
     response.extension.type.name === 'overlay'
@@ -89,11 +83,11 @@ export default createManifestBase({
       matches: ['<all_urls>'],
     },
   ],`
-      : ``
+      : ''
   }
   web_accessible_resources: [
     {
-      resources: ['assets/icons/*.png', 'assets/fonts/inter/*.ttf'],
+      resources: ['assets/*', 'pages/*'],
       matches: ['<all_urls>'],
     },
   ],
@@ -113,7 +107,7 @@ export default createManifestBase({
       response.extension.type.name === 'sidepanel'
         ? `, 
     'sidePanel'`
-        : ``
+        : ''
     } 
   ],
 })
@@ -133,13 +127,12 @@ export function manifestForBrowser(
   const { name: extensionType } = type
 
   const optionsUIorPage =
-    optionsPage === 'embedded' ? `options_ui` : `options_page`
-  const firefoxManifest = `import { createManifest } from '@bedframe/core'
-import baseManifest from './base.manifest'
+    optionsPage === 'embedded' ? 'options_ui' : 'options_page'
+  const firefoxManifest = `import { type Manifest, createManifest } from '@bedframe/core'
+import { baseManifest } from './base.manifest'
 
-let { permissions } = baseManifest
 const { ${optionsUIorPage}${
-    extensionType === 'sidepanel' ? `, side_panel` : ''
+    extensionType === 'sidepanel' ? ', side_panel' : ''
   }, ...rest } = baseManifest
   
 ${
@@ -154,102 +147,57 @@ ${
 ${
   optionsPage === 'full-page' || optionsPage === 'embedded'
     ? `const optionsUI = {
-  page: ${optionsPage === 'full-page' ? `options_page` : 'options_ui.page'},
+  page: ${optionsPage === 'full-page' ? 'options_page' : 'options_ui.page'},
 }`
     : ''
 }
 
-permissions = ['activeTab']
-
 export const firefox = createManifest(
   {
     ...rest,
-    ${extensionType === 'sidepanel' ? `sidebar_action: sidePanel,` : ''}
+    ${extensionType === 'sidepanel' ? 'sidebar_action: sidePanel,' : ''}
     browser_specific_settings: {
       gecko: {
         id: 'bedframe-${projectName
           .trim()
           .replace(/\s+/g, '-')
-          .toLowerCase()}', // <--- update as necessary
+          .toLowerCase()}', 
+          // ^^^ unique ID that is used to distinguish one add-on from any other Firefox add-on
+          //  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings#examples
+          //  - https://extensionworkshop.com/documentation/develop/extensions-and-the-add-on-id/#when-do-you-need-an-add-on-id          
       },
     },
     ${
       optionsPage === 'full-page' || optionsPage === 'embedded'
-        ? `options_ui: optionsUI,`
+        ? 'options_ui: optionsUI,'
         : ''
     }
-    permissions,
-  },
+  } as Manifest,
   'firefox',
 )
 
-/*
-  N O T E :
-
-  Sidebar Action:
-    - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/sidebar_action
-    - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Sidebars#specifying_sidebars
-  Browser Specific Settings
-    - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings#examples
-    - https://extensionworkshop.com/documentation/develop/extensions-and-the-add-on-id/#when-do-you-need-an-add-on-id
-*/
 `
   const isFirefox = browser.toLowerCase() === 'firefox'
   return isFirefox
     ? firefoxManifest
     : `import { createManifest } from '@bedframe/core'
-import baseManifest from './base.manifest'
+import { baseManifest } from './base.manifest'
 
-export const ${browser.toLowerCase()} = createManifest(
-  {
-    ...baseManifest,
-  },
-  '${browser.toLowerCase()}'
-)
+export const ${browser.toLowerCase()} = createManifest(baseManifest,'${browser.toLowerCase()}')
 
 `
-}
-
-export function manifestIndexFile(browsers: Browser[]): string | string[] {
-  if (browsers.length > 1) {
-    const manifestImports = browsers
-      .map(
-        (browser) =>
-          `import { ${browser.toLowerCase()} } from './${browser.toLowerCase()}'`,
-      )
-      .toString()
-      .replace(/,/g, '\n')
-
-    const manifestExports = `
-export const manifests = [
-  ${browsers}
-]`
-    return `${manifestImports}\n${manifestExports}`
-  }
-
-  return `
-  import { ${browsers[0].toLowerCase()} } from './${browsers[0].toLowerCase()}'
-  export const manifests = [ ${browsers[0].toLowerCase()} ]
-  `
 }
 
 export async function writeManifests(response: Answers<string>): Promise<void> {
   const { browser: browsers, extension } = response
   const manifestDir = path.resolve(extension.name.path, 'src', 'manifests')
   const manifestBasePath = path.join(manifestDir, 'base.manifest.ts')
-  const manifestIndexPath = path.join(manifestDir, 'index.ts')
 
   try {
     const promises = browsers.map(async (browser: Browser) => {
       const manifestPath = path.join(manifestDir, `${browser.toLowerCase()}.ts`)
       ensureDir(join(manifestDir))
         .then(() => {
-          ensureFile(manifestIndexPath)
-            .then(() =>
-              outputFile(manifestIndexPath, `${manifestIndexFile(browsers)}\n`),
-            )
-            .catch((error) => console.error(error))
-
           ensureFile(manifestBasePath)
             .then(() =>
               outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),

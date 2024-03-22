@@ -6,9 +6,9 @@ import {
   dim,
   bold,
 } from 'kolorist'
-import { ManifestV3Export, crx } from '@crxjs/vite-plugin'
-import { Browser, BuildConfig, BuildTarget } from './types'
-import { PluginOption } from 'vite'
+import { type ManifestV3Export, crx } from '@crxjs/vite-plugin'
+import { Browser, type BuildConfig, type BuildTarget } from './types'
+import type { PluginOption } from 'vite'
 
 /**
  * Given the {@link Mode} i.e. {@link Browser} target,

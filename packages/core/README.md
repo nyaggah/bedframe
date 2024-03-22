@@ -92,9 +92,9 @@ bedframe-project/
 │  │  ├─ chrome.ts
 │  │  ├─ index.ts
 │  ├─ pages/
-│  │  ├─ popup/
-│  │  │  ├─ popup.ts
-│  │  │  ├─ popup.html
+│  │  ├─ main/
+│  │  │  ├─ main.ts
+│  │  │  ├─ main.html
 │  │  ├─ options/
 │  │  │  ├─ options.ts
 │  │  │  ├─ options.html
