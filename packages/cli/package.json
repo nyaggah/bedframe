@@ -59,7 +59,7 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "concurrently": "^8.2.2",
     "eslint-config-bedframe": "workspace:^",
-    "eslint-config-turbo": "^1.12.4",
+    "eslint-config-turbo": "^1.13.0",
     "rollup": "^4.13.0",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.1.0",
