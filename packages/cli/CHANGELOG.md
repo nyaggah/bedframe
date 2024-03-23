@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.74
+
+### Patch Changes
+
+- 3aa3b96: better project gen functionality; clean up; drop styled-components; better manifest handling
+- Updated dependencies [3aa3b96]
+  - @bedframe/core@0.0.39
+
 ## 0.0.73
 
 ### Patch Changes
