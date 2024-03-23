@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.39
+
+### Patch Changes
+
+- 3aa3b96: better project gen functionality; clean up; drop styled-components; better manifest handling
+
 ## 0.0.38
 
 ### Patch Changes
