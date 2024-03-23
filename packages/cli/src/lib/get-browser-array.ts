@@ -5,10 +5,6 @@ import { join, resolve } from 'node:path'
 export function getBrowserArray(): AnyCase<Browser>[] {
   const manifestsDir: string = resolve(join(process.cwd(), 'src', 'manifests'))
 
-  console.log('\n=========================\n')
-  console.log(`\n===  ${manifestsDir}  ===\n`)
-  console.log('\n=========================\n')
-
   function filterFiles(file: string): boolean {
     return (
       (file.endsWith('.ts') || file.endsWith('.tsx')) &&
@@ -32,10 +28,6 @@ export function getBrowserArray(): AnyCase<Browser>[] {
   }
 
   const browserArray = findBrowserArray()
-
-  console.log('\n=========================\n')
-  console.log(`\n===  ${browserArray}  ===\n`)
-  console.log('\n=========================\n')
 
   return browserArray
 }

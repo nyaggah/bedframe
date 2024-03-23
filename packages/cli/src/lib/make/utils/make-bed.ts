@@ -15,7 +15,6 @@ import { writeMVPworkflow } from './write-mvp-workflow'
 import { writePackageJson } from './write-package-json'
 import { writeReadMe } from './write-readme'
 import { writeServiceWorker } from './write-service-worker'
-import { writeSidePanels } from './write-sidepanels'
 import { writeTsConfig } from './write-tsconfig'
 import { writeViteConfig } from './write-vite-config'
 
@@ -338,6 +337,34 @@ export async function makeBed(response: PromptsResponse) {
                   })
                   .catch((error) => console.error(error))
               }
+              if (extensionType === 'sidepanel') {
+                ensureDir(pagesDir)
+                  .then(() => {
+                    fs.copyFile(
+                      stubs.pages.sidepanelMain,
+                      path.join(pagesDir, 'sidepanel-main.html'),
+                    )
+                    fs.copyFile(
+                      stubs.pages.sidepanelWelcome,
+                      path.join(pagesDir, 'sidepanel-welcome.html'),
+                    )
+                  })
+                  .catch((error) => console.error(error))
+              }
+              if (extensionType === 'devtools') {
+                ensureDir(pagesDir)
+                  .then(() => {
+                    fs.copyFile(
+                      stubs.pages.devtools,
+                      path.join(pagesDir, 'devtools.html'),
+                    )
+                    fs.copyFile(
+                      stubs.pages.devtoolsPanel,
+                      path.join(pagesDir, 'devtools-panel.html'),
+                    )
+                  })
+                  .catch((error) => console.error(error))
+              }
               copyOverridePage(overridePage, getOverridePage(overridePage).path)
               if (optionsPage !== 'none') {
                 ensureDir(pagesDir)
@@ -367,11 +394,6 @@ export async function makeBed(response: PromptsResponse) {
                 stubs.scripts,
                 path.join(projectPath, 'src', 'scripts'),
               ),
-          },
-          {
-            title: `  ${dim('│ ├ ○')} sidepanels${dim('/')}`,
-            enabled: () => extensionType === 'sidepanel',
-            task: () => writeSidePanels(response),
           },
           {
             title: `  ${dim('│ └ ○')} styles${dim('/')}`,

@@ -152,19 +152,12 @@ ${
     : ''
 }
 
-export const firefox = createManifest(
-  {
+const updatedFirefoxManifest = {
     ...rest,
     ${extensionType === 'sidepanel' ? 'sidebar_action: sidePanel,' : ''}
     browser_specific_settings: {
       gecko: {
-        id: 'bedframe-${projectName
-          .trim()
-          .replace(/\s+/g, '-')
-          .toLowerCase()}', 
-          // ^^^ unique ID that is used to distinguish one add-on from any other Firefox add-on
-          //  - https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings#examples
-          //  - https://extensionworkshop.com/documentation/develop/extensions-and-the-add-on-id/#when-do-you-need-an-add-on-id          
+        id: 'me@${projectName.trim().replace(/\s+/g, '-').toLowerCase()}.com',
       },
     },
     ${
@@ -172,9 +165,9 @@ export const firefox = createManifest(
         ? 'options_ui: optionsUI,'
         : ''
     }
-  } as Manifest,
-  'firefox',
-)
+  } as Manifest
+
+export const firefox = createManifest(updatedFirefoxManifest, 'firefox')
 
 `
   const isFirefox = browser.toLowerCase() === 'firefox'

@@ -1,6 +1,7 @@
 import path from 'node:path'
 import type { Answers } from 'prompts'
 import { ensureDir, ensureFile, outputFile } from './utils.fs'
+import { AnyCase, Browser } from '@bedframe/core'
 
 /**
  * construct override page url to resolve in vite/bedfframe configs
@@ -21,6 +22,7 @@ const getOverridePage = (overridePage: string): string => {
  *
  */
 export function writeBedframeConfig(response: Answers<string>): void {
+  const { browser } = response
   const {
     framework,
     language,
@@ -43,16 +45,23 @@ export function writeBedframeConfig(response: Answers<string>): void {
 
   const isTailwind = style === 'Tailwind'
 
+  const browsers = browser
+    .map((browser: AnyCase<Browser>) => {
+      const browserName = browser.toLowerCase()
+      return `import { ${browserName} } from '../manifests/${browserName}'`
+    })
+    .join('\n')
+
   const fileContent = `import { createBedframe } from '@bedframe/core'
-import { manifests } from '../manifests'
+${browsers}
 
 export default createBedframe({
-  browser: manifests.map((target) => target.browser),
+  browser: [${browser.map((browserName: AnyCase<Browser>) => `${browserName}.browser`)}],  
   extension: {
     type: '${extensionType}',
     ${overridePage ? `overrides: '${overridePage}',` : 'none'}
     options: '${optionsPage}',
-    manifest: manifests,
+    manifest: [${browser.map((browserName: AnyCase<Browser>) => browserName)}],
     pages: {
       ${
         extensionType === 'sidepanel'
