@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.75
+
+### Patch Changes
+
+- 374e197: cross-browesr manifest handling; dev/build commands
+- Updated dependencies [374e197]
+  - @bedframe/core@0.0.40
+
 ## 0.0.74
 
 ### Patch Changes
