@@ -35,7 +35,8 @@ export const PackageManagerEnum = {
   Yarn: 'Yarn',
 } as const
 
-export type Manifest = ManifestV3Export & {
+// see: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/firefox-webext-browser/index.d.ts
+export type BrowserSpecificSettings = {
   browser_specific_settings?: {
     gecko?: {
       id: string
@@ -45,6 +46,7 @@ export type Manifest = ManifestV3Export & {
   }
 }
 
+export type Manifest = ManifestV3Export
 export type ManifestIcons = chrome.runtime.ManifestIcons
 export type ManifestBackground = chrome.runtime.ManifestV3['background']
 export type ManifestContentScripts =

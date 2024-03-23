@@ -52,6 +52,10 @@ export function writeBedframeConfig(response: Answers<string>): void {
     })
     .join('\n')
 
+  const keyValue = (feature: any) => {
+    return feature ? `feature: ${feature},` : ''
+  }
+
   const fileContent = `import { createBedframe } from '@bedframe/core'
 ${browsers}
 
@@ -59,8 +63,8 @@ export default createBedframe({
   browser: [${browser.map((browserName: AnyCase<Browser>) => `${browserName}.browser`)}],  
   extension: {
     type: '${extensionType}',
-    ${overridePage ? `overrides: '${overridePage}',` : 'none'}
-    options: '${optionsPage}',
+    ${overridePage !== 'none' ? `overrides: '${overridePage}',` : ''}
+    ${optionsPage !== 'none' ? `options: '${optionsPage}',` : ''}
     manifest: [${browser.map((browserName: AnyCase<Browser>) => browserName)}],
     pages: {
       ${
@@ -103,7 +107,7 @@ export default createBedframe({
             },
           ],
         },
-        lintFormat: ${lintFormat},
+        ${lintFormat ? `lintFormat: ${lintFormat},` : ''}
         ${
           hasTests
             ? `tests: {
@@ -118,11 +122,14 @@ export default createBedframe({
           watch: false,
         },`
             : ''
-        }        
-        git: ${git},
-        gitHooks: ${gitHooks},
-        commitLint: ${commitLint},
-        changesets: ${changesets},
+        }    
+        ${
+          (keyValue(git),
+          keyValue(git),
+          keyValue(gitHooks),
+          keyValue(commitLint),
+          keyValue(changesets))
+        }    
       },
     },
   },

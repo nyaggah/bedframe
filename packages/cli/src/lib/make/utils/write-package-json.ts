@@ -73,7 +73,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     ${hasTests ? `"test": "vitest run --coverage",` : ''}
     ${commitLint ? `"commit": "lint-staged && cz",` : ''}
     "zip": "bedframe zip",
-    "codemod": "bedframe codemod",
+    "codemod": "bedframe codemod"${browsers.includes('safari') ? ',' : ''}
     ${
       browsers.includes('safari')
         ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --no-open --app-name $npm_package_name@$npm_package_version-safari-web-extension"`
@@ -104,8 +104,8 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.74",
-    "@bedframe/core": "^0.0.39",
+    "@bedframe/cli": "^0.0.75",
+    "@bedframe/core": "^0.0.40",
     ${
       changesets
         ? `"@changesets/cli": "^2.26.2",
@@ -163,7 +163,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.2.2",` : ''}
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.5.0"
-  },
+  }${lintFormat ? ',' : ''}
   ${
     lintFormat
       ? `"eslintConfig": {
@@ -225,7 +225,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "singleQuote": true
   }`
       : ''
-  }${lintFormat && commitLint ? ',' : ''}
+  }${commitLint ? ',' : ''}
   ${
     commitLint
       ? `"commitlint": {
@@ -239,7 +239,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   }`
       : ''
-  }${commitLint && gitHooks ? ',' : ''}
+  }${gitHooks ? ',' : ''}
   ${
     gitHooks
       ? `"husky": {

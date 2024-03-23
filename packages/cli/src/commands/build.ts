@@ -12,11 +12,11 @@ import { getBrowserArray } from '../lib/get-browser-array'
  * @return {*}  {Promise<void>}
  */
 export async function executeBuildScript(
-  browsers: AnyCase<Browser>[] = [],
+  browsers: AnyCase<Browser>[],
 ): Promise<void> {
   const browserColors = ['magenta', 'green', 'cyan', 'yellow', 'red', 'blue']
-
   const colorMap: Record<string, string> = {}
+
   browsers.map((browserName, index) => {
     colorMap[browserName] = browserColors[index % browserColors.length]
   })
@@ -65,5 +65,12 @@ export const buildCommand = new Command('build')
   .arguments('[browsers]')
   .action(async (browser) => {
     const browserArray = getBrowserArray()
-    executeBuildScript(!browser ? browserArray : browser)
+    let cliBrowsers: AnyCase<Browser>[] = []
+    if (!browser) {
+      cliBrowsers = browserArray
+    } else {
+      cliBrowsers = Array.isArray(browser) ? browser : browser.split(',')
+    }
+
+    browser ? executeBuildScript(cliBrowsers) : executeBuildScript(browserArray)
   })
