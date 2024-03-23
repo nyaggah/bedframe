@@ -1,14 +1,11 @@
-import { AnyCase, Browser } from '@bedframe/core'
+import type { AnyCase, Browser } from '@bedframe/core'
 import { Command } from 'commander'
 import { execa } from 'execa'
 import { dim, lightCyan, lightGreen, lightMagenta, lightYellow } from 'kolorist'
-// import { execSync } from 'node:child_process'
-import fs, { readFileSync } from 'node:fs'
-import path, { basename, join, resolve } from 'node:path'
+import { readFileSync } from 'node:fs'
+import { basename, join, resolve } from 'node:path'
 import { cwd } from 'node:process'
-
-// const browserList = ['chrome', 'brave', 'opera', 'edge', 'firefox', 'safari']
-// ^^^ TO diddly DO: pull this from bedframe.config > browser
+import { getBrowserArray } from '../lib/get-browser-array'
 
 /**
  * drop into the dist dir for the browser you want to zip
@@ -67,64 +64,20 @@ zipCommand
     'directory to generate the zip into (default: ./dist)',
   )
   .option('-n, --name <name>', 'what to name the zip file (including .zip)')
-  .action(async (browsers: any, options: any) => {
-    try {
-      const manifestsIndex = join(cwd(), 'src', 'manifests', 'index.ts')
-      fs.readFile(manifestsIndex, 'utf-8', (err, data) => {
-        if (err) {
-          console.error('error reading the file:', err)
-          return
-        }
-
-        const searchIndex = {
-          start: data.indexOf('['),
-          end: data.indexOf(']'),
-        }
-        // ^^ search for this ---> [chrome, brave, opera, edge, firefox, safari]
-
-        if (
-          searchIndex.start === -1 ||
-          searchIndex.end === -1 ||
-          searchIndex.end <= searchIndex.start
-        ) {
-          console.error(`manifests array not found in the file
-${dim(`looking in src/manifests/index.ts for an array like this:
-  const manifests = [chrome, brave, opera, edge, firefox, safari]
-`)}`)
-          // TO diddly DO: include helpful message... solutions
-          // e.g. do you have file in expected location? etc.
-          return
-        }
-
-        if (!browsers) {
-          const manifestsArrayText = data
-            .substring(searchIndex.start, searchIndex.end + 1)
-            .toLowerCase()
-
-          const allBrowsers = manifestsArrayText
-            .slice(1, -1)
-            .split(', ') as AnyCase<Browser>[]
-
-          allBrowsers.map((browser: AnyCase<Browser>) => {
-            const browserName = browser.trim().toLowerCase()
-            executeZipCommand(browserName, options)
-          })
-        }
-
-        if (browsers && !Array.isArray(browsers) && browsers.length > 1) {
-          // if e.g. command is `bedframe build safari,edge,firefox`
-          // then 'browser' will be 'safari,edge,firefox' as Browser[]
-          browsers = browsers
-            .split(',')
-            .map((browser: AnyCase<Browser>) => browser.trim().toLowerCase())
-          browsers.map((browser: AnyCase<Browser>) => {
-            const browserName = browser.trim().toLowerCase()
-            executeZipCommand(browserName, options)
-          })
-        }
+  .action(async (browsers, options) => {
+    if (!browsers) {
+      const browserArray = getBrowserArray()
+      browserArray.map((browser: AnyCase<Browser>) => {
+        const browserName = browser.trim().toLowerCase()
+        executeZipCommand(browserName, options)
       })
-    } catch (error) {
-      console.error('error occurred while zipping the dist:', error)
-      process.exit(1)
+    } else {
+      browsers
+        .split(',')
+        .map((browser: AnyCase<Browser>) => browser.trim().toLowerCase())
+        .map((browser: AnyCase<Browser>) => {
+          const browserName = browser.trim().toLowerCase()
+          executeZipCommand(browserName, options)
+        })
     }
   })

@@ -31,7 +31,7 @@ export function disableOptions(disabledOptions: string[]): Set<string> {
 
 export const packageManagerColors: VariantColor[] = [
   ...Object.values(PackageManager).map((packageManager, i) => {
-    const colors = [cyan, yellow, magenta]
+    const colors = [cyan, yellow, magenta, lightRed]
     return {
       name: packageManager,
       color: colors[i],

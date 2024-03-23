@@ -32,7 +32,6 @@ export function writePackageJson(response: prompts.Answers<string>): void {
 
   const isStyle = {
     tailwind: style === 'Tailwind',
-    styledComponents: style === 'Styled Components',
   }
 
   const pm = packageManager.toLowerCase()
@@ -87,7 +86,6 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "react-chrome-extension-router": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-frame-component": "^5.2.6",
-${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
     ${
       isStyle.tailwind
         ? `"@radix-ui/react-dropdown-menu": "^2.0.5",
@@ -131,12 +129,6 @@ ${isStyle.styledComponents ? `"styled-components": "^6.0.7"` : ''}
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/react-frame-component": "^4.1.3",
-${
-  isStyle.styledComponents
-    ? `"@types/styled-components": "^5.1.26",
-    "babel-plugin-styled-components": "^2.1.4",`
-    : ''
-}
     "@vitejs/plugin-react": "^4.0.4",
     "concurrently": "^8.2.1",
     ${
@@ -170,12 +162,7 @@ ${
     }  
     ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.2.2",` : ''}
     "unplugin-fonts": "^1.0.3",
-    "vite": "^4.5.0"${
-      isStyle.styledComponents
-        ? `,
-    "vite-plugin-babel-macros": "^1.0.6"`
-        : ''
-    }
+    "vite": "^4.5.0"
   },
   ${
     lintFormat

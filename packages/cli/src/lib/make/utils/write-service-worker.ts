@@ -1,6 +1,6 @@
-import { ExtensionType } from '@bedframe/core'
 import path from 'node:path'
-import prompts from 'prompts'
+import type { ExtensionType } from '@bedframe/core'
+import type prompts from 'prompts'
 import { ensureDir, ensureFile, outputFile } from './utils.fs'
 
 /**
@@ -15,8 +15,8 @@ chrome.runtime.onInstalled.addListener((details): void => {
   ${
     isSidePanel
       ? `chrome.sidePanel.setOptions({ path: sidePanel.welcome })
-  console.log('[background.ts] > onInstalled > welcomePanel', details)`
-      : `console.log('[background.ts] > onInstalled', details)`
+  console.log('[service-worker.ts] > onInstalled > welcomePanel', details)`
+      : `console.log('[service-worker.ts] > onInstalled', details)`
   }
 })
 
@@ -25,24 +25,24 @@ chrome.runtime.onInstalled.addListener((details): void => {
 const eventListeners = (isSidePanel: boolean) => onInstalled(isSidePanel)
 
 const browserAction = `
-chrome.action.onClicked.addListener(function (tab: chrome.tabs.Tab): void {
- chrome.tabs.sendMessage(
-   tab.id ?? 0,
-   {
-     type: 'browser-action',
-     action: 'toggle',
-   },
-   (response) => {
-     console.log('chrome.action.onClicked.addListener > response:', response)
-   }
- )
+chrome.action.onClicked.addListener((tab: chrome.tabs.Tab): void => {
+  chrome.tabs.sendMessage(
+    tab.id ?? 0,
+    {
+      type: 'browser-action',
+      action: 'open-or-close-extension',
+    },
+    (response) => {
+      console.log('chrome.action.onClicked.addListener > response:', response)
+    },
+  )
 })
 
 `
 
 const sidePanels = `const sidePanel = {
-  welcome: chrome.runtime.getURL('sidepanels/welcome/index.html'),
-  main: chrome.runtime.getURL('sidepanels/main/index.html'),
+  welcome: chrome.runtime.getURL('pages/sidepanel-welcome.html'),
+  main: chrome.runtime.getURL('pages/sidepanel-main.html'),
 }
 
 chrome.sidePanel
@@ -71,18 +71,17 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
   const { extension } = response
   const rootDir = path.resolve(extension.name.path)
   const serviceWorkerPath = path.resolve(
-    path.join(rootDir, 'src', 'scripts', `background.ts`),
+    path.join(rootDir, 'src', 'scripts', 'service-worker.ts'),
   )
   const isPopup = extension.type.name === 'popup'
   const isOverlay = extension.type.name === 'overlay'
   const isSidePanel = extension.type.name === 'sidepanel'
   // const isDevtools = extension.type.name === 'devtools'
-  // const position: PositionType = extension.position // 'center' | 'left' | 'right'
   // const hasFirefox = browsers.includes('firefox')
 
   const fileContent = (_type: ExtensionType): string => {
-    const sidePanelContent = isSidePanel ? sidePanels : ``
-    const overlayContent = isPopup || isOverlay ? browserAction : ``
+    const sidePanelContent = isSidePanel ? sidePanels : ''
+    const overlayContent = isPopup || isOverlay ? browserAction : ''
 
     const content =
       eventListeners(isSidePanel) + sidePanelContent + overlayContent
@@ -96,7 +95,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
       .then(() =>
         outputFile(
           serviceWorkerPath,
-          fileContent(extension.type.name) + '\n',
+          `${fileContent(extension.type.name)}\n`,
         ).catch((error) => console.error(error)),
       )
       .catch((error) => console.error(error))

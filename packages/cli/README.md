@@ -213,7 +213,7 @@ $ bedframe make multi-extension-project \
   --packageManager yarn \
   --framework react \
   --language typescript \
-  --style Styled Components \
+  --style Tailwind \
   --lintFormat \
   --git \
   --gitHooks \

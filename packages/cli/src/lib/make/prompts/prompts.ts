@@ -1,15 +1,15 @@
 import {
-  AnyCase,
-  Bedframe,
-  Browser,
-  BuildTarget,
+  type AnyCase,
+  type Bedframe,
+  type Browser,
+  type BuildTarget,
   createBedframe,
   createManifest,
 } from '@bedframe/core'
 import { dim, italic, red, yellow } from 'kolorist'
 import { basename, resolve } from 'node:path'
 import { cwd } from 'node:process'
-import prompts, { PromptObject } from 'prompts'
+import prompts, { type PromptObject } from 'prompts'
 import {
   browsers,
   formatTargetDir,
@@ -18,13 +18,13 @@ import {
   packageManagers,
   stylingOptions,
 } from './prompts-utils'
-import {
+import type {
   BrowserPrompts,
   DevelopmentPrompts,
   ExtensionPrompts,
 } from './prompts.type'
 
-export function promptInstructions(_type: string = 'multiselect'): string {
+export function promptInstructions(_type = 'multiselect'): string {
   return `
 ${dim('- - - - - - - - - - - - ')}
 ${yellow('[ ↑/↓ ]')}  ${dim(' - navigate')}
@@ -80,7 +80,6 @@ export const extensionPrompts = (
 
   return [
     {
-      // type: (name) => (name ? null : 'text'),
       type: 'text',
       name: 'name',
       message: 'Project name:',
@@ -137,44 +136,28 @@ export const extensionPrompts = (
       initial: 0,
       choices: [
         {
-          title: `Popup`,
+          title: 'Popup',
           value: 'popup',
           description: dim('(default) - no user permissions needed'),
           selected: true,
         },
         {
-          title: `Overlay`,
+          title: 'Overlay',
           value: 'overlay',
           description: dim('content script - needs user permissions'),
         },
         {
-          title: `Side Panel`,
+          title: 'Side Panel',
           value: 'sidepanel',
           description: dim(
             'requires "sidePanel" permission (for Chrome Beta 114+)',
           ),
         },
         {
-          title: `DevTools`,
+          title: 'DevTools',
           value: 'devtools',
           description: dim('requires "devtools" permission'),
         },
-        // {
-        //   title: `Page Override`,
-        //   value: 'pageOverride',
-        //   description: dim("override 'new tab', 'history' or 'bookmarks' page"),
-        // },
-      ],
-    },
-    {
-      type: (prev) => (prev === 'overlay' ? 'select' : null),
-      name: 'position',
-      message: 'Position:',
-      initial: 0,
-      choices: [
-        { title: `Center (default)`, value: 'center', selected: true },
-        { title: `Left`, value: 'left' },
-        { title: `Right`, value: 'right' },
       ],
     },
     {
@@ -214,7 +197,7 @@ export const extensionPrompts = (
       initial: 0,
       choices: [
         {
-          title: `Embedded`,
+          title: 'Embedded',
           value: 'embedded',
           description: dim(
             "options in browser-native embedded box on extension's management page",
@@ -222,7 +205,7 @@ export const extensionPrompts = (
           selected: true,
         },
         {
-          title: `Full Page`,
+          title: 'Full Page',
           value: 'full-page',
           description: dim('options displayed in a new tab'),
         },
@@ -353,7 +336,7 @@ export async function bedframePrompts(
 ): Promise<Bedframe> {
   projectName === undefined ? basename(cwd()) : projectName
 
-  let browsersResponse = options.browser
+  const browsersResponse = options.browser
     ? options.browsers
         .toString()
         .split(',')
@@ -374,7 +357,7 @@ export async function bedframePrompts(
     browsersResponse.browsers = browsersArray
   }
 
-  let extensionResponse = await prompts(
+  const extensionResponse = await prompts(
     extensionPrompts(projectName, options),
     {
       // onSubmit: (_prompt, answer, _answers) => console.log('Work:', answer),
@@ -416,7 +399,7 @@ export async function bedframePrompts(
     extensionResponse.options = options.options
   }
 
-  let developmentResponse = await prompts(developmentPrompts(options), {
+  const developmentResponse = await prompts(developmentPrompts(options), {
     onCancel: () => {
       console.log('cancelling...')
       process.exit()
@@ -458,7 +441,7 @@ export async function bedframePrompts(
   }
 
   // TO diddly DO: technically this isn't the bedframe... per se
-  // this is out ouput from the prompts... it's not gonna take
+  // this is our ouput from the prompts... it's not gonna take
   // the same shape as the operational bedframe within a projek!
   const bedframeConfig = createBedframe({
     browser: browsersResponse.browsers,
@@ -476,7 +459,7 @@ export async function bedframePrompts(
         (browser: Browser): BuildTarget => {
           return createManifest(
             {
-              name: extensionResponse.name.name, // ??
+              name: extensionResponse.name.name,
               version: extensionResponse.version,
               manifest_version: 3,
               author: extensionResponse.author?.email,
@@ -488,7 +471,6 @@ export async function bedframePrompts(
       ) as BuildTarget[],
       type: {
         name: extensionResponse.type,
-        position: extensionResponse.position, // if position === 'overlay'
       },
       override: extensionResponse.override,
       options: extensionResponse.options,
