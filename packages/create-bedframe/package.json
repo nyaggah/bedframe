@@ -20,8 +20,7 @@
     }
   },
   "bin": {
-    "create-bedframe": "./dist/index.js",
-    "bed": "./dist/index.js"
+    "create-bedframe": "./dist/index.js"
   },
   "files": [
     "dist"
