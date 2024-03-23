@@ -152,11 +152,3 @@ export default createBedframe({
     console.error(error)
   }
 }
-
-/*
-        ${git ? `git: ${git},` : ''}
-        ${gitHooks ? `gitHooks: ${gitHooks},` : ''}
-        ${commitLint ? `commitLint: ${commitLint},` : ''}
-        ${changesets ? `changesets: ${changesets},` : ''}
-
-*/
