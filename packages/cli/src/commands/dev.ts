@@ -15,9 +15,8 @@ async function executeDevScript(
   browsers: AnyCase<Browser>[] = [], // maybe default to `getBrowserList() ?? allBrowsers` here ??
 ): Promise<void> {
   const browserColors = ['magenta', 'green', 'cyan', 'yellow', 'red', 'blue']
-  // TO diddly DO: ^^^ we have color/ browser helper functions in @bedframe/core... use that
-
   const colorMap: Record<string, string> = {}
+
   browsers.map((browserName, index) => {
     colorMap[browserName] = browserColors[index % browserColors.length]
   })
@@ -94,6 +93,12 @@ export const devCommand = new Command('dev')
   .arguments('[browsers]')
   .action(async (browser) => {
     const browserArray = getBrowserArray()
+    let cliBrowsers: AnyCase<Browser>[] = []
+    if (!browser) {
+      cliBrowsers = browserArray
+    } else {
+      cliBrowsers = Array.isArray(browser) ? browser : browser.split(',')
+    }
 
-    !browser ? executeDevScript(browserArray) : executeDevScript(browser)
+    browser ? executeDevScript(cliBrowsers) : executeDevScript(browserArray)
   })

@@ -163,12 +163,14 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('│ ├ ○')} workflows${dim('/')}`,
+            enabled: () => git,
             task: () => {},
           },
           {
             title: `  ${dim('│ │ └ ○')} mvp${dim('.yml')} ${dim(
               '👈 the M V P of your B E D !',
             )}`,
+            enabled: () => git,
             task: () => {},
           },
           {
@@ -365,7 +367,12 @@ export async function makeBed(response: PromptsResponse) {
                   })
                   .catch((error) => console.error(error))
               }
-              copyOverridePage(overridePage, getOverridePage(overridePage).path)
+              if (overridePage !== 'none') {
+                copyOverridePage(
+                  overridePage,
+                  getOverridePage(overridePage).path,
+                )
+              }
               if (optionsPage !== 'none') {
                 ensureDir(pagesDir)
                   .then(() => {

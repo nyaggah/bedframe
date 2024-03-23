@@ -4,7 +4,6 @@ import { ensureFile, outputFile } from './utils.fs'
 
 export function viteConfig(response: prompts.Answers<string>): string {
   const { tests: hasTests } = response.development.template.config
-  const { type } = response.extension
 
   return `import { getFonts, getManifest } from '@bedframe/core'
 import react from '@vitejs/plugin-react'
@@ -27,7 +26,9 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     plugins: [
-      getManifest({ command, mode }, manifest),
+      getManifest({ command, mode }, manifest, {
+        browser: mode
+      }),
       getFonts(fonts),
       react(),
     ],

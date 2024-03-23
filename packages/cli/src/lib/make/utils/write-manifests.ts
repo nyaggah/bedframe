@@ -134,40 +134,38 @@ import { baseManifest } from './base.manifest'
 const { ${optionsUIorPage}${
     extensionType === 'sidepanel' ? ', side_panel' : ''
   }, ...rest } = baseManifest
-  
-${
-  extensionType === 'sidepanel'
-    ? `const sidePanel = {
-  default_icon: baseManifest.action.default_icon,
-  default_title: baseManifest.name,
-  default_panel: side_panel.default_path,
-}`
-    : ''
-}
-${
-  optionsPage === 'full-page' || optionsPage === 'embedded'
-    ? `const optionsUI = {
-  page: ${optionsPage === 'full-page' ? 'options_page' : 'options_ui.page'},
-}`
-    : ''
-}
 
 const updatedFirefoxManifest = {
-    ...rest,
-    ${extensionType === 'sidepanel' ? 'sidebar_action: sidePanel,' : ''}
-    browser_specific_settings: {
-      gecko: {
-        id: 'me@${projectName.trim().replace(/\s+/g, '-').toLowerCase()}.com',
-      },
+  ...rest,
+  background: {
+    scripts: [baseManifest.background.service_worker],
+  },${
+    extensionType === 'sidepanel'
+      ? `sidebar_action: {
+    default_icon: baseManifest.action.default_icon,
+    default_title: baseManifest.name,
+    default_panel: side_panel.default_path,
+  },`
+      : ''
+  }
+  browser_specific_settings: {
+    gecko: {
+      id: 'me@${projectName.trim().replace(/\s+/g, '-').toLowerCase()}.com',
     },
-    ${
-      optionsPage === 'full-page' || optionsPage === 'embedded'
-        ? 'options_ui: optionsUI,'
-        : ''
-    }
-  } as Manifest
+  },
+  ${
+    optionsPage === 'full-page' || optionsPage === 'embedded'
+      ? `options_ui: {
+        page: ${optionsPage === 'full-page' ? 'options_page' : 'options_ui.page'},
+      },`
+      : ''
+  }
+}
 
-export const firefox = createManifest(updatedFirefoxManifest, 'firefox')
+export const firefox = createManifest(
+  updatedFirefoxManifest as Manifest,
+  'firefox'
+)
 
 `
   const isFirefox = browser.toLowerCase() === 'firefox'

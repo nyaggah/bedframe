@@ -18,13 +18,12 @@ export interface TemplateConfig {
     fonts?: FontFamily[]
     theme?: string | Record<string, any>
   }
-  lintFormat: Record<string, any> | boolean
-  // tests: vitest.InlineConfig | boolean // Record<string, any> | boolean
-  tests: any // Record<string, any> | boolean // Record<string, any> | boolean
-  git: Record<string, any> | boolean
-  gitHooks: Record<string, any> | boolean
-  commitLint: Record<string, any> | boolean
-  changesets: Record<string, any> | boolean
+  lintFormat?: Record<string, any> | boolean
+  tests?: any
+  git?: Record<string, any> | boolean
+  gitHooks?: Record<string, any> | boolean
+  commitLint?: Record<string, any> | boolean
+  changesets?: Record<string, any> | boolean
 }
 
 /**

@@ -70,15 +70,3 @@ export const codeModCommand = new Command('codemod')
       }
     }
   })
-/*
-interface CodeMod {
-  browser: AnyCase<Browser> | AnyCase<Browser>[]
-  options: {
-    distDir: string
-    manifest boolean
-    features: boolean
-  }
-}
-codeMod(browser, options)
-
-*/

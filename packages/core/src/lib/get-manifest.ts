@@ -9,6 +9,7 @@ import {
 import { type ManifestV3Export, crx } from '@crxjs/vite-plugin'
 import { Browser, type BuildConfig, type BuildTarget } from './types'
 import type { PluginOption } from 'vite'
+import { AnyCase } from './utils'
 
 /**
  * Given the {@link Mode} i.e. {@link Browser} target,
@@ -24,6 +25,7 @@ import type { PluginOption } from 'vite'
 export function getManifest(
   { command, mode }: BuildConfig,
   targets: BuildTarget[],
+  options?: CrxOptions,
 ): PluginOption[] {
   const _mode = `${(mode as string).charAt(0).toUpperCase()}${(
     mode as string
@@ -69,8 +71,16 @@ export function getManifest(
 
   return crx({
     manifest: browser.manifest as ManifestV3Export,
-    contentScripts: {
-      preambleCode: false,
-    },
+    ...options,
   })
+}
+
+interface CrxOptions {
+  contentScripts?: {
+    preambleCode?: string | false
+    hmrTimeout?: number
+    injectCss?: boolean
+  }
+  fastGlobOptions?: any // fast-glob Options
+  browser?: any // 'firefox' | 'chrome'
 }
