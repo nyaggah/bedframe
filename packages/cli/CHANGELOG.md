@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.76
+
+### Patch Changes
+
+- 8f93209: better project gen output files shape; code cleanu up
+
 ## 0.0.75
 
 ### Patch Changes
