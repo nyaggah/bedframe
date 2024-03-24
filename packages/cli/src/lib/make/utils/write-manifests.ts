@@ -47,15 +47,13 @@ export const baseManifest: Manifest = createManifestBase({
   background: {
     service_worker: 'scripts/service-worker.ts',
     type: 'module',
-  },
-  ${
+  },${
     extensionType === 'sidepanel'
       ? `side_panel: {
     default_path: 'pages/sidepanel-main.html',
   },`
       : ''
-  }
-  ${
+  }${
     optionsPage === 'full-page'
       ? `options_page: 'pages/options.html',`
       : optionsPage === 'embedded'
@@ -64,18 +62,15 @@ export const baseManifest: Manifest = createManifestBase({
     open_in_tab: false,
   },`
         : ''
-  }
-  ${
+  }${
     extensionType === 'devtools' ? `devtools_page: 'pages/devtools.html',` : ''
-  }  
-  ${
+  }${
     overridePage !== 'none'
       ? `chrome_url_overrides: {
     ${`${overridePage}: 'pages/${overridePage}.html',`}
   },`
       : ''
-  }    
-  ${
+  }${
     response.extension.type.name === 'overlay'
       ? `content_scripts: [
     {
@@ -152,8 +147,7 @@ const updatedFirefoxManifest = {
     gecko: {
       id: 'me@${projectName.trim().replace(/\s+/g, '-').toLowerCase()}.com',
     },
-  },
-  ${
+  },${
     optionsPage === 'full-page' || optionsPage === 'embedded'
       ? `options_ui: {
         page: ${optionsPage === 'full-page' ? 'options_page' : 'options_ui.page'},

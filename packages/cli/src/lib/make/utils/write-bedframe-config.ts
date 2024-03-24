@@ -52,31 +52,40 @@ export function writeBedframeConfig(response: Answers<string>): void {
     })
     .join('\n')
 
-  const keyValue = (feature: any) => {
-    return feature ? `feature: ${feature},` : ''
+  const gitFeatures = {
+    git: git,
+    gitHooks: gitHooks,
+    commitLint: commitLint,
+    changesets: changesets,
   }
+
+  const featureStrings = Object.entries(gitFeatures).map(([key, value]) => {
+    return value ? `${key}: ${value},\n` : ''
+  })
 
   const fileContent = `import { createBedframe } from '@bedframe/core'
 ${browsers}
 
 export default createBedframe({
-  browser: [${browser.map((browserName: AnyCase<Browser>) => `${browserName}.browser`)}],  
+  browser: [
+    ${browser.map((browserName: AnyCase<Browser>) => `${browserName}.browser`).join(',\n')}
+  ],
   extension: {
-    type: '${extensionType}',
-    ${overridePage !== 'none' ? `overrides: '${overridePage}',` : ''}
-    ${optionsPage !== 'none' ? `options: '${optionsPage}',` : ''}
-    manifest: [${browser.map((browserName: AnyCase<Browser>) => browserName)}],
-    pages: {
-      ${
-        extensionType === 'sidepanel'
-          ? `welcome: 'src/pages/sidepanel-welcome.html',
+    type: '${extensionType}',${
+      overridePage !== 'none' ? `overrides: '${overridePage}',` : ''
+    }${
+      optionsPage !== 'none' ? `options: '${optionsPage}',` : ''
+    }manifest: [${browser.map((browserName: AnyCase<Browser>) => browserName)}],
+    pages: {${
+      extensionType === 'sidepanel'
+        ? `welcome: 'src/pages/sidepanel-welcome.html',
         main: 'src/pages/sidepanel-main.html',`
-          : ''
-      }${extensionType === 'overlay' ? `overlay: 'src/pages/main.html',` : ''}${
-        extensionType === 'devtools'
-          ? `devtools: 'src/pages/devtools.html',`
-          : ''
-      }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
+        : ''
+    }${extensionType === 'overlay' ? `\noverlay: 'src/pages/main.html',` : ''}${
+      extensionType === 'devtools'
+        ? `\ndevtools: 'src/pages/devtools.html',`
+        : ''
+    }${overridePage !== 'none' ? getOverridePage(overridePage) : ''}
     },    
   },
   development: {
@@ -122,14 +131,7 @@ export default createBedframe({
           watch: false,
         },`
             : ''
-        }    
-        ${
-          (keyValue(git),
-          keyValue(git),
-          keyValue(gitHooks),
-          keyValue(commitLint),
-          keyValue(changesets))
-        }    
+        }${featureStrings.join('')}  
       },
     },
   },

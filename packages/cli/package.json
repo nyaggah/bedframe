@@ -19,8 +19,7 @@
     }
   },
   "bin": {
-    "bedframe": "./dist/bedframe.js",
-    "bed": "./dist/bedframe.js"
+    "bedframe": "./dist/bedframe.js"
   },
   "files": [
     "/dist",

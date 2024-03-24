@@ -35,8 +35,6 @@ export function writeMVPworkflow(response: Answers<string>) {
     packageManager,
     tests: hasTests,
     lintFormat,
-    // gitHooks,
-    // changesets,
   } = development.template.config
 
   const pm = packageManager.toLowerCase()
@@ -93,14 +91,12 @@ jobs:
       
       - name: '[ M A K E ] : Build ${projectName} - all browsers'
         id: buildProject
-        # this expects you to have a package.json script called: "build"
         run: ${pmRun} build
 ${
   lintFormat
     ? ` 
       - name: 'Format & Lint - Run Prettier + ESLint'
         id: lintFormat
-        # this expects you to have a package.json script called "lint:format"
         run: ${pmRun} lint:format`
     : ''
 }  
@@ -109,30 +105,13 @@ ${
     ? ` 
       - name: 'Unit Test - run unit test suite'
         id: unitTest
-        # this expects you to have a package.json script called "test"
         run: ${pmRun} test`
     : ''
 }
-      - name: 'Codemod - Perform some spaghetti 🤌 🤌 🤌'
-        # todo: polyfill namespaces and browser-specific apis 
-        # e.g. 'browser.runtime' and 'chrome.runtime', etc
-        #
-        # for now, perform some after-build code mods. not ideal, but...
-        # https://youtu.be/RlwlV4hcBac?t=21
-        # - - -
-        # bedframe builds for MV3 and while Firefox, et al support MV3 there
-        # is some divergence... this performs after-build codemods on manifest
-        # and feature code which ideally should happen during vite/crx dev and build processes...
-        # but... until then... spaghetti-ville!
-        id: codeMod
-        # this expects you to have a package.json script called "codemod"
-        run: ${pmRun} codemod firefox
-
       - name: '[ V E R S I O N ] : Create or Update Release Pull Request - Version Changes'
         id: changesets
         uses: changesets/action@v1
         with:
-          # this expects you to have a package.json script called "version" that will internally trigger \`changeset version\`.
           version: ${pmRun} version
         env:
           GITHUB_TOKEN: \$\{{ secrets.GITHUB_TOKEN }\}
@@ -160,7 +139,6 @@ ${
       - name: 'Create Release Archive(s) - zip 🫰 it 🫰 up 🫰 !'
         id: zip
         if: steps.changesets.outputs.hasChangesets == 'false'
-        # this expects you to have a package.json script called "zip"
         run: ${pmRun} zip
 
       - name: 'Create a git release w/ notes & release archive(s)'
@@ -175,7 +153,6 @@ ${
       - name: '[ P U B L I S H ] : Chrome - upload to Chrome Web Store'
         id: publishChrome
         if: steps.changesets.outputs.hasChangesets == 'false'
-        # this expects you to have a package.json script called "publish"
         run: ${pmRun} publish chrome
         env:
           ${publishVar.chrome.extensionId}: \$\{{ secrets.${
@@ -196,7 +173,6 @@ ${
       - name: 'Firefox - upload to AMO'
         id: publishFirefox
         if: steps.changesets.outputs.hasChangesets == 'false'
-        # this expects you to have a package.json script called "publish"
         run: ${pmRun} publish firefox
         env:
           ${publishVar.firefox.key}: \$\{{ secrets.${publishVar.firefox.key} }\}
@@ -209,7 +185,6 @@ ${
       - name: 'MS Edge - upload to MS Edge Add-ons'
         id: publishEdge
         if: steps.changesets.outputs.hasChangesets == 'false'
-        # this expects you to have a package.json script called "publish"
         run: ${pmRun} publish edge
         env:
           ${publishVar.edge.productId}: \$\{{ secrets.${
