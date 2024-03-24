@@ -55,25 +55,20 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   "type": "module",
   "scripts": {
     "dev": "bedframe dev",
-    "build": "tsc && bedframe build",
-    ${changesets ? `"version": "bedframe version",` : ''}
-    ${
+    "build": "tsc && bedframe build",${changesets ? `\n"version": "bedframe version",` : ''}${
       git
-        ? `"release": "gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes",`
+        ? `\n"release": "gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes",`
         : ''
     }
-    "publish": "bedframe publish -b",
-    ${
+    "publish": "bedframe publish -b",${
       lintFormat
-        ? `"format": "prettier --write .",
+        ? `\n"format": "prettier --write .",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:format": "${pmRun} format && ${pmRun} lint",`
         : ''
-    }
-    ${hasTests ? `"test": "vitest run --coverage",` : ''}
-    ${commitLint ? `"commit": "lint-staged && cz",` : ''}
-    "zip": "bedframe zip",
-    "codemod": "bedframe codemod"${browsers.includes('safari') ? ',' : ''}
+    }${hasTests ? `\n"test": "vitest run --coverage",` : ''}${
+      commitLint ? `"commit": "lint-staged && cz",` : ''
+    }"zip": "bedframe zip",
     ${
       browsers.includes('safari')
         ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --no-open --app-name $npm_package_name@$npm_package_version-safari-web-extension"`
@@ -83,12 +78,10 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-chrome-extension-router": "^1.4.0",
     "react-dom": "^18.2.0",
-    "react-frame-component": "^5.2.6",
-    ${
+    "react-frame-component": "^5.2.6",${
       isStyle.tailwind
-        ? `"@radix-ui/react-dropdown-menu": "^2.0.5",
+        ? `\n"@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-menubar": "^1.0.3",
     "@radix-ui/react-navigation-menu": "^1.1.3",
@@ -105,17 +98,15 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   },
   "devDependencies": {
     "@bedframe/cli": "^0.0.76",
-    "@bedframe/core": "^0.0.40",
-    ${
+    "@bedframe/core": "^0.0.41",${
       changesets
-        ? `"@changesets/cli": "^2.26.2",
+        ? `\n"@changesets/cli": "^2.26.2",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",`
         : ''
-    }
-    ${
+    }${
       hasTests
-        ? `"@testing-library/jest-dom": "^6.1.2",
+        ? `\n"@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.5.4",
@@ -130,16 +121,14 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "@types/react-dom": "^18.2.7",
     "@types/react-frame-component": "^4.1.3",
     "@vitejs/plugin-react": "^4.0.4",
-    "concurrently": "^8.2.1",
-    ${
+    "concurrently": "^8.2.1",${
       commitLint
         ? `"commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",`
         : ''
-    }
-    ${
+    }${
       lintFormat
-        ? `"@typescript-eslint/eslint-plugin": "^6.5.0",
+        ? `\n"@typescript-eslint/eslint-plugin": "^6.5.0",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",
@@ -151,20 +140,16 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",`
         : ''
-    }
-    ${gitHooks ? `"husky": "^8.0.3",` : ''}
-    ${
+    }${gitHooks ? `\n"husky": "^8.0.3",` : ''}${
       isStyle.tailwind
-        ? `"autoprefixer": "^10.4.15",
+        ? `\n"autoprefixer": "^10.4.15",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",`
         : ''
-    }  
-    ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.2.2",` : ''}
+    }${language.toLowerCase() === 'typescript' ? `\n"typescript": "^5.2.2",` : ''}
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.5.0"
-  }${lintFormat ? ',' : ''}
-  ${
+  }${lintFormat ? ',' : ''}${
     lintFormat
       ? `"eslintConfig": {
     "globals": {
@@ -225,8 +210,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "singleQuote": true
   }`
       : ''
-  }${commitLint ? ',' : ''}
-  ${
+  }${commitLint ? ',' : ''}${
     commitLint
       ? `"commitlint": {
     "extends": [
@@ -239,8 +223,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   }`
       : ''
-  }${gitHooks ? ',' : ''}
-  ${
+  }${gitHooks ? ',' : ''}${
     gitHooks
       ? `"husky": {
     "hooks": {

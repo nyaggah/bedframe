@@ -26,3 +26,12 @@ export function openOrCloseExtension(): void {
 
 // start listening for messages from (React) App
 chrome.runtime.onMessage.addListener(AppMessagesListener)
+
+// start listening for messages from iframe to parent/current page
+// we load the `main` page in the iframe so we'll have
+// a different origin. use js messaging! 🎉
+window.addEventListener('message', (event) => {
+  if (event.data.action === 'open-or-close-extension') {
+    openOrCloseExtension()
+  }
+})

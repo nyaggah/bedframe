@@ -1,3 +1,5 @@
+import { PiXBold } from 'react-icons/pi'
+
 export function Intro(): JSX.Element {
   const bedHead = {
     name: chrome.runtime.getManifest().name,
@@ -25,24 +27,21 @@ export function Intro(): JSX.Element {
   `)
 
   return (
-    <div className="bg-[#181a1d] bg-[radial-gradient(#ffffff12_1px,transparent_0)] bg-[30px_30px] bg-[-20px_-22px] text-[#b6b8bd] flex flex-col items-center justify-center gap-[1em] h-full w-full relative">
-      <div className="absolute text-[1.5em] flex items-center justify-center bg-[#ffffff0a] h-7 w-7 cursor-pointer rounded-[50%] right-[15px] top-[15px]">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1em"
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-        >
-          <title>Bedframe</title>
-          <path d="M18 6L6 18" />
-          <path d="M6 6L18 18" />
-        </svg>
-      </div>
+    <div className="flex flex-col items-center justify-center min-w-[360px] min-h-[400px] w-full h-full bg-background">
+      <button
+        className="flex items-center justify-center w-6 h-6 absolute text-[1.5em] hover:text-red-400 cursor-pointer rounded-[50%] right-[15px] top-[15px]"
+        onClick={() =>
+          window.parent.postMessage(
+            {
+              type: 'browser-action',
+              action: 'open-or-close-extension',
+            },
+            '*',
+          )
+        }
+      >
+        <PiXBold className="w-6 h-6" />
+      </button>
       <div className="flex flex-col w-max gap-[1em]">
         <div className="flex flex-col">
           <span className="text-white font-extrabold pb-[1em]">
