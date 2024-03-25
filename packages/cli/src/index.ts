@@ -2,7 +2,6 @@ import { Command } from 'commander'
 import { readFileSync } from 'node:fs'
 import {
   buildCommand,
-  codeModCommand,
   devCommand,
   makeCommand,
   publishCommand,
@@ -22,7 +21,7 @@ program
   .version(`${pkg.name}@${pkg.version}`)
   .enablePositionalOptions()
   .passThroughOptions()
-  .addHelpText('beforeAll', promptsIntro())
+  .addHelpText('beforeAll', promptsIntro(pkg.name, pkg.version))
 
 program
   .addCommand(makeCommand)
@@ -31,7 +30,6 @@ program
 
   .addCommand(devCommand)
   .addCommand(buildCommand)
-  .addCommand(codeModCommand)
   .addCommand(zipCommand)
 
 export async function run() {

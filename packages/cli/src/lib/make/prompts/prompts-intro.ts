@@ -12,7 +12,7 @@ import {
  * @export
  * @return {*}  {string}
  */
-export function promptsIntro(): string {
+export function promptsIntro(name?: string, version?: string): string {
   return `
 ${bold(dim('>_'))}
 
@@ -20,5 +20,8 @@ ${bold(dim('>_'))}
   ${lightGreen('E X T E N S I O N')} 
   ${lightCyan('D E V E L O P M E N T')}
   ${lightYellow('F R A M E W O R K')}
+
+  ${name && version ? `${name} v${version}` : ''}
+  
 `
 }

@@ -12,62 +12,43 @@ makeCommand
   // B R O W S E R
   .option(
     '-b, --browsers <browsers>',
-    `specify comma-separated list browsers (${dim('chrome, edge, firefox')})`,
+    `comma-separated list browsers (${dim('chrome, edge, firefox, etc')})`,
   )
 
   // E X T E N S I O N
-  .option(
-    '-v, --version <version>',
-    `specify project version (${dim('0.0.1')})`,
-  )
-  .option('-d, --description <description>', 'specify project description')
+  .option('-v, --version <version>', `project version (${dim('0.0.1')})`)
+  .option('-d, --description <description>', 'project description')
   .option(
     '-a, --author <author>',
-    `specify project author  (${dim('name, email, url')})`,
+    `project author  (${dim('name, email, url')})`,
   )
-  .option('--license <license>', `specify project license (${dim('MIT')})`)
-  .option('-r, --private', `specify visibility of project (${dim('true')})`)
-  .option('-t, --type <type>', `specify extension type (${dim('popup')})`)
-  .option(
-    '--position <position>',
-    `specify overlay extension position (${dim('center')})`,
-  )
-  .option(
-    '--override <override>',
-    `specify page to override (${dim('newtab')})`,
-  )
+  .option('--license <license>', `project license (${dim('MIT')})`)
+  .option('-r, --private', `visibility of project (${dim('true')})`)
+  .option('-t, --type <type>', `extension type (${dim('popup')})`)
+  .option('--override <override>', `page to override (${dim('newtab')})`)
   .option(
     '--options <options>',
-    `specify whether to and how render options (${dim('embedded')})`,
+    `whether to and how render options (${dim('embedded')})`,
   )
 
   // D E V E L O P M E N T
   .option(
     '-p, --packageManager <packageManager>',
-    `Specify package manager to use (${dim('pnpm')})`,
+    `package manager to use (${dim('pnpm')})`,
   )
-  .option(
-    '-f, --framework <framework>',
-    `specify framework to use (${dim('react')})`,
-  )
-  .option(
-    '-l, --language <language>',
-    `specify language to use (${dim('typescript')})`,
-  )
-  .option(
-    '-s, --style <style>',
-    `specify CSS framework to use (${dim('tailwind')})`,
-  )
+  .option('-f, --framework <framework>', `framework to use (${dim('react')})`)
+  .option('-l, --language <language>', `language to use (${dim('typescript')})`)
+  .option('-s, --style <style>', `css framework to use (${dim('tailwind')})`)
   .option('-o, --lintFormat', `add linting with formatting (${dim('true')})`)
   .option(
     '-e, --tests',
     `add tests (vitest + testing library) (${dim('true')})`,
   )
   .option('-g, --git', `initialize git for source control (${dim('true')})`)
-  .option('-h, --gitHooks', `add git hooks (${dim('true')})`)
-  .option('-c, --commitLint', `add commit linting (${dim('true')})`)
-  .option('-x, --changesets', `add changesets (${dim('true')})`)
-  .option('-i, --installDeps', `add & install dependencies (${dim('true')})`)
+  .option('-h, --gitHooks', `use git hooks (${dim('true')})`)
+  .option('-c, --commitLint', `use commit linting (${dim('true')})`)
+  .option('-x, --changesets', `use changesets (${dim('true')})`)
+  .option('-i, --installDeps', `install dependencies (${dim('true')})`)
   .option(
     '-y, --yes',
     `make your BED w/ preconfigured defaults (${dim('false')})`,
