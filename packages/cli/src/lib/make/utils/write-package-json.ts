@@ -78,48 +78,46 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-frame-component": "^5.2.6",${
+    "react-dom": "^18.2.0",${
       isStyle.tailwind
-        ? `\n"@radix-ui/react-dropdown-menu": "^2.0.5",
+        ? `\n"@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-icons": "^1.3.0",
-    "@radix-ui/react-menubar": "^1.0.3",
-    "@radix-ui/react-navigation-menu": "^1.1.3",
+    "@radix-ui/react-menubar": "^1.0.4",
+    "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "lucide-react": "^0.271.0",
-    "react-icons": "^4.10.1",
-    "tailwind-merge": "^1.14.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.363.0",
+    "react-icons": "^5.0.1",
+    "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7"`
         : ''
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.76",
-    "@bedframe/core": "^0.0.40",${
+    "@bedframe/cli": "^0.0.77",
+    "@bedframe/core": "^0.0.41",${
       changesets
-        ? `\n"@changesets/cli": "^2.26.2",
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0",`
+        ? `\n"@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",`
         : ''
     }${
       hasTests
-        ? `\n"@testing-library/jest-dom": "^6.1.2",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^29.5.4",
-    "happy-dom": "^12.9.1",
-    "vitest": "^0.34.3",
-    "@vitest/coverage-istanbul": "^0.34.3",`
+        ? `\n"@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.12",
+    "happy-dom": "^14.3.6",
+    "vitest": "^1.4.0",
+    "@vitest/coverage-istanbul": "^1.4.0",`
         : ''
     }
-    "@types/node": "^20.8.7",
-    "@types/chrome": "^0.0.248",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "@types/react-frame-component": "^4.1.3",
+    "@types/node": "^20.11.30",
+    "@types/chrome": "^0.0.263",
+    "@types/react": "^18.2.69",
+    "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.0.4",
     "concurrently": "^8.2.1",${
       commitLint
@@ -128,27 +126,27 @@ export function writePackageJson(response: prompts.Answers<string>): void {
         : ''
     }${
       lintFormat
-        ? `\n"@typescript-eslint/eslint-plugin": "^6.5.0",
-    "eslint": "^8.48.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-n": "^16.0.2",
+        ? `\n"@typescript-eslint/eslint-plugin": "^7.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "lint-staged": "^14.0.1",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.0.3",`
         : ''
-    }${gitHooks ? `\n"husky": "^8.0.3",` : ''}${
+    }${gitHooks ? `\n"husky": "^9.0.11",` : ''}${
       isStyle.tailwind
-        ? `\n"autoprefixer": "^10.4.15",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.3",`
+        ? `\n"autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1",`
         : ''
-    }${language.toLowerCase() === 'typescript' ? `\n"typescript": "^5.2.2",` : ''}
-    "unplugin-fonts": "^1.0.3",
-    "vite": "^4.5.0"
+    }${language.toLowerCase() === 'typescript' ? `\n"typescript": "^5.4.3",` : ''}
+    "unplugin-fonts": "^1.1.1",
+    "vite": "^5.2.6"
   }${lintFormat ? ',' : ''}${
     lintFormat
       ? `"eslintConfig": {

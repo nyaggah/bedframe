@@ -126,7 +126,7 @@ export function manifestForBrowser(
   const firefoxManifest = `import { type Manifest, createManifest } from '@bedframe/core'
 import { baseManifest } from './base.manifest'
 
-const { ${optionsUIorPage}${
+const { ${optionsPage !== 'none' ? optionsUIorPage : ''}${
     extensionType === 'sidepanel' ? ', side_panel' : ''
   }, ...rest } = baseManifest
 

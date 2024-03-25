@@ -1,5 +1,6 @@
 import { Command } from 'commander'
 import {
+  dim,
   lightCyan,
   lightGreen,
   lightMagenta,
@@ -253,10 +254,10 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
 export const publishCommand = new Command('publish')
   .command('publish')
   .description(
-    `• publish new or update existing extension(s)
-├ • C W S: Chrome Web Store
-├ • A M O: Mozilla/Firefox Add-ons
-└ • M E A: MS Edge Add-ons`,
+    `publish new or update existing extension(s)
+- chrome: Chrome Web Store (C W S)
+- firefox: Mozilla/Firefox Add-ons (A M O)
+- edge: MS Edge Add-ons (M E A)`,
   )
   .option(
     '-b, --browsers <browsers...>',

@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@bedframe/core": "workspace:*",
-    "commander": "^11.1.0",
+    "commander": "^12.0.0",
     "execa": "^8.0.1",
     "kolorist": "^1.8.0",
     "listr": "^0.14.3",
@@ -44,10 +44,10 @@
     "node-fetch": "^3.3.2",
     "pkg-install": "^1.0.0",
     "prompts": "^2.4.2",
-    "vite": "^4.5.2"
+    "vite": "^5.2.6"
   },
   "devDependencies": {
-    "@commander-js/extra-typings": "^11.1.0",
+    "@commander-js/extra-typings": "^12.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -55,7 +55,7 @@
     "@types/listr": "^0.14.9",
     "@types/node": "^20.11.30",
     "@types/prompts": "^2.4.9",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
     "concurrently": "^8.2.2",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^1.13.0",
@@ -66,7 +66,7 @@
     "rollup-plugin-string": "^3.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^3.14.0",
+    "tsx": "^4.7.1",
     "typescript": "^5.4.3"
   },
   "lint-staged": {
