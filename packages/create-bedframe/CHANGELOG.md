@@ -1,5 +1,13 @@
 # create-bedframe
 
+## 0.0.35
+
+### Patch Changes
+
+- 8f93209: better project gen output files shape; code cleanu up
+- Updated dependencies [8f93209]
+  - @bedframe/cli@0.0.76
+
 ## 0.0.34
 
 ### Patch Changes
