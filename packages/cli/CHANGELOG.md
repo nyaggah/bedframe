@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.77
+
+### Patch Changes
+
+- 247cdee: bump project-gen packages to latest
+- Updated dependencies [247cdee]
+  - @bedframe/core@0.0.41
+
 ## 0.0.76
 
 ### Patch Changes
