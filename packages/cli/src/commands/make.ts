@@ -26,7 +26,7 @@ makeCommand
     `specify project author  (${dim('name, email, url')})`,
   )
   .option('--license <license>', `specify project license (${dim('MIT')})`)
-  .option('-p, --private', `specify visibility of project (${dim('true')})`)
+  .option('-r, --private', `specify visibility of project (${dim('true')})`)
   .option('-t, --type <type>', `specify extension type (${dim('popup')})`)
   .option(
     '--position <position>',
@@ -60,7 +60,7 @@ makeCommand
   )
   .option('-o, --lintFormat', `add linting with formatting (${dim('true')})`)
   .option(
-    '-t, --tests',
+    '-e, --tests',
     `add tests (vitest + testing library) (${dim('true')})`,
   )
   .option('-g, --git', `initialize git for source control (${dim('true')})`)

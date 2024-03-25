@@ -36,7 +36,7 @@
   "devDependencies": {
     "@types/chrome": "^0.0.263",
     "@types/node": "^20.11.30",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^1.13.0",
@@ -47,7 +47,7 @@
     "tslib": "^2.6.2",
     "typescript": "^5.4.3",
     "unplugin-fonts": "^1.1.1",
-    "vite": "^4.5.2",
+    "vite": "^5.2.6",
     "vite-plugin-babel-macros": "^1.0.6"
   },
   "peerDependencies": {
