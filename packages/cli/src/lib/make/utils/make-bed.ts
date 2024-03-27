@@ -445,7 +445,7 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('├ ○')} tsconfig${dim('.json')}`,
-            enabled: () => language === 'TypeScript',
+            enabled: () => language.toLowerCase() === 'typescript',
             task: () => writeTsConfig(response),
           },
           {
@@ -471,7 +471,7 @@ export async function makeBed(response: PromptsResponse) {
           .join(',')
 
         const pm = packageManager.toLowerCase()
-        const pmRun = pm === 'npm' ? `${pm} run` : pm
+        const pmRun = pm !== 'yarn' ? `${pm} run` : pm
 
         console.log(`
   ${bold(dim('>_'))}  ${lightGreen('your BED is made! 🚀')}      

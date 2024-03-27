@@ -38,7 +38,7 @@ export function writeMVPworkflow(response: Answers<string>) {
   } = development.template.config
 
   const pm = packageManager.toLowerCase()
-  const pmRun = pm === 'npm' || pm === 'pnpm' ? `${pm} run` : pm
+  const pmRun = pm !== 'yarn' ? `${pm} run` : pm
 
   const workflowPath = resolve(
     join(projectPath, '.github', 'workflows', 'mvp.yml'),
@@ -83,10 +83,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       ${
-        pm === 'pnpm'
-          ? `- run: npm install pnpm -g
-      - run: pnpm install`
-          : `- run: npm ci`
+        pm === 'pnpm' || pm === 'bun'
+          ? `- run: npm install ${pm} -g
+      - run: ${pm} install`
+          : pm === 'yarn'
+            ? `- run: corepack enable
+      - run: yarn`
+            : '- run: npm ci'
       }
       
       - name: '[ M A K E ] : Build ${projectName} - all browsers'
@@ -108,6 +111,7 @@ ${
         run: ${pmRun} test`
     : ''
 }
+
       - name: '[ V E R S I O N ] : Create or Update Release Pull Request - Version Changes'
         id: changesets
         uses: changesets/action@v1
@@ -150,54 +154,50 @@ ${
           PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
           PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}
 
-      - name: '[ P U B L I S H ] : Chrome - upload to Chrome Web Store'
+      ${
+        browsers.includes('chrome')
+          ? `- name: '[ P U B L I S H ] : Chrome - upload to Chrome Web Store'
         id: publishChrome
         if: steps.changesets.outputs.hasChangesets == 'false'
         run: ${pmRun} publish chrome
         env:
-          ${publishVar.chrome.extensionId}: \$\{{ secrets.${
-            publishVar.chrome.extensionId
-          } }\}
-          ${publishVar.chrome.clientId}: \$\{{ secrets.${
-            publishVar.chrome.clientId
-          } }\}
-          ${publishVar.chrome.clientSecret}: \$\{{ secrets.${
-            publishVar.chrome.clientSecret
-          } }\}
-          ${publishVar.chrome.refreshToken}: \$\{{ secrets.${
-            publishVar.chrome.refreshToken
-          } }\}
+          ${publishVar.chrome.extensionId}: \$\{{ secrets.${publishVar.chrome.extensionId} }\}
+          ${publishVar.chrome.clientId}: \$\{{ secrets.${publishVar.chrome.clientId} }\}
+          ${publishVar.chrome.clientSecret}: \$\{{ secrets.${publishVar.chrome.clientSecret} }\}
+          ${publishVar.chrome.refreshToken}: \$\{{ secrets.${publishVar.chrome.refreshToken} }\}
           PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
-          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}
+          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}`
+          : ''
+      }
 
-      - name: 'Firefox - upload to AMO'
+      ${
+        browsers.includes('firefox')
+          ? `- name: 'Firefox - upload to AMO'
         id: publishFirefox
         if: steps.changesets.outputs.hasChangesets == 'false'
         run: ${pmRun} publish firefox
         env:
           ${publishVar.firefox.key}: \$\{{ secrets.${publishVar.firefox.key} }\}
-          ${publishVar.firefox.secret}: \$\{{ secrets.${
-            publishVar.firefox.secret
-          } }\}
+          ${publishVar.firefox.secret}: \$\{{ secrets.${publishVar.firefox.secret} }\}
           PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
-          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}
+          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}`
+          : ''
+      }
 
-      - name: 'MS Edge - upload to MS Edge Add-ons'
+      ${
+        browsers.includes('edge')
+          ? `- name: 'MS Edge - upload to MS Edge Add-ons'
         id: publishEdge
         if: steps.changesets.outputs.hasChangesets == 'false'
         run: ${pmRun} publish edge
         env:
-          ${publishVar.edge.productId}: \$\{{ secrets.${
-            publishVar.edge.productId
-          } }\}
-          ${publishVar.edge.clientId}: \$\{{ secrets.${
-            publishVar.edge.clientId
-          } }\}
-          ${publishVar.edge.clientSecret}: \$\{{ secrets.${
-            publishVar.edge.clientSecret
-          } }\}
+          ${publishVar.edge.productId}: \$\{{ secrets.${publishVar.edge.productId} }\}
+          ${publishVar.edge.clientId}: \$\{{ secrets.${publishVar.edge.clientId} }\}
+          ${publishVar.edge.clientSecret}: \$\{{ secrets.${publishVar.edge.clientSecret} }\}
           PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
-          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}
+          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}`
+          : ''
+      }
   `,
   }
 

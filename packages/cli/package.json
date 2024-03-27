@@ -8,13 +8,13 @@
   "version": "0.0.77",
   "license": "MIT",
   "type": "module",
-  "main": "dist/bedframe.cjs",
+  "main": "dist/bedframe.js",
   "module": "dist/bedframe.js",
   "types": "dist/bedframe.d.ts",
   "exports": {
     ".": {
       "import": "./dist/bedframe.js",
-      "require": "./dist/bedframe.cjs",
+      "require": "./dist/bedframe.js",
       "types": "./dist/bedframe.d.ts"
     }
   },

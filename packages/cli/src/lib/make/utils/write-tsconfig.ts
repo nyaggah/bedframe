@@ -10,7 +10,7 @@ import { ensureDir, outputFile } from './utils.fs'
 export function writeTsConfig(response: Answers<string>): void {
   const { style, tests } = response.development.template.config
   const { name } = response.extension
-  const isTailWind = style === 'Tailwind'
+  const isTailWind = style.toLowerCase() === 'tailwind'
 
   const tsConfig = `{
   "compilerOptions": {

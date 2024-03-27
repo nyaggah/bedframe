@@ -11,10 +11,10 @@ export function writeBaseManifest(response: Answers<string>): string {
   } = response.extension
   const { name: extensionType } = type
 
-  return `import { type Manifest, createManifestBase } from '@bedframe/core'
+  return `import { type Manifest } from '@bedframe/core'
 import pkg from '../../package.json'
 
-export const baseManifest: Manifest = createManifestBase({
+export const baseManifest = {
   // Required
   // - - - - - - - - -
   name: pkg.name,
@@ -105,7 +105,7 @@ export const baseManifest: Manifest = createManifestBase({
         : ''
     } 
   ],
-})
+} satisfies Manifest
 
 `
 }
@@ -123,12 +123,17 @@ export function manifestForBrowser(
 
   const optionsUIorPage =
     optionsPage === 'embedded' ? 'options_ui' : 'options_page'
-  const firefoxManifest = `import { type Manifest, createManifest } from '@bedframe/core'
-import { baseManifest } from './base.manifest'
 
-const { ${optionsPage !== 'none' ? optionsUIorPage : ''}${
-    extensionType === 'sidepanel' ? ', side_panel' : ''
-  }, ...rest } = baseManifest
+  const isFirefox = browser.toLowerCase() === 'firefox'
+  const isSafari = browser.toLowerCase() === 'safari'
+
+  const firefoxManifest = `import { createManifest } from '@bedframe/core'
+import { baseManifest } from './base.manifest'
+import pkg from '../../package.json'
+
+const { ${optionsPage !== 'none' ? `${optionsUIorPage},` : ''}${
+    extensionType === 'sidepanel' ? 'side_panel, ' : ''
+  } ...rest } = baseManifest
 
 const updatedFirefoxManifest = {
   ...rest,
@@ -145,7 +150,8 @@ const updatedFirefoxManifest = {
   }
   browser_specific_settings: {
     gecko: {
-      id: 'me@${projectName.trim().replace(/\s+/g, '-').toLowerCase()}.com',
+      id: pkg.author.email,
+      // ^^^ https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings#id
     },
   },${
     optionsPage === 'full-page' || optionsPage === 'embedded'
@@ -156,21 +162,41 @@ const updatedFirefoxManifest = {
   }
 }
 
-export const firefox = createManifest(
-  updatedFirefoxManifest as Manifest,
-  'firefox'
-)
+export const firefox = createManifest(updatedFirefoxManifest, 'firefox')
 
 `
-  const isFirefox = browser.toLowerCase() === 'firefox'
-  return isFirefox
-    ? firefoxManifest
-    : `import { createManifest } from '@bedframe/core'
+
+  const safariManifest = `import { createManifest } from '@bedframe/core'
+import { baseManifest } from './base.manifest'
+
+const updatedSafariManifest = {
+  ...baseManifest,
+  browser_specific_settings: {
+    safari: {
+      strict_min_version: '15.4',
+      strict_max_version: '*',
+    },
+    // ^^^ https://developer.apple.com/documentation/safariservices/safari_web_extensions/optimizing_your_web_extension_for_safari#3743239
+    //     https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings#safari_properties
+  },
+}
+
+export const safari = createManifest(updatedSafariManifest, 'safari')
+
+`
+
+  if (isFirefox) {
+    return firefoxManifest
+  } else if (isSafari) {
+    return safariManifest
+  } else {
+    return `import { createManifest } from '@bedframe/core'
 import { baseManifest } from './base.manifest'
 
 export const ${browser.toLowerCase()} = createManifest(baseManifest,'${browser.toLowerCase()}')
 
 `
+  }
 }
 
 export async function writeManifests(response: Answers<string>): Promise<void> {
