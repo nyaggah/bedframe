@@ -16,12 +16,16 @@ export async function installDependencies(
   response: PromptsResponse,
 ): Promise<void> {
   const { path: projectPath } = response.extension.name
-  const { packageManager } = response.development.template.config
+  const { packageManager, lintFormat } = response.development.template.config
 
   try {
     chdir(projectPath)
     if (packageManager.toLowerCase() === 'bun') {
       await execa('bun', ['install']).then(async () => {
+        if (lintFormat) {
+          await execa('bun', ['run', 'lint:format'])
+        }
+
         await execa('git', ['init'])
         await execa('git', ['add', '.'])
         await execa('git', ['commit', '-am', `feat: initial commit. make BED!`])
@@ -31,6 +35,9 @@ export async function installDependencies(
         prefer: packageManager.toLowerCase(),
         cwd: projectPath,
       }).then(async () => {
+        if (lintFormat) {
+          await execa(packageManager, ['run', 'lint:format'])
+        }
         await execa('git', ['init'])
         await execa('git', ['add', '.'])
         await execa('git', ['commit', '-am', `feat: initial commit. make BED!`])
