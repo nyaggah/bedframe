@@ -355,15 +355,6 @@ export async function bedframePrompts(
     },
   )
 
-  const parseAuthor = (author: string) => {
-    const [name, email, url] = author.split(',')
-    return {
-      name: name.trim(),
-      email: email.trim(),
-      url: url.trim(),
-    }
-  }
-
   if (options.name) {
     extensionResponse.name = formatTargetDir(options.name)
   }
@@ -374,7 +365,12 @@ export async function bedframePrompts(
     extensionResponse.description = options.description
   }
   if (options.author) {
-    extensionResponse.author = parseAuthor(options.author)
+    const [name, email, url] = options.author.split(',')
+    extensionResponse.author = {
+      name: name.trim(),
+      email: email.trim(),
+      url: url.trim(),
+    }
   }
   if (options.license) {
     extensionResponse.license = options.license
