@@ -71,7 +71,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
         : ''
     }
     ${hasTests ? `"test": "vitest run --coverage",` : ''}
-    ${commitLint ? `"commit": "cz",` : ''}"zip": "bedframe zip",
+    ${commitLint ? `"commit": "${lintFormat ? 'lint-staged && ' : ''}cz",` : ''}"zip": "bedframe zip",
     ${
       browsers.includes('safari')
         ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name@$npm_package_version-safari"`

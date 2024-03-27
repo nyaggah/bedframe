@@ -20,7 +20,7 @@ export async function installDependencies(
 
   try {
     chdir(projectPath)
-    if (packageManager === 'bun') {
+    if (packageManager.toLowerCase() === 'bun') {
       await execa('bun', ['install']).then(async () => {
         await execa('git', ['init'])
         await execa('git', ['add', '.'])
