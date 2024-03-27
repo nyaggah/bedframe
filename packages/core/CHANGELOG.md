@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.42
+
+### Patch Changes
+
+- 193838b: Bun in BED! 🎉 cli ux; code clean up
+
 ## 0.0.41
 
 ### Patch Changes

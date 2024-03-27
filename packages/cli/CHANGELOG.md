@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.78
+
+### Patch Changes
+
+- 193838b: Bun in BED! 🎉 cli ux; code clean up
+- Updated dependencies [193838b]
+  - @bedframe/core@0.0.42
+
 ## 0.0.77
 
 ### Patch Changes
