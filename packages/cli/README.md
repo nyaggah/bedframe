@@ -208,19 +208,26 @@ As an example, to scaffold a multi-extension project i.e. BED environment target
 
 ```bash
 $ bedframe make multi-extension-project \
-  --version 0.0.1  \
-  --browsers chrome, brave, opera, edge \
-  --packageManager yarn \
+  --browsers 'chrome, firefox, safari, brave, opera, edge' \
+  --version '0.0.0'  \
+  --description 'this is my BED! there are many like it, but this one is... MINE!!!'  \
+  --author 'joe, joe@bedframe.dev, https://bedframe.dev'  \
+  --license MIT  \
+  --private  \
+  --type overlay  \
+  --override newtab  \
+  --options embedded  \
+  --packageManager bun \
   --framework react \
   --language typescript \
   --style tailwind \
   --lintFormat \
+  --tests \
   --git \
   --gitHooks \
-  --tests \
   --commitLint \
   --changesets \
-  --installDeps \
+  --installDeps
 ```
 
 If any required configuration isn't passed in via `flags` the CLI will prompt you for the missing requirements.
