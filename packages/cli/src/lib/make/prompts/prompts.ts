@@ -50,19 +50,9 @@ export const browserPrompts = (
       warn: red(' - Currently unavailable'),
       choices: browsers,
       min: 1,
-      // hint: `- ${yellow('[ space ]')} - select. ${yellow('[ return ]')} - submit`,
       instructions: promptInstructions('multiselect'),
     },
   ]
-  // if (options.browsers) {
-  //   const BrowsersArray = options.browsers
-  //     .split(',')
-  //     .map((browser: AnyCase<Browser>) => browser.trim().toLowerCase())
-  //   console.log('BrowsersArray', BrowsersArray)
-  //   browsersResponse.browsers = BrowsersArray
-  //   console.log('array > options.browser', options.browsers)
-  //   console.log('browsersResponse.browsers', browsersResponse.browsers)
-  // }
 }
 
 export const extensionPrompts = (
@@ -80,29 +70,29 @@ export const extensionPrompts = (
 
   return [
     {
-      type: 'text',
+      type: () => (!options.name ? 'text' : null),
       name: 'name',
       message: 'Project name:',
-      initial: initialValue.name,
+      initial: options.name ? options.name : initialValue.name,
       hint: `— Where would you like to create your project? ${yellow(
         italic(name ? name : './bedframe-project'),
       )}`,
       format: (answer: string) => formatTargetDir(answer),
     },
     {
-      type: 'text',
+      type: () => (!options.version ? 'text' : null),
       name: 'version',
       message: 'Project version:',
       initial: initialValue.version,
     },
     {
-      type: 'text',
+      type: () => (!options.description ? 'text' : null),
       name: 'description',
       message: 'Description:',
       initial: '',
     },
     {
-      type: 'list',
+      type: () => (!options.author ? 'list' : null),
       name: 'author',
       message: `Author ${dim('(name, email, url)')}:`,
       initial: '',
@@ -116,13 +106,13 @@ export const extensionPrompts = (
       },
     },
     {
-      type: 'text',
+      type: () => (!options.license ? 'text' : null),
       name: 'license',
       message: 'License:',
       initial: 'MIT',
     },
     {
-      type: 'toggle',
+      type: () => (!options.private ? 'toggle' : null),
       name: 'private',
       message: 'Private:',
       initial: true,
@@ -130,7 +120,7 @@ export const extensionPrompts = (
       inactive: 'No',
     },
     {
-      type: 'select',
+      type: () => (!options.type ? 'select' : null),
       name: 'type',
       message: 'Type:',
       initial: 0,
@@ -161,8 +151,7 @@ export const extensionPrompts = (
       ],
     },
     {
-      // type: (prev) => (prev === 'pageOverride' ? 'select' : null), // <--- if the type is page override
-      type: 'select',
+      type: () => (!options.override ? 'select' : null),
       name: 'override',
       message: 'Override page:',
       hint: dim('you can override one of these pages'),
@@ -191,7 +180,7 @@ export const extensionPrompts = (
       ],
     },
     {
-      type: 'select',
+      type: () => (!options.options ? 'select' : null),
       name: 'options',
       message: 'Options page:',
       initial: 0,
@@ -240,14 +229,14 @@ export const developmentPrompts = (
 
   return [
     {
-      type: 'select',
+      type: () => (!options.packageManager ? 'select' : null),
       name: 'packageManager',
       message: 'Package manager:',
       choices: packageManagers,
       initial: initialValue.packageManager,
     },
     {
-      type: 'select',
+      type: () => (!options.framework ? 'select' : null),
       name: 'framework',
       message: 'Framework:',
       warn: yellow('currently unavailable'),
@@ -255,7 +244,7 @@ export const developmentPrompts = (
       initial: initialValue.framework,
     },
     {
-      type: 'select',
+      type: () => (!options.language ? 'select' : null),
       name: 'language',
       message: 'Programming language:',
       warn: yellow('currently unavailable'),
@@ -263,16 +252,14 @@ export const developmentPrompts = (
       initial: initialValue.language,
     },
     {
-      type: 'select',
+      type: () => (!options.style ? 'select' : null),
       name: 'style',
       message: 'CSS framework:',
       choices: stylingOptions,
       initial: initialValue.style,
     },
     {
-      // TO diddly DO: if ts, yasiin bey lint:format
-      // maybe just default to yes and don't prompt
-      type: 'toggle',
+      type: () => (!options.lintFormat ? 'toggle' : null),
       name: 'lintFormat',
       message: 'Add linting & formatting:',
       initial: initialValue.lintFormat,
@@ -280,7 +267,7 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: 'toggle',
+      type: () => (!options.tests ? 'toggle' : null),
       name: 'tests',
       message: 'Add unit tests:',
       initial: initialValue.tests,
@@ -288,7 +275,7 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: 'toggle',
+      type: () => (!options.git ? 'toggle' : null),
       name: 'git',
       message: 'Add git',
       initial: initialValue.git,
@@ -296,7 +283,7 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: (prev) => (prev ? 'toggle' : null),
+      type: (prev) => (prev && !options.gitHooks ? 'toggle' : null),
       name: 'gitHooks',
       message: 'Add git hooks:',
       initial: initialValue.gitHooks,
@@ -304,7 +291,8 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: (_prev, answers) => (answers.git ? 'toggle' : null),
+      type: (_prev, answers) =>
+        answers.git && !options.commitLint ? 'toggle' : null,
       name: 'commitLint',
       message: 'Add commit linting:',
       initial: initialValue.commitLint,
@@ -312,7 +300,8 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: (_prev, answers) => (answers.git ? 'toggle' : null),
+      type: (_prev, answers) =>
+        answers.git && !options.changesets ? 'toggle' : null,
       name: 'changesets',
       message: 'Add changesets:',
       initial: initialValue.changesets,
@@ -320,7 +309,7 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: 'toggle',
+      type: () => (!options.installDeps ? 'toggle' : null),
       name: 'installDeps',
       message: 'Install dependencies:',
       initial: initialValue.installDeps,
@@ -336,13 +325,12 @@ export async function bedframePrompts(
 ): Promise<Bedframe> {
   projectName === undefined ? basename(cwd()) : projectName
 
-  const browsersResponse = options.browser
+  const browsersResponse = options.browsers
     ? options.browsers
         .toString()
         .split(',')
         .map((browser: AnyCase<Browser>) => browser.trim().toLowerCase())
     : await prompts(browserPrompts(options), {
-        // onSubmit: (_prompt, answer, _answers) => console.log('browsers:', answer),
         onCancel: () => {
           console.log('cancelling...')
           process.exit()
@@ -360,13 +348,21 @@ export async function bedframePrompts(
   const extensionResponse = await prompts(
     extensionPrompts(projectName, options),
     {
-      // onSubmit: (_prompt, answer, _answers) => console.log('Work:', answer),
       onCancel: () => {
         console.log('cancelling...')
         process.exit()
       },
     },
   )
+
+  const parseAuthor = (author: string) => {
+    const [name, email, url] = author.split(',')
+    return {
+      name: name.trim(),
+      email: email.trim(),
+      url: url.trim(),
+    }
+  }
 
   if (options.name) {
     extensionResponse.name = formatTargetDir(options.name)
@@ -378,7 +374,7 @@ export async function bedframePrompts(
     extensionResponse.description = options.description
   }
   if (options.author) {
-    extensionResponse.author = options.author
+    extensionResponse.author = parseAuthor(options.author)
   }
   if (options.license) {
     extensionResponse.license = options.license
@@ -388,9 +384,6 @@ export async function bedframePrompts(
   }
   if (options.type) {
     extensionResponse.type = options.type
-  }
-  if (options.type === 'overlay' && options.position) {
-    extensionResponse.position = options.position
   }
   if (options.override) {
     extensionResponse.override = options.override
@@ -406,6 +399,9 @@ export async function bedframePrompts(
     },
   })
 
+  if (options.packageManager) {
+    developmentResponse.packageManager = options.packageManager
+  }
   if (options.framework) {
     developmentResponse.framework = options.framework
   }

@@ -43,7 +43,7 @@ export function writeBedframeConfig(response: Answers<string>): void {
   } = response.extension
   const { name: extensionType } = type
 
-  const isTailwind = style === 'Tailwind'
+  const isTailwind = style.toLowerCase() === 'tailwind'
 
   const browsers = browser
     .map((browser: AnyCase<Browser>) => {

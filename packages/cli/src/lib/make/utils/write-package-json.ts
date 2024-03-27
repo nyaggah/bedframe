@@ -31,11 +31,11 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   } = response.development.template.config
 
   const isStyle = {
-    tailwind: style === 'Tailwind',
+    tailwind: style.toLowerCase() === 'tailwind',
   }
 
   const pm = packageManager.toLowerCase()
-  const pmRun = pm === 'npm' ? `${pm} run` : pm
+  const pmRun = pm !== 'yarn' ? `${pm} run` : pm
 
   const packageJson = `{
   "name": "${projectName}",
@@ -55,32 +55,36 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   "type": "module",
   "scripts": {
     "dev": "bedframe dev",
-    "build": "tsc && bedframe build",${changesets ? `\n"version": "bedframe version",` : ''}${
+    "build": "tsc && bedframe build",
+    ${changesets ? `"version": "bedframe version",` : ''}
+    ${
       git
-        ? `\n"release": "gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes",`
+        ? `"release": "gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes",`
         : ''
     }
-    "publish": "bedframe publish -b",${
+    "publish": "bedframe publish -b",
+    ${
       lintFormat
-        ? `\n"format": "prettier --write .",
+        ? `"format": "prettier --write .",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:format": "${pmRun} format && ${pmRun} lint",`
         : ''
-    }${hasTests ? `\n"test": "vitest run --coverage",` : ''}${
-      commitLint ? `"commit": "lint-staged && cz",` : ''
-    }"zip": "bedframe zip",
+    }
+    ${hasTests ? `"test": "vitest run --coverage",` : ''}
+    ${commitLint ? `"commit": "cz",` : ''}"zip": "bedframe zip",
     ${
       browsers.includes('safari')
-        ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --no-open --app-name $npm_package_name@$npm_package_version-safari-web-extension"`
+        ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name@$npm_package_version-safari"`
         : ''
     }${browsers.includes('safari') && gitHooks ? ',' : ''} 
     ${gitHooks ? `"postinstall": "husky install"` : ''}
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",${
+    "react-dom": "^18.2.0"${
       isStyle.tailwind
-        ? `\n"@radix-ui/react-dropdown-menu": "^2.0.6",
+        ? `,
+        "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-menubar": "^1.0.4",
     "@radix-ui/react-navigation-menu": "^1.1.4",
@@ -96,24 +100,25 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.77",
-    "@bedframe/core": "^0.0.41",${
-      changesets
-        ? `\n"@changesets/cli": "^2.27.1",
+    "@bedframe/cli": "0.0.78",
+    "@bedframe/core": "0.0.42",
+${
+  changesets
+    ? `"@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",`
-        : ''
-    }${
-      hasTests
-        ? `\n"@testing-library/jest-dom": "^6.4.2",
+    : ''
+}${
+    hasTests
+      ? `\n"@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "happy-dom": "^14.3.6",
     "vitest": "^1.4.0",
     "@vitest/coverage-istanbul": "^1.4.0",`
-        : ''
-    }
+      : ''
+  }
     "@types/node": "^20.11.30",
     "@types/chrome": "^0.0.263",
     "@types/react": "^18.2.69",
@@ -138,16 +143,21 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "lint-staged": "^15.2.2",
     "prettier": "^3.0.3",`
         : ''
-    }${gitHooks ? `\n"husky": "^9.0.11",` : ''}${
+    }
+    ${gitHooks ? `"husky": "^9.0.11",` : ''}
+    ${
       isStyle.tailwind
-        ? `\n"autoprefixer": "^10.4.19",
+        ? `"autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",`
         : ''
-    }${language.toLowerCase() === 'typescript' ? `\n"typescript": "^5.4.3",` : ''}
+    }
+    ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.4.3",` : ''}
     "unplugin-fonts": "^1.1.1",
     "vite": "^5.2.6"
-  }${lintFormat ? ',' : ''}${
+  }
+  ${lintFormat ? ',' : ''}
+  ${
     lintFormat
       ? `"eslintConfig": {
     "globals": {
@@ -188,6 +198,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     },
     "ignorePatterns": [
       "dist",
+      "${projectName}@*",
       "node_modules"${
         hasTests
           ? `,

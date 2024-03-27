@@ -33,6 +33,10 @@ export async function copyFolder(from: string, to: string): Promise<void> {
         await fs.copyFile(sourcePath, destinationPath)
       } else if (stats.isDirectory()) {
         await copyFolder(sourcePath, destinationPath)
+        if (elementName === '.husky') {
+          // Change file mode to make files in .husky directory executable
+          await makeFilesExecutable(destinationPath)
+        }
       }
     }
   } catch (error) {
@@ -52,5 +56,23 @@ async function directoryExists(path: string): Promise<boolean> {
     return true
   } catch (error) {
     return false
+  }
+}
+
+/**
+ *
+ *
+ * @param {string} directoryPath
+ * @return {*}  {Promise<void>}
+ */
+async function makeFilesExecutable(directoryPath: string): Promise<void> {
+  try {
+    const files = await fs.readdir(directoryPath)
+    for (const file of files) {
+      const filePath = join(directoryPath, file)
+      await fs.chmod(filePath, 0o755) // Make files executable
+    }
+  } catch (error) {
+    console.error(`Error while making files executable: ${error}`)
   }
 }

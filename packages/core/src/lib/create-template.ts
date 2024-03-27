@@ -12,12 +12,12 @@ export interface TemplateConfig {
   framework: AnyCase<Framework>
   language: AnyCase<Language>
   packageManager: AnyCase<PackageManager>
-  style: {
+  style: Partial<{
     framework: AnyCase<Style>
     components?: string | Record<string, any>
-    fonts?: FontFamily[]
+    fonts: FontFamily[]
     theme?: string | Record<string, any>
-  }
+  }>
   lintFormat?: Record<string, any> | boolean
   tests?: any
   git?: Record<string, any> | boolean

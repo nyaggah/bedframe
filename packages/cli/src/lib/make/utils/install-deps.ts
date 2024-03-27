@@ -20,14 +20,22 @@ export async function installDependencies(
 
   try {
     chdir(projectPath)
-    await projectInstall({
-      prefer: packageManager.toLowerCase(),
-      cwd: projectPath,
-    }).then(async () => {
-      await execa('git', ['init'])
-      await execa('git', ['add', '.'])
-      await execa('git', ['commit', '-am', `feat: initial commit. make BED!`])
-    })
+    if (packageManager === 'bun') {
+      await execa('bun', ['install']).then(async () => {
+        await execa('git', ['init'])
+        await execa('git', ['add', '.'])
+        await execa('git', ['commit', '-am', `feat: initial commit. make BED!`])
+      })
+    } else {
+      await projectInstall({
+        prefer: packageManager.toLowerCase(),
+        cwd: projectPath,
+      }).then(async () => {
+        await execa('git', ['init'])
+        await execa('git', ['add', '.'])
+        await execa('git', ['commit', '-am', `feat: initial commit. make BED!`])
+      })
+    }
   } catch (err) {
     console.error(err)
   }

@@ -29,7 +29,7 @@ export const StyleEnum = {
 } as const
 
 export const PackageManagerEnum = {
-  // Bun: "Bun", // https://youtu.be/fmpw7fO8iFs?si=KBXSZerQRCdQ0U1c&t=25
+  Bun: 'Bun',
   PnPm: 'PnPm',
   Npm: 'Npm',
   Yarn: 'Yarn',
