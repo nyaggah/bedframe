@@ -34,7 +34,6 @@ export async function copyFolder(from: string, to: string): Promise<void> {
       } else if (stats.isDirectory()) {
         await copyFolder(sourcePath, destinationPath)
         if (elementName === '.husky') {
-          // Change file mode to make files in .husky directory executable
           await makeFilesExecutable(destinationPath)
         }
       }
@@ -46,7 +45,7 @@ export async function copyFolder(from: string, to: string): Promise<void> {
 
 /**
  *
- *
+ * Change file mode to make files in e.g. `.husky` directory executable
  * @param {string} path
  * @return {*}  {Promise<boolean>}
  */
