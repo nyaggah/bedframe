@@ -16,7 +16,7 @@
     "eslint-config-turbo": "latest"
   },
   "devDependencies": {
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
   },
   "repository": {
     "type": "git",
