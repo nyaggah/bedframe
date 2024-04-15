@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.263",
-    "@types/node": "^20.12.6",
+    "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint-config-bedframe": "workspace:^",
