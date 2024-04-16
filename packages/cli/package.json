@@ -53,7 +53,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/chrome": "^0.0.263",
     "@types/listr": "^0.14.9",
-    "@types/node": "^20.12.6",
+    "@types/node": "^20.12.7",
     "@types/prompts": "^2.4.9",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "concurrently": "^8.2.2",
