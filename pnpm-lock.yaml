@@ -261,8 +261,8 @@ importers:
         specifier: ^4.5.3
         version: 4.5.3(@types/node@20.12.7)
       vite-plugin-dts:
-        specifier: ^3.8.1
-        version: 3.8.1(@types/node@20.12.7)(rollup@4.14.1)(typescript@5.4.5)(vite@4.5.3)
+        specifier: ^3.8.3
+        version: 3.8.3(@types/node@20.12.7)(rollup@4.14.1)(typescript@5.4.5)(vite@4.5.3)
 
   packages/eslint-config-bedframe:
     dependencies:
@@ -2642,7 +2642,7 @@ packages:
       '@vue/compiler-dom': 3.4.21
       '@vue/shared': 3.4.21
       computeds: 0.0.1
-      minimatch: 9.0.3
+      minimatch: 9.0.4
       muggle-string: 0.3.1
       path-browserify: 1.0.1
       typescript: 5.4.5
@@ -5844,13 +5844,13 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       brace-expansion: 2.0.1
+    dev: true
 
   /minimatch@9.0.4:
     resolution: {integrity: sha512-KqWh+VchfxcMNRAJjj2tnsSJdNbHsVgnkBhTNrW7AjVo6OvLtxw8zfT9oLw1JSohlFzJ8jCoTgaoXvJ+kHt6fw==}
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       brace-expansion: 2.0.1
-    dev: true
 
   /minimist-options@4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
@@ -7650,8 +7650,8 @@ packages:
       - supports-color
     dev: false
 
-  /vite-plugin-dts@3.8.1(@types/node@20.12.7)(rollup@4.14.1)(typescript@5.4.5)(vite@4.5.3):
-    resolution: {integrity: sha512-zEYyQxH7lKto1VTKZHF3ZZeOPkkJgnMrePY4VxDHfDSvDjmYMMfWjZxYmNwW8QxbaItWJQhhXY+geAbyNphI7g==}
+  /vite-plugin-dts@3.8.3(@types/node@20.12.7)(rollup@4.14.1)(typescript@5.4.5)(vite@4.5.3):
+    resolution: {integrity: sha512-yRHiRosQw7MXdOhmcrVI+kRiB8YEShbSxnADNteK4eZGdEoyOkMHihvO5XOAVlOq8ng9sIqu8vVefDK1zcj3qw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
