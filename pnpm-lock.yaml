@@ -261,8 +261,8 @@ importers:
         specifier: ^4.5.3
         version: 4.5.3(@types/node@20.12.7)
       vite-plugin-dts:
-        specifier: ^3.8.3
-        version: 3.8.3(@types/node@20.12.7)(rollup@4.16.1)(typescript@5.4.5)(vite@4.5.3)
+        specifier: ^3.9.0
+        version: 3.9.0(@types/node@20.12.7)(rollup@4.16.1)(typescript@5.4.5)(vite@4.5.3)
 
   packages/eslint-config-bedframe:
     dependencies:
@@ -7658,8 +7658,8 @@ packages:
       - supports-color
     dev: false
 
-  /vite-plugin-dts@3.8.3(@types/node@20.12.7)(rollup@4.16.1)(typescript@5.4.5)(vite@4.5.3):
-    resolution: {integrity: sha512-yRHiRosQw7MXdOhmcrVI+kRiB8YEShbSxnADNteK4eZGdEoyOkMHihvO5XOAVlOq8ng9sIqu8vVefDK1zcj3qw==}
+  /vite-plugin-dts@3.9.0(@types/node@20.12.7)(rollup@4.16.1)(typescript@5.4.5)(vite@4.5.3):
+    resolution: {integrity: sha512-pwFIEYQ3LZvMafkEGvNnileb6af5JuyZsBfYQrTDYxdeGEy0OS4B4hCsLPo5YGnhK5k9EzyO6BXVO6y+Lt5T2A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
