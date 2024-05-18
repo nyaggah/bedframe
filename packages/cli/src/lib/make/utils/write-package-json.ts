@@ -74,7 +74,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     ${commitLint ? `"commit": "${lintFormat ? 'lint-staged && ' : ''}cz",` : ''}"zip": "bedframe zip",
     ${
       browsers.includes('safari')
-        ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name@$npm_package_version-safari"`
+        ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name-safari"`
         : ''
     }${browsers.includes('safari') && gitHooks ? ',' : ''} 
     ${gitHooks ? `"postinstall": "husky install"` : ''}
@@ -84,15 +84,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     "react-dom": "^18.2.0"${
       isStyle.tailwind
         ? `,
-        "@radix-ui/react-dropdown-menu": "^2.0.6",
-    "@radix-ui/react-icons": "^1.3.0",
-    "@radix-ui/react-menubar": "^1.0.4",
-    "@radix-ui/react-navigation-menu": "^1.1.4",
-    "@radix-ui/react-slot": "^1.0.2",
-    "@radix-ui/react-tabs": "^1.0.4",
-    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "lucide-react": "^0.363.0",
     "react-icons": "^5.0.1",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7"`
@@ -100,8 +92,8 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.78",
-    "@bedframe/core": "0.0.42",
+    "@bedframe/cli": "0.0.79",
+    "@bedframe/core": "0.0.43",
 ${
   changesets
     ? `"@changesets/cli": "^2.27.1",
@@ -198,7 +190,7 @@ ${
     },
     "ignorePatterns": [
       "dist",
-      "${projectName}@*",
+      ${browsers.includes('safari') && `"${projectName}-safari",`}
       "node_modules"${
         hasTests
           ? `,
