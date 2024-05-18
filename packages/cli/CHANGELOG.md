@@ -1,5 +1,17 @@
 # @bedframe/cli
 
+## 0.0.79
+
+### Patch Changes
+
+- 9367af8: - feat(create-bedframe): output standalone make command + update bin
+  - feat(cli-commands): ensure build and dev scripts have desc of options/args (browser array)
+  - code clean up
+  - remove codemod command <~~ CRX handles Firefox builds now aka Bedframe supports Firefox/Safari + All chromium (Arc, Brave, Chrome, Edge, Opera,...)
+  - update packages to latest
+- Updated dependencies [9367af8]
+  - @bedframe/core@0.0.43
+
 ## 0.0.78
 
 ### Patch Changes
