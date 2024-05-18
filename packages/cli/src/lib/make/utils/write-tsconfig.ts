@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { Answers } from 'prompts'
+import type { Answers } from 'prompts'
 import { ensureDir, outputFile } from './utils.fs'
 /**
  * create the `tsconfig.ts` & `tsconfig.node.json` based on prompt responses

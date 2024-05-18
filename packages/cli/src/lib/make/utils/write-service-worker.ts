@@ -1,7 +1,7 @@
 import path from 'node:path'
 import type { ExtensionType } from '@bedframe/core'
 import type prompts from 'prompts'
-import { ensureDir, ensureFile, outputFile } from './utils.fs'
+import { ensureDir, ensureWriteFile, outputFile } from './utils.fs'
 
 /**
  * construct code block for onInstalled
@@ -91,13 +91,13 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
 
   const scriptsDir = path.join(rootDir, 'src', 'scripts')
   ensureDir(scriptsDir).then(() => {
-    ensureFile(serviceWorkerPath)
+    ensureWriteFile(serviceWorkerPath)
       .then(() =>
         outputFile(
           serviceWorkerPath,
           `${fileContent(extension.type.name)}\n`,
-        ).catch((error) => console.error(error)),
+        ).catch(console.error),
       )
-      .catch((error) => console.error(error))
+      .catch(console.error)
   })
 }

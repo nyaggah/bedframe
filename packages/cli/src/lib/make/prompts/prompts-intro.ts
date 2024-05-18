@@ -1,10 +1,10 @@
 import {
-  lightMagenta,
-  lightGreen,
-  lightCyan,
-  lightYellow,
-  dim,
   bold,
+  dim,
+  lightCyan,
+  lightGreen,
+  lightMagenta,
+  lightYellow,
 } from 'kolorist'
 /**
  * Returns Bedframe banner / intro text

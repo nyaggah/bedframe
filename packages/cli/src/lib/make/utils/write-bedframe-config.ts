@@ -1,7 +1,7 @@
 import path from 'node:path'
+import type { AnyCase, Browser } from '@bedframe/core'
 import type { Answers } from 'prompts'
-import { ensureDir, ensureFile, outputFile } from './utils.fs'
-import { AnyCase, Browser } from '@bedframe/core'
+import { ensureDir, ensureWriteFile, outputFile } from './utils.fs'
 
 /**
  * construct override page url to resolve in vite/bedfframe configs
@@ -68,7 +68,9 @@ ${browsers}
 
 export default createBedframe({
   browser: [
-    ${browser.map((browserName: AnyCase<Browser>) => `${browserName}.browser`).join(',\n')}
+    ${browser
+      .map((browserName: AnyCase<Browser>) => `${browserName}.browser`)
+      .join(',\n')}
   ],
   extension: {
     type: '${extensionType}',${
@@ -145,11 +147,11 @@ export default createBedframe({
     const configFilePath = path.join(configDir, 'bedframe.config.ts')
     ensureDir(configDir)
       .then(() => {
-        ensureFile(configFilePath).then(() =>
+        ensureWriteFile(configFilePath).then(() =>
           outputFile(configFilePath, `${fileContent}\n`),
         )
       })
-      .catch((error) => console.error(error))
+      .catch(console.error)
   } catch (error) {
     console.error(error)
   }

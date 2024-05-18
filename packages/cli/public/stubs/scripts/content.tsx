@@ -3,11 +3,15 @@ import { type FrameConfig, mountFrame, unmountIframe } from './iframe.config'
 
 export const frameConfig: FrameConfig = {
   iframe: {
-    id: `__${chrome.runtime.getManifest().name.replace(/[^A-Z0-9]/gi, '_')}__frame__`,
+    id: `__${chrome.runtime
+      .getManifest()
+      .name.replace(/[^A-Z0-9]/gi, '_')}__frame__`,
     src: chrome.runtime.getURL('pages/main.html'),
   },
   iframeBg: {
-    id: `__${chrome.runtime.getManifest().name.replace(/[^A-Z0-9]/gi, '_')}__overlay__`,
+    id: `__${chrome.runtime
+      .getManifest()
+      .name.replace(/[^A-Z0-9]/gi, '_')}__overlay__`,
   },
 }
 

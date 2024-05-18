@@ -1,6 +1,6 @@
 import path from 'node:path'
 import type prompts from 'prompts'
-import { ensureFile, outputFile } from './utils.fs'
+import { ensureWriteFile, outputFile } from './utils.fs'
 
 export function viteConfig(response: prompts.Answers<string>): string {
   const { tests: hasTests } = response.development.template.config
@@ -48,11 +48,11 @@ export default defineConfig(({ command, mode }) => {
 export function writeViteConfig(response: prompts.Answers<string>): void {
   const rootDir = path.resolve(response.extension.name.path)
   const viteConfigPath = path.resolve(path.join(rootDir, 'vite.config.ts'))
-  ensureFile(viteConfigPath)
+  ensureWriteFile(viteConfigPath)
     .then(() =>
       outputFile(viteConfigPath, `${viteConfig(response)}\n`).catch((error) =>
         console.error(error),
       ),
     )
-    .catch((error) => console.error(error))
+    .catch(console.error)
 }

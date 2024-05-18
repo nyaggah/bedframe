@@ -1,6 +1,6 @@
-import type { AnyCase, Browser } from '@bedframe/core'
 import fs from 'node:fs'
 import { join, resolve } from 'node:path'
+import type { AnyCase, Browser } from '@bedframe/core'
 
 export function getBrowserArray(): AnyCase<Browser>[] {
   const manifestsDir: string = resolve(join(process.cwd(), 'src', 'manifests'))

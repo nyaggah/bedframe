@@ -1,6 +1,6 @@
-import { execa } from 'execa'
 import { chdir } from 'node:process'
-import { PromptsResponse } from '../prompts'
+import { execa } from 'execa'
+import type { PromptsResponse } from '../prompts'
 
 export async function initializeGitProject(
   response: PromptsResponse,

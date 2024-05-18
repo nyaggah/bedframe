@@ -1,3 +1,7 @@
+import childProcess from 'node:child_process'
+import fs from 'node:fs'
+import { basename, join, resolve } from 'node:path'
+import { cwd } from 'node:process'
 import { Command } from 'commander'
 import {
   dim,
@@ -8,10 +12,6 @@ import {
   lightYellow,
 } from 'kolorist'
 import fetch from 'node-fetch'
-import childProcess from 'node:child_process'
-import fs from 'node:fs'
-import { basename, join, resolve } from 'node:path'
-import { cwd } from 'node:process'
 
 type ChromeUploadConfig = {
   extensionId: string

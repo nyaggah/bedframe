@@ -1,14 +1,14 @@
-import {
-  lightMagenta,
-  lightGreen,
-  lightCyan,
-  lightYellow,
-  dim,
-  bold,
-} from 'kolorist'
 import { type ManifestV3Export, crx } from '@crxjs/vite-plugin'
-import { Browser, type BuildConfig, type BuildTarget } from './types'
+import {
+  bold,
+  dim,
+  lightCyan,
+  lightGreen,
+  lightMagenta,
+  lightYellow,
+} from 'kolorist'
 import type { PluginOption } from 'vite'
+import { Browser, type BuildConfig, type BuildTarget } from './types'
 import { AnyCase } from './utils'
 
 /**
@@ -26,7 +26,9 @@ export function getManifest(
   { command, mode }: BuildConfig,
   targets: BuildTarget[],
   options?: CrxOptions,
-): PluginOption[] {
+  // PluginOption[]
+  // biome-ignore lint:  @typescript-eslint/no-explicit-any
+): any {
   const _mode = `${(mode as string).charAt(0).toUpperCase()}${(
     mode as string
   ).slice(1)}`

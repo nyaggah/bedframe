@@ -1,6 +1,6 @@
 import { join, resolve } from 'node:path'
-import { Answers } from 'prompts'
-import { ensureDir, ensureFile, outputFile } from './utils.fs'
+import type { Answers } from 'prompts'
+import { ensureDir, ensureWriteFile, outputFile } from './utils.fs'
 
 type EnvironmentVariables = {
   chrome: ChromeEnvironment
@@ -217,7 +217,7 @@ ${
 
   ensureDir(join(projectPath, '.github', 'workflows'))
     .then(() => {
-      ensureFile(file.path).then(() => outputFile(file.path, file.content))
+      ensureWriteFile(file.path).then(() => outputFile(file.path, file.content))
     })
-    .catch((error) => console.error(error))
+    .catch(console.error)
 }

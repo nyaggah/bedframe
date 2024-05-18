@@ -22,15 +22,13 @@
   "bin": {
     "create-bedframe": "./dist/index.js"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "clean": "shx rm -rf dist",
     "build": "pnpm clean && tsc && rollup -c",
-    "lint": "eslint \"**/*.ts*\" --report-unused-disable-directives --max-warnings 0",
-    "format": "pnpm prettier --write .",
-    "lint:format": "pnpm format && pnpm lint",
+    "format": "pnpm biome format --write .",
+    "lint": "pnpm biome lint --apply .",
+    "lint:format": "pnpm biome check --apply .",
     "build:pack": "pnpm build && pnpm pack"
   },
   "dependencies": {
@@ -38,6 +36,7 @@
     "@bedframe/core": "workspace:^"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.7.3",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "rollup-plugin-dts": "^6.1.1",
@@ -48,10 +47,8 @@
     "vite-plugin-dts": "^3.9.1"
   },
   "lint-staged": {
-    "*.{md,mdx,css,html,json,js}": [
-      "prettier --write ."
-    ],
-    "*{js,jsx,ts,tsx }": "eslint --fix"
+    "*.{md,mdx,css,html,json,js}": ["prettier --write ."],
+    "*.{js,jsx,ts,tsx }": "eslint . --fix"
   },
   "prettier": {
     "tabWidth": 2,
@@ -59,26 +56,12 @@
     "singleQuote": true
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"]
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "turbo",
-      "bedframe"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {},
-    "ignorePatterns": [
-      "dist"
-    ]
   },
   "repository": {
     "type": "git",

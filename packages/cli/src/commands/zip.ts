@@ -1,10 +1,10 @@
+import { readFileSync } from 'node:fs'
+import { basename, join, resolve } from 'node:path'
+import { cwd } from 'node:process'
 import type { AnyCase, Browser } from '@bedframe/core'
 import { Command } from 'commander'
 import { execa } from 'execa'
 import { dim, lightCyan, lightGreen, lightMagenta, lightYellow } from 'kolorist'
-import { readFileSync } from 'node:fs'
-import { basename, join, resolve } from 'node:path'
-import { cwd } from 'node:process'
 import { getBrowserArray } from '../lib/get-browser-array'
 
 /**
@@ -14,6 +14,7 @@ import { getBrowserArray } from '../lib/get-browser-array'
  * @param {*} browser
  * @param {*} options
  */
+// biome-ignore lint:  @typescript-eslint/no-explicit-any
 function executeZipCommand(browser: any, options: any): void {
   const pkg = JSON.parse(readFileSync(join(cwd(), 'package.json'), 'utf8'))
 
