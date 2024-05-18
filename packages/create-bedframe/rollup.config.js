@@ -1,7 +1,7 @@
-import typescript from '@rollup/plugin-typescript'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import esbuild from 'rollup-plugin-esbuild'
+import typescript from '@rollup/plugin-typescript'
 import dts from 'rollup-plugin-dts'
+import esbuild from 'rollup-plugin-esbuild'
 import { string } from 'rollup-plugin-string'
 
 const name = {

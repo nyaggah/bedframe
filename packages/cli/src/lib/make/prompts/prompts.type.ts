@@ -33,4 +33,5 @@ export type DevelopmentPrompts = {
   yes?: boolean
 }
 
+// biome-ignore lint:  @typescript-eslint/no-explicit-any
 export type PromptsResponse = Record<string, any>

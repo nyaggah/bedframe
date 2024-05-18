@@ -1,5 +1,5 @@
 import path from 'node:path'
-import prompts from 'prompts'
+import type prompts from 'prompts'
 import { writeFile } from './utils.fs'
 
 /**
@@ -101,16 +101,16 @@ ${
     "@commitlint/config-conventional": "^19.1.0",`
     : ''
 }${
-    hasTests
-      ? `\n"@testing-library/jest-dom": "^6.4.2",
+  hasTests
+    ? `\n"@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "happy-dom": "^14.3.6",
     "vitest": "^1.4.0",
     "@vitest/coverage-istanbul": "^1.4.0",`
-      : ''
-  }
+    : ''
+}
     "@types/node": "^20.11.30",
     "@types/chrome": "^0.0.263",
     "@types/react": "^18.2.69",
@@ -240,7 +240,7 @@ ${
 
   const destinationRoot = path.resolve(response.extension.name.path)
   const destinationPackageJson = path.join(destinationRoot, 'package.json')
-  writeFile(destinationPackageJson, packageJson + '\n').catch(console.error)
+  writeFile(destinationPackageJson, `${packageJson}\n`).catch(console.error)
 }
 
 export const parameterizeString = (string: string, separator = '-') => {

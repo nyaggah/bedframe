@@ -1,3 +1,11 @@
+import path from 'node:path'
+import {
+  Browser,
+  Framework,
+  Language,
+  PackageManager,
+  Style,
+} from '@bedframe/core'
 import {
   blue,
   cyan,
@@ -10,14 +18,6 @@ import {
   stripColors,
   yellow,
 } from 'kolorist'
-import {
-  Browser,
-  Framework,
-  Language,
-  PackageManager,
-  Style,
-} from '@bedframe/core'
-import path from 'node:path'
 
 export type ColorType = (str: string | number) => string
 export type VariantColor = {

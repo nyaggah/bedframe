@@ -1,10 +1,10 @@
+import { promises as fs } from 'node:fs'
+import path, { basename } from 'node:path'
+import url from 'node:url'
 import type { Browser } from '@bedframe/core'
 import { execa } from 'execa'
 import { bold, dim, lightGray, green as lightGreen } from 'kolorist'
 import Listr, { type ListrTask } from 'listr'
-import { promises as fs } from 'node:fs'
-import path, { basename } from 'node:path'
-import url from 'node:url'
 import type { PromptsResponse } from '../prompts'
 import { copyFolder } from './copy-folder'
 import { installDependencies } from './install-deps'
@@ -130,7 +130,7 @@ export async function makeBed(response: PromptsResponse) {
             return { name: '', path: '' }
         }
       }
-
+      // biome-ignore lint:  @typescript-eslint/no-explicit-any
       const manifestTasksFrom = (browser: Browser[]): ListrTask<any>[] => {
         return browser.map((b, i) => {
           const isLast = b.length - 1 === i
@@ -221,7 +221,7 @@ export async function makeBed(response: PromptsResponse) {
                 const destinationPath = path.join(testDir, 'app.test.tsx')
                 ensureDir(testDir)
                   .then(() => fs.copyFile(stubs.tests.app, destinationPath))
-                  .catch((error) => console.error(error))
+                  .catch(console.error)
               } catch (error) {
                 console.error(error)
               }
@@ -300,7 +300,7 @@ export async function makeBed(response: PromptsResponse) {
                       )
                     }
                   })
-                  .catch((error) => console.error(error))
+                  .catch(console.error)
               } catch (error) {
                 console.error(error)
               }
@@ -337,7 +337,7 @@ export async function makeBed(response: PromptsResponse) {
                       path.join(componentsDir, 'main.tsx'),
                     )
                   })
-                  .catch((error) => console.error(error))
+                  .catch(console.error)
               }
               if (extensionType === 'sidepanel') {
                 ensureDir(pagesDir)
@@ -351,7 +351,7 @@ export async function makeBed(response: PromptsResponse) {
                       path.join(pagesDir, 'sidepanel-welcome.html'),
                     )
                   })
-                  .catch((error) => console.error(error))
+                  .catch(console.error)
               }
               if (extensionType === 'devtools') {
                 ensureDir(pagesDir)
@@ -365,7 +365,7 @@ export async function makeBed(response: PromptsResponse) {
                       path.join(pagesDir, 'devtools-panel.html'),
                     )
                   })
-                  .catch((error) => console.error(error))
+                  .catch(console.error)
               }
               if (overridePage !== 'none') {
                 copyOverridePage(
@@ -381,7 +381,7 @@ export async function makeBed(response: PromptsResponse) {
                       path.join(pagesDir, 'options.html'),
                     )
                   })
-                  .catch((error) => console.error(error))
+                  .catch(console.error)
               }
             },
           },

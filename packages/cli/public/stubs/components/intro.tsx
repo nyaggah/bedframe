@@ -29,6 +29,7 @@ export function Intro(): JSX.Element {
   return (
     <div className="flex flex-col items-center justify-center min-w-[360px] min-h-[400px] w-full h-full bg-background">
       <button
+        type="button"
         className="flex items-center justify-center w-6 h-6 absolute text-[1.5em] hover:text-red-400 cursor-pointer rounded-[50%] right-[15px] top-[15px]"
         onClick={() =>
           window.parent.postMessage(

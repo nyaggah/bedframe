@@ -1,6 +1,6 @@
 import { join, resolve } from 'node:path'
 import type prompts from 'prompts'
-import { ensureFile, outputFile } from './utils.fs'
+import { ensureWriteFile, outputFile } from './utils.fs'
 
 export function writeReadMe(response: prompts.Answers<string>): void {
   const { name: projectName, path: projectPath } = response.extension.name
@@ -77,11 +77,11 @@ ${fileArch}
 
   `
 
-  ensureFile(readMePath)
+  ensureWriteFile(readMePath)
     .then(() =>
       outputFile(readMePath, readMeContent).catch((error) =>
         console.error(error),
       ),
     )
-    .catch((error) => console.error(error))
+    .catch(console.error)
 }

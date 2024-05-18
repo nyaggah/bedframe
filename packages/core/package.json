@@ -19,21 +19,20 @@
       "default": "./dist/bedframe.js"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "format": "prettier --write .",
-    "lint": "eslint \"**/*.ts*\" --report-unused-disable-directives --max-warnings 0",
-    "lint:format": "pnpm format && pnpm lint",
+    "format": "pnpm biome format --write .",
+    "lint": "pnpm biome lint --apply .",
+    "lint:format": "pnpm biome check --apply .",
     "build:pack": "pnpm build && pnpm pack"
   },
   "dependencies": {
     "@crxjs/vite-plugin": "2.0.0-beta.23"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.7.3",
     "@types/chrome": "^0.0.268",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
@@ -56,10 +55,8 @@
     "vitest": "^0.34.6"
   },
   "lint-staged": {
-    "*.{md,mdx,css,html,json,js}": [
-      "prettier --write ."
-    ],
-    "*.{js,jsx,ts,tsx}": "eslint . --fix"
+    "*.{md,mdx,css,html,json,js}": ["pnpm biome format --write ."],
+    "*.{js,jsx,ts,tsx}": "pnpm biome lint --apply ."
   },
   "prettier": {
     "tabWidth": 2,
@@ -67,25 +64,12 @@
     "singleQuote": true
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"]
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "bedframe",
-      "turbo"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "ignorePatterns": [
-      "dist"
-    ]
   },
   "repository": {
     "type": "git",

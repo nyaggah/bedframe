@@ -332,37 +332,6 @@ alias for vite build w/ --mode &lt;browser&gt;
   
 </details>
 
-### C O D E M O D
-
-perform after-build manifest and features code mods
-
-<details>
-  <summary>Command Details</summary>
-
-```bash
->_
-
-B R O W S E R
-E X T E N S I O N
-D E V E L O P M E N T
-F R A M E W O R K
-
-Usage: @bedframe/cli codemod [options] <browser>
-
-perform after-build manifest and features code mods (🍝) by browser
-
-Arguments:
-browser browser name
-
-Options:
---manifest perform manifest.json codemods (default: true)
---features perform in-code features codemods (default: true)
--h, --help display help for command
-
-```
-
-</details>
-
 ### Z I P
 
 create zip archive(s) for 1 or more browsers

@@ -1,3 +1,5 @@
+import { basename, resolve } from 'node:path'
+import { cwd } from 'node:process'
 import {
   type AnyCase,
   type Bedframe,
@@ -7,8 +9,6 @@ import {
   createManifest,
 } from '@bedframe/core'
 import { dim, italic, red, yellow } from 'kolorist'
-import { basename, resolve } from 'node:path'
-import { cwd } from 'node:process'
 import prompts, { type PromptObject } from 'prompts'
 import {
   browsers,
@@ -37,6 +37,7 @@ ${dim('- - - - - - - - - - - -')}
 `
 }
 export const browserPrompts = (
+  // biome-ignore lint:  @typescript-eslint/no-explicit-any
   options: any,
 ): PromptObject<keyof BrowserPrompts>[] => {
   const initialValue = options.browser ? options.browser : 0
@@ -57,6 +58,7 @@ export const browserPrompts = (
 
 export const extensionPrompts = (
   name: string,
+  // biome-ignore lint:  @typescript-eslint/no-explicit-any
   options: any,
 ): PromptObject<keyof ExtensionPrompts>[] => {
   const initialValue = {
@@ -211,6 +213,7 @@ export const extensionPrompts = (
 }
 
 export const developmentPrompts = (
+  // biome-ignore lint:  @typescript-eslint/no-explicit-any
   options: any,
 ): PromptObject<keyof DevelopmentPrompts>[] => {
   const initialValue = {
@@ -321,6 +324,7 @@ export const developmentPrompts = (
 
 export async function bedframePrompts(
   projectName: string,
+  // biome-ignore lint:  @typescript-eslint/no-explicit-any
   options: any,
 ): Promise<Bedframe> {
   projectName === undefined ? basename(cwd()) : projectName
@@ -490,6 +494,7 @@ export async function bedframePrompts(
         installDeps: developmentResponse.installDeps,
       },
     },
+    // biome-ignore lint:  @typescript-eslint/no-explicit-any
   } as any)
   // TO diddly DO: bruuuuuh! this is a BED; not just any bed but MY BED! type me up, Joey!
   // ^^^  i think we're expecting type `PromptsResponse`

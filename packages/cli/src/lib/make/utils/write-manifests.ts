@@ -1,7 +1,7 @@
-import type { Browser } from '@bedframe/core'
 import path, { join } from 'node:path'
+import type { Browser } from '@bedframe/core'
 import type { Answers } from 'prompts'
-import { ensureDir, ensureFile, outputFile } from './utils.fs'
+import { ensureDir, ensureWriteFile, outputFile } from './utils.fs'
 
 export function writeBaseManifest(response: Answers<string>): string {
   const {
@@ -115,7 +115,7 @@ export function manifestForBrowser(
   browser: Browser,
 ): string {
   const {
-    name: { name: projectName },
+    // name: { name: projectName },
     options: optionsPage,
     type,
   } = response.extension
@@ -156,7 +156,9 @@ const updatedFirefoxManifest = {
   },${
     optionsPage === 'full-page' || optionsPage === 'embedded'
       ? `options_ui: {
-        page: ${optionsPage === 'full-page' ? 'options_page' : 'options_ui.page'},
+        page: ${
+          optionsPage === 'full-page' ? 'options_page' : 'options_ui.page'
+        },
       },`
       : ''
   }
@@ -185,18 +187,21 @@ export const safari = createManifest(updatedSafariManifest, 'safari')
 
 `
 
-  if (isFirefox) {
-    return firefoxManifest
-  } else if (isSafari) {
-    return safariManifest
-  } else {
-    return `import { createManifest } from '@bedframe/core'
+  const browserManifest = `import { createManifest } from '@bedframe/core'
 import { baseManifest } from './base.manifest'
 
 export const ${browser.toLowerCase()} = createManifest(baseManifest,'${browser.toLowerCase()}')
 
 `
+
+  if (isFirefox) {
+    return firefoxManifest
   }
+  if (isSafari) {
+    return safariManifest
+  }
+
+  return browserManifest
 }
 
 export async function writeManifests(response: Answers<string>): Promise<void> {
@@ -209,22 +214,22 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
       const manifestPath = path.join(manifestDir, `${browser.toLowerCase()}.ts`)
       ensureDir(join(manifestDir))
         .then(() => {
-          ensureFile(manifestBasePath)
+          ensureWriteFile(manifestBasePath)
             .then(() =>
               outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),
             )
-            .catch((error) => console.error(error))
+            .catch(console.error)
 
-          ensureFile(manifestPath)
+          ensureWriteFile(manifestPath)
             .then(() =>
               outputFile(
                 manifestPath,
                 `${manifestForBrowser(response, browser)}\n`,
               ),
             )
-            .catch((error) => console.error(error))
+            .catch(console.error)
         })
-        .catch((error) => console.error(error))
+        .catch(console.error)
     })
     await Promise.all(promises)
   } catch (error) {

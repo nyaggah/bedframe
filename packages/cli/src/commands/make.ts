@@ -1,8 +1,8 @@
-import { Command } from 'commander'
 import { basename } from 'node:path'
 import { cwd } from 'node:process'
-import { bedframePrompts, makeBed, promptsIntro } from '../lib'
+import { Command } from 'commander'
 import { dim } from 'kolorist'
+import { bedframePrompts, makeBed, promptsIntro } from '../lib'
 
 export const makeCommand = new Command('make')
 makeCommand
@@ -55,16 +55,17 @@ makeCommand
   )
 
   .action((name, options) => {
+    let updatedName = name
     if (options) {
       promptsIntro()
     }
     if (name === '.') {
-      name = {
+      updatedName = {
         name: basename(cwd()),
         path: cwd(),
       }
     }
-    const projectName = name ? name : undefined
+    const projectName = updatedName ? updatedName : undefined
     bedframePrompts(projectName, options).then(async (response) => {
       await makeBed(response).catch(console.error)
     })

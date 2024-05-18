@@ -1,7 +1,7 @@
-import { execa } from 'execa'
 import { chdir } from 'node:process'
+import { execa } from 'execa'
 import { projectInstall } from 'pkg-install'
-import { PromptsResponse } from '../prompts'
+import type { PromptsResponse } from '../prompts'
 /**
  * install dependencies, initialize git and
  * make first commit
@@ -28,7 +28,7 @@ export async function installDependencies(
 
         await execa('git', ['init'])
         await execa('git', ['add', '.'])
-        await execa('git', ['commit', '-am', `feat: initial commit. make BED!`])
+        await execa('git', ['commit', '-am', 'feat: initial commit. make BED!'])
       })
     } else {
       await projectInstall({
@@ -40,7 +40,7 @@ export async function installDependencies(
         }
         await execa('git', ['init'])
         await execa('git', ['add', '.'])
-        await execa('git', ['commit', '-am', `feat: initial commit. make BED!`])
+        await execa('git', ['commit', '-am', 'feat: initial commit. make BED!'])
       })
     }
   } catch (err) {

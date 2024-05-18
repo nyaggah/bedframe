@@ -1,4 +1,4 @@
-import fs from 'fs/promises'
+import fs from 'node:fs/promises'
 
 /**
  * ensure a directory exists before attempting to create content
@@ -29,7 +29,7 @@ export async function outputFile(
   fileContent: string,
 ): Promise<void> {
   try {
-    await writeFile(filePath, fileContent + '\n')
+    await writeFile(filePath, `${fileContent}\n`)
   } catch (error) {
     console.error(error)
   }
@@ -45,7 +45,7 @@ export async function outputFile(
  */
 export async function writeFile(filePath: string, data: string): Promise<void> {
   try {
-    await fs.writeFile(filePath, data + '\n')
+    await fs.writeFile(filePath, `${data}\n`)
   } catch (error) {
     console.error(error)
   }
@@ -58,7 +58,7 @@ export async function writeFile(filePath: string, data: string): Promise<void> {
  * @param {string} filePath
  * @return {*}  {Promise<void>}
  */
-export async function ensureFile(filePath: string): Promise<void> {
+export async function ensureWriteFile(filePath: string): Promise<void> {
   try {
     await fs.writeFile(filePath, '')
   } catch (error) {

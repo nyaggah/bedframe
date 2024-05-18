@@ -1,5 +1,5 @@
-import { Command } from 'commander'
 import { readFileSync } from 'node:fs'
+import { Command } from 'commander'
 import {
   buildCommand,
   devCommand,
