@@ -38,7 +38,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   const pmRun = pm !== 'yarn' ? `${pm} run` : pm
 
   const packageJson = `{
-  "name": "${projectName}",
+  "name": "${parameterizeString(projectName)}",
   "version": "${projectVersion}",
   "description": "${projectDescription}",
   ${
@@ -249,4 +249,8 @@ ${
   const destinationRoot = path.resolve(response.extension.name.path)
   const destinationPackageJson = path.join(destinationRoot, 'package.json')
   writeFile(destinationPackageJson, packageJson + '\n').catch(console.error)
+}
+
+export const parameterizeString = (string: string, separator = '-') => {
+  return string.toLowerCase().replace(/[^A-Z0-9]/gi, separator)
 }
