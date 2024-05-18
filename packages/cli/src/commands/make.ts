@@ -63,8 +63,6 @@ makeCommand
         name: basename(cwd()),
         path: cwd(),
       }
-      // ^^^ TO diddly DO: don't we already have a formatProjectName func ??
-      // use that else... its off to 🍝-ville!
     }
     const projectName = name ? name : undefined
     bedframePrompts(projectName, options).then(async (response) => {

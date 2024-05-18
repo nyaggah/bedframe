@@ -10,7 +10,6 @@ const name = `dist/bedframe`
 
 const bundle = (config) => ({
   ...config,
-  input: 'src/index.ts',
   external: (id) => !/^[./]/.test(id),
   plugins: [
     nodeResolve(),
@@ -24,6 +23,7 @@ const bundle = (config) => ({
 
 export default [
   bundle({
+    input: 'src/index.ts',
     plugins: [
       esbuild(),
       string({
@@ -40,6 +40,24 @@ export default [
     ],
   }),
   bundle({
+    input: 'src/create-bedframe.ts',
+    plugins: [
+      esbuild(),
+      string({
+        include: `dist/create-bedframe.js`,
+      }),
+    ],
+    output: [
+      {
+        file: `dist/create-bedframe.js`,
+        format: 'es',
+        sourcemap: true,
+        banner: '#!/usr/bin/env node\n',
+      },
+    ],
+  }),
+  bundle({
+    input: 'src/index.ts',
     plugins: [
       dts({
         insertTypesEntry: true,

@@ -38,9 +38,7 @@ function executeZipCommand(browser: any, options: any): void {
   execa(command, { shell: true, stdio: 'inherit' })
     .then(() => {
       console.log(`• successfully zipped ${lightGreen(basename(sourceDir))} 🚀
-└ • browser: ${dim('./dist/')}${lightMagenta(
-        `${process.env.PACKAGE_NAME ?? pkg?.name}`,
-      )}
+└ • browser: ${dim('./dist/')}${lightMagenta(browser.toLowerCase())}
   • archive: ${dim('./dist/')}${lightYellow(`${basename(zipPath)}`)}
   • version: ${lightCyan(`${process.env.PACKAGE_VERSION ?? pkg?.version}`)}
   • date/time: ${lightCyan(new Date().toLocaleString().replace(',', ''))}
