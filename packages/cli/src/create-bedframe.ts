@@ -5,7 +5,7 @@ import url from 'node:url'
 /**
  * Standalone `@bedframe/cli` Make command
  * exposes the `create-bedfame` executable
- * Lets you run perform undelying `npm init bedframe`
+ * Lets you perform underlying `npm init bedframe`
  *
  * ```bash
  * npx create bedframe
