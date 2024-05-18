@@ -9,11 +9,11 @@
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-next": "13.5.6",
+    "eslint": "^9.3.0",
+    "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-react": "7.34.1",
-    "eslint-config-turbo": "latest"
+    "eslint-config-turbo": "^1.13.3",
+    "eslint-plugin-react": "7.34.1"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

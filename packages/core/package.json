@@ -35,19 +35,19 @@
   },
   "devDependencies": {
     "@types/chrome": "^0.0.268",
-    "@types/node": "^20.12.11",
-    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@types/node": "^20.12.12",
+    "@typescript-eslint/eslint-plugin": "^7.9.0",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^1.13.3",
     "kolorist": "^1.8.0",
     "rollup": "^4.17.2",
-    "rollup-plugin-node-externals": "^6.1.2",
+    "rollup-plugin-node-externals": "^7.1.2",
     "rollup-plugin-polyfill-node": "^0.13.0",
     "tslib": "^2.6.2",
     "typescript": "^5.4.5",
     "unplugin-fonts": "^1.1.1",
-    "vite": "^4.5.3",
+    "vite": "^5.2.11",
     "vite-plugin-babel-macros": "^1.0.6"
   },
   "peerDependencies": {
