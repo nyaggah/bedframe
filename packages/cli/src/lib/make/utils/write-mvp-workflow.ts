@@ -81,15 +81,29 @@ jobs:
     name: Make, Version & Publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x        
       ${
         pm === 'pnpm' || pm === 'bun'
-          ? `- run: npm install ${pm} -g
-      - run: ${pm} install`
+          ? `
+      - name: Install ${pm} & Deps
+        run: |
+          npm install ${pm} -g
+          ${pm} install`
           : pm === 'yarn'
-            ? `- run: corepack enable
-      - run: yarn`
-            : '- run: npm ci'
+            ? `
+      - name: Install ${pm} & Deps
+        run: |
+          corepack enable
+          yarn`
+            : `
+      - name: NPM clean install
+        run: npm ci`
       }
       
       - name: '[ M A K E ] : Build ${projectName} - all browsers'
