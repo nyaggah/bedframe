@@ -37,11 +37,14 @@ The Bedframe Command Line Interface (CLI) lets you make and manage your BED dire
 
 <blockquote><br />
   <h4><strong>Node Version Requirement</strong></h4>  
-  Bedframe CLI requires <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">Node.js</a> 16+. You can manage multiple versions of Node on the same machine with <a href="https://github.com/tj/n" target="_blank" rel="noopener noreferrer">n</a>, <a href="https://github.com/creationix/nvm" target="_blank" rel="noopener noreferrer">nvm</a> or <a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener noreferrer">nvm-windows</a>.
+  Bedframe CLI requires <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">Node.js</a> version 18+. 20+. You can manage multiple versions of Node on the same machine with <a href="https://github.com/tj/n" target="_blank" rel="noopener noreferrer">n</a>, <a href="https://github.com/creationix/nvm" target="_blank" rel="noopener noreferrer">nvm</a> or <a href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener noreferrer">nvm-windows</a>.
   <br /><br />
 </blockquote>
 
 ```bash
+#  with bun
+bun add @bedframe/cli -g
+
 #  with pnpm
 pnpm add @bedframe/cli -g
 
@@ -62,29 +65,28 @@ After installation, you will have access to the `bedframe` executable in your co
   D E V E L O P M E N T
   F R A M E W O R K
 
+  @bedframe/cli v0.0.78
+
+
 Usage: @bedframe/cli [options] [command]
 
 Bedframe CLI - your Browser Extension Development framework (dev utility)
 
 Options:
-  -V, --version                output the version number
-  -h, --help                   display help for command
+  -V, --version             output the version number
+  -h, --help                display help for command
 
 Commands:
-  make [options] [name]        make your B E D
-  version [options]            create or update git release of current version
-                               (changeset version)
-  publish [options]            • publish new or update existing extension(s)
-                               ├ • C W S: Chrome Web Store
-                               ├ • A M O: Mozilla/Firefox Add-ons
-                               └ • M E A: MS Edge Add-ons
-  dev [browsers]               start Vite dev server for one or more browsers
-                               concurrently
-  build [browsers]             generate prod builds for 1 or more browsers concurrently
-  codemod [options] <browser>  perform after-build manifest and features code mods (🍝)
-                               by browser
-  zip [options] [browsers]     zip browser dist directories
-  help [command]               display help for command
+  make [options] [name]     make your B E D
+  version [options]         create or update git release of current version (changeset version)
+  publish [options]         publish new or update existing extension(s)
+                            - chrome: Chrome Web Store (C W S)
+                            - firefox: Mozilla/Firefox Add-ons (A M O)
+                            - edge: MS Edge Add-ons (M E A)
+  dev [browsers]            start Vite dev server for one or more browsers concurrently
+  build [browsers]          generate prod builds for 1 or more browsers concurrently
+  zip [options] [browsers]  zip browser dist directories
+  help [command]            display help for command
 ```
 
 You can check you have the right version with this command:
@@ -134,12 +136,16 @@ Alternatively: this command is also available as the standalone [`create-bedfram
 <summary>Command Details</summary>
 
 ```bash
+
 >_
 
   B R O W S E R
   E X T E N S I O N
   D E V E L O P M E N T
   F R A M E W O R K
+
+  @bedframe/cli v0.0.78
+
 
 Usage: @bedframe/cli make [options] [name]
 
@@ -149,28 +155,26 @@ Arguments:
   name                                   project name
 
 Options:
-  -b, --browsers <browsers>              specify comma-separated list browsers (chrome, edge,
-                                         firefox)
-  -v, --version <version>                specify project version (0.0.1)
-  -d, --description <description>        specify project description
-  -a, --author <author>                  specify project author  (name, email, url)
-  --license <license>                    specify project license (MIT)
-  -p, --private                          specify visibility of project (true)
-  -t, --type <type>                      specify extension type (popup)
-  --position <position>                  specify overlay extension position (center)
-  --override <override>                  specify page to override (newtab)
-  --options <options>                    specify whether to and how render options (embedded)
-  -p, --packageManager <packageManager>  Specify package manager to use (pnpm)
-  -f, --framework <framework>        specify framework to use (react)
-  -l, --language <language>              specify language to use (typescript)
-  -s, --style <style>                    specify CSS framework to use (tailwind)
+  -b, --browsers <browsers>              comma-separated list browsers (chrome, edge, firefox, etc)
+  -v, --version <version>                project version (0.0.1)
+  -d, --description <description>        project description
+  -a, --author <author>                  project author  (name, email, url)
+  --license <license>                    project license (MIT)
+  -r, --private                          visibility of project (true)
+  -t, --type <type>                      extension type (popup)
+  --override <override>                  page to override (newtab)
+  --options <options>                    whether to and how render options (embedded)
+  -p, --packageManager <packageManager>  package manager to use (pnpm)
+  -f, --framework <framework>            framework to use (react)
+  -l, --language <language>              language to use (typescript)
+  -s, --style <style>                    css framework to use (tailwind)
   -o, --lintFormat                       add linting with formatting (true)
-  -t, --tests                            add tests (vitest + testing library) (true)
+  -e, --tests                            add tests (vitest + testing library) (true)
   -g, --git                              initialize git for source control (true)
-  -h, --gitHooks                         add git hooks (true)
-  -c, --commitLint                       add commit linting (true)
-  -x, --changesets                       add changesets (true)
-  -i, --installDeps                      add & install dependencies (true)
+  -h, --gitHooks                         use git hooks (true)
+  -c, --commitLint                       use commit linting (true)
+  -x, --changesets                       use changesets (true)
+  -i, --installDeps                      install dependencies (true)
   -y, --yes                              make your BED w/ preconfigured defaults (false)
   --help                                 display help for command
 ```
@@ -425,37 +429,6 @@ alias for vite build w/ --mode &lt;browser&gt;
     -h, --help  display help for command
   ```
   
-</details>
-
-### C O D E M O D
-
-perform after-build manifest and features code mods
-
-<details>
-  <summary>Command Details</summary>
-
-```bash
->_
-
-B R O W S E R
-E X T E N S I O N
-D E V E L O P M E N T
-F R A M E W O R K
-
-Usage: @bedframe/cli codemod [options] <browser>
-
-perform after-build manifest and features code mods (🍝) by browser
-
-Arguments:
-browser browser name
-
-Options:
---manifest perform manifest.json codemods (default: true)
---features perform in-code features codemods (default: true)
--h, --help display help for command
-
-```
-
 </details>
 
 ### Z I P

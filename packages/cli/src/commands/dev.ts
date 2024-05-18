@@ -90,7 +90,7 @@ ${dim('└')} dist${dim('/')}${browsers
 export const devCommand = new Command('dev')
   .command('dev')
   .description('start Vite dev server for one or more browsers concurrently')
-  .arguments('[browsers]')
+  .argument('[browsers]', 'list of browser names')
   .action(async (browser) => {
     const browserArray = getBrowserArray()
     let cliBrowsers: AnyCase<Browser>[] = []
