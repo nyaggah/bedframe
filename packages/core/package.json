@@ -36,7 +36,7 @@
     "@types/chrome": "^0.0.268",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.0",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^1.13.3",
     "kolorist": "^1.8.0",
