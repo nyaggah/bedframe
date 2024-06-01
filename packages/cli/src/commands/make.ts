@@ -60,10 +60,7 @@ makeCommand
       promptsIntro()
     }
     if (name === '.') {
-      updatedName = {
-        name: basename(cwd()),
-        path: cwd(),
-      }
+      updatedName = basename(cwd())
     }
     const projectName = updatedName ? updatedName : undefined
     bedframePrompts(projectName, options).then(async (response) => {
