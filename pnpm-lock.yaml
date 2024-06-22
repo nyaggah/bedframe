@@ -142,8 +142,8 @@ importers:
         specifier: workspace:^
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^1.13.3
-        version: 1.13.3(eslint@8.57.0)
+        specifier: ^1.13.4
+        version: 1.13.4(eslint@8.57.0)
       rollup:
         specifier: ^4.17.2
         version: 4.18.0
@@ -206,8 +206,8 @@ importers:
         specifier: workspace:^
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^1.13.3
-        version: 1.13.3(eslint@8.57.0)
+        specifier: ^1.13.4
+        version: 1.13.4(eslint@8.57.0)
       kolorist:
         specifier: ^1.8.0
         version: 1.8.0
@@ -285,8 +285,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@9.3.0)
       eslint-config-turbo:
-        specifier: ^1.13.3
-        version: 1.13.3(eslint@9.3.0)
+        specifier: ^1.13.4
+        version: 1.13.4(eslint@9.3.0)
       eslint-plugin-react:
         specifier: 7.34.2
         version: 7.34.2(eslint@9.3.0)
@@ -4035,22 +4035,22 @@ packages:
     dependencies:
       eslint: 9.3.0
 
-  /eslint-config-turbo@1.13.3(eslint@8.57.0):
-    resolution: {integrity: sha512-if/QtwEiWZ5b7Bg8yZBPSvS0TeCG2Zvfa/+XBYANS7uSYucjmW+BBC8enJB0PqpB/YLGGOumeo3x7h1Nuba9iw==}
+  /eslint-config-turbo@1.13.4(eslint@8.57.0):
+    resolution: {integrity: sha512-+we4eWdZlmlEn7LnhXHCIPX/wtujbHCS7XjQM/TN09BHNEl2fZ8id4rHfdfUKIYTSKyy8U/nNyJ0DNoZj5Q8bw==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 8.57.0
-      eslint-plugin-turbo: 1.13.3(eslint@8.57.0)
+      eslint-plugin-turbo: 1.13.4(eslint@8.57.0)
     dev: true
 
-  /eslint-config-turbo@1.13.3(eslint@9.3.0):
-    resolution: {integrity: sha512-if/QtwEiWZ5b7Bg8yZBPSvS0TeCG2Zvfa/+XBYANS7uSYucjmW+BBC8enJB0PqpB/YLGGOumeo3x7h1Nuba9iw==}
+  /eslint-config-turbo@1.13.4(eslint@9.3.0):
+    resolution: {integrity: sha512-+we4eWdZlmlEn7LnhXHCIPX/wtujbHCS7XjQM/TN09BHNEl2fZ8id4rHfdfUKIYTSKyy8U/nNyJ0DNoZj5Q8bw==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 9.3.0
-      eslint-plugin-turbo: 1.13.3(eslint@9.3.0)
+      eslint-plugin-turbo: 1.13.4(eslint@9.3.0)
     dev: false
 
   /eslint-import-resolver-node@0.3.9:
@@ -4212,8 +4212,8 @@ packages:
       string.prototype.matchall: 4.0.11
     dev: false
 
-  /eslint-plugin-turbo@1.13.3(eslint@8.57.0):
-    resolution: {integrity: sha512-RjmlnqYsEqnJ+U3M3IS5jLJDjWv5NsvReCpsC61n5pJ4JMHTZ/lU0EIoL1ccuL1L5wP0APzdXdByBxERcPQ+Nw==}
+  /eslint-plugin-turbo@1.13.4(eslint@8.57.0):
+    resolution: {integrity: sha512-82GfMzrewI/DJB92Bbch239GWbGx4j1zvjk1lqb06lxIlMPnVwUHVwPbAnLfyLG3JuhLv9whxGkO/q1CL18JTg==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -4221,8 +4221,8 @@ packages:
       eslint: 8.57.0
     dev: true
 
-  /eslint-plugin-turbo@1.13.3(eslint@9.3.0):
-    resolution: {integrity: sha512-RjmlnqYsEqnJ+U3M3IS5jLJDjWv5NsvReCpsC61n5pJ4JMHTZ/lU0EIoL1ccuL1L5wP0APzdXdByBxERcPQ+Nw==}
+  /eslint-plugin-turbo@1.13.4(eslint@9.3.0):
+    resolution: {integrity: sha512-82GfMzrewI/DJB92Bbch239GWbGx4j1zvjk1lqb06lxIlMPnVwUHVwPbAnLfyLG3JuhLv9whxGkO/q1CL18JTg==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
