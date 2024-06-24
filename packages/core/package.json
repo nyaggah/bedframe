@@ -35,7 +35,7 @@
     "@biomejs/biome": "1.7.3",
     "@types/chrome": "^0.0.268",
     "@types/node": "^20.14.7",
-    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@vitejs/plugin-react": "^4.3.1",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^1.13.3",
