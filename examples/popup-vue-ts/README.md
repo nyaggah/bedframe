@@ -86,7 +86,7 @@ Find all files in the root directory that start with `__` leading double undersc
 - \_\_github/
 - \_\_husky/
 - \_\_vscode/
-- \_\_gitignore
+- \_\_env.example
 
 ```bash
 # macOS / Unix-like systems
