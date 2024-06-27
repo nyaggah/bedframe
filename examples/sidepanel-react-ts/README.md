@@ -9,11 +9,11 @@
 
 <br />
 
-# Popup Extension - Vue 3 + TypeScript + Vite
+# Side Panel Extension - React + TypeScript + Vite
 
 The default Bedframe setup generates production-ready cross-browser extension BED code complete with sensible default configurations for:
 
-- **Required**: base framework configuration (e.g. Vite + Metaframework and Language config e.g Vue w/ TypeScript)
+- **Required**: base framework configuration (e.g. Vite + Metaframework and Language config e.g React w/ TypeScript)
 - **Recommended**: linting & formating (w/ eslint + prettier w/ lint-staged)
 - **Recommended**: source control (w/ git)
   - publish/ release workflows (ci/cd w/ github actions)
@@ -69,18 +69,18 @@ The default Bedframe setup generates production-ready cross-browser extension BE
 ### 1. Clone example repo and remove git history:
 
 ```bash
-npx degit nyaggah/bedframe/examples/popup-vue-ts my-popup-vue-ts
+npx degit nyaggah/bedframe/examples/sidepanel-react-ts my-sidepanel-react-ts
 ```
 
 ### 2. Change into that directory:
 
 ```bash
-cd my-popup-vue-ts
+cd my-sidepanel-react-ts
 ```
 
-### 3. Rename the files and folders
+### 3. Rename the dot files and folders
 
-Find all files in the root directory that start with `__` leading double underscores to have a leading `.` dot:
+Find all files in the root directory that start with `__` leading double underscores and rename to have a leading `.` dot:
 
 - \_\_changeset/
 - \_\_github/

@@ -1,6 +1,6 @@
 {
   "name": "bedframe-poup-vue-ts",
-  "description": "Bedframe + Vue 3 + TypeScript",
+  "description": "Bedframe Popup extension w/ Vite + Vue + TypeScript",
   "version": "0.0.1",
   "author": {
     "name": "joey",

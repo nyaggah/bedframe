@@ -9,11 +9,11 @@
 
 <br />
 
-# Popup Extension - Vue 3 + TypeScript + Vite
+# Popup Extension - React + TypeScript + Vite
 
 The default Bedframe setup generates production-ready cross-browser extension BED code complete with sensible default configurations for:
 
-- **Required**: base framework configuration (e.g. Vite + Metaframework and Language config e.g Vue w/ TypeScript)
+- **Required**: base framework configuration (e.g. Vite + Metaframework and Language config e.g React w/ TypeScript)
 - **Recommended**: linting & formating (w/ eslint + prettier w/ lint-staged)
 - **Recommended**: source control (w/ git)
   - publish/ release workflows (ci/cd w/ github actions)
@@ -69,13 +69,13 @@ The default Bedframe setup generates production-ready cross-browser extension BE
 ### 1. Clone example repo and remove git history:
 
 ```bash
-npx degit nyaggah/bedframe/examples/popup-vue-ts my-popup-vue-ts
+npx degit nyaggah/bedframe/examples/popup-react-ts my-popup-react-ts
 ```
 
 ### 2. Change into that directory:
 
 ```bash
-cd my-popup-vue-ts
+cd my-react-popup-ts
 ```
 
 ### 3. Rename the files and folders
