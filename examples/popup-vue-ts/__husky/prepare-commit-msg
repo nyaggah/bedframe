@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if [ -t 1 ]; then
+  # Running in a terminal
+  exec < /dev/tty && node_modules/.bin/cz --hook || true
+else
+  # Not running in a terminal (i.e. CI environment)
+  # node_modules/.bin/cz --hook || true
+  echo "Skipping commitlint in CI environment"
+fi
