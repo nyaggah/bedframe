@@ -41,7 +41,14 @@ for file in __*; do mv "$file" ".${file:2}"; done
 Get-ChildItem -Name __* | Rename-Item -NewName {$_ -replace '^__','.'}
 ```
 
-### 4. Develop extension(s) locally
+### 5. Install dependencies
+install project dependencies
+
+```bash
+npm install
+```
+
+### 5. Develop extension(s) locally
 
 ```bash
 # start vite dev server for all extensions concurrently
@@ -56,7 +63,7 @@ npm run dev chrome
 npm run dev chrome,firefox,edge
 ```
 
-5. build extension(s)
+### 6. build extension(s)
 
 ```bash
 # build all extensions concurrently
