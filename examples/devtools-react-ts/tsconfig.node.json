@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+
+    /* Path aliases */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/manifests",
+    "package.json",
+    "vite.config.ts",
+    "tailwind.config.js",
+    "src/_config/bedframe.config.ts",
+    "postcss.config.js"
+  ]
+}

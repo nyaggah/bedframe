@@ -1,4 +1,4 @@
-name: M V P - make, version & publish popup-vue-ts
+name: M V P - make, version & publish popup-react-ts
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       - name: NPM clean install
         run: npm ci
 
-      - name: '[ M A K E ] : Build popup-vue-ts - all browsers'
+      - name: '[ M A K E ] : Build popup-react-ts - all browsers'
         id: buildProject
         run: npm run build
 
