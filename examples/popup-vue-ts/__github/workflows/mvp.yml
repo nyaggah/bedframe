@@ -1,0 +1,105 @@
+name: M V P - make, version & publish bedframe-vue
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # This line adds manual triggering from the GitHub UI
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  make_version_publish:
+    name: Make, Version & Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install bun -g
+      - run: bun install # bunx bun install
+
+      - name: '[ M A K E ] : Build bedframe-vue - all browsers'
+        id: buildProject
+        run: bun run build
+
+      - name: 'Format & Lint - Run Prettier + ESLint'
+        id: lintFormat
+        run: bun run lint:format
+
+      - name: 'Unit Test - run unit test suite'
+        id: unitTest
+        run: bun run test
+
+      - name: '[ V E R S I O N ] : Create or Update Release Pull Request - Version Changes'
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: bun run version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Get current version info from package.json'
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        id: package
+        run: |
+          echo "PACKAGE_NAME=$(jq -r .name package.json)" >> $GITHUB_OUTPUT
+          echo "PACKAGE_VERSION=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+        working-directory: ${{ github.workspace }}
+
+      - name: 'Check if a git release already exists for current version'
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        id: checkRelease
+        run: |
+          TAG_NAME=${{ steps.package.outputs.PACKAGE_NAME }}@${{ steps.package.outputs.PACKAGE_VERSION }}
+          if gh release view $TAG_NAME &>/dev/null; then
+            echo "Release $TAG_NAME already exists."
+            echo "RELEASE_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
+          fi
+
+      - name: 'Create Release Archive(s) - zip 🫰 it 🫰 up 🫰 !'
+        id: zip
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: bun run zip
+
+      - name: 'Create a git release w/ notes & release archive(s)'
+        id: gitRelease
+        if: steps.changesets.outputs.hasChangesets == 'false' && env.RELEASE_EXISTS != 'true'
+        run: bun run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE_NAME: ${{ steps.package.outputs.PACKAGE_NAME }}
+          PACKAGE_VERSION: ${{ steps.package.outputs.PACKAGE_VERSION }}
+
+      - name: '[ P U B L I S H ] : Chrome - upload to Chrome Web Store'
+        id: publishChrome
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: bun run publish chrome
+        env:
+          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+          PACKAGE_NAME: ${{ steps.package.outputs.PACKAGE_NAME }}
+          PACKAGE_VERSION: ${{ steps.package.outputs.PACKAGE_VERSION }}
+
+      - name: 'Firefox - upload to AMO'
+        id: publishFirefox
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: bun run publish firefox
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+          PACKAGE_NAME: ${{ steps.package.outputs.PACKAGE_NAME }}
+          PACKAGE_VERSION: ${{ steps.package.outputs.PACKAGE_VERSION }}
+
+      - name: 'MS Edge - upload to MS Edge Add-ons'
+        id: publishEdge
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: bun run publish edge
+        env:
+          EDGE_PRODUCT_ID: ${{ secrets.EDGE_PRODUCT_ID }}
+          EDGE_CLIENT_ID: ${{ secrets.EDGE_CLIENT_ID }}
+          EDGE_CLIENT_SECRET: ${{ secrets.EDGE_CLIENT_SECRET }}
+          PACKAGE_NAME: ${{ steps.package.outputs.PACKAGE_NAME }}
+          PACKAGE_VERSION: ${{ steps.package.outputs.PACKAGE_VERSION }}
