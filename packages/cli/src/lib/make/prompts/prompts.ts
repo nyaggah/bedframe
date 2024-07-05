@@ -84,11 +84,10 @@ export const extensionPrompts = (
             name: basename(cwd()),
             path: cwd(),
           }
-        } else {
-          return {
-            name: basename(answer),
-            path: resolve(answer),
-          }
+        }
+        return {
+          name: basename(answer),
+          path: resolve(answer),
         }
       },
     },
