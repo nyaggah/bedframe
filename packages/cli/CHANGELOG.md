@@ -1,5 +1,15 @@
 # @bedframe/cli
 
+## 0.0.80
+
+### Patch Changes
+
+- fc4df64: project gen name/path formatting
+
+  ensure the different possible project name variations passed into prompts (args and options) are formatted correctly
+
+  fixes #453
+
 ## 0.0.79
 
 ### Patch Changes
