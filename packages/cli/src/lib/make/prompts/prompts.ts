@@ -12,7 +12,6 @@ import { dim, italic, red, yellow } from 'kolorist'
 import prompts, { type PromptObject } from 'prompts'
 import {
   browsers,
-  formatTargetDir,
   frameworks,
   languages,
   packageManagers,
@@ -57,16 +56,16 @@ export const browserPrompts = (
 }
 
 export const extensionPrompts = (
-  name: string,
+  name: { name: string; path: string } | undefined,
   // biome-ignore lint:  @typescript-eslint/no-explicit-any
   options: any,
 ): PromptObject<keyof ExtensionPrompts>[] => {
   const initialValue = {
-    name: name ? name : 'bedframe-project',
+    name: 'bedframe-project',
     version: options.version ? options.version : '0.0.1',
   }
 
-  if (name) {
+  if (name !== undefined) {
     options.name = name
   }
 
@@ -77,9 +76,21 @@ export const extensionPrompts = (
       message: 'Project name:',
       initial: options.name ? options.name : initialValue.name,
       hint: `— Where would you like to create your project? ${yellow(
-        italic(name ? name : './bedframe-project'),
+        italic(name?.path ? name.path : './bedframe-project'),
       )}`,
-      format: (answer: string) => formatTargetDir(answer),
+      format: (answer: string) => {
+        if (answer === '.') {
+          return {
+            name: basename(cwd()),
+            path: cwd(),
+          }
+        } else {
+          return {
+            name: basename(answer),
+            path: resolve(answer),
+          }
+        }
+      },
     },
     {
       type: () => (!options.version ? 'text' : null),
@@ -323,11 +334,16 @@ export const developmentPrompts = (
 }
 
 export async function bedframePrompts(
-  projectName: string,
+  projectName: { name: string; path: string } | undefined,
   // biome-ignore lint:  @typescript-eslint/no-explicit-any
   options: any,
 ): Promise<Bedframe> {
-  projectName === undefined ? basename(cwd()) : projectName
+  projectName === undefined
+    ? {
+        name: basename(cwd()),
+        path: cwd(),
+      }
+    : projectName
 
   const browsersResponse = options.browsers
     ? options.browsers
@@ -360,7 +376,17 @@ export async function bedframePrompts(
   )
 
   if (options.name) {
-    extensionResponse.name = formatTargetDir(options.name)
+    if (options.name === '.') {
+      extensionResponse.name = {
+        name: basename(cwd()),
+        path: cwd(),
+      }
+    } else {
+      extensionResponse.name = {
+        name: basename(options.name.name),
+        path: resolve(options.name.path),
+      }
+    }
   }
   if (options.version) {
     extensionResponse.version = options.version
@@ -436,9 +462,6 @@ export async function bedframePrompts(
     developmentResponse.yes = options.yes
   }
 
-  // TO diddly DO: technically this isn't the bedframe... per se
-  // this is our ouput from the prompts... it's not gonna take
-  // the same shape as the operational bedframe within a projek!
   const bedframeConfig = createBedframe({
     browser: browsersResponse.browsers,
     extension: {
@@ -496,8 +519,6 @@ export async function bedframePrompts(
     },
     // biome-ignore lint:  @typescript-eslint/no-explicit-any
   } as any)
-  // TO diddly DO: bruuuuuh! this is a BED; not just any bed but MY BED! type me up, Joey!
-  // ^^^  i think we're expecting type `PromptsResponse`
 
   return bedframeConfig
 }

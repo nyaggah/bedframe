@@ -1,4 +1,4 @@
-import { basename } from 'node:path'
+import { basename, resolve } from 'node:path'
 import { cwd } from 'node:process'
 import { Command } from 'commander'
 import { dim } from 'kolorist'
@@ -55,7 +55,7 @@ makeCommand
   )
 
   .action((name, options) => {
-    let updatedName = name
+    let updatedName: { name: string; path: string } | undefined
     if (options) {
       promptsIntro()
     }
@@ -65,7 +65,14 @@ makeCommand
         path: cwd(),
       }
     }
+    if (name) {
+      updatedName = {
+        name: basename(name),
+        path: resolve(name),
+      }
+    }
     const projectName = updatedName ? updatedName : undefined
+
     bedframePrompts(projectName, options).then(async (response) => {
       await makeBed(response).catch(console.error)
     })

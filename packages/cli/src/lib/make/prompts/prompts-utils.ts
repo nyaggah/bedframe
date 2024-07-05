@@ -140,12 +140,3 @@ export const stylingOptions = Object.values(Style).map((style) => {
     value: _style,
   }
 })
-
-export function formatTargetDir(
-  value: string,
-): Record<'name' | 'path', string> {
-  return {
-    name: path.basename(value),
-    path: path.resolve(value),
-  }
-}
