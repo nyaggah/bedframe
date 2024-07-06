@@ -25,7 +25,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "vue": "^3.4.29"
+    "vue": "^3.4.31"
   },
   "devDependencies": {
     "@bedframe/cli": "^0.0.80",
