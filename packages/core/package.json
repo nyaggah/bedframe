@@ -32,7 +32,7 @@
     "@crxjs/vite-plugin": "2.0.0-beta.25"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.7.3",
+    "@biomejs/biome": "1.8.3",
     "@types/chrome": "^0.0.268",
     "@types/node": "^20.14.9",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
