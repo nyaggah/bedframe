@@ -48,7 +48,7 @@
     "happy-dom": "^14.12.3",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
-    "prettier": "^3.3.2",
+    "prettier": "^3.3.3",
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.14.1",
     "vite": "^5.3.1",
