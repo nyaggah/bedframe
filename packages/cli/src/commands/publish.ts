@@ -65,7 +65,7 @@ function uploadToChrome(config: ChromeUploadConfig, source: string) {
   const zipPath = resolve(join(cwd(), 'dist', zipName))
 
   if (fs.existsSync(zipPath)) {
-    const uploadCmd = `npx chrome-webstore-upload upload \
+    const uploadCmd = `npx chrome-webstore-upload-cli@3 upload \
       --source ${zipPath} \
       --extension-id ${config.extensionId} \
       --client-id ${config.clientId} \
@@ -117,8 +117,7 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
     --api-key ${config.apiKey} \
     --api-secret ${config.apiSecret} \
     --channel unlisted \
-    --timeout 30000  \
-    --use-submission-api`
+    --timeout 30000`
 
   try {
     const output = childProcess.execSync(signCmd, { stdio: 'pipe' }).toString()
