@@ -32,7 +32,7 @@
     "@types/prompts": "^2.4.9",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^9.3.0",
+    "eslint": "^9.8.0",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-prettier": "^9.1.0",
     "husky": "^9.1.3",
