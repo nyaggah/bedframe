@@ -29,6 +29,7 @@ type EdgeUploadConfig = {
   productId: string
   clientId: string
   clientSecret: string
+  accessTokenUrl: string
 }
 
 interface SubmissionResponse {
@@ -154,21 +155,24 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
 /**
  * get access token (jwt) for api calls
  * ```bash
+ * > curl \
  *  -X POST \
  *  -H "Content-Type: application/x-www-form-urlencoded" \
- *  -d "client_id=<CLIENT_ID>" \
+ *  -d "client_id={$Client_ID}" \
  *  -d "scope=https://api.addons.microsoftedge.microsoft.com/.default" \
- *  -d "client_secret=<CLIENT_SECRET>" \
+ *  -d "client_secret={$Client_Secret}" \
  *  -d "grant_type=client_credentials" \
  *  -v \
- *  https://login.microsoftonline.com/<PRODUCT_ID>/oauth2/v2.0/token
+ *  <ACCESS_TOKEN_URL> e.g. https://login.microsoftonline.com/<$GUID>/oauth2/v2.0/token
  * ```
+ * FULL access token URL. find at: https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi
  *
  * @param {EdgeUploadConfig} config
  * @return {*}  {Promise<string>}
  */
 async function getEdgeAccessToken(config: EdgeUploadConfig): Promise<string> {
-  const tokenUrl = `https://login.microsoftonline.com/${config.productId}/oauth2/v2.0/token`
+  // const tokenUrl = `https://login.microsoftonline.com/${config.productId}/oauth2/v2.0/token`
+  const tokenUrl = `${config.accessTokenUrl}`
 
   const response = await fetch(tokenUrl, {
     method: 'POST',
@@ -333,6 +337,7 @@ export const publishCommand = new Command('publish')
           productId: process.env.EDGE_PRODUCT_ID || '',
           clientId: process.env.EDGE_CLIENT_ID || '',
           clientSecret: process.env.EDGE_CLIENT_SECRET || '',
+          accessTokenUrl: process.env.EDGE_ACCESS_TOKEN_URL || '',
         }
         uploadToEdge(edgeConfig, zipName)
       }
