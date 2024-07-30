@@ -112,6 +112,14 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
   const zipName = `${process.env.PACKAGE_NAME}@${process.env.PACKAGE_VERSION}-firefox.zip`
   const zipPath = resolve(artifactsDir, zipName)
 
+  console.log(`
+• ${lightMagenta('F I R E F O X :')}
+└ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
+  • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
+  • zip: ${lightYellow(`${basename(zipPath)}`)}
+  • date/time: ${new Date().toLocaleString().replace(',', '')}
+`)
+
   const signCmd = `npx web-ext sign \
     --source-dir ${sourceDir} \
     --artifacts-dir ${artifactsDir} \
@@ -131,13 +139,6 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
       )
     } else {
       console.log('uploaded successfully.')
-      console.log(`
-• ${lightMagenta('F I R E F O X :')}
-└ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
-  • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
-  • zip: ${lightYellow(`${basename(zipPath)}`)}
-  • date/time: ${new Date().toLocaleString().replace(',', '')}
-`)
     }
   } catch (error) {
     console.log(
@@ -163,7 +164,7 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
  *  -d "client_secret={$Client_Secret}" \
  *  -d "grant_type=client_credentials" \
  *  -v \
- *  <ACCESS_TOKEN_URL> e.g. https://login.microsoftonline.com/<$GUID>/oauth2/v2.0/token
+ *  <ACCESS_TOKEN_URL> e.g. https://login.microsoftonline.com/{$TENANT_ID}/oauth2/v2.0/token
  * ```
  * FULL access token URL. find at: https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi
  *
@@ -171,28 +172,34 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
  * @return {*}  {Promise<string>}
  */
 async function getEdgeAccessToken(config: EdgeUploadConfig): Promise<string> {
-  // const tokenUrl = `https://login.microsoftonline.com/${config.productId}/oauth2/v2.0/token`
-  const tokenUrl = `${config.accessTokenUrl}`
+  try {
+    const response = await fetch(config.accessTokenUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        client_id: config.clientId,
+        scope: 'https://api.addons.microsoftedge.microsoft.com/.default',
+        client_secret: config.clientSecret,
+        grant_type: 'client_credentials',
+      }),
+    })
 
-  const response = await fetch(tokenUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      client_id: config.clientId,
-      scope: 'https://api.addons.microsoftedge.microsoft.com/.default',
-      client_secret: config.clientSecret,
-      grant_type: 'client_credentials',
-    }),
-  })
+    if (!response.ok) {
+      throw new Error(`failed to get Edge access token: ${response.statusText}`)
+    }
 
-  if (!response.ok) {
-    throw new Error(`failed to get Edge access token: ${response.statusText}`)
+    try {
+      const responseBody: any = await response.json()
+      return responseBody.access_token
+    } catch (jsonError: any) {
+      throw new Error(`Error parsing JSON response: ${jsonError.message}`)
+    }
+  } catch (error) {
+    console.error('Error in getEdgeAccessToken:', error)
+    throw error // Re-throw the error after logging it
   }
-
-  const responseBody = (await response.json()) as { access_token: string }
-  return responseBody.access_token
 }
 
 /**
@@ -213,6 +220,14 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
           process.env.PACKAGE_VERSION ?? process.env.npm_package_version
         }-edge.zip`
     const zipPath = resolve(join(cwd(), 'dist', zipName))
+
+    console.log(`
+• ${lightMagenta('E D G E:')}
+└ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
+  • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
+  • zip: ${lightYellow(`${basename(zipPath)}`)}
+  • date/time: ${new Date().toLocaleString().replace(',', '')}
+`)
 
     const accessToken = await getEdgeAccessToken(config)
     const uploadUrl = `https://api.addons.microsoftedge.microsoft.com/v1/products/${config.productId}/submissions/draft/package`
@@ -237,14 +252,6 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
     const submissionResponse = (await response.json()) as SubmissionResponse
     const submissionId = submissionResponse.id
     const submissionUrl = `https://partner.microsoft.com/en-us/dashboard/microsoftedge/${config.productId}/submissions/${submissionId}`
-
-    console.log(`
-• ${lightMagenta('E D G E:')}
-└ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
-  • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
-  • zip: ${lightYellow(`${basename(zipPath)}`)}
-  • date/time: ${new Date().toLocaleString().replace(',', '')}
-`)
 
     console.log(
       `Edge extension uploaded successfully. submission url: ${submissionUrl}`,
