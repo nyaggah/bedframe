@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.81
+
+### Patch Changes
+
+- f9f5cb5: use cwu cli v3 + remove use-submission-api for amo
+
 ## 0.0.80
 
 ### Patch Changes
