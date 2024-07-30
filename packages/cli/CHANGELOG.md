@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.83
+
+### Patch Changes
+
+- 4dcdc9e: update uploadToEdge / getEdgeAccessToken funcs
+
 ## 0.0.82
 
 ### Patch Changes
