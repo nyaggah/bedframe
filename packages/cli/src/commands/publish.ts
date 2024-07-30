@@ -191,8 +191,10 @@ async function getEdgeAccessToken(config: EdgeUploadConfig): Promise<string> {
     }
 
     try {
+      // biome-ignore lint:  @typescript-eslint/no-explicit-any
       const responseBody: any = await response.json()
       return responseBody.access_token
+      // biome-ignore lint:  @typescript-eslint/no-explicit-any
     } catch (jsonError: any) {
       throw new Error(`Error parsing JSON response: ${jsonError.message}`)
     }
