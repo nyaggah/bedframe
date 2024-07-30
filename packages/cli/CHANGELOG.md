@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.82
+
+### Patch Changes
+
+- 6ad62bd: expect full edge token url in secreates
+
 ## 0.0.81
 
 ### Patch Changes

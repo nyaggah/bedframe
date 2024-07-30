@@ -28,7 +28,7 @@
     "vue": "^3.4.31"
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.81",
+    "@bedframe/cli": "^0.0.82",
     "@bedframe/core": "^0.0.43",
     "@changesets/cli": "^2.27.6",
     "@commitlint/cli": "^19.3.0",
