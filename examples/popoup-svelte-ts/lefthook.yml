@@ -1,0 +1,51 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+prepare-commit-msg:
+  commands:
+    commitizen:
+      interactive: true
+      run: exec < /dev/tty && node_modules/.bin/cz --hook || true
+
+pre-commit:
+  parallel: true
+  commands:
+    lint-staged:
+      run: npx lint-staged
+
+commit-msg:
+  parallel: false
+  commands:
+    commitlint:
+      run: npx commitlint --edit
+# pre-push:
+#   commands:
+#     packages-audit:
+#       tags: frontend security
+#       run: yarn audit
+#     gems-audit:
+#       tags: backend security
+#       run: bundle audit
+#
+# pre-commit:
+#   parallel: true
+#   commands:
+#     eslint:
+#       glob: "*.{js,ts,jsx,tsx}"
+#       run: yarn eslint {staged_files}
+#     rubocop:
+#       tags: backend style
+#       glob: "*.rb"
+#       exclude: '(^|/)(application|routes)\.rb$'
+#       run: bundle exec rubocop --force-exclusion {all_files}
+#     govet:
+#       tags: backend style
+#       files: git ls-files -m
+#       glob: "*.go"
+#       run: go vet {files}
+#   scripts:
+#     "hello.js":
+#       runner: node
+#     "any.go":
+#       runner: go run
