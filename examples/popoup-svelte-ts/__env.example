@@ -1,0 +1,18 @@
+# ensure you have these environment variables set in the project's 
+# Github Actions secrets and variables
+# ^^^ https://github.com/<GITHUB_OWNER>/<GITHUB_REPO>/settings/secrets/actions
+
+# Publish: Chrome Web Store
+CHROME_EXTENSION_ID=
+CHROME_CLIENT_ID=
+CHROME_CLIENT_SECRET=
+CHROME_REFRESH_TOKEN=
+
+# Publish: AMO - Mozilla/Firefox Add-ons
+WEB_EXT_API_KEY=
+WEB_EXT_API_SECRET=
+
+# Publish: MS Edge Add-ons
+EDGE_PRODUCT_ID=
+EDGE_CLIENT_ID=
+EDGE_CLIENT_SECRET=

@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    // "noEmit": true,
+    "emitDeclarationOnly": true // use this field instead of "noEmit"
+  },
+  "include": [
+    "vite.config.ts",
+    "src/manifests",
+    "package.json",
+    "src/bed.config/bedframe.config.ts"
+  ]
+}
