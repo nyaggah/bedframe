@@ -38,7 +38,7 @@
     "@testing-library/vue": "^8.1.0",
     "@types/chrome": "^0.0.268",
     "@types/node": "^20.14.9",
-    "@vitejs/plugin-vue": "^5.0.5",
+    "@vitejs/plugin-vue": "^5.1.2",
     "@vitest/coverage-istanbul": "^1.6.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "9.x",
