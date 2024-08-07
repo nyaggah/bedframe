@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.84
+
+### Patch Changes
+
+- ac7b5fe: move assets dir out of bundled CLI
+
 ## 0.0.83
 
 ### Patch Changes
