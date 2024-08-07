@@ -7,6 +7,7 @@ import { bold, dim, lightGray, green as lightGreen } from 'kolorist'
 import Listr, { type ListrTask } from 'listr'
 import type { PromptsResponse } from '../prompts'
 import { copyFolder } from './copy-folder'
+import { getAssetsDir } from './degit-assets-dir'
 import { installDependencies } from './install-deps'
 import { ensureDir } from './utils.fs'
 import { writeBedframeConfig } from './write-bedframe-config'
@@ -45,7 +46,6 @@ export async function makeBed(response: PromptsResponse) {
         misc: {
           viteClientTypes: path.join(stubsPath, 'misc'),
         },
-        assets: path.join(stubsPath, 'assets'),
         pages: {
           main: path.join(stubsPath, 'pages', 'main.html'),
           devtools: path.join(stubsPath, 'pages', 'devtools.html'),
@@ -229,8 +229,10 @@ export async function makeBed(response: PromptsResponse) {
           },
           {
             title: `  ${dim('│ ├ ○')} assets${dim('/')}`,
-            task: () =>
-              copyFolder(stubs.assets, path.join(projectPath, 'src', 'assets')),
+            task: () => {
+              const { packageManager } = response.development.template.config
+              getAssetsDir(projectPath, packageManager)
+            },
           },
           {
             title: `  ${dim('│ │ └ ○')} fonts${dim('/')}`,
