@@ -34,7 +34,7 @@ export default [
       {
         file: `${name}.js`,
         format: 'es',
-        sourcemap: true,
+        sourcemap: false,
         banner: '#!/usr/bin/env node\n',
       },
     ],
@@ -51,7 +51,7 @@ export default [
       {
         file: 'dist/create-bedframe.js',
         format: 'es',
-        sourcemap: true,
+        sourcemap: false,
         banner: '#!/usr/bin/env node\n',
       },
     ],
@@ -67,7 +67,7 @@ export default [
     output: {
       file: `${name}.d.ts`,
       format: 'es',
-      sourcemap: true,
+      sourcemap: false,
     },
   }),
 ]
