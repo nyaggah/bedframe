@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.85
+
+### Patch Changes
+
+- cb43b96: omit sourcemaps in cli dist
+
 ## 0.0.84
 
 ### Patch Changes
