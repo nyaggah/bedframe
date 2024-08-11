@@ -49,7 +49,7 @@ Visit https://bedframe.dev to join early access.
 
 ## Documentation
 
-Visit https://bedframe.dev/docs <small>(coming soon)</small> to view the full documentation.
+Visit https://www.bedframe.dev/docs/quickstart to get started
 
 ## Packages
 
