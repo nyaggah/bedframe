@@ -37,7 +37,7 @@
     "@bedframe/cli": "0.0.85",
     "@bedframe/core": "0.0.43",
     "@changesets/cli": "^2.27.1",
-    "@commitlint/cli": "^19.2.1",
+    "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.1.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^14.2.2",
