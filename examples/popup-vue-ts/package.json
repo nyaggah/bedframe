@@ -36,7 +36,7 @@
     "@eslint/js": "^9.7.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/vue": "^8.1.0",
-    "@types/chrome": "^0.0.268",
+    "@types/chrome": "^0.0.270",
     "@types/node": "^20.14.15",
     "@vitejs/plugin-vue": "^5.1.2",
     "@vitest/coverage-istanbul": "^1.6.0",
