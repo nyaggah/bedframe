@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
-    "@types/chrome": "^0.0.268",
+    "@types/chrome": "^0.0.270",
     "@types/node": "^20.14.15",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@vitejs/plugin-react": "^4.3.1",

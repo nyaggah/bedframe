@@ -35,7 +35,7 @@
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/svelte": "^5.2.1",
     "@tsconfig/svelte": "^5.0.4",
-    "@types/chrome": "^0.0.269",
+    "@types/chrome": "^0.0.270",
     "@types/node": "^20.14.15",
     "@vitest/coverage-istanbul": "^2.0.4",
     "commitizen": "^4.3.0",
