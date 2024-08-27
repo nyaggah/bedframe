@@ -44,7 +44,7 @@
     "tslib": "^2.7.0",
     "tsx": "^4.17.0",
     "turbo": "^1.13.4",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.4"
   },
   "prettier": {
     "tabWidth": 2,

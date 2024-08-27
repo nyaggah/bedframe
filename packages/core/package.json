@@ -44,7 +44,7 @@
     "rollup-plugin-node-externals": "^7.1.2",
     "rollup-plugin-polyfill-node": "^0.13.0",
     "tslib": "^2.7.0",
-    "typescript": "^5.5.2",
+    "typescript": "^5.5.4",
     "unplugin-fonts": "^1.1.1",
     "vite": "^5.2.11",
     "vite-plugin-babel-macros": "^1.0.6"
