@@ -45,7 +45,7 @@
     "lint-staged": "^15.2.2",
     "svelte": "^4.2.18",
     "svelte-check": "^3.8.4",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.10",
     "tslib": "^2.7.0",
     "typescript": "^5.5.4",
     "unplugin-fonts": "^1.1.1",
