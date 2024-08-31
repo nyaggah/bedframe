@@ -67,7 +67,7 @@
     "prettier": "^3.3.3",
     "husky": "^9.1.4",
     "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.40",
+    "postcss": "^8.4.41",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.4",
     "unplugin-fonts": "^1.1.1",
