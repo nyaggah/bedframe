@@ -68,7 +68,7 @@
     "husky": "^9.1.4",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.40",
-    "tailwindcss": "^3.4.7",
+    "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4",
     "unplugin-fonts": "^1.1.1",
     "vite": "^5.2.6"
