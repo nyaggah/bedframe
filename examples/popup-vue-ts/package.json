@@ -32,7 +32,7 @@
     "@bedframe/core": "^0.0.43",
     "@changesets/cli": "^2.27.6",
     "@commitlint/cli": "^19.4.0",
-    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/config-conventional": "^19.4.1",
     "@eslint/js": "^9.7.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/vue": "^8.1.0",
