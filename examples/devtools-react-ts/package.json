@@ -48,7 +48,7 @@
     "@vitest/coverage-istanbul": "^1.4.0",
     "@types/node": "^20.14.15",
     "@types/chrome": "^0.0.270",
-    "@types/react": "^18.3.3",
+    "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.0.4",
     "concurrently": "^8.2.1",
