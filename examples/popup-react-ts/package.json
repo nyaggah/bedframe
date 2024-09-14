@@ -60,7 +60,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^17.10.2",
     "eslint-plugin-promise": "^7.1.0",
-    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react": "^7.36.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "lint-staged": "^15.2.2",
