@@ -22,9 +22,7 @@
   "bin": {
     "create-bedframe": "./dist/index.js"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "clean": "shx rm -rf dist",
     "build": "pnpm clean && tsc && rollup -c",
@@ -49,9 +47,7 @@
     "vite-plugin-dts": "^4.2.3"
   },
   "lint-staged": {
-    "*.{md,mdx,css,html,json,js}": [
-      "prettier --write ."
-    ],
+    "*.{md,mdx,css,html,json,js}": ["prettier --write ."],
     "*.{js,jsx,ts,tsx }": "eslint . --fix"
   },
   "prettier": {
@@ -60,9 +56,7 @@
     "singleQuote": true
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"]
   },
   "config": {
     "commitizen": {
