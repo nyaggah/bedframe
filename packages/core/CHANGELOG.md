@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.44
+
+### Patch Changes
+
+- be98acb: update deps; fix vulns
+
 ## 0.0.43
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # create-bedframe
 
+## 0.0.45
+
+### Patch Changes
+
+- be98acb: update deps; fix vulns
+- Updated dependencies [be98acb]
+  - @bedframe/core@0.0.44
+  - @bedframe/cli@0.0.86
+
 ## 0.0.44
 
 ### Patch Changes
