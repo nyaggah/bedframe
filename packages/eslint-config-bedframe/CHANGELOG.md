@@ -1,5 +1,11 @@
 # eslint-config-bedframe
 
+## 0.0.8
+
+### Patch Changes
+
+- be98acb: update deps; fix vulns
+
 ## 0.0.7
 
 ### Patch Changes

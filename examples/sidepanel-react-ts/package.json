@@ -34,8 +34,8 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.85",
-    "@bedframe/core": "0.0.43",
+    "@bedframe/cli": "0.0.86",
+    "@bedframe/core": "0.0.44",
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.4.1",
