@@ -19,9 +19,7 @@
       "default": "./dist/bedframe.js"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -57,9 +55,7 @@
     "vitest": "^0.34.6"
   },
   "lint-staged": {
-    "*.{md,mdx,css,html,json,js}": [
-      "pnpm biome format --write ."
-    ],
+    "*.{md,mdx,css,html,json,js}": ["pnpm biome format --write ."],
     "*.{js,jsx,ts,tsx}": "pnpm biome lint --apply ."
   },
   "prettier": {
@@ -68,9 +64,7 @@
     "singleQuote": true
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"]
   },
   "config": {
     "commitizen": {

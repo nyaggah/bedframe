@@ -14,13 +14,14 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build",
-    "build:pack": "turbo run build:pack",
+    "build": "turbo telemetry disable && turbo run build",
+    "build:pack": "turbo telemetry disable && turbo run build:pack",
     "format": "turbo run format",
     "lint": "turbo run lint",
-    "lint:format": "turbo run lint:format",
+    "lint:format": "turbo telemetry disable && turbo run lint:format",
     "cz": "cz",
-    "release": "turbo run format lint build && changeset version && changeset publish",
+    "prerelease": "turbo telemetry disable && turbo run format lint build",
+    "release": "turbo telemetry disable && turbo run format lint build && changeset version && changeset publish",
     "prepare": "husky install"
   },
   "devDependencies": {
