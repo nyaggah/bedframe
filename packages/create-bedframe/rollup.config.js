@@ -23,17 +23,8 @@ export default [
       string({
         include: `${name.module}.js`,
       }),
-      string({
-        include: `${name.module}.cjs`,
-      }),
     ],
     output: [
-      {
-        file: `${name.module}.cjs`,
-        format: 'cjs',
-        sourcemap: true,
-        banner: '#!/usr/bin/env node\n',
-      },
       {
         file: `${name.module}.js`,
         format: 'es',
