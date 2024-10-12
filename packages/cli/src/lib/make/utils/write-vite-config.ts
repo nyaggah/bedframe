@@ -29,7 +29,7 @@ export default defineConfig(({ command, mode }) => {
       getManifest({ command, mode }, manifest, {
         browser: mode
       }),
-      getFonts(fonts),
+      getFonts(fonts!),
       react(),
     ],
     build: {

@@ -12,11 +12,12 @@ export function writeTsConfig(response: Answers<string>): void {
   const { name } = response.extension
   const isTailWind = style.toLowerCase() === 'tailwind'
 
-  const tsConfig = `{
+  const tsConfigApp = `{
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["@bedframe/core"${tests ? `, "jest"` : ''}],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "types": ["@bedframe/core"${tests ? `, "jest"` : ''}, "@types/chrome"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -25,6 +26,7 @@ export function writeTsConfig(response: Answers<string>): void {
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
 
@@ -40,20 +42,39 @@ export function writeTsConfig(response: Answers<string>): void {
     }
   },
   "include": ["src"],
-  "exclude": ["src/manifests", "src/_config/bedframe.config.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "exclude": ["src/manifests", "src/_config/bedframe.config.ts"]
 }
 
 `
 
+  const tsConfig = `{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
+`
+
   const tsConfigNode = `{
   "compilerOptions": {
-    "composite": true,
-    "skipLibCheck": true,
+    "target": "ES2022",
+    "lib": ["ES2023"],
     "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
 
     /* Path aliases */
     "paths": {
@@ -77,6 +98,9 @@ export function writeTsConfig(response: Answers<string>): void {
     ensureDir(rootDir).catch(console.error)
     outputFile(path.join(rootDir, 'tsconfig.json'), tsConfig).catch((error) =>
       console.error(error),
+    )
+    outputFile(path.join(rootDir, 'tsconfig.app.json'), tsConfigApp).catch(
+      (error) => console.error(error),
     )
     outputFile(path.join(rootDir, 'tsconfig.node.json'), tsConfigNode).catch(
       (error) => console.error(error),

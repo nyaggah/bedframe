@@ -1,4 +1,3 @@
-import { chdir } from 'node:process'
 import { execa } from 'execa'
 import { projectInstall } from 'pkg-install'
 import type { PromptsResponse } from '../prompts'
@@ -19,29 +18,38 @@ export async function installDependencies(
   const { packageManager, lintFormat } = response.development.template.config
 
   try {
-    chdir(projectPath)
     if (packageManager.toLowerCase() === 'bun') {
-      await execa('bun', ['install']).then(async () => {
-        if (lintFormat) {
-          await execa('bun', ['run', 'lint:format'])
-        }
-
-        await execa('git', ['init'])
-        await execa('git', ['add', '.'])
-        await execa('git', ['commit', '-am', 'feat: initial commit. make BED!'])
-      })
-    } else {
-      await projectInstall({
-        prefer: packageManager.toLowerCase(),
+      await execa('bun', ['install'], {
         cwd: projectPath,
       }).then(async () => {
         if (lintFormat) {
-          await execa(packageManager, ['run', 'lint:format'])
+          await execa('bun', ['run', 'lint:format'], {
+            cwd: projectPath,
+          })
         }
-        await execa('git', ['init'])
-        await execa('git', ['add', '.'])
-        await execa('git', ['commit', '-am', 'feat: initial commit. make BED!'])
       })
+    } else {
+      const pm = packageManager.toLowerCase()
+      // const pmRun = pm !== 'yarn' ? `${pm} run` : pm
+      await execa(pm, ['install', '--force'], {
+        cwd: projectPath,
+      }).then(async () => {
+        if (lintFormat) {
+          await execa(pm, ['run', 'lint:format'], {
+            cwd: projectPath,
+          })
+        }
+      })
+      // await projectInstall({
+      //   prefer: packageManager.toLowerCase(),
+      //   cwd: projectPath,
+      // }).then(async () => {
+      //   if (lintFormat) {
+      //     await execa(packageManager, ['run', 'lint:format'], {
+      //       cwd: projectPath,
+      //     })
+      //   }
+      // })
     }
   } catch (err) {
     console.error(err)

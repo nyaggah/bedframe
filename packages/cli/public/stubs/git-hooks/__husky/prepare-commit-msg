@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 if [ -t 1 ]; then
   # Running in a terminal
   exec < /dev/tty && node_modules/.bin/cz --hook || true

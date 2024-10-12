@@ -43,7 +43,15 @@ export const baseManifest = {
 
   // Optional
   // - - - - - - - - -
-  ${response.extension.author.email ? 'author: pkg.author.email,' : ''}
+  ${
+    response.extension.author.email
+      ? `
+  author: {
+    email: pkg.author.email
+  },
+  `
+      : ''
+  }
   background: {
     service_worker: 'scripts/service-worker.ts',
     type: 'module',
@@ -129,7 +137,6 @@ export function manifestForBrowser(
 
   const firefoxManifest = `import { createManifest } from '@bedframe/core'
 import { baseManifest } from './base.manifest'
-import pkg from '../../package.json'
 
 const { ${optionsPage !== 'none' ? `${optionsUIorPage},` : ''}${
     extensionType === 'sidepanel' ? 'side_panel, ' : ''
@@ -150,7 +157,7 @@ const updatedFirefoxManifest = {
   }
   browser_specific_settings: {
     gecko: {
-      id: pkg.author.email,
+      id: baseManifest.author.email,
       // ^^^ https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings#id
     },
   },${
