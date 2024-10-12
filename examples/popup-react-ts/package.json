@@ -1,6 +1,6 @@
 {
   "name": "popup-react-ts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Bedframe Popup extension w/ Vite + React + TypeScript",
   "author": {
     "name": "joe",
@@ -34,7 +34,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.86",
+    "@bedframe/cli": "0.0.87",
     "@bedframe/core": "0.0.44",
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.5.0",

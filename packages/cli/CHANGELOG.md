@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.87
+
+### Patch Changes
+
+- fd2cf80: project gen updates + commit hook clean up
+
 ## 0.0.86
 
 ### Patch Changes
