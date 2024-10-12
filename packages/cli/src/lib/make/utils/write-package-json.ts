@@ -37,6 +37,11 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   const pm = packageManager.toLowerCase()
   const pmRun = pm !== 'yarn' ? `${pm} run` : pm
 
+  const gitHooksPrepare =
+    pm === 'yarn'
+      ? `"postinstall": "husky || true"`
+      : `"prepare": "husky || true"`
+
   const packageJson = `{
   "name": "${parameterizeString(projectName)}",
   "version": "${projectVersion}",
@@ -77,11 +82,11 @@ export function writePackageJson(response: prompts.Answers<string>): void {
         ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name-safari"`
         : ''
     }${browsers.includes('safari') && gitHooks ? ',' : ''} 
-    ${gitHooks ? `"postinstall": "husky install"` : ''}
+    ${gitHooks ? gitHooksPrepare : ''}
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"${
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"${
       isStyle.tailwind
         ? `,
     "clsx": "^2.1.0",
@@ -92,7 +97,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.86",
+    "@bedframe/cli": "0.0.87",
     "@bedframe/core": "0.0.44",
 ${
   changesets
@@ -101,21 +106,21 @@ ${
     "@commitlint/config-conventional": "^19.1.0",`
     : ''
 }${
-  hasTests
-    ? `\n"@testing-library/jest-dom": "^6.4.2",
+    hasTests
+      ? `\n"@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "happy-dom": "^14.3.6",
     "vitest": "^1.4.0",
     "@vitest/coverage-istanbul": "^1.4.0",`
-    : ''
-}
+      : ''
+  }
     "@types/node": "^20.11.30",
-    "@types/chrome": "^0.0.263",
-    "@types/react": "^18.2.69",
-    "@types/react-dom": "^18.2.22",
-    "@vitejs/plugin-react": "^4.0.4",
+    "@types/chrome": "^0.0.277",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.2",
     "concurrently": "^8.2.1",${
       commitLint
         ? `"commitizen": "^4.3.0",
@@ -124,14 +129,17 @@ ${
     }${
       lintFormat
         ? `\n"@typescript-eslint/eslint-plugin": "^7.3.1",
-    "eslint": "^8.57.0",
+    "@typescript-eslint/parser": "^8.8.1",
+    "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "globals": "^15.9.0",
+    "typescript-eslint": "^8.7.0",
     "lint-staged": "^15.2.2",
     "prettier": "^3.0.3",`
         : ''
@@ -144,62 +152,14 @@ ${
     "tailwindcss": "^3.4.1",`
         : ''
     }
-    ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.4.3",` : ''}
+    ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.5.3",` : ''}
     "unplugin-fonts": "^1.1.1",
-    "vite": "^5.2.6"
+    "vite": "^5.4.8"
   }
   ${lintFormat ? ',' : ''}
   ${
     lintFormat
-      ? `"eslintConfig": {
-    "globals": {
-      "JSX": true
-    },
-    "env": {
-      "browser": true,
-      "es2020": true,
-      "webextensions": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:react-hooks/recommended",
-      "prettier"
-    ],
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module",
-      "project": [
-        "tsconfig.json",
-        "tsconfig.node.json"
-      ]
-    },
-    "plugins": [
-      "react-refresh"
-    ],
-    "rules": {
-      "react-refresh/only-export-components": "warn",
-      "react/react-in-jsx-scope": "off",
-      "space-before-function-paren": "off"
-    },
-    "ignorePatterns": [
-      "dist",
-      ${browsers.includes('safari') && `"${projectName}-safari",`}
-      "node_modules"${
-        hasTests
-          ? `,
-      "coverage"`
-          : ''
-      }
-    ]
-  },
-  "lint-staged": {
+      ? `"lint-staged": {
     "*.{css,html,json,js}": [
       "prettier --write ."
     ],

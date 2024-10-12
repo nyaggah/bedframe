@@ -1,10 +1,10 @@
-import { promises as fs } from 'node:fs'
-import path, { basename } from 'node:path'
-import url from 'node:url'
 import type { Browser } from '@bedframe/core'
 import { execa } from 'execa'
 import { bold, dim, lightGray, green as lightGreen } from 'kolorist'
 import Listr, { type ListrTask } from 'listr'
+import { promises as fs } from 'node:fs'
+import path, { basename } from 'node:path'
+import url from 'node:url'
 import type { PromptsResponse } from '../prompts'
 import { copyFolder } from './copy-folder'
 import { getAssetsDir } from './degit-assets-dir'
@@ -18,6 +18,7 @@ import { writeReadMe } from './write-readme'
 import { writeServiceWorker } from './write-service-worker'
 import { writeTsConfig } from './write-tsconfig'
 import { writeViteConfig } from './write-vite-config'
+import { writeEslintConfig } from './write-eslint-config'
 
 export async function makeBed(response: PromptsResponse) {
   const { browser } = response
@@ -36,7 +37,7 @@ export async function makeBed(response: PromptsResponse) {
   if (projectPath) {
     try {
       ensureDir(projectPath).catch(console.error)
-      execa('cd', [`${projectPath}`]).catch(console.error)
+      // execa('cd', [`${projectPath}`]).catch(console.error)
 
       const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
       const stubsPath = path.resolve(path.join(__dirname, 'stubs'))
@@ -151,7 +152,11 @@ export async function makeBed(response: PromptsResponse) {
           {
             title: `  ${dim('├ .')}git${dim('/')}`,
             enabled: () => git,
-            task: () => {},
+            task: async () => {
+              await execa('git', ['init'], {
+                cwd: projectPath,
+              })
+            },
           },
           {
             title: `  ${dim('├ .')}github${dim('/')}`,
@@ -424,6 +429,11 @@ export async function makeBed(response: PromptsResponse) {
             task: () => copyFolder(stubs.lintFormat, projectPath),
           },
           {
+            title: `  ${dim('├ ○')} eslint.config.js`,
+            enabled: () => lintFormat,
+            task: () => writeEslintConfig(response),
+          },
+          {
             title: `  ${dim('├ ○')} components${dim('.json')}`,
             task: () => {},
           },
@@ -459,8 +469,24 @@ export async function makeBed(response: PromptsResponse) {
             enabled: () => installDeps,
             task: async () => await installDependencies(response),
           },
+          {
+            title: 'Initial git commit',
+            enabled: () => git,
+            task: async () => {
+              await execa('git', ['add', '.'], {
+                cwd: projectPath,
+              })
+              await execa(
+                'git',
+                ['commit', '-am', 'feat: initial commit. make BED!'],
+                {
+                  cwd: projectPath,
+                },
+              )
+            },
+          },
         ],
-        { concurrent: true },
+        { concurrent: false },
       )
 
       await tasks.run().finally(() => {
