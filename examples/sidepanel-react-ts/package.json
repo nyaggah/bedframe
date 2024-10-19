@@ -71,7 +71,7 @@
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2",
     "unplugin-fonts": "^1.1.1",
-    "vite": "^5.2.6"
+    "vite": "^5.4.9"
   },
   "eslintConfig": {
     "globals": {
