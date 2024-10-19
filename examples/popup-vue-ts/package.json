@@ -43,7 +43,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "9.x",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.28.0",
+    "eslint-plugin-vue": "^9.29.0",
     "globals": "^15.6.0",
     "happy-dom": "^15.7.4",
     "husky": "^9.1.5",
