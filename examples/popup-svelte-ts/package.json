@@ -31,7 +31,7 @@
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.4.1",
-    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/svelte": "^5.2.1",
     "@tsconfig/svelte": "^5.0.4",
