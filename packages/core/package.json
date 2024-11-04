@@ -29,7 +29,7 @@
     "build:pack": "pnpm build && pnpm pack"
   },
   "dependencies": {
-    "@crxjs/vite-plugin": "2.0.0-beta.26"
+    "@crxjs/vite-plugin": "2.0.0-beta.28"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.3",
