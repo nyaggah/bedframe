@@ -39,7 +39,7 @@
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.4.1",
-    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.2.2",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.13",
