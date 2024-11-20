@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.88
+
+### Patch Changes
+
+- ac4d4c0: fix issue with first run lint+format (lint-staged)
+
+  - missmatched eslint plugin versions causing error on first run/ project gen `lint:format` tastk
+
 ## 0.0.87
 
 ### Patch Changes
