@@ -97,7 +97,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.87",
+    "@bedframe/cli": "0.0.88",
     "@bedframe/core": "0.0.44",
 ${
   changesets
@@ -128,18 +128,18 @@ ${
         : ''
     }${
       lintFormat
-        ? `\n"@typescript-eslint/eslint-plugin": "^7.3.1",
-    "@typescript-eslint/parser": "^8.8.1",
-    "eslint": "^9.11.1",
+        ? `\n"@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.12",
+    "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.9.0",
-    "typescript-eslint": "^8.7.0",
+    "typescript-eslint": "^8.15.0",
     "lint-staged": "^15.2.2",
     "prettier": "^3.0.3",`
         : ''
@@ -163,7 +163,7 @@ ${
     "*.{css,html,json,js}": [
       "prettier --write ."
     ],
-    "*{js,jsx,ts,tsx}": "eslint . --fix"
+    "*.{js,jsx,ts,tsx}": "eslint . --fix"
   },
   "prettier": {
     "tabWidth": 2,
