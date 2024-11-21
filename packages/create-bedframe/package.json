@@ -38,15 +38,15 @@
     "@bedframe/core": "workspace:^"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.3",
+    "@biomejs/biome": "1.9.4",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-typescript": "^12.1.1",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-esbuild": "^6.1.1",
     "rollup-plugin-string": "^3.0.0",
     "typescript": "^5.6.3",
-    "vite": "^5.4.10",
-    "vite-plugin-dts": "^4.2.4"
+    "vite": "^5.4.11",
+    "vite-plugin-dts": "^4.3.0"
   },
   "lint-staged": {
     "*.{md,mdx,css,html,json,js}": [
