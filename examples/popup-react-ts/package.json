@@ -121,7 +121,7 @@
     "*.{css,html,json,js}": [
       "prettier --write ."
     ],
-    "*{js,jsx,ts,tsx}": "eslint . --fix"
+    "*.{js,jsx,ts,tsx}": "eslint . --fix"
   },
   "prettier": {
     "tabWidth": 2,
