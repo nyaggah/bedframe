@@ -43,15 +43,9 @@ export const baseManifest = {
 
   // Optional
   // - - - - - - - - -
-  ${
-    response.extension.author.email
-      ? `
   author: {
-    email: pkg.author.email
+    email: ${response.extension.author.email ? 'pkg.author.email' : 'author@example.com'}
   },
-  `
-      : ''
-  }
   background: {
     service_worker: 'scripts/service-worker.ts',
     type: 'module',

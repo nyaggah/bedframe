@@ -97,7 +97,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.88",
+    "@bedframe/cli": "0.0.89",
     "@bedframe/core": "0.0.44",
 ${
   changesets
