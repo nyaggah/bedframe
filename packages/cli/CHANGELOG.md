@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.0.89
+
+### Patch Changes
+
+- 897c2be: author.email should exist in baseManifest
+
 ## 0.0.88
 
 ### Patch Changes
