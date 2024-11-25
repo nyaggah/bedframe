@@ -22,7 +22,7 @@
     "cz": "cz",
     "prerelease": "turbo telemetry disable && turbo run format lint build",
     "release": "turbo telemetry disable && turbo run format lint build && changeset version && changeset publish",
-    "prepare": "husky install"
+    "prepare": "husky || true"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.10",
