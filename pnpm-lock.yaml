@@ -142,8 +142,8 @@ importers:
         specifier: workspace:^
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^2.3.0
-        version: 2.3.0(eslint@9.15.0(jiti@1.21.6))
+        specifier: ^2.3.1
+        version: 2.3.1(eslint@9.15.0(jiti@1.21.6))
       rollup:
         specifier: ^4.27.3
         version: 4.27.3
@@ -206,8 +206,8 @@ importers:
         specifier: workspace:^
         version: link:../eslint-config-bedframe
       eslint-config-turbo:
-        specifier: ^2.3.0
-        version: 2.3.0(eslint@9.15.0(jiti@1.21.6))
+        specifier: ^2.3.1
+        version: 2.3.1(eslint@9.15.0(jiti@1.21.6))
       kolorist:
         specifier: ^1.8.0
         version: 1.8.0
@@ -285,8 +285,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@9.15.0(jiti@1.21.6))
       eslint-config-turbo:
-        specifier: ^2.1.3
-        version: 2.3.0(eslint@9.15.0(jiti@1.21.6))
+        specifier: ^2.3.1
+        version: 2.3.1(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-react:
         specifier: 7.37.2
         version: 7.37.2(eslint@9.15.0(jiti@1.21.6))
@@ -2117,8 +2117,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-config-turbo@2.3.0:
-    resolution: {integrity: sha512-Nm9WZgNoUIJw4bpYQugGCDjzYy1TlUD4sQ/nGblL+HdNqJWCj5NqXbJ1k+TBfYedhr65dlGoAFPYUOfjUOmKVg==}
+  eslint-config-turbo@2.3.1:
+    resolution: {integrity: sha512-pxxCLLgnZYCjJoGrzUu3jAcb67bKVykLblyMtgTzHN7DlNu6tnp89K3/5fznc6ALyXwXFp0K+nM+Sxst43oaoA==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -2187,8 +2187,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9.7
 
-  eslint-plugin-turbo@2.3.0:
-    resolution: {integrity: sha512-2iVUoIhrjp6kI8p0J4NewKPpXaKrHvL4K4eRnNXbqZvP/7xsm4Of+33B3b7m7OsS0UgX8HHOjlB9bEjigKMkMA==}
+  eslint-plugin-turbo@2.3.1:
+    resolution: {integrity: sha512-M5MBYBkcQsv11MFHJ+6WpzLpiTBx0OApeUMAHlO4L0eHqQxY03GrmHXjXfozqB+9HwGrW9fqihBzVRllyixJDA==}
     peerDependencies:
       eslint: '>6.6.0'
 
@@ -6304,10 +6304,10 @@ snapshots:
     dependencies:
       eslint: 9.15.0(jiti@1.21.6)
 
-  eslint-config-turbo@2.3.0(eslint@9.15.0(jiti@1.21.6)):
+  eslint-config-turbo@2.3.1(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.15.0(jiti@1.21.6)
-      eslint-plugin-turbo: 2.3.0(eslint@9.15.0(jiti@1.21.6))
+      eslint-plugin-turbo: 2.3.1(eslint@9.15.0(jiti@1.21.6))
 
   eslint-import-resolver-node@0.3.9:
     dependencies:
@@ -6421,7 +6421,7 @@ snapshots:
       string.prototype.matchall: 4.0.11
       string.prototype.repeat: 1.0.0
 
-  eslint-plugin-turbo@2.3.0(eslint@9.15.0(jiti@1.21.6)):
+  eslint-plugin-turbo@2.3.1(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.15.0(jiti@1.21.6)
