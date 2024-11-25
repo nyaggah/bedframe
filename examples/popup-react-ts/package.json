@@ -23,7 +23,7 @@
     "commit": "lint-staged && cz",
     "zip": "bedframe zip",
     "convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name-safari",
-    "postinstall": "husky install"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "react": "^18.3.1",
