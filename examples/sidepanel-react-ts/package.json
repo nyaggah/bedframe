@@ -40,7 +40,7 @@
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.4.1",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^14.2.2",
+    "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.13",
     "happy-dom": "^15.11.6",
