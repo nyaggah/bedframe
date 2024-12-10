@@ -8,8 +8,12 @@ import {
   lightYellow,
 } from 'kolorist'
 import type { PluginOption } from 'vite'
-import { Browser, type BuildConfig, type BuildTarget } from './types'
-import { AnyCase } from './utils'
+import {
+  Browser,
+  type BuildConfig,
+  type BuildTarget,
+  type BuildOptions,
+} from './types'
 
 /**
  * Given the {@link Mode} i.e. {@link Browser} target,
@@ -25,10 +29,8 @@ import { AnyCase } from './utils'
 export function getManifest(
   { command, mode }: BuildConfig,
   targets: BuildTarget[],
-  options?: CrxOptions,
-  // PluginOption[]
-  // biome-ignore lint:  @typescript-eslint/no-explicit-any
-): any {
+  options?: BuildOptions,
+): ReturnType<typeof crx> {
   const _mode = `${(mode as string).charAt(0).toUpperCase()}${(
     mode as string
   ).slice(1)}`
@@ -75,14 +77,4 @@ export function getManifest(
     manifest: browser.manifest as ManifestV3Export,
     ...options,
   })
-}
-
-interface CrxOptions {
-  contentScripts?: {
-    preambleCode?: string | false
-    hmrTimeout?: number
-    injectCss?: boolean
-  }
-  fastGlobOptions?: any // fast-glob Options
-  browser?: any // 'firefox' | 'chrome'
 }

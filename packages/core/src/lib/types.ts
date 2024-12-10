@@ -1,4 +1,4 @@
-import type { ManifestV3Export } from '@crxjs/vite-plugin'
+import type { crx, ManifestV3Export } from '@crxjs/vite-plugin'
 import { type AnyCase, createEnum } from './utils'
 
 export const FrameworkEnum = {
@@ -73,6 +73,26 @@ export type BuildTarget = {
 export type BuildConfig = {
   command?: 'build' | 'serve'
   mode?: AnyCase<Browser> | string | undefined
+}
+/**
+ * Extract the first parameter of the `crx` function
+ * and Override the `browser` key to allow `any`
+ *
+ * interface CrxOptions {
+ *   contentScripts?: {
+ *     preambleCode?: string | false
+ *     hmrTimeout?: number
+ *     injectCss?: boolean
+ *   }
+ *   fastGlobOptions?: any // fast-glob Options
+ *   browser?: any // 'firefox' | 'chrome'
+ * }
+ */
+export type BuildOptions = Omit<
+  Omit<Parameters<typeof crx>[0], 'manifest'>,
+  'browser'
+> & {
+  browser?: any // 'firefox' | 'chrome' // AnyCase<Browser>
 }
 
 export interface Repository {
