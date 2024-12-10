@@ -25,8 +25,8 @@
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.89",
-    "@bedframe/core": "^0.0.44",
+    "@bedframe/cli": "^0.0.90",
+    "@bedframe/core": "^0.0.45",
     "@biomejs/biome": "1.8.3",
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.5.0",
