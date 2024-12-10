@@ -17,7 +17,11 @@ export const frameConfig: FrameConfig = {
 
 export function mountOrUnmountIframe(): void {
   const FrameId = (frameConfig.iframe as { id: string }).id
-  document.getElementById(FrameId) === null ? mountFrame() : unmountIframe()
+  if (document.getElementById(FrameId) === null) {
+    mountFrame()
+  } else {
+    unmountIframe()
+  }
 }
 
 export function openOrCloseExtension(): void {
