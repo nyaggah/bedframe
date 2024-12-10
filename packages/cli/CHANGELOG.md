@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.90
+
+### Patch Changes
+
+- b8be7c0: in/else instead of ternary
+- Updated dependencies [d79f51a]
+  - @bedframe/core@0.0.45
+
 ## 0.0.89
 
 ### Patch Changes

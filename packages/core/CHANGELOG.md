@@ -1,5 +1,11 @@
 # @bedframe/core
 
+## 0.0.45
+
+### Patch Changes
+
+- d79f51a: bun core; use crx types directly
+
 ## 0.0.44
 
 ### Patch Changes
