@@ -46,7 +46,7 @@
     "rollup-plugin-string": "^3.0.0",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
-    "vite-plugin-dts": "^4.3.0"
+    "vite-plugin-dts": "^4.4.0"
   },
   "lint-staged": {
     "*.{md,mdx,css,html,json,js}": [
