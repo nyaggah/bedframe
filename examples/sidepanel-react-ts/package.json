@@ -36,7 +36,7 @@
   "devDependencies": {
     "@bedframe/cli": "0.0.90",
     "@bedframe/core": "0.0.45",
-    "@changesets/cli": "^2.27.1",
+    "@changesets/cli": "^2.27.11",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.4.1",
     "@testing-library/jest-dom": "^6.6.3",
