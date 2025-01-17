@@ -30,7 +30,7 @@
   "devDependencies": {
     "@bedframe/cli": "^0.0.90",
     "@bedframe/core": "^0.0.45",
-    "@changesets/cli": "^2.27.10",
+    "@changesets/cli": "^2.27.11",
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@eslint/js": "^9.16.0",
