@@ -48,7 +48,7 @@
     "tslib": "^2.8.1",
     "typescript": "^5.7.2",
     "unplugin-fonts": "^1.1.1",
-    "vite": "^5.4.11",
+    "vite": "^5.4.12",
     "vite-plugin-babel-macros": "^1.0.6"
   },
   "peerDependencies": {
