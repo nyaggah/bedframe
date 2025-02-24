@@ -63,7 +63,7 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
-    "lint-staged": "^15.2.2",
+    "lint-staged": "^15.4.3",
     "prettier": "^3.4.2",
     "husky": "^9.1.5",
     "autoprefixer": "^10.4.20",
