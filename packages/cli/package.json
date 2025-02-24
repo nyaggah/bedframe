@@ -58,7 +58,7 @@
     "@types/node": "^22.10.2",
     "@types/prompts": "^2.4.9",
     "@typescript-eslint/eslint-plugin": "^8.23.0",
-    "concurrently": "^9.1.0",
+    "concurrently": "^9.1.2",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^2.3.3",
     "rollup": "^4.34.8",

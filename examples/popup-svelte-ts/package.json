@@ -39,7 +39,7 @@
     "@types/node": "^22.10.2",
     "@vitest/coverage-istanbul": "^2.1.4",
     "commitizen": "^4.3.0",
-    "concurrently": "^8.2.1",
+    "concurrently": "^9.1.2",
     "cz-conventional-changelog": "^3.3.0",
     "lefthook": "^1.9.0",
     "lint-staged": "^15.2.2",
