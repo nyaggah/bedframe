@@ -64,7 +64,7 @@
     "rollup": "^4.34.8",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.1.1",
-    "rollup-plugin-esbuild": "^6.1.1",
+    "rollup-plugin-esbuild": "^6.2.0",
     "rollup-plugin-string": "^3.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
