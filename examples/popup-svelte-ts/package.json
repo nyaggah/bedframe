@@ -42,7 +42,7 @@
     "concurrently": "^9.1.2",
     "cz-conventional-changelog": "^3.3.0",
     "lefthook": "^1.9.0",
-    "lint-staged": "^15.2.2",
+    "lint-staged": "^15.4.3",
     "svelte": "^4.2.19",
     "svelte-check": "^4.1.4",
     "tailwindcss": "^3.4.17",
