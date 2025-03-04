@@ -40,6 +40,14 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     ${hasTests ? 'test: tests,' : ''}
+    legacy: {
+      skipWebSocketTokenCheck: true,
+    },    
+    // Temporary workaround for upstream (crxjs) issue:
+    // change to Vite CORS policies in the dev server
+    //
+    // ^^^ https://github.com/crxjs/chrome-extension-tools/issues/971#issuecomment-2605520184
+    //     https://github.com/vitejs/vite/blob/9654348258eaa0883171533a2b74b4e2825f5fb6/packages/vite/src/node/config.ts#L535
   }
 })
 `
