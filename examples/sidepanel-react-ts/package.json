@@ -1,6 +1,6 @@
 {
   "name": "sidepanel-react-ts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Bedframe Side Panel extension w/ Vite + React + TypeScript",
   "author": {
     "name": "joe",
@@ -34,7 +34,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.90",
+    "@bedframe/cli": "0.0.91",
     "@bedframe/core": "0.0.45",
     "@changesets/cli": "^2.27.11",
     "@commitlint/cli": "^19.6.1",

@@ -1,6 +1,6 @@
-# overlay-react-ts
+# bedframe-svelte
 
-## 0.0.4
+## 0.0.1
 
 ### Patch Changes
 
@@ -31,15 +31,3 @@
 
   - https://github.com/crxjs/chrome-extension-tools/issues/971#issuecomment-2605520184
   - https://github.com/vitejs/vite/blob/9654348258eaa0883171533a2b74b4e2825f5fb6/packages/vite/src/node/config.ts#L535
-
-## 0.0.3
-
-### Patch Changes
-
-- b8be7c0: in/else instead of ternary
-
-## 0.0.2
-
-### Patch Changes
-
-- fd2cf80: project gen updates + commit hook clean up
