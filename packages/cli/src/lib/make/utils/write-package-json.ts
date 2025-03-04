@@ -3,7 +3,7 @@ import type prompts from 'prompts'
 import { writeFile } from './utils.fs'
 
 /**
- * Write the composed package.json (from `createPackageJsonFrom` method)
+ * Write the composed package.json from prompt responses
  * to the project's root
  *
  * @export
@@ -97,7 +97,7 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.90",
+    "@bedframe/cli": "0.0.91",
     "@bedframe/core": "0.0.45",
 ${
   changesets
@@ -154,7 +154,7 @@ ${
     }
     ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.5.3",` : ''}
     "unplugin-fonts": "^1.1.1",
-    "vite": "^5.4.8"
+    "vite": "^6.2.0"
   }
   ${lintFormat ? ',' : ''}
   ${
