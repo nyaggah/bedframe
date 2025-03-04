@@ -1,7 +1,7 @@
 {
   "name": "bedframe-poup-vue-ts",
   "description": "Bedframe Popup extension w/ Vite + Vue + TypeScript",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": {
     "name": "joey",
     "email": "joe@bedframe.dev",
@@ -28,7 +28,7 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.90",
+    "@bedframe/cli": "^0.0.91",
     "@bedframe/core": "^0.0.45",
     "@changesets/cli": "^2.27.11",
     "@commitlint/cli": "^19.6.1",
