@@ -102,8 +102,8 @@ importers:
         specifier: ^2.4.2
         version: 2.4.2
       vite:
-        specifier: ^5.4.12
-        version: 5.4.12(@types/node@22.13.10)
+        specifier: ^5.4.15
+        version: 5.4.15(@types/node@22.13.10)
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -179,10 +179,10 @@ importers:
         version: 2.0.0-beta.30
       vite-plugin-dts:
         specifier: ^3.7.0
-        version: 3.9.1(@types/node@22.13.10)(rollup@4.37.0)(typescript@5.8.2)(vite@5.4.12(@types/node@22.13.10))
+        version: 3.9.1(@types/node@22.13.10)(rollup@4.37.0)(typescript@5.8.2)(vite@5.4.15(@types/node@22.13.10))
       vite-plugin-externalize-deps:
         specifier: ^0.7.0
-        version: 0.7.0(vite@5.4.12(@types/node@22.13.10))
+        version: 0.7.0(vite@5.4.15(@types/node@22.13.10))
       vitest:
         specifier: ^0.34.6
         version: 0.34.6
@@ -201,7 +201,7 @@ importers:
         version: 8.23.0(@typescript-eslint/parser@8.27.0(eslint@9.17.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.17.0(jiti@2.4.2))(typescript@5.8.2)
       '@vitejs/plugin-react':
         specifier: ^4.3.4
-        version: 4.3.4(vite@5.4.12(@types/node@22.13.10))
+        version: 4.3.4(vite@5.4.15(@types/node@22.13.10))
       eslint-config-bedframe:
         specifier: workspace:^
         version: link:../eslint-config-bedframe
@@ -228,13 +228,13 @@ importers:
         version: 5.8.2
       unplugin-fonts:
         specifier: ^1.3.1
-        version: 1.3.1(vite@5.4.12(@types/node@22.13.10))
+        version: 1.3.1(vite@5.4.15(@types/node@22.13.10))
       vite:
-        specifier: ^5.4.12
-        version: 5.4.12(@types/node@22.13.10)
+        specifier: ^5.4.15
+        version: 5.4.15(@types/node@22.13.10)
       vite-plugin-babel-macros:
         specifier: ^1.0.6
-        version: 1.0.6(vite@5.4.12(@types/node@22.13.10))
+        version: 1.0.6(vite@5.4.15(@types/node@22.13.10))
 
   packages/create-bedframe:
     dependencies:
@@ -267,11 +267,11 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
       vite:
-        specifier: ^5.4.12
-        version: 5.4.12(@types/node@22.13.10)
+        specifier: ^5.4.15
+        version: 5.4.15(@types/node@22.13.10)
       vite-plugin-dts:
         specifier: ^4.5.3
-        version: 4.5.3(@types/node@22.13.10)(rollup@4.37.0)(typescript@5.8.2)(vite@5.4.12(@types/node@22.13.10))
+        version: 4.5.3(@types/node@22.13.10)(rollup@4.37.0)(typescript@5.8.2)(vite@5.4.15(@types/node@22.13.10))
 
   packages/eslint-config-bedframe:
     dependencies:
@@ -3372,8 +3372,8 @@ packages:
   mute-stream@0.0.8:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
 
-  nanoid@3.3.8:
-    resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
+  nanoid@3.3.11:
+    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -3637,8 +3637,8 @@ packages:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
 
-  postcss@8.5.1:
-    resolution: {integrity: sha512-6oz2beyjc5VMn/KV1pPw8fliQkhBXrVn1Z3TVyqZxU8kZpzEKhBdmCFqI6ZbmGtamQvQGuU1sgPTk8ZrXDD7jQ==}
+  postcss@8.5.3:
+    resolution: {integrity: sha512-dle9A3yYxlBSrt8Fu+IpjGT8SY8hN0mlaA6GY8t0P5PjIOZemULz/E2Bnm/2dcUOena75OTNkHI76uZBNUUq3A==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -4378,8 +4378,8 @@ packages:
     peerDependencies:
       vite: ^2.0.0 || ^3.0.0 || ^4.0.0
 
-  vite@5.4.12:
-    resolution: {integrity: sha512-KwUaKB27TvWwDJr1GjjWthLMATbGEbeWYZIbGZ5qFIsgPP3vWzLu4cVooqhm5/Z2SPDUMjyPVjTztm5tYKwQxA==}
+  vite@5.4.15:
+    resolution: {integrity: sha512-6ANcZRivqL/4WtwPGTKNaosuNJr5tWiftOC7liM7G9+rMb8+oeJeyzymDu4rTN93seySBmbjSfsS3Vzr19KNtA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -5912,14 +5912,14 @@ snapshots:
   '@unrs/rspack-resolver-binding-win32-x64-msvc@1.2.2':
     optional: true
 
-  '@vitejs/plugin-react@4.3.4(vite@5.4.12(@types/node@22.13.10))':
+  '@vitejs/plugin-react@4.3.4(vite@5.4.15(@types/node@22.13.10))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.12(@types/node@22.13.10)
+      vite: 5.4.15(@types/node@22.13.10)
     transitivePeerDependencies:
       - supports-color
 
@@ -8048,7 +8048,7 @@ snapshots:
 
   mute-stream@0.0.8: {}
 
-  nanoid@3.3.8: {}
+  nanoid@3.3.11: {}
 
   nanospinner@1.2.2:
     dependencies:
@@ -8308,9 +8308,9 @@ snapshots:
 
   possible-typed-array-names@1.0.0: {}
 
-  postcss@8.5.1:
+  postcss@8.5.3:
     dependencies:
-      nanoid: 3.3.8
+      nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -9022,11 +9022,11 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unplugin-fonts@1.3.1(vite@5.4.12(@types/node@22.13.10)):
+  unplugin-fonts@1.3.1(vite@5.4.15(@types/node@22.13.10)):
     dependencies:
       fast-glob: 3.3.3
       unplugin: 2.0.0-beta.1
-      vite: 5.4.12(@types/node@22.13.10)
+      vite: 5.4.15(@types/node@22.13.10)
 
   unplugin-utils@0.2.4:
     dependencies:
@@ -9061,7 +9061,7 @@ snapshots:
       mlly: 1.7.3
       pathe: 1.1.2
       picocolors: 1.1.1
-      vite: 5.4.12(@types/node@22.13.10)
+      vite: 5.4.15(@types/node@22.13.10)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -9073,18 +9073,18 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-babel-macros@1.0.6(vite@5.4.12(@types/node@22.13.10)):
+  vite-plugin-babel-macros@1.0.6(vite@5.4.15(@types/node@22.13.10)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-syntax-jsx': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-syntax-typescript': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       babel-plugin-macros: 3.1.0
-      vite: 5.4.12(@types/node@22.13.10)
+      vite: 5.4.15(@types/node@22.13.10)
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-dts@3.9.1(@types/node@22.13.10)(rollup@4.37.0)(typescript@5.8.2)(vite@5.4.12(@types/node@22.13.10)):
+  vite-plugin-dts@3.9.1(@types/node@22.13.10)(rollup@4.37.0)(typescript@5.8.2)(vite@5.4.15(@types/node@22.13.10)):
     dependencies:
       '@microsoft/api-extractor': 7.43.0(@types/node@22.13.10)
       '@rollup/pluginutils': 5.1.3(rollup@4.37.0)
@@ -9095,13 +9095,13 @@ snapshots:
       typescript: 5.8.2
       vue-tsc: 1.8.27(typescript@5.8.2)
     optionalDependencies:
-      vite: 5.4.12(@types/node@22.13.10)
+      vite: 5.4.15(@types/node@22.13.10)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
       - supports-color
 
-  vite-plugin-dts@4.5.3(@types/node@22.13.10)(rollup@4.37.0)(typescript@5.8.2)(vite@5.4.12(@types/node@22.13.10)):
+  vite-plugin-dts@4.5.3(@types/node@22.13.10)(rollup@4.37.0)(typescript@5.8.2)(vite@5.4.15(@types/node@22.13.10)):
     dependencies:
       '@microsoft/api-extractor': 7.51.1(@types/node@22.13.10)
       '@rollup/pluginutils': 5.1.4(rollup@4.37.0)
@@ -9114,20 +9114,20 @@ snapshots:
       magic-string: 0.30.17
       typescript: 5.8.2
     optionalDependencies:
-      vite: 5.4.12(@types/node@22.13.10)
+      vite: 5.4.15(@types/node@22.13.10)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
       - supports-color
 
-  vite-plugin-externalize-deps@0.7.0(vite@5.4.12(@types/node@22.13.10)):
+  vite-plugin-externalize-deps@0.7.0(vite@5.4.15(@types/node@22.13.10)):
     dependencies:
-      vite: 5.4.12(@types/node@22.13.10)
+      vite: 5.4.15(@types/node@22.13.10)
 
-  vite@5.4.12(@types/node@22.13.10):
+  vite@5.4.15(@types/node@22.13.10):
     dependencies:
       esbuild: 0.21.5
-      postcss: 8.5.1
+      postcss: 8.5.3
       rollup: 4.37.0
     optionalDependencies:
       '@types/node': 22.13.10
@@ -9156,7 +9156,7 @@ snapshots:
       strip-literal: 1.3.0
       tinybench: 2.9.0
       tinypool: 0.7.0
-      vite: 5.4.12(@types/node@22.13.10)
+      vite: 5.4.15(@types/node@22.13.10)
       vite-node: 0.34.6(@types/node@22.13.10)
       why-is-node-running: 2.3.0
     transitivePeerDependencies:
