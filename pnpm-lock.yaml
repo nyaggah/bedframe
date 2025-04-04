@@ -151,8 +151,8 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0
       rollup-plugin-dts:
-        specifier: ^6.1.1
-        version: 6.1.1(rollup@4.37.0)(typescript@5.8.2)
+        specifier: ^6.2.1
+        version: 6.2.1(rollup@4.37.0)(typescript@5.8.2)
       rollup-plugin-esbuild:
         specifier: ^6.2.1
         version: 6.2.1(esbuild@0.25.0)(rollup@4.37.0)
@@ -255,8 +255,8 @@ importers:
         specifier: ^12.1.2
         version: 12.1.2(rollup@4.38.0)(tslib@2.8.1)(typescript@5.8.2)
       rollup-plugin-dts:
-        specifier: ^6.1.1
-        version: 6.1.1(rollup@4.38.0)(typescript@5.8.2)
+        specifier: ^6.2.1
+        version: 6.2.1(rollup@4.38.0)(typescript@5.8.2)
       rollup-plugin-esbuild:
         specifier: ^6.2.1
         version: 6.2.1(esbuild@0.25.0)(rollup@4.38.0)
@@ -3882,8 +3882,8 @@ packages:
     resolution: {integrity: sha512-wI8D5dvYovRMx/YYKtUNt3Yxaw4ORC9xo6Gt9t22kveWz1enG9QrhVlagzwrxSC455xD1dHMKhIJkbsQ7d48BA==}
     engines: {node: '>=8.3'}
 
-  rollup-plugin-dts@6.1.1:
-    resolution: {integrity: sha512-aSHRcJ6KG2IHIioYlvAOcEq6U99sVtqDDKVhnwt70rW6tsz3tv5OSjEiWcgzfsHdLyGXZ/3b/7b/+Za3Y6r1XA==}
+  rollup-plugin-dts@6.2.1:
+    resolution: {integrity: sha512-sR3CxYUl7i2CHa0O7bA45mCrgADyAQ0tVtGSqi3yvH28M+eg1+g5d7kQ9hLvEz5dorK3XVsH5L2jwHLQf72DzA==}
     engines: {node: '>=16'}
     peerDependencies:
       rollup: ^3.29.4 || ^4
@@ -6129,7 +6129,7 @@ snapshots:
 
   '@vitest/snapshot@0.34.6':
     dependencies:
-      magic-string: 0.30.13
+      magic-string: 0.30.17
       pathe: 1.1.2
       pretty-format: 29.7.0
 
@@ -8656,17 +8656,17 @@ snapshots:
       globby: 10.0.1
       is-plain-object: 3.0.1
 
-  rollup-plugin-dts@6.1.1(rollup@4.37.0)(typescript@5.8.2):
+  rollup-plugin-dts@6.2.1(rollup@4.37.0)(typescript@5.8.2):
     dependencies:
-      magic-string: 0.30.13
+      magic-string: 0.30.17
       rollup: 4.37.0
       typescript: 5.8.2
     optionalDependencies:
       '@babel/code-frame': 7.26.2
 
-  rollup-plugin-dts@6.1.1(rollup@4.38.0)(typescript@5.8.2):
+  rollup-plugin-dts@6.2.1(rollup@4.38.0)(typescript@5.8.2):
     dependencies:
-      magic-string: 0.30.13
+      magic-string: 0.30.17
       rollup: 4.38.0
       typescript: 5.8.2
     optionalDependencies:
