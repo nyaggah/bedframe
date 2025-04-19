@@ -27,7 +27,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.11",
     "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.7.1",
+    "@commitlint/config-conventional": "^19.8.0",
     "@types/chrome": "^0.0.313",
     "@types/node": "^22.14.1",
     "@types/prompts": "^2.4.9",
