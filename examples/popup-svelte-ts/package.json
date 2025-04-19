@@ -36,7 +36,7 @@
     "@testing-library/svelte": "^5.2.7",
     "@tsconfig/svelte": "^5.0.4",
     "@types/chrome": "^0.0.313",
-    "@types/node": "^22.13.10",
+    "@types/node": "^22.14.1",
     "@vitest/coverage-istanbul": "^2.1.9",
     "commitizen": "^4.3.0",
     "concurrently": "^9.1.2",
