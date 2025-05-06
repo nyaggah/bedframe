@@ -28,7 +28,7 @@
     "@bedframe/cli": "^0.0.91",
     "@bedframe/core": "^0.0.45",
     "@biomejs/biome": "1.8.3",
-    "@changesets/cli": "^2.27.11",
+    "@changesets/cli": "^2.29.2",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
