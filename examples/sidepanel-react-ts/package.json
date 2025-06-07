@@ -50,7 +50,7 @@
     "@types/chrome": "^0.0.313",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.7",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-react": "^4.5.1",
     "concurrently": "^9.1.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
