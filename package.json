@@ -37,7 +37,7 @@
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-prettier": "^9.1.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.5.1",
+    "lint-staged": "^15.5.2",
     "prettier": "^3.5.3",
     "rollup": "^4.41.1",
     "shx": "^0.4.0",
