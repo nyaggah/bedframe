@@ -85,20 +85,20 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     ${gitHooks ? gitHooksPrepare : ''}
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"${
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"${
       isStyle.tailwind
         ? `,
     "clsx": "^2.1.0",
     "react-icons": "^5.0.1",
-    "tailwind-merge": "^2.2.2",
+    "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"`
         : ''
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "0.0.91",
-    "@bedframe/core": "0.0.45",
+    "@bedframe/cli": "^0.0.92",
+    "@bedframe/core": "^0.0.46",
 ${
   changesets
     ? `"@changesets/cli": "^2.27.1",
@@ -108,20 +108,20 @@ ${
 }${
     hasTests
       ? `\n"@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^14.2.2",
+    "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.5.2",
-    "@types/jest": "^29.5.12",
-    "happy-dom": "^14.3.6",
-    "vitest": "^1.4.0",
-    "@vitest/coverage-istanbul": "^1.4.0",`
+    "@types/jest": "^30.0.0",
+    "happy-dom": "^18.0.1",
+    "vitest": "^3.2.4",
+    "@vitest/coverage-istanbul": "^3.2.4",`
       : ''
   }
-    "@types/node": "^20.11.30",
-    "@types/chrome": "^0.0.277",
-    "@types/react": "^18.3.10",
-    "@types/react-dom": "^18.3.0",
+    "@types/node": "^24.0.3",
+    "@types/chrome": "^0.0.326",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.3.2",
-    "concurrently": "^8.2.1",${
+    "concurrently": "^9.1.2",${
       commitLint
         ? `"commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",`
@@ -131,25 +131,26 @@ ${
         ? `\n"@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
     "eslint": "^9.15.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-n": "^17.20.0",
+    "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.14",
-    "globals": "^15.9.0",
+    "globals": "^16.2.0",
     "typescript-eslint": "^8.15.0",
-    "lint-staged": "^15.2.2",
+    "lint-staged": "^16.1.2",
     "prettier": "^3.0.3",`
         : ''
     }
     ${gitHooks ? `"husky": "^9.0.11",` : ''}
     ${
       isStyle.tailwind
-        ? `"autoprefixer": "^10.4.19",
+        ? `"@tailwindcss/vite": "^4.1.10",
+    "@tailwindcss/postcss": "^4.1.10",
     "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.1",`
+    "tailwindcss": "^4.1.10",`
         : ''
     }
     ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.5.3",` : ''}

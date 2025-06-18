@@ -18,7 +18,7 @@ export default defineConfig({
   plugins: [
     externalizeDeps({
       deps: false,
-    }),
+    }) as any,
     nodeExternals(),
     dts({
       insertTypesEntry: true,

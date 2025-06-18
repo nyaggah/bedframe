@@ -1,6 +1,4 @@
-import { PiXBold } from 'react-icons/pi'
-
-export function Intro(): JSX.Element {
+export function Intro() {
   const bedHead = {
     name: chrome.runtime.getManifest().name,
     version: chrome.runtime.getManifest().version,
@@ -28,24 +26,9 @@ export function Intro(): JSX.Element {
 
   return (
     <div className="flex flex-col items-center justify-center min-w-[360px] min-h-[400px] w-full h-full bg-background">
-      <button
-        type="button"
-        className="flex items-center justify-center w-6 h-6 absolute text-[1.5em] hover:text-red-400 cursor-pointer rounded-[50%] right-[15px] top-[15px]"
-        onClick={() =>
-          window.parent.postMessage(
-            {
-              type: 'browser-action',
-              action: 'open-or-close-extension',
-            },
-            '*',
-          )
-        }
-      >
-        <PiXBold className="w-6 h-6" />
-      </button>
       <div className="flex flex-col w-max gap-[1em]">
         <div className="flex flex-col">
-          <span className="text-white font-extrabold pb-[1em]">
+          <span className="text-muted-foreground/40 font-extrabold pb-[1em]">
             &gt;<span className="animation-pulse">_</span>
           </span>
           <div className="flex text-[#c792e9]">
@@ -97,8 +80,11 @@ export function Intro(): JSX.Element {
 
         <div className="tracking-[0.5px] leading-[160%]">
           You're officially in
-          <br /> <span className="text-white tracking-[3px]">BED</span>.
-          Goodnight!
+          <br />{' '}
+          <span className="text-foreground font-semibold tracking-[3px]">
+            BED
+          </span>
+          . Goodnight!
         </div>
       </div>
     </div>

@@ -66,7 +66,7 @@ export async function makeBed(response: PromptsResponse) {
         tsconfig: path.join(stubsPath, 'tsconfig'),
         style: {
           base: path.join(stubsPath, 'style', 'styles'),
-          config: path.join(stubsPath, 'style', 'config'),
+          // config: path.join(stubsPath, 'style', 'config'),
           shadcn: path.join(stubsPath, 'style', 'shadcn'),
         },
         scripts: path.join(stubsPath, 'scripts'),
@@ -448,12 +448,6 @@ export async function makeBed(response: PromptsResponse) {
           {
             title: `  ${dim('├ ○')} README${dim('.md')}`,
             task: () => writeReadMe(response),
-          },
-          {
-            title: `  ${dim('├ ○')} tailwind.config${dim('.ts')}`,
-            task: () => {
-              copyFolder(stubs.style.config, projectPath)
-            },
           },
           {
             title: `  ${dim('├ ○')} tsconfig${dim('.json')}`,

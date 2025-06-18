@@ -1,9 +1,9 @@
 import { Intro } from '@/components/intro'
 import '@/styles/style.css'
 
-export function App(): JSX.Element {
+export function App() {
   return (
-    <div className="flex items-center justify-center w-full h-full rounded-xl">
+    <div className="flex justify-center items-center w-full h-full rounded-xl">
       <Intro />
     </div>
   )
