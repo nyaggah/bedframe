@@ -9,9 +9,4 @@ export const AppMessagesListener = (
     openOrCloseExtension()
     response()
   }
-  // listen for other message here...
-  //
-  // if (message.action === 'something-else') {
-  //   do something...
-  // }
 }

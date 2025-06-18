@@ -7,10 +7,12 @@
     "config": "tailwind.config.js",
     "css": "@/styles/style.css",
     "baseColor": "gray",
-    "cssVariables": true
+    "cssVariables": true,
+    "prefix": ""
   },
   "aliases": {
     "components": "@/components",
     "utils": "@/_config/shadcn.config"
-  }
+  },
+  "iconLibrary": "lucide"
 }

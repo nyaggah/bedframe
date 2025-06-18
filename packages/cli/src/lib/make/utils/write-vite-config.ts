@@ -6,6 +6,7 @@ export function viteConfig(response: prompts.Answers<string>): string {
   const { tests: hasTests } = response.development.template.config
 
   return `import { getFonts, getManifest } from '@bedframe/core'
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
@@ -31,6 +32,7 @@ export default defineConfig(({ command, mode }) => {
       }),
       getFonts(fonts!),
       react(),
+      tailwindcss(),
     ],
     build: {
       outDir: resolve(__dirname, 'dist', mode),
@@ -40,14 +42,13 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     ${hasTests ? 'test: tests,' : ''}
-    legacy: {
-      skipWebSocketTokenCheck: true,
-    },    
-    // Temporary workaround for upstream (crxjs) issue:
-    // change to Vite CORS policies in the dev server
-    //
-    // ^^^ https://github.com/crxjs/chrome-extension-tools/issues/971#issuecomment-2605520184
-    //     https://github.com/vitejs/vite/blob/9654348258eaa0883171533a2b74b4e2825f5fb6/packages/vite/src/node/config.ts#L535
+    server: {
+      cors: {
+        origin: [
+          /chrome-extension:\\\/\\\//,
+        ],
+      },
+    },
   }
 })
 `
