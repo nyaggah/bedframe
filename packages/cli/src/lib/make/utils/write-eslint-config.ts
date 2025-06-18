@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { Answers } from 'prompts'
+import type { Answers } from 'prompts'
 import { writeFile } from './utils.fs'
 
 export function writeEslintConfig(response: Answers<string>): void {

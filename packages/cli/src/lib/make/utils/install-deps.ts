@@ -1,5 +1,4 @@
 import { execa } from 'execa'
-import { projectInstall } from 'pkg-install'
 import type { PromptsResponse } from '../prompts'
 /**
  * install dependencies, initialize git and
@@ -40,16 +39,6 @@ export async function installDependencies(
           })
         }
       })
-      // await projectInstall({
-      //   prefer: packageManager.toLowerCase(),
-      //   cwd: projectPath,
-      // }).then(async () => {
-      //   if (lintFormat) {
-      //     await execa(packageManager, ['run', 'lint:format'], {
-      //       cwd: projectPath,
-      //     })
-      //   }
-      // })
     }
   } catch (err) {
     console.error(err)

@@ -31,8 +31,8 @@
     "clean": "shx rm -rf dist",
     "build": "pnpm clean && tsc && rollup -c",
     "format": "pnpm biome format --write .",
-    "lint": "pnpm biome lint --apply .",
-    "lint:format": "pnpm biome check --apply .",
+    "lint": "pnpm biome lint --write .",
+    "lint:format": "pnpm biome check --write --unsafe .",
     "build:pack": "pnpm build && pnpm pack"
   },
   "dependencies": {
@@ -75,7 +75,7 @@
     "*.{md,mdx,css,html,json,js}": [
       "pnpm biome format --write ."
     ],
-    "*.{js,jsx,ts,tsx}": "pnpm biome lint --apply ."
+    "*.{js,jsx,ts,tsx}": "pnpm biome lint --write ."
   },
   "prettier": {
     "tabWidth": 2,

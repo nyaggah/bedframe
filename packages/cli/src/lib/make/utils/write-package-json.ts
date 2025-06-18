@@ -106,16 +106,16 @@ ${
     "@commitlint/config-conventional": "^19.1.0",`
     : ''
 }${
-    hasTests
-      ? `\n"@testing-library/jest-dom": "^6.4.2",
+  hasTests
+    ? `\n"@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^30.0.0",
     "happy-dom": "^18.0.1",
     "vitest": "^3.2.4",
     "@vitest/coverage-istanbul": "^3.2.4",`
-      : ''
-  }
+    : ''
+}
     "@types/node": "^24.0.3",
     "@types/chrome": "^0.0.326",
     "@types/react": "^19.1.8",
