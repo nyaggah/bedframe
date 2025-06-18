@@ -5,7 +5,7 @@
     "name": "Joe Nyaggah",
     "url": "https://bedframe.dev"
   },
-  "version": "0.0.45",
+  "version": "0.0.46",
   "license": "MIT",
   "type": "module",
   "main": "dist/bedframe.js",
@@ -16,7 +16,7 @@
       "import": "./dist/bedframe.js",
       "require": "./dist/bedframe.js",
       "types": "./dist/index.d.ts",
-      "default": "./dist/bedframe.js"      
+      "default": "./dist/bedframe.js"
     }
   },
   "files": [
