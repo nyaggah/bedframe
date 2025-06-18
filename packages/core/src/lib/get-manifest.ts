@@ -1,4 +1,4 @@
-import { type ManifestV3Export, crx } from '@crxjs/vite-plugin'
+import { crx, type ManifestV3Export } from '@crxjs/vite-plugin'
 import {
   bold,
   dim,
@@ -11,8 +11,8 @@ import type { PluginOption } from 'vite'
 import {
   Browser,
   type BuildConfig,
-  type BuildTarget,
   type BuildOptions,
+  type BuildTarget,
 } from './types'
 
 /**

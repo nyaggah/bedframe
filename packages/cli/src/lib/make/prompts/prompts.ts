@@ -10,6 +10,11 @@ import {
 } from '@bedframe/core'
 import { dim, italic, red, yellow } from 'kolorist'
 import prompts, { type PromptObject } from 'prompts'
+import type {
+  BrowserPrompts,
+  DevelopmentPrompts,
+  ExtensionPrompts,
+} from './prompts.type'
 import {
   browsers,
   frameworks,
@@ -17,11 +22,6 @@ import {
   packageManagers,
   stylingOptions,
 } from './prompts-utils'
-import type {
-  BrowserPrompts,
-  DevelopmentPrompts,
-  ExtensionPrompts,
-} from './prompts.type'
 
 export function promptInstructions(_type = 'multiselect'): string {
   return `

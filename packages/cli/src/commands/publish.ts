@@ -4,7 +4,6 @@ import { basename, join, resolve } from 'node:path'
 import { cwd } from 'node:process'
 import { Command } from 'commander'
 import {
-  dim,
   lightCyan,
   lightGreen,
   lightMagenta,

@@ -1,6 +1,6 @@
-import { App } from '@/components/app'
 import { render } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
+import { App } from '@/components/app'
 
 describe('<App />', () => {
   beforeAll(() => {
