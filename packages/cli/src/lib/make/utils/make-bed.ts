@@ -66,7 +66,6 @@ export async function makeBed(response: PromptsResponse) {
         tsconfig: path.join(stubsPath, 'tsconfig'),
         style: {
           base: path.join(stubsPath, 'style', 'styles'),
-          // config: path.join(stubsPath, 'style', 'config'),
           shadcn: path.join(stubsPath, 'style', 'shadcn'),
         },
         scripts: path.join(stubsPath, 'scripts'),
