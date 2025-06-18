@@ -1,5 +1,13 @@
 # @bedframe/core
 
+## 0.0.46
+
+### Patch Changes
+
+- 9be2502: - generate projects with vite 6
+  - update crx to version 2
+  - upgrade tailwind to version 4
+
 ## 0.0.45
 
 ### Patch Changes
