@@ -42,7 +42,7 @@
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^2.5.4",
     "kolorist": "^1.8.0",
-    "rollup": "^4.43.0",
+    "rollup": "^4.44.0",
     "rollup-plugin-node-externals": "^8.0.1",
     "rollup-plugin-polyfill-node": "^0.13.0",
     "tslib": "^2.8.1",
