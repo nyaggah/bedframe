@@ -27,8 +27,7 @@ type FirefoxUploadConfig = {
 type EdgeUploadConfig = {
   productId: string
   clientId: string
-  clientSecret: string
-  accessTokenUrl: string
+  apiKey: string
 }
 
 interface SubmissionResponse {
@@ -153,65 +152,23 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
 }
 
 /**
- * get access token (jwt) for api calls
- * ```bash
- * > curl \
- *  -X POST \
- *  -H "Content-Type: application/x-www-form-urlencoded" \
- *  -d "client_id={$Client_ID}" \
- *  -d "scope=https://api.addons.microsoftedge.microsoft.com/.default" \
- *  -d "client_secret={$Client_Secret}" \
- *  -d "grant_type=client_credentials" \
- *  -v \
- *  <ACCESS_TOKEN_URL> e.g. https://login.microsoftonline.com/{$TENANT_ID}/oauth2/v2.0/token
- * ```
- * FULL access token URL. find at: https://partner.microsoft.com/en-us/dashboard/microsoftedge/publishapi
- *
- * @param {EdgeUploadConfig} config
- * @return {*}  {Promise<string>}
- */
-async function getEdgeAccessToken(config: EdgeUploadConfig): Promise<string> {
-  try {
-    const response = await fetch(config.accessTokenUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        client_id: config.clientId,
-        scope: 'https://api.addons.microsoftedge.microsoft.com/.default',
-        client_secret: config.clientSecret,
-        grant_type: 'client_credentials',
-      }),
-    })
-
-    if (!response.ok) {
-      throw new Error(`failed to get Edge access token: ${response.statusText}`)
-    }
-
-    try {
-      // biome-ignore lint:  @typescript-eslint/no-explicit-any
-      const responseBody: any = await response.json()
-      return responseBody.access_token
-      // biome-ignore lint:  @typescript-eslint/no-explicit-any
-    } catch (jsonError: any) {
-      throw new Error(`Error parsing JSON response: ${jsonError.message}`)
-    }
-  } catch (error) {
-    console.error('Error in getEdgeAccessToken:', error)
-    throw error // Re-throw the error after logging it
-  }
-}
-
-/**
  * Upload to MS Edge Add-Ons
  *
- * currently can only update extension already created
- * in the MS Partner Center Edge Dashboard. so create a project
+ * Updated for API v1.1 (January 2025)
+ * Uses API key authentication instead of access tokens
+ *
+ * Requirements:
+ * - Extension must already be created in MS Partner Center Edge Dashboard
+ * - API credentials must be generated in Partner Center (opt-in to new experience)
+ * - API keys expire every 72 days and need regeneration
+ *
+ * Note:
+ * Currently can only update extension already created
+ * in the MS Partner Center Edge Dashboard. So create a project
  * in the dashboard first, then this workflow should work.
  *
- * @param {EdgeUploadConfig} config
- * @param {string} source
+ * @param {EdgeUploadConfig} config - productId, clientId, and apiKey
+ * @param {string} source - zip file name
  */
 async function uploadToEdge(config: EdgeUploadConfig, source: string) {
   try {
@@ -222,15 +179,22 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
         }-edge.zip`
     const zipPath = resolve(join(cwd(), 'dist', zipName))
 
-    console.log(`
-• ${lightMagenta('E D G E:')}
-└ • name: ${lightGreen(`${process.env.PACKAGE_NAME}`)}
-  • version: ${lightCyan(`${process.env.PACKAGE_VERSION}`)}
-  • zip: ${lightYellow(`${basename(zipPath)}`)}
-  • date/time: ${new Date().toLocaleString().replace(',', '')}
-`)
+    console.log(`• ${lightMagenta('E D G E:')}`)
+    console.log(
+      `└ • name: ${lightGreen(process.env.PACKAGE_NAME || 'Unknown')}`,
+    )
+    console.log(
+      `  • version: ${lightCyan(process.env.PACKAGE_VERSION || 'Unknown')}`,
+    )
+    console.log(`  • zip: ${lightYellow(basename(zipPath))}`)
+    console.log(
+      `  • date/time: ${new Date().toLocaleString().replace(',', '')}`,
+    )
 
-    const accessToken = await getEdgeAccessToken(config)
+    if (!fs.existsSync(zipPath)) {
+      throw new Error(`zip file not found at path: ${zipPath}`)
+    }
+
     const uploadUrl = `https://api.addons.microsoftedge.microsoft.com/v1/products/${config.productId}/submissions/draft/package`
 
     const packageStream = fs.createReadStream(zipPath)
@@ -238,15 +202,17 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
     const response = await fetch(uploadUrl, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `ApiKey ${config.apiKey}`,
+        'X-ClientID': config.clientId,
         'Content-Type': 'application/zip',
       },
       body: packageStream,
     })
 
     if (!response.ok) {
+      const errorText = await response.text()
       throw new Error(
-        `failed to upload Edge extension... this method is slightly buggy at the moment... https://www.youtube.com/watch?v=fmpw7fO8iFs&t=25s ${response.statusText}`,
+        `Failed to upload Edge extension (HTTP ${response.status}): ${response.statusText}. ${errorText}`,
       )
     }
 
@@ -254,11 +220,34 @@ async function uploadToEdge(config: EdgeUploadConfig, source: string) {
     const submissionId = submissionResponse.id
     const submissionUrl = `https://partner.microsoft.com/en-us/dashboard/microsoftedge/${config.productId}/submissions/${submissionId}`
 
+    console.log(lightGreen('Edge extension uploaded successfully! 🎉'))
+    console.log(`Submission URL: ${lightCyan(submissionUrl)}`)
     console.log(
-      `Edge extension uploaded successfully. submission url: ${submissionUrl}`,
+      lightYellow(
+        'Note: Check Partner Center for approval status and publishing.',
+      ),
     )
   } catch (error) {
-    console.error(lightYellow('error uploading to Edge:'), lightRed(`${error}`))
+    console.error(lightRed('Error uploading to Edge:'), lightRed(`${error}`))
+    console.log(lightYellow('\n💡 Troubleshooting tips:'))
+    console.log(
+      lightYellow(
+        "  • Ensure you've opted-in to the new API experience in Partner Center",
+      ),
+    )
+    console.log(
+      lightYellow(
+        "  • Check that your API key hasn't expired (72-day expiration)",
+      ),
+    )
+    console.log(
+      lightYellow('  • Verify productId, clientId, and apiKey are correct'),
+    )
+    console.log(
+      lightYellow(
+        '  • Make sure the extension exists in Partner Center dashboard',
+      ),
+    )
   }
 }
 
@@ -275,13 +264,6 @@ export const publishCommand = new Command('publish')
     'specify browsers to publish (chrome, firefox, edge)',
   )
   .action(async (options) => {
-    // TO diddly DO:
-    // actually handle multiple browsers --browsers
-    // option... run through below conditional for all browsers
-    // found in ./src/manifests/index.ts array --> []
-    // ^^^ update this when there's a moar betta way to grab all
-    // browsers from project. e.g. esm import that ts and process
-    // the func to return the pojo bedframeConfig
     try {
       const selectedBrowsers = options.browsers
       if (
@@ -344,10 +326,34 @@ export const publishCommand = new Command('publish')
         const edgeConfig: EdgeUploadConfig = {
           productId: process.env.EDGE_PRODUCT_ID || '',
           clientId: process.env.EDGE_CLIENT_ID || '',
-          clientSecret: process.env.EDGE_CLIENT_SECRET || '',
-          accessTokenUrl: process.env.EDGE_ACCESS_TOKEN_URL || '',
+          apiKey: process.env.EDGE_API_KEY || '',
         }
-        uploadToEdge(edgeConfig, zipName)
+
+        if (
+          !edgeConfig.productId ||
+          !edgeConfig.clientId ||
+          !edgeConfig.apiKey
+        ) {
+          console.error(
+            lightRed('Missing required Edge configuration. Please set:'),
+          )
+          console.error(
+            lightRed('  EDGE_PRODUCT_ID, EDGE_CLIENT_ID, EDGE_API_KEY'),
+          )
+          console.log(lightYellow('\n💡 To get these values:'))
+          console.log(
+            lightYellow(
+              '  1. Go to Partner Center > Microsoft Edge > Publish API',
+            ),
+          )
+          console.log(
+            lightYellow('  2. Click "Enable" to opt-in to new experience'),
+          )
+          console.log(lightYellow('  3. Generate new API credentials'))
+          return
+        }
+
+        await uploadToEdge(edgeConfig, zipName)
       }
     } catch (error) {
       console.error('failed to publish project:', error)
