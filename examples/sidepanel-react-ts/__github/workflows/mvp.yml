@@ -107,6 +107,6 @@ jobs:
         env:
           EDGE_PRODUCT_ID: ${{ secrets.EDGE_PRODUCT_ID }}
           EDGE_CLIENT_ID: ${{ secrets.EDGE_CLIENT_ID }}
-          EDGE_CLIENT_SECRET: ${{ secrets.EDGE_CLIENT_SECRET }}
+          EDGE_API_KEY: ${{ secrets.EDGE_API_KEY }}
           PACKAGE_NAME: ${{ steps.package.outputs.PACKAGE_NAME }}
           PACKAGE_VERSION: ${{ steps.package.outputs.PACKAGE_VERSION }}

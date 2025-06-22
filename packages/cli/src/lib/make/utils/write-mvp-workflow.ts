@@ -25,7 +25,7 @@ type FirefoxEnvironment = {
 type EdgeEnvironment = {
   productId: string
   clientId: string
-  clientSecret: string
+  apiKey: string
 }
 
 export function writeMVPworkflow(response: Answers<string>) {
@@ -60,7 +60,7 @@ export function writeMVPworkflow(response: Answers<string>) {
     edge: {
       productId: 'EDGE_PRODUCT_ID',
       clientId: 'EDGE_CLIENT_ID',
-      clientSecret: 'EDGE_CLIENT_SECRET',
+      apiKey: 'EDGE_API_KEY',
     },
   }
 
@@ -207,7 +207,7 @@ ${
         env:
           ${publishVar.edge.productId}: \$\{{ secrets.${publishVar.edge.productId} }\}
           ${publishVar.edge.clientId}: \$\{{ secrets.${publishVar.edge.clientId} }\}
-          ${publishVar.edge.clientSecret}: \$\{{ secrets.${publishVar.edge.clientSecret} }\}
+          ${publishVar.edge.apiKey}: \$\{{ secrets.${publishVar.edge.apiKey} }\}
           PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
           PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}`
           : ''

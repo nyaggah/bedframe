@@ -14,7 +14,7 @@
     "WEB_EXT_API_SECRET",
     "EDGE_PRODUCT_ID",
     "EDGE_CLIENT_ID",
-    "EDGE_CLIENT_SECRET",
+    "EDGE_API_KEY",
     "npm_package_name",
     "npm_package_version"
   ],
