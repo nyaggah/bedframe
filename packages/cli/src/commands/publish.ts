@@ -162,6 +162,11 @@ function uploadToFirefox(config: FirefoxUploadConfig) {
  * - API credentials must be generated in Partner Center (opt-in to new experience)
  * - API keys expire every 72 days and need regeneration
  *
+ * Note:
+ * Currently can only update extension already created
+ * in the MS Partner Center Edge Dashboard. So create a project
+ * in the dashboard first, then this workflow should work.
+ *
  * @param {EdgeUploadConfig} config - productId, clientId, and apiKey
  * @param {string} source - zip file name
  */
