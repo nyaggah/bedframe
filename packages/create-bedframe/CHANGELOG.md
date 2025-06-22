@@ -1,5 +1,12 @@
 # create-bedframe
 
+## 0.0.52
+
+### Patch Changes
+
+- Updated dependencies [4e86680]
+  - @bedframe/cli@0.0.93
+
 ## 0.0.51
 
 ### Patch Changes

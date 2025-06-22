@@ -1,5 +1,13 @@
 # @bedframe/cli
 
+## 0.0.93
+
+### Patch Changes
+
+- 4e86680: - lint/format: use oxlint and prettier; remove eslint
+  - git hooks: use lefthook instead of husky
+  - add tailwind prettier plugin
+
 ## 0.0.92
 
 ### Patch Changes
