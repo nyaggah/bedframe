@@ -11,7 +11,7 @@ import { getAssetsDir } from './degit-assets-dir'
 import { installDependencies } from './install-deps'
 import { ensureDir } from './utils.fs'
 import { writeBedframeConfig } from './write-bedframe-config'
-import { writeEslintConfig } from './write-eslint-config'
+import { writeLefthookYml } from './write-lefhook'
 import { writeManifests } from './write-manifests'
 import { writeMVPworkflow } from './write-mvp-workflow'
 import { writePackageJson } from './write-package-json'
@@ -185,7 +185,10 @@ export async function makeBed(response: PromptsResponse) {
           {
             title: `  ${dim('├ .')}husky${dim('/')}`,
             enabled: () => gitHooks,
-            task: () => copyFolder(stubs.gitHooks, projectPath),
+            task: () => {
+              copyFolder(stubs.gitHooks, projectPath)
+              writeLefthookYml(response)
+            },
           },
           {
             title: `  ${dim('├ ○')} src${dim('/')}`,
@@ -426,11 +429,6 @@ export async function makeBed(response: PromptsResponse) {
             title: `  ${dim('├ .')}prettierignore`,
             enabled: () => lintFormat,
             task: () => copyFolder(stubs.lintFormat, projectPath),
-          },
-          {
-            title: `  ${dim('├ ○')} eslint.config.js`,
-            enabled: () => lintFormat,
-            task: () => writeEslintConfig(response),
           },
           {
             title: `  ${dim('├ ○')} components${dim('.json')}`,

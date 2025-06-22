@@ -37,11 +37,6 @@ export function writePackageJson(response: prompts.Answers<string>): void {
   const pm = packageManager.toLowerCase()
   const pmRun = pm !== 'yarn' ? `${pm} run` : pm
 
-  const gitHooksPrepare =
-    pm === 'yarn'
-      ? `"postinstall": "husky || true"`
-      : `"prepare": "husky || true"`
-
   const packageJson = `{
   "name": "${parameterizeString(projectName)}",
   "version": "${projectVersion}",
@@ -71,8 +66,8 @@ export function writePackageJson(response: prompts.Answers<string>): void {
     ${
       lintFormat
         ? `"format": "prettier --write .",
-    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
-    "lint:format": "${pmRun} format && ${pmRun} lint",`
+    "lint": "oxlint --fix .",
+    "fix": "${pmRun} format && ${pmRun} lint",`
         : ''
     }
     ${hasTests ? `"test": "vitest run --coverage",` : ''}
@@ -81,95 +76,91 @@ export function writePackageJson(response: prompts.Answers<string>): void {
       browsers.includes('safari')
         ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name-safari"`
         : ''
-    }${browsers.includes('safari') && gitHooks ? ',' : ''} 
-    ${gitHooks ? gitHooksPrepare : ''}
+    }
   },
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"${
       isStyle.tailwind
         ? `,
-    "clsx": "^2.1.0",
-    "react-icons": "^5.0.1",
+    "clsx": "^2.1.1",
+    "react-icons": "^5.5.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"`
         : ''
     }
   },
   "devDependencies": {
-    "@bedframe/cli": "^0.0.92",
+    "@bedframe/cli": "^0.0.93",
     "@bedframe/core": "^0.0.46",
 ${
   changesets
-    ? `"@changesets/cli": "^2.27.1",
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.1.0",`
+    ? `"@changesets/cli": "^2.29.5",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",`
     : ''
 }${
-  hasTests
-    ? `\n"@testing-library/jest-dom": "^6.4.2",
+    hasTests
+      ? `\n"@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.5.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "happy-dom": "^18.0.1",
     "vitest": "^3.2.4",
     "@vitest/coverage-istanbul": "^3.2.4",`
-    : ''
-}
+      : ''
+  }
     "@types/node": "^24.0.3",
     "@types/chrome": "^0.0.326",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.3.2",
-    "concurrently": "^9.1.2",${
+    "@vitejs/plugin-react": "^4.5.2",
+    "concurrently": "^9.2.0",${
       commitLint
-        ? `"commitizen": "^4.3.0",
+        ? `"commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",`
         : ''
     }${
       lintFormat
-        ? `\n"@typescript-eslint/eslint-plugin": "^8.15.0",
-    "@typescript-eslint/parser": "^8.15.0",
-    "eslint": "^9.15.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^17.20.0",
-    "eslint-plugin-promise": "^7.2.1",
-    "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.14",
+        ? `\n"oxlint": "^1.2.0",
     "globals": "^16.2.0",
-    "typescript-eslint": "^8.15.0",
     "lint-staged": "^16.1.2",
-    "prettier": "^3.0.3",`
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.13",`
         : ''
     }
-    ${gitHooks ? `"husky": "^9.0.11",` : ''}
+    ${gitHooks ? `"lefthook": "^1.11.14",` : ''}
     ${
       isStyle.tailwind
         ? `"@tailwindcss/vite": "^4.1.10",
     "@tailwindcss/postcss": "^4.1.10",
-    "postcss": "^8.4.38",
+    "postcss": "^8.5.6",
     "tailwindcss": "^4.1.10",`
         : ''
     }
-    ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.5.3",` : ''}
-    "unplugin-fonts": "^1.1.1",
-    "vite": "^6.2.0"
+    ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.8.3",` : ''}
+    "unplugin-fonts": "^1.3.1",
+    "vite": "^6.3.5"
   }
   ${lintFormat ? ',' : ''}
   ${
     lintFormat
       ? `"lint-staged": {
-    "*.{css,html,json,js}": [
-      "prettier --write ."
+    "*.{js,jsx,ts,tsx}": [
+      "oxlint --fix"
     ],
-    "*.{js,jsx,ts,tsx}": "eslint . --fix"
+    "*.{css,html,json}": "prettier --write"
   },
   "prettier": {
     "tabWidth": 2,
     "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "tailwindFunctions": [
+      "clsx"
+    ],
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
   }`
       : ''
   }${commitLint ? ',' : ''}${
@@ -182,16 +173,6 @@ ${
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
-    }
-  }`
-      : ''
-  }${gitHooks ? ',' : ''}${
-    gitHooks
-      ? `"husky": {
-    "hooks": {
-      "commit-msg": "commitlint --edit",
-      "pre-commit": "${pmRun} lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && node_modules/.bin/cz --hook || true"
     }
   }`
       : ''

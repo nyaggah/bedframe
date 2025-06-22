@@ -1,7 +1,0 @@
-if [ -t 0 ]; then
-  # Running in a terminal (development environment)
-  npx --no -- commitlint --edit "${1}"
-else
-  # Not running in a terminal (CI environment)
-  echo "Skipping commitlint in non-terminal environment"
-fi

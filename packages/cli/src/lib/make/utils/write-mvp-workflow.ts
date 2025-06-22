@@ -112,9 +112,9 @@ jobs:
 ${
   lintFormat
     ? ` 
-      - name: 'Format & Lint - Run Prettier + ESLint'
+      - name: 'Format & Lint - run linter and formatter'
         id: lintFormat
-        run: ${pmRun} lint:format`
+        run: ${pmRun} fix`
     : ''
 }  
 ${
