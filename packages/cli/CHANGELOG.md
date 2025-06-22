@@ -1,5 +1,12 @@
 # @bedframe/cli
 
+## 0.0.95
+
+### Patch Changes
+
+- b18f69c: - update mvp workflow to use updated env vars for edge publish flow
+  - update env vars for examples
+
 ## 0.0.94
 
 ### Patch Changes
