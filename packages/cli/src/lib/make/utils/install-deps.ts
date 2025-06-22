@@ -22,7 +22,7 @@ export async function installDependencies(
         cwd: projectPath,
       }).then(async () => {
         if (lintFormat) {
-          await execa('bun', ['run', 'lint:format'], {
+          await execa('bun', ['run', 'fix'], {
             cwd: projectPath,
           })
         }
@@ -34,7 +34,7 @@ export async function installDependencies(
         cwd: projectPath,
       }).then(async () => {
         if (lintFormat) {
-          await execa(pm, ['run', 'lint:format'], {
+          await execa(pm, ['run', 'fix'], {
             cwd: projectPath,
           })
         }
