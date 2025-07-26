@@ -48,7 +48,7 @@
     "vite": "^6.3.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
+    "@biomejs/biome": "2.1.2",
     "@commander-js/extra-typings": "^14.0.0",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
