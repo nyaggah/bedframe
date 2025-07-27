@@ -38,7 +38,7 @@
     "@bedframe/core": "workspace:^"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
+    "@biomejs/biome": "2.1.2",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.4",
     "rollup-plugin-dts": "^6.2.1",
