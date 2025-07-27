@@ -57,7 +57,7 @@
     "@types/listr": "^0.14.9",
     "@types/node": "^22.16.3",
     "@types/prompts": "^2.4.9",
-    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
     "concurrently": "^9.2.0",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^2.5.4",
