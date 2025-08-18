@@ -61,7 +61,7 @@
     "concurrently": "^9.2.0",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^2.5.4",
-    "rollup": "^4.45.1",
+    "rollup": "^4.46.3",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.2.1",
     "rollup-plugin-esbuild": "^6.2.1",
