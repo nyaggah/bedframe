@@ -28,55 +28,55 @@ export function disableOptions(disabledOptions: string[]): Set<string> {
   return new Set(disabledOptions)
 }
 
-export const packageManagerColors: VariantColor[] = [
-  ...Object.values(PackageManager).map((packageManager, i) => {
-    const colors = [cyan, yellow, magenta, lightRed]
-    return {
-      name: packageManager,
-      color: colors[i],
-    }
-  }),
-]
+export const packageManagerColors: VariantColor[] = Object.values(
+  PackageManager,
+).map((packageManager, i) => {
+  const colors = [cyan, yellow, magenta, lightRed]
+  return {
+    name: packageManager,
+    color: colors[i],
+  }
+})
 
-export const BrowserColors: VariantColor[] = [
-  ...Object.values(Browser).map((browser, i) => {
+export const BrowserColors: VariantColor[] = Object.values(Browser).map(
+  (browser, i) => {
     const colors = [cyan, yellow, magenta, lightRed, red, green]
     return {
       name: browser,
       color: colors[i],
     }
-  }),
-]
+  },
+)
 
-export const FrameworkColors: VariantColor[] = [
-  ...Object.values(Framework).map((framework, i) => {
+export const FrameworkColors: VariantColor[] = Object.values(Framework).map(
+  (framework, i) => {
     const colors = [cyan, yellow, magenta, lightRed, red, green]
     return {
       name: framework,
       color: colors[i],
     }
-  }),
-]
+  },
+)
 
-export const LanguageColors: VariantColor[] = [
-  ...Object.values(Language).map((language, i) => {
+export const LanguageColors: VariantColor[] = Object.values(Language).map(
+  (language, i) => {
     const colors = [blue, yellow]
     return {
       name: language,
       color: colors[i],
     }
-  }),
-]
+  },
+)
 
-export const StyleColors: VariantColor[] = [
-  ...Object.values(Style).map((style, i) => {
+export const StyleColors: VariantColor[] = Object.values(Style).map(
+  (style, i) => {
     const colors = [lightCyan, lightMagenta]
     return {
       name: style,
       color: colors[i],
     }
-  }),
-]
+  },
+)
 
 export function getColor(variants: VariantColor[], key: string): ColorType {
   return variants.find((variant) => variant.name === key)?.color ?? stripColors

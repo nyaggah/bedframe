@@ -28,9 +28,8 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "build": "pnpm clean && tsc && rollup -c",
-    "format": "pnpm biome format --write .",
-    "lint": "pnpm biome lint --write .",
-    "lint:format": "pnpm biome check --write --unsafe .",
+    "format": "prettier --write .",
+    "lint": "oxlint --fix-dangerously",
     "build:pack": "pnpm build && pnpm pack"
   },
   "dependencies": {
@@ -38,21 +37,25 @@
     "@bedframe/core": "workspace:^"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.4",
-    "rollup-plugin-dts": "^6.2.1",
+    "oxlint": "^1.14.0",
+    "prettier": "^3.6.2",
+    "rollup-plugin-dts": "^6.2.3",
     "rollup-plugin-esbuild": "^6.2.1",
     "rollup-plugin-string": "^3.0.0",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.4"
   },
   "lint-staged": {
-    "*.{md,mdx,css,html,json,js}": [
-      "prettier --write ."
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write .",
+      "oxlint --fix-dangerously"
     ],
-    "*.{js,jsx,ts,tsx }": "eslint . --fix"
+    "*.{json,css,scss,md,mdx,html}": [
+      "prettier --write ."
+    ]
   },
   "prettier": {
     "tabWidth": 2,

@@ -34,7 +34,7 @@ export function getManifest(
   const _mode = `${(mode as string).charAt(0).toUpperCase()}${(
     mode as string
   ).slice(1)}`
-  const isValidMode = [...Object.values(Browser)].includes(_mode)
+  const isValidMode = Object.values(Browser).includes(_mode)
   const isCommandDev = command === 'serve'
   const isCommandBuild = command === 'build'
   const isModeDevelop = (isCommandDev && isValidMode) || mode === 'develop'

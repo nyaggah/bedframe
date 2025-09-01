@@ -33,9 +33,6 @@
     "lint": {
       "outputs": []
     },
-    "lint:format": {
-      "outputs": []
-    },
     "release": {
       "dependsOn": ["build"]
     }
