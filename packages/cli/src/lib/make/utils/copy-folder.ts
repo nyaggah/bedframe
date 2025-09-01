@@ -53,7 +53,8 @@ async function directoryExists(path: string): Promise<boolean> {
   try {
     await fs.access(path, constants.R_OK)
     return true
-  } catch (_error) {
+  } catch (error) {
+    console.error(error)
     return false
   }
 }

@@ -12,7 +12,6 @@
 ### Patch Changes
 
 - c2dd105: feat: update Edge Add-ons publishing to use API v1.1
-
   - Replace OAuth token authentication with API key authentication
   - Update `EdgeUploadConfig` to use `productId`, `clientId`, and `apiKey`
   - Remove deprecated `getEdgeAccessToken` function
@@ -68,7 +67,6 @@
   "
 
   ^^^
-
   - https://github.com/crxjs/chrome-extension-tools/issues/971#issuecomment-2605520184
   - https://github.com/vitejs/vite/blob/9654348258eaa0883171533a2b74b4e2825f5fb6/packages/vite/src/node/config.ts#L535
 
@@ -91,7 +89,6 @@
 ### Patch Changes
 
 - ac4d4c0: fix issue with first run lint+format (lint-staged)
-
   - missmatched eslint plugin versions causing error on first run/ project gen `lint:format` tastk
 
 ## 0.0.87
@@ -671,11 +668,9 @@
 ### Patch Changes
 
 - 0ab40c4: ### core:
-
   - create manifest fields helper methods;
 
   ### cli:
-
   - clean up
 
 - Updated dependencies [0ab40c4]
@@ -686,14 +681,12 @@
 ### Patch Changes
 
 - 8b7799e: ### @bedframe/cli:
-
   - update Make command and usage a lil bit
   - fix issue with duped root dir (ensureDir nonesense)
   - ayyyyyeeee! we got that side_panel action y'all!! 🚀
   - fix issue w/ no name, version, desc + include author deets <--- who's out here just including emails publicly?, joey??
 
   ### create-bedframe:
-
   - make package esm only.. bundling woes 😔
   - make it executable (include shebang comment line)
 

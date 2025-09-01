@@ -37,7 +37,7 @@ export function writeMVPworkflow(response: Answers<string>) {
     lintFormat,
   } = development.template.config
 
-  const pm = packageManager.toLowerCase()
+  const pm = String(packageManager || '').toLowerCase()
   const pmRun = pm !== 'yarn' ? `${pm} run` : pm
 
   const workflowPath = resolve(
@@ -64,6 +64,87 @@ export function writeMVPworkflow(response: Answers<string>) {
     },
   }
 
+  const gh = (expr: string) => `\${{ ${expr} }}`
+
+  const envSecretLines = (vars: string[]) =>
+    vars.map((v) => `          ${v}: ${gh(`secrets.${v}`)}`).join('\n')
+
+  const chromeBlock = browsers.includes('chrome')
+    ? `
+      - name: '[ P U B L I S H ] : Chrome - upload to Chrome Web Store'
+        id: publishChrome
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: ${pmRun} publish chrome
+        env:
+${envSecretLines([
+  publishVar.chrome.extensionId,
+  publishVar.chrome.clientId,
+  publishVar.chrome.clientSecret,
+  publishVar.chrome.refreshToken,
+])}
+          PACKAGE_NAME: ${gh('steps.package.outputs.PACKAGE_NAME')}
+          PACKAGE_VERSION: ${gh('steps.package.outputs.PACKAGE_VERSION')}`
+    : ''
+
+  const firefoxBlock = browsers.includes('firefox')
+    ? `
+      - name: 'Firefox - upload to AMO'
+        id: publishFirefox
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: ${pmRun} publish firefox
+        env:
+${envSecretLines([publishVar.firefox.key, publishVar.firefox.secret])}
+          PACKAGE_NAME: ${gh('steps.package.outputs.PACKAGE_NAME')}
+          PACKAGE_VERSION: ${gh('steps.package.outputs.PACKAGE_VERSION')}`
+    : ''
+
+  const edgeBlock = browsers.includes('edge')
+    ? `
+      - name: 'MS Edge - upload to MS Edge Add-ons'
+        id: publishEdge
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: ${pmRun} publish edge
+        env:
+${envSecretLines([
+  publishVar.edge.productId,
+  publishVar.edge.clientId,
+  publishVar.edge.apiKey,
+])}
+          PACKAGE_NAME: ${gh('steps.package.outputs.PACKAGE_NAME')}
+          PACKAGE_VERSION: ${gh('steps.package.outputs.PACKAGE_VERSION')}`
+    : ''
+
+  const pmInstallBlock =
+    pm === 'pnpm' || pm === 'bun'
+      ? `
+      - name: Install ${pm} & Deps
+        run: |
+          npm install ${pm} -g
+          ${pm} install`
+      : pm === 'yarn'
+        ? `
+      - name: Install ${pm} & Deps
+        run: |
+          corepack enable
+          yarn`
+        : `
+      - name: NPM clean install
+        run: npm ci`
+
+  const lintBlock = lintFormat
+    ? `
+      - name: 'Format & Lint - run linter and formatter'
+        id: lintFormat
+        run: ${pmRun} fix`
+    : ''
+
+  const testBlock = hasTests
+    ? `
+      - name: 'Unit Test - run unit test suite'
+        id: unitTest
+        run: ${pmRun} test`
+    : ''
+
   const file = {
     path: workflowPath,
     content: `name: M V P - make, version & publish ${projectName}
@@ -74,7 +155,7 @@ on:
       - main
   workflow_dispatch: # This line adds manual triggering from the GitHub UI
 
-concurrency: \$\{{ github.workflow }\}-\$\{{ github.ref }\}
+concurrency: ${gh('github.workflow')}-${gh('github.ref')}
 
 jobs:
   make_version_publish:
@@ -87,44 +168,14 @@ jobs:
       - name: Setup Node 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x        
-      ${
-        pm === 'pnpm' || pm === 'bun'
-          ? `
-      - name: Install ${pm} & Deps
-        run: |
-          npm install ${pm} -g
-          ${pm} install`
-          : pm === 'yarn'
-            ? `
-      - name: Install ${pm} & Deps
-        run: |
-          corepack enable
-          yarn`
-            : `
-      - name: NPM clean install
-        run: npm ci`
-      }
+          node-version: 20.x
+${pmInstallBlock}
       
       - name: '[ M A K E ] : Build ${projectName} - all browsers'
         id: buildProject
         run: ${pmRun} build
-${
-  lintFormat
-    ? ` 
-      - name: 'Format & Lint - run linter and formatter'
-        id: lintFormat
-        run: ${pmRun} fix`
-    : ''
-}  
-${
-  hasTests
-    ? ` 
-      - name: 'Unit Test - run unit test suite'
-        id: unitTest
-        run: ${pmRun} test`
-    : ''
-}
+${lintBlock}
+${testBlock}
 
       - name: '[ V E R S I O N ] : Create or Update Release Pull Request - Version Changes'
         id: changesets
@@ -132,21 +183,21 @@ ${
         with:
           version: ${pmRun} version
         env:
-          GITHUB_TOKEN: \$\{{ secrets.GITHUB_TOKEN }\}
+          GITHUB_TOKEN: ${gh('secrets.GITHUB_TOKEN')}
 
       - name: 'Get current version info from package.json'
         if: steps.changesets.outputs.hasChangesets == 'false'
         id: package
         run: |
-          echo "::set-output name=PACKAGE_NAME::$(jq -r .name package.json)"
-          echo "::set-output name=PACKAGE_VERSION::$(jq -r .version package.json)"
-        working-directory: \$\{{ github.workspace }\}
+          echo "PACKAGE_NAME=$(jq -r .name package.json)" >> $GITHUB_OUTPUT
+          echo "PACKAGE_VERSION=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+        working-directory: ${gh('github.workspace')}
 
       - name: 'Check if a git release already exists for current version'
         if: steps.changesets.outputs.hasChangesets == 'false'
         id: checkRelease
         run: |
-          TAG_NAME=\$\{{ steps.package.outputs.PACKAGE_NAME }\}@\$\{{ steps.package.outputs.PACKAGE_VERSION }\}
+          TAG_NAME=${gh('steps.package.outputs.PACKAGE_NAME')}@${gh('steps.package.outputs.PACKAGE_VERSION')}
           if gh release view $TAG_NAME &>/dev/null; then
             echo "Release $TAG_NAME already exists."
             echo "RELEASE_EXISTS=true" >> $GITHUB_ENV
@@ -164,60 +215,20 @@ ${
         if: steps.changesets.outputs.hasChangesets == 'false' && env.RELEASE_EXISTS != 'true'
         run: ${pmRun} release
         env:
-          GITHUB_TOKEN: \$\{{ secrets.GITHUB_TOKEN }\}
-          PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
-          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}
-
-      ${
-        browsers.includes('chrome')
-          ? `- name: '[ P U B L I S H ] : Chrome - upload to Chrome Web Store'
-        id: publishChrome
-        if: steps.changesets.outputs.hasChangesets == 'false'
-        run: ${pmRun} publish chrome
-        env:
-          ${publishVar.chrome.extensionId}: \$\{{ secrets.${publishVar.chrome.extensionId} }\}
-          ${publishVar.chrome.clientId}: \$\{{ secrets.${publishVar.chrome.clientId} }\}
-          ${publishVar.chrome.clientSecret}: \$\{{ secrets.${publishVar.chrome.clientSecret} }\}
-          ${publishVar.chrome.refreshToken}: \$\{{ secrets.${publishVar.chrome.refreshToken} }\}
-          PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
-          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}`
-          : ''
-      }
-
-      ${
-        browsers.includes('firefox')
-          ? `- name: 'Firefox - upload to AMO'
-        id: publishFirefox
-        if: steps.changesets.outputs.hasChangesets == 'false'
-        run: ${pmRun} publish firefox
-        env:
-          ${publishVar.firefox.key}: \$\{{ secrets.${publishVar.firefox.key} }\}
-          ${publishVar.firefox.secret}: \$\{{ secrets.${publishVar.firefox.secret} }\}
-          PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
-          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}`
-          : ''
-      }
-
-      ${
-        browsers.includes('edge')
-          ? `- name: 'MS Edge - upload to MS Edge Add-ons'
-        id: publishEdge
-        if: steps.changesets.outputs.hasChangesets == 'false'
-        run: ${pmRun} publish edge
-        env:
-          ${publishVar.edge.productId}: \$\{{ secrets.${publishVar.edge.productId} }\}
-          ${publishVar.edge.clientId}: \$\{{ secrets.${publishVar.edge.clientId} }\}
-          ${publishVar.edge.apiKey}: \$\{{ secrets.${publishVar.edge.apiKey} }\}
-          PACKAGE_NAME: \$\{{ steps.package.outputs.PACKAGE_NAME }\}
-          PACKAGE_VERSION: \$\{{ steps.package.outputs.PACKAGE_VERSION }\}`
-          : ''
-      }
-  `,
+          GITHUB_TOKEN: ${gh('secrets.GITHUB_TOKEN')}
+          PACKAGE_NAME: ${gh('steps.package.outputs.PACKAGE_NAME')}
+          PACKAGE_VERSION: ${gh('steps.package.outputs.PACKAGE_VERSION')}
+${chromeBlock}
+${firefoxBlock}
+${edgeBlock}
+`,
   }
 
   ensureDir(join(projectPath, '.github', 'workflows'))
-    .then(() => {
-      ensureWriteFile(file.path).then(() => outputFile(file.path, file.content))
-    })
+    .then(() =>
+      ensureWriteFile(file.path).then(() =>
+        outputFile(file.path, file.content),
+      ),
+    )
     .catch(console.error)
 }

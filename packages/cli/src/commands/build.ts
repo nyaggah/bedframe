@@ -27,11 +27,11 @@ export async function executeBuildScript(
   const command =
     browsers.length === 1
       ? `vite build --mode ${browsers[0].toLowerCase()} `
-      : `concurrently --group --names \"${names}\" -c \"${colors.join(
+      : `concurrently --group --names "${names}" -c "${colors.join(
           ',',
-        )}\" ${browsers
+        )}" ${browsers
           .sort((a, b) => a.localeCompare(b))
-          .map((name) => `\"vite build --mode ${name}\"`)
+          .map((name) => `"vite build --mode ${name}"`)
           .join(' ')}`
 
   console.log(dim('command [prod]:'), `${lightGreen(command)}\n`)

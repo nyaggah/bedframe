@@ -45,7 +45,7 @@ export default defineConfig(({ command, mode }) => {
     server: {
       cors: {
         origin: [
-          /chrome-extension:\\\/\\\//,
+          /chrome-extension:\\/\\//,
         ],
       },
     },

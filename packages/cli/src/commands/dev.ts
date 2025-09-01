@@ -27,11 +27,11 @@ async function executeDevScript(
   const command =
     browsers.length === 1
       ? `vite --mode ${browsers[0].toLowerCase()}`
-      : `concurrently --group --names \"${names}\" -c \"${colors.join(
+      : `concurrently --group --names "${names}" -c "${colors.join(
           ',',
-        )}\" ${browsers
+        )}" ${browsers
           .sort((a, b) => a.localeCompare(b))
-          .map((name) => `\"vite --mode ${name}\"`)
+          .map((name) => `"vite --mode ${name}"`)
           .join('')}`
 
   console.log(dim('command [dev]:'), `${lightGreen(command)}\n`)

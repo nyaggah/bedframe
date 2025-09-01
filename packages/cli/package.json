@@ -30,9 +30,8 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "build": "pnpm clean && tsc && rollup -c",
-    "format": "pnpm biome format --write .",
-    "lint": "pnpm biome lint --write .",
-    "lint:format": "pnpm biome check --write --unsafe .",
+    "format": "prettier --write .",
+    "lint": "oxlint --fix-dangerously",
     "build:pack": "pnpm build && pnpm pack"
   },
   "dependencies": {
@@ -48,7 +47,6 @@
     "vite": "^6.3.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.0",
     "@commander-js/extra-typings": "^14.0.0",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
@@ -57,25 +55,30 @@
     "@types/listr": "^0.14.9",
     "@types/node": "^22.18.0",
     "@types/prompts": "^2.4.9",
-    "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "concurrently": "^9.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "concurrently": "^9.2.1",
     "eslint-config-bedframe": "workspace:^",
-    "eslint-config-turbo": "^2.5.4",
-    "rollup": "^4.46.3",
+    "eslint-config-turbo": "^2.5.6",
+    "oxlint": "^1.14.0",
+    "prettier": "^3.6.2",
+    "rollup": "^4.50.0",
     "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-dts": "^6.2.1",
+    "rollup-plugin-dts": "^6.2.3",
     "rollup-plugin-esbuild": "^6.2.1",
     "rollup-plugin-string": "^3.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   },
   "lint-staged": {
-    "*.{md,mdx,css,html,json,js}": [
-      "pnpm biome format --write ."
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write .",
+      "oxlint --fix-dangerously"
     ],
-    "*.{js,jsx,ts,tsx}": "pnpm biome lint --write ."
+    "*.{json,css,scss,md,mdx,html}": [
+      "prettier --write ."
+    ]
   },
   "prettier": {
     "tabWidth": 2,
