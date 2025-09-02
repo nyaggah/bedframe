@@ -178,8 +178,8 @@ importers:
   packages/core:
     dependencies:
       '@crxjs/vite-plugin':
-        specifier: 2.0.3
-        version: 2.0.3
+        specifier: 2.2.0
+        version: 2.2.0
       vite-plugin-dts:
         specifier: ^3.7.0
         version: 3.9.1(@types/node@22.18.0)(rollup@4.50.0)(typescript@5.9.2)(vite@6.3.5(@types/node@22.18.0)(jiti@2.5.1)(tsx@4.20.5)(yaml@2.8.1))
@@ -540,8 +540,8 @@ packages:
     resolution: {integrity: sha512-/yCrWGCoA1SVKOks25EGadP9Pnj0oAIHGpl2wH2M2Y46dPM2ueb8wyCVOD7O3WCTkaJ0IkKvzhl1JY7+uCT2Dw==}
     engines: {node: '>=v18'}
 
-  '@crxjs/vite-plugin@2.0.3':
-    resolution: {integrity: sha512-OfAzERiwBlLg7u/+aRExJVYlxx95IaYOSEMJpMzXcKqWPNBMlA1ppwC2nelHTIvF5LWxn5CEp6zqlHjLH9QGtg==}
+  '@crxjs/vite-plugin@2.2.0':
+    resolution: {integrity: sha512-HpT1GLbUQy42nlpN4sGzFgulacBraMM778s8Q+oPo4cb26DwO9tTwdndlvAS8fe6vEProFXvbdt37objp/0IQA==}
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -5048,7 +5048,7 @@ snapshots:
       '@types/conventional-commits-parser': 5.0.1
       chalk: 5.6.0
 
-  '@crxjs/vite-plugin@2.0.3':
+  '@crxjs/vite-plugin@2.2.0':
     dependencies:
       '@rollup/pluginutils': 4.2.1
       '@webcomponents/custom-elements': 1.6.0
