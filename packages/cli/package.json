@@ -51,7 +51,7 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.4",
-    "@types/chrome": "^0.1.4",
+    "@types/chrome": "^0.1.6",
     "@types/listr": "^0.14.9",
     "@types/node": "^22.18.0",
     "@types/prompts": "^2.4.9",
