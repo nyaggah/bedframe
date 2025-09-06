@@ -41,7 +41,7 @@
     "@vitejs/plugin-vue": "^5.2.4",
     "@vitest/coverage-istanbul": "^2.1.9",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "~9.32.0",
+    "eslint": "~9.35.0",
     "eslint-config-prettier": "^9.1.2",
     "eslint-plugin-vue": "^9.33.0",
     "globals": "^15.12.0",
