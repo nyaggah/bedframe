@@ -24,7 +24,7 @@
     "prepare": "husky || true"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.6",
+    "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@types/chrome": "^0.1.11",
