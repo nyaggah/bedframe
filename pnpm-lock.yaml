@@ -78,8 +78,8 @@ importers:
         specifier: workspace:*
         version: link:../core
       commander:
-        specifier: ^14.0.0
-        version: 14.0.0
+        specifier: ^14.0.1
+        version: 14.0.1
       execa:
         specifier: ^9.6.0
         version: 9.6.0
@@ -107,7 +107,7 @@ importers:
     devDependencies:
       '@commander-js/extra-typings':
         specifier: ^14.0.0
-        version: 14.0.0(commander@14.0.0)
+        version: 14.0.0(commander@14.0.1)
       '@rollup/plugin-json':
         specifier: ^6.1.0
         version: 6.1.0(rollup@4.52.0)
@@ -2010,8 +2010,8 @@ packages:
     resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
     engines: {node: '>=18'}
 
-  commander@14.0.0:
-    resolution: {integrity: sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA==}
+  commander@14.0.1:
+    resolution: {integrity: sha512-2JkV3gUZUVrbNA+1sjBOYLsMZ5cEEl8GTFP2a4AVz5hvasAMCQ1D2l2le/cX+pV4N6ZU17zjUahLpIXRrnWL8A==}
     engines: {node: '>=20'}
 
   commander@9.5.0:
@@ -4917,9 +4917,9 @@ snapshots:
       human-id: 4.1.1
       prettier: 2.8.8
 
-  '@commander-js/extra-typings@14.0.0(commander@14.0.0)':
+  '@commander-js/extra-typings@14.0.0(commander@14.0.1)':
     dependencies:
-      commander: 14.0.0
+      commander: 14.0.1
 
   '@commitlint/cli@19.8.1(@types/node@22.18.8)(typescript@5.9.2)':
     dependencies:
@@ -6465,7 +6465,7 @@ snapshots:
 
   commander@13.1.0: {}
 
-  commander@14.0.0: {}
+  commander@14.0.1: {}
 
   commander@9.5.0:
     optional: true
