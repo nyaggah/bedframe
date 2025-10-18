@@ -32,7 +32,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/svelte": "^5.2.8",
     "@tsconfig/svelte": "^5.0.5",
     "@types/chrome": "^0.1.11",
