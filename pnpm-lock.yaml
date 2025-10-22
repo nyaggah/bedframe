@@ -221,8 +221,8 @@ importers:
         specifier: ^4.52.0
         version: 4.52.0
       rollup-plugin-node-externals:
-        specifier: ^8.1.0
-        version: 8.1.0(rollup@4.52.0)
+        specifier: ^8.1.1
+        version: 8.1.1(rollup@4.52.0)
       rollup-plugin-polyfill-node:
         specifier: ^0.13.0
         version: 0.13.0(rollup@4.52.0)
@@ -4100,8 +4100,8 @@ packages:
       esbuild: '>=0.18.0'
       rollup: ^1.20.0 || ^2.0.0 || ^3.0.0 || ^4.0.0
 
-  rollup-plugin-node-externals@8.1.0:
-    resolution: {integrity: sha512-0D3S0E0Dl1V3Q6Cywnc7wt88VAfOB9AC5QHwVdgvP1vByRHW2wnEXoK0x3VYZzJ/EmGsR5Uix5HUmMJNG+hz2Q==}
+  rollup-plugin-node-externals@8.1.1:
+    resolution: {integrity: sha512-MEWJmXMGjo5E7o9hgAmma6XLCdU9gTVRcaaCubugTJdoJD3A91qxtxiukT9k2PeUdogtCaNehV3pvJUWrRNtwg==}
     engines: {node: '>= 21 || ^20.6.0 || ^18.19.0'}
     peerDependencies:
       rollup: ^4.0.0
@@ -9055,7 +9055,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  rollup-plugin-node-externals@8.1.0(rollup@4.52.0):
+  rollup-plugin-node-externals@8.1.1(rollup@4.52.0):
     dependencies:
       rollup: 4.52.0
 
