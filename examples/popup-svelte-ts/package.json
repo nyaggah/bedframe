@@ -41,7 +41,7 @@
     "commitizen": "^4.3.0",
     "concurrently": "^9.2.0",
     "cz-conventional-changelog": "^3.3.0",
-    "lefthook": "^1.13.0",
+    "lefthook": "^1.13.6",
     "lint-staged": "^15.5.2",
     "svelte": "^4.2.20",
     "svelte-check": "^4.3.3",
