@@ -33,7 +33,7 @@
     "@crxjs/vite-plugin": "2.2.0"
   },
   "devDependencies": {
-    "@types/chrome": "^0.1.11",
+    "@types/chrome": "^0.1.27",
     "@types/node": "^22.18.11",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@vitejs/plugin-react": "^4.7.0",
