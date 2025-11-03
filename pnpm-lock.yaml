@@ -18,8 +18,8 @@ importers:
         specifier: ^19.8.1
         version: 19.8.1
       '@types/chrome':
-        specifier: ^0.1.11
-        version: 0.1.11
+        specifier: ^0.1.27
+        version: 0.1.27
       '@types/node':
         specifier: ^22.18.11
         version: 22.18.11
@@ -118,8 +118,8 @@ importers:
         specifier: ^12.1.4
         version: 12.1.4(rollup@4.52.5)(tslib@2.8.1)(typescript@5.9.2)
       '@types/chrome':
-        specifier: ^0.1.11
-        version: 0.1.11
+        specifier: ^0.1.27
+        version: 0.1.27
       '@types/listr':
         specifier: ^0.14.9
         version: 0.14.9
@@ -191,8 +191,8 @@ importers:
         version: 0.34.6
     devDependencies:
       '@types/chrome':
-        specifier: ^0.1.11
-        version: 0.1.11
+        specifier: ^0.1.27
+        version: 0.1.27
       '@types/node':
         specifier: ^22.18.11
         version: 22.18.11
@@ -1332,8 +1332,8 @@ packages:
   '@types/chai@4.3.20':
     resolution: {integrity: sha512-/pC9HAB5I/xMlc5FP77qjCnI16ChlJfW0tGa0IUcFn38VJrTV6DeZ60NU5KZBtaOZqjdpwTWohz5HU1RrhiYxQ==}
 
-  '@types/chrome@0.1.11':
-    resolution: {integrity: sha512-8KFchpiY51tZaOpojRM9WPkJzr3ZLei1blsR8nkr42XXMKav4GXQgDK/lP1JTP2wsljXhpDDqAsGw9eOgm8G9Q==}
+  '@types/chrome@0.1.27':
+    resolution: {integrity: sha512-pkkCb0Ft8X+Igi751POzT+YqchSxUCtB6s4Gs6ttgSj8qzJga/qlJMgSW1mKxuQTW4i0sTqQbqVtzXDS5AU+4A==}
 
   '@types/conventional-commits-parser@5.0.1':
     resolution: {integrity: sha512-7uz5EHdzz2TqoMfV7ee61Egf5y6NkcO4FB/1iCCQnbeiI1F3xzv3vK5dBCXUCLQgGYS+mUeigK1iKQzvED+QnQ==}
@@ -5738,7 +5738,7 @@ snapshots:
 
   '@types/chai@4.3.20': {}
 
-  '@types/chrome@0.1.11':
+  '@types/chrome@0.1.27':
     dependencies:
       '@types/filesystem': 0.0.36
       '@types/har-format': 1.2.16
