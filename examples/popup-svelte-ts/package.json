@@ -27,7 +27,7 @@
   "devDependencies": {
     "@bedframe/cli": "^0.0.95",
     "@bedframe/core": "^0.0.46",
-    "@biomejs/biome": "2.3.0",
+    "@biomejs/biome": "2.3.4",
     "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
