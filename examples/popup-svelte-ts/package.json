@@ -34,7 +34,7 @@
     "@sveltejs/vite-plugin-svelte": "^4.0.4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/svelte": "^5.2.8",
-    "@tsconfig/svelte": "^5.0.5",
+    "@tsconfig/svelte": "^5.0.6",
     "@types/chrome": "^0.1.27",
     "@types/node": "^22.19.0",
     "@vitest/coverage-istanbul": "^2.1.9",
