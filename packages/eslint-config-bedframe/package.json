@@ -16,7 +16,7 @@
     "eslint-plugin-react": "7.37.5"
   },
   "devDependencies": {
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "repository": {
     "type": "git",
