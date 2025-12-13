@@ -9,7 +9,7 @@
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "eslint-config-next": "14.2.33",
     "eslint-config-prettier": "^9.1.2",
     "eslint-config-turbo": "^2.6.1",
