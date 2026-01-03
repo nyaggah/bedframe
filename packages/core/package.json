@@ -38,7 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@vitejs/plugin-react": "^4.7.0",
     "eslint-config-bedframe": "workspace:^",
-    "eslint-config-turbo": "^2.6.1",
+    "eslint-config-turbo": "^2.7.2",
     "kolorist": "^1.8.0",
     "oxlint": "^1.36.0",
     "prettier": "^3.6.2",
