@@ -48,8 +48,8 @@ importers:
         specifier: ^15.5.2
         version: 15.5.2
       prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
+        specifier: ^3.7.4
+        version: 3.7.4
       rollup:
         specifier: ^4.52.5
         version: 4.52.5
@@ -145,8 +145,8 @@ importers:
         specifier: ^1.36.0
         version: 1.36.0
       prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
+        specifier: ^3.7.4
+        version: 3.7.4
       rollup:
         specifier: ^4.52.5
         version: 4.52.5
@@ -215,8 +215,8 @@ importers:
         specifier: ^1.36.0
         version: 1.36.0
       prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
+        specifier: ^3.7.4
+        version: 3.7.4
       rollup:
         specifier: ^4.52.5
         version: 4.52.5
@@ -261,8 +261,8 @@ importers:
         specifier: ^1.36.0
         version: 1.36.0
       prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
+        specifier: ^3.7.4
+        version: 3.7.4
       rollup-plugin-dts:
         specifier: ^6.3.0
         version: 6.3.0(rollup@4.52.5)(typescript@5.9.3)
@@ -3893,8 +3893,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  prettier@3.6.2:
-    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
+  prettier@3.7.4:
+    resolution: {integrity: sha512-v6UNi1+3hSlVvv8fSaoUbggEM5VErKmmpGA7Pl3HF8V6uKY7rvClBOJlH6yNwQtfTueNkGVpOv/mtWL9L4bgRA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -8784,7 +8784,7 @@ snapshots:
 
   prettier@2.8.8: {}
 
-  prettier@3.6.2: {}
+  prettier@3.7.4: {}
 
   pretty-format@29.7.0:
     dependencies:
