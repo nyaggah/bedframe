@@ -121,8 +121,8 @@ importers:
         specifier: ^0.1.27
         version: 0.1.27
       '@types/listr':
-        specifier: ^0.14.9
-        version: 0.14.9
+        specifier: ^0.14.10
+        version: 0.14.10
       '@types/node':
         specifier: ^22.19.3
         version: 22.19.3
@@ -1527,8 +1527,8 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
-  '@types/listr@0.14.9':
-    resolution: {integrity: sha512-Ncsy/jtO/HZYrupLGcnp1BOswZVsNvggjIjnf2EZ1xECfU4hxcQ3FWvFEyR+/DXssz0HDm74Op/tEsyrB3eV5w==}
+  '@types/listr@0.14.10':
+    resolution: {integrity: sha512-g5/EazbMACM1JrM/oGtW28vXo4Bv0E03/FIsqqIXbR/CztuHEgR8QAJDrB1Y5bQH7/ISQh0jNV3v65NM29HgAQ==}
 
   '@types/minimatch@6.0.0':
     resolution: {integrity: sha512-zmPitbQ8+6zNutpwgcQuLcsEpn/Cj54Kbn7L5pX0Os5kdWplB7xPgEh/g+SWOB/qmows2gpuCaPyduq8ZZRnxA==}
@@ -5980,7 +5980,7 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
-  '@types/listr@0.14.9':
+  '@types/listr@0.14.10':
     dependencies:
       '@types/node': 22.19.3
       rxjs: 6.6.7
