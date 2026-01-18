@@ -27,7 +27,7 @@
     "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@types/chrome": "^0.1.27",
+    "@types/chrome": "^0.1.33",
     "@types/node": "^22.19.3",
     "@types/prompts": "^2.4.9",
     "commitizen": "^4.3.1",
