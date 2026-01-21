@@ -59,7 +59,7 @@
     "concurrently": "^9.2.1",
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^2.7.2",
-    "oxlint": "^1.36.0",
+    "oxlint": "^1.38.0",
     "prettier": "^3.7.4",
     "rollup": "^4.52.5",
     "rollup-plugin-copy": "^3.5.0",
