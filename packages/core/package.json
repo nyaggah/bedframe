@@ -41,7 +41,7 @@
     "eslint-config-turbo": "^2.7.5",
     "kolorist": "^1.8.0",
     "oxlint": "^1.38.0",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "rollup": "^4.52.5",
     "rollup-plugin-node-externals": "^8.1.2",
     "rollup-plugin-polyfill-node": "^0.13.0",
