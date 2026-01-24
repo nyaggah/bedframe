@@ -40,7 +40,7 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-typescript": "^12.3.0",
     "oxlint": "^1.38.0",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "rollup-plugin-dts": "^6.3.0",
     "rollup-plugin-esbuild": "^6.2.1",
     "rollup-plugin-string": "^3.0.0",
