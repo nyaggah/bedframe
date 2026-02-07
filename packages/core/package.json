@@ -40,7 +40,7 @@
     "eslint-config-bedframe": "workspace:^",
     "eslint-config-turbo": "^2.7.5",
     "kolorist": "^1.8.0",
-    "oxlint": "^1.38.0",
+    "oxlint": "^1.43.0",
     "prettier": "^3.8.1",
     "rollup": "^4.52.5",
     "rollup-plugin-node-externals": "^8.1.2",
