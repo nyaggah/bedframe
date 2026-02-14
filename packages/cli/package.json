@@ -61,7 +61,7 @@
     "eslint-config-turbo": "^2.7.5",
     "oxlint": "^1.43.0",
     "prettier": "^3.8.1",
-    "rollup": "^4.52.5",
+    "rollup": "^4.57.1",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.3.0",
     "rollup-plugin-esbuild": "^6.2.1",
