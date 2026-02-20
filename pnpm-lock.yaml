@@ -10,10 +10,10 @@ importers:
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.8
-        version: 2.29.8(@types/node@22.19.3)
+        version: 2.29.8(@types/node@22.19.11)
       '@commitlint/cli':
         specifier: ^19.8.1
-        version: 19.8.1(@types/node@22.19.3)(typescript@5.9.3)
+        version: 19.8.1(@types/node@22.19.11)(typescript@5.9.3)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
@@ -21,17 +21,17 @@ importers:
         specifier: ^0.1.33
         version: 0.1.33
       '@types/node':
-        specifier: ^22.19.3
-        version: 22.19.3
+        specifier: ^22.19.11
+        version: 22.19.11
       '@types/prompts':
         specifier: ^2.4.9
         version: 2.4.9
       commitizen:
         specifier: ^4.3.1
-        version: 4.3.1(@types/node@22.19.3)(typescript@5.9.3)
+        version: 4.3.1(@types/node@22.19.11)(typescript@5.9.3)
       cz-conventional-changelog:
         specifier: ^3.3.0
-        version: 3.3.0(@types/node@22.19.3)(typescript@5.9.3)
+        version: 3.3.0(@types/node@22.19.11)(typescript@5.9.3)
       eslint:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.5.1)
@@ -58,7 +58,7 @@ importers:
         version: 0.4.0
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@types/node@22.19.3)(typescript@5.9.3)
+        version: 10.9.2(@types/node@22.19.11)(typescript@5.9.3)
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -103,7 +103,7 @@ importers:
         version: 2.4.2
       vite:
         specifier: ^6.4.1
-        version: 6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
+        version: 6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
     devDependencies:
       '@commander-js/extra-typings':
         specifier: ^14.0.0
@@ -124,8 +124,8 @@ importers:
         specifier: ^0.14.10
         version: 0.14.10
       '@types/node':
-        specifier: ^22.19.3
-        version: 22.19.3
+        specifier: ^22.19.11
+        version: 22.19.11
       '@types/prompts':
         specifier: ^2.4.9
         version: 2.4.9
@@ -164,7 +164,7 @@ importers:
         version: 3.0.0
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@types/node@22.19.3)(typescript@5.9.3)
+        version: 10.9.2(@types/node@22.19.11)(typescript@5.9.3)
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
@@ -182,10 +182,10 @@ importers:
         version: 2.3.0
       vite-plugin-dts:
         specifier: ^3.7.0
-        version: 3.9.1(@types/node@22.19.3)(rollup@4.52.5)(typescript@5.9.3)(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
+        version: 3.9.1(@types/node@22.19.11)(rollup@4.52.5)(typescript@5.9.3)(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
       vite-plugin-externalize-deps:
         specifier: ^0.7.0
-        version: 0.7.0(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
+        version: 0.7.0(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
       vitest:
         specifier: ^0.34.6
         version: 0.34.6
@@ -194,14 +194,14 @@ importers:
         specifier: ^0.1.33
         version: 0.1.33
       '@types/node':
-        specifier: ^22.19.3
-        version: 22.19.3
+        specifier: ^22.19.11
+        version: 22.19.11
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.53.1
         version: 8.53.1(@typescript-eslint/parser@8.51.0(eslint@9.39.2(jiti@2.5.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.5.1))(typescript@5.9.3)
       '@vitejs/plugin-react':
         specifier: ^4.7.0
-        version: 4.7.0(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
+        version: 4.7.0(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
       eslint-config-bedframe:
         specifier: workspace:^
         version: link:../eslint-config-bedframe
@@ -234,13 +234,13 @@ importers:
         version: 5.9.3
       unplugin-fonts:
         specifier: ^1.4.0
-        version: 1.4.0(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
+        version: 1.4.0(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
       vite:
         specifier: ^6.4.1
-        version: 6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
+        version: 6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
       vite-plugin-babel-macros:
         specifier: ^1.0.6
-        version: 1.0.6(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
+        version: 1.0.6(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))
 
   packages/create-bedframe:
     dependencies:
@@ -1540,8 +1540,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@22.19.3':
-    resolution: {integrity: sha512-1N9SBnWYOJTrNZCdh/yJE+t910Y128BoyY+zBLWhL3r0TYzlTmFdXrPwHL9DyFZmlEXNQQolTZh3KHV31QDhyA==}
+  '@types/node@22.19.11':
+    resolution: {integrity: sha512-BH7YwL6rA93ReqeQS1c4bsPpcfOmJasG+Fkr6Y59q83f9M1WcBRHR2vM+P9eOisYRcN3ujQoiZY8uk5W+1WL8w==}
 
   '@types/node@24.0.3':
     resolution: {integrity: sha512-R4I/kzCYAdRLzfiCabn9hxWfbuHS573x+r0dJMkkzThEa7pbrcDWK+9zu3e7aBOouf+rQAciqPFMnxwr0aWgKg==}
@@ -4987,7 +4987,7 @@ snapshots:
     dependencies:
       '@changesets/types': 6.1.0
 
-  '@changesets/cli@2.29.8(@types/node@22.19.3)':
+  '@changesets/cli@2.29.8(@types/node@22.19.11)':
     dependencies:
       '@changesets/apply-release-plan': 7.0.14
       '@changesets/assemble-release-plan': 6.0.9
@@ -5003,7 +5003,7 @@ snapshots:
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@changesets/write': 0.4.0
-      '@inquirer/external-editor': 1.0.3(@types/node@22.19.3)
+      '@inquirer/external-editor': 1.0.3(@types/node@22.19.11)
       '@manypkg/get-packages': 1.1.3
       ansi-colors: 4.1.3
       ci-info: 3.9.0
@@ -5106,11 +5106,11 @@ snapshots:
     dependencies:
       commander: 14.0.2
 
-  '@commitlint/cli@19.8.1(@types/node@22.19.3)(typescript@5.9.3)':
+  '@commitlint/cli@19.8.1(@types/node@22.19.11)(typescript@5.9.3)':
     dependencies:
       '@commitlint/format': 19.8.1
       '@commitlint/lint': 19.8.1
-      '@commitlint/load': 19.8.1(@types/node@22.19.3)(typescript@5.9.3)
+      '@commitlint/load': 19.8.1(@types/node@22.19.11)(typescript@5.9.3)
       '@commitlint/read': 19.8.1
       '@commitlint/types': 19.8.1
       tinyexec: 1.0.1
@@ -5157,7 +5157,7 @@ snapshots:
       '@commitlint/rules': 19.8.1
       '@commitlint/types': 19.8.1
 
-  '@commitlint/load@19.8.1(@types/node@22.19.3)(typescript@5.9.3)':
+  '@commitlint/load@19.8.1(@types/node@22.19.11)(typescript@5.9.3)':
     dependencies:
       '@commitlint/config-validator': 19.8.1
       '@commitlint/execute-rule': 19.8.1
@@ -5165,7 +5165,7 @@ snapshots:
       '@commitlint/types': 19.8.1
       chalk: 5.6.2
       cosmiconfig: 9.0.0(typescript@5.9.3)
-      cosmiconfig-typescript-loader: 6.1.0(@types/node@22.19.3)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
+      cosmiconfig-typescript-loader: 6.1.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -5544,12 +5544,12 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@inquirer/external-editor@1.0.3(@types/node@22.19.3)':
+  '@inquirer/external-editor@1.0.3(@types/node@22.19.11)':
     dependencies:
       chardet: 2.1.1
       iconv-lite: 0.7.1
     optionalDependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
 
   '@isaacs/balanced-match@4.0.1': {}
 
@@ -5605,11 +5605,11 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@microsoft/api-extractor-model@7.28.13(@types/node@22.19.3)':
+  '@microsoft/api-extractor-model@7.28.13(@types/node@22.19.11)':
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 4.0.2(@types/node@22.19.3)
+      '@rushstack/node-core-library': 4.0.2(@types/node@22.19.11)
     transitivePeerDependencies:
       - '@types/node'
 
@@ -5621,15 +5621,15 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.43.0(@types/node@22.19.3)':
+  '@microsoft/api-extractor@7.43.0(@types/node@22.19.11)':
     dependencies:
-      '@microsoft/api-extractor-model': 7.28.13(@types/node@22.19.3)
+      '@microsoft/api-extractor-model': 7.28.13(@types/node@22.19.11)
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 4.0.2(@types/node@22.19.3)
+      '@rushstack/node-core-library': 4.0.2(@types/node@22.19.11)
       '@rushstack/rig-package': 0.5.2
-      '@rushstack/terminal': 0.10.0(@types/node@22.19.3)
-      '@rushstack/ts-command-line': 4.19.1(@types/node@22.19.3)
+      '@rushstack/terminal': 0.10.0(@types/node@22.19.11)
+      '@rushstack/ts-command-line': 4.19.1(@types/node@22.19.11)
       lodash: 4.17.21
       minimatch: 3.0.8
       resolve: 1.22.11
@@ -5853,7 +5853,7 @@ snapshots:
 
   '@rushstack/eslint-patch@1.15.0': {}
 
-  '@rushstack/node-core-library@4.0.2(@types/node@22.19.3)':
+  '@rushstack/node-core-library@4.0.2(@types/node@22.19.11)':
     dependencies:
       fs-extra: 7.0.1
       import-lazy: 4.0.0
@@ -5862,7 +5862,7 @@ snapshots:
       semver: 7.5.4
       z-schema: 5.0.5
     optionalDependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
 
   '@rushstack/node-core-library@5.14.0(@types/node@24.0.3)':
     dependencies:
@@ -5887,12 +5887,12 @@ snapshots:
       resolve: 1.22.11
       strip-json-comments: 3.1.1
 
-  '@rushstack/terminal@0.10.0(@types/node@22.19.3)':
+  '@rushstack/terminal@0.10.0(@types/node@22.19.11)':
     dependencies:
-      '@rushstack/node-core-library': 4.0.2(@types/node@22.19.3)
+      '@rushstack/node-core-library': 4.0.2(@types/node@22.19.11)
       supports-color: 8.1.1
     optionalDependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
 
   '@rushstack/terminal@0.15.4(@types/node@24.0.3)':
     dependencies:
@@ -5901,9 +5901,9 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.0.3
 
-  '@rushstack/ts-command-line@4.19.1(@types/node@22.19.3)':
+  '@rushstack/ts-command-line@4.19.1(@types/node@22.19.11)':
     dependencies:
-      '@rushstack/terminal': 0.10.0(@types/node@22.19.3)
+      '@rushstack/terminal': 0.10.0(@types/node@22.19.11)
       '@types/argparse': 1.0.38
       argparse: 1.0.10
       string-argv: 0.3.2
@@ -5982,13 +5982,13 @@ snapshots:
 
   '@types/conventional-commits-parser@5.0.1':
     dependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
 
   '@types/estree@1.0.8': {}
 
   '@types/execa@0.9.0':
     dependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
 
   '@types/filesystem@0.0.36':
     dependencies:
@@ -5998,12 +5998,12 @@ snapshots:
 
   '@types/fs-extra@8.1.5':
     dependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
 
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 6.0.0
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
 
   '@types/har-format@1.2.16': {}
 
@@ -6013,7 +6013,7 @@ snapshots:
 
   '@types/listr@0.14.10':
     dependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
       rxjs: 6.6.7
 
   '@types/minimatch@6.0.0':
@@ -6024,7 +6024,7 @@ snapshots:
 
   '@types/node@12.20.55': {}
 
-  '@types/node@22.19.3':
+  '@types/node@22.19.11':
     dependencies:
       undici-types: 6.21.0
 
@@ -6037,7 +6037,7 @@ snapshots:
 
   '@types/prompts@2.4.9':
     dependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
       kleur: 3.0.3
 
   '@types/resolve@1.20.2': {}
@@ -6232,7 +6232,7 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vitejs/plugin-react@4.7.0(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))':
+  '@vitejs/plugin-react@4.7.0(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.3
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.3)
@@ -6240,7 +6240,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -6740,10 +6740,10 @@ snapshots:
   commander@9.5.0:
     optional: true
 
-  commitizen@4.3.1(@types/node@22.19.3)(typescript@5.9.3):
+  commitizen@4.3.1(@types/node@22.19.11)(typescript@5.9.3):
     dependencies:
       cachedir: 2.3.0
-      cz-conventional-changelog: 3.3.0(@types/node@22.19.3)(typescript@5.9.3)
+      cz-conventional-changelog: 3.3.0(@types/node@22.19.11)(typescript@5.9.3)
       dedent: 0.7.0
       detect-indent: 6.1.0
       find-node-modules: 2.1.3
@@ -6805,9 +6805,9 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  cosmiconfig-typescript-loader@6.1.0(@types/node@22.19.3)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3):
+  cosmiconfig-typescript-loader@6.1.0(@types/node@22.19.11)(cosmiconfig@9.0.0(typescript@5.9.3))(typescript@5.9.3):
     dependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
       cosmiconfig: 9.0.0(typescript@5.9.3)
       jiti: 2.5.1
       typescript: 5.9.3
@@ -6855,16 +6855,16 @@ snapshots:
 
   css-what@6.2.2: {}
 
-  cz-conventional-changelog@3.3.0(@types/node@22.19.3)(typescript@5.9.3):
+  cz-conventional-changelog@3.3.0(@types/node@22.19.11)(typescript@5.9.3):
     dependencies:
       chalk: 2.4.2
-      commitizen: 4.3.1(@types/node@22.19.3)(typescript@5.9.3)
+      commitizen: 4.3.1(@types/node@22.19.11)(typescript@5.9.3)
       conventional-commit-types: 3.0.0
       lodash.map: 4.6.0
       longest: 2.0.1
       word-wrap: 1.2.5
     optionalDependencies:
-      '@commitlint/load': 19.8.1(@types/node@22.19.3)(typescript@5.9.3)
+      '@commitlint/load': 19.8.1(@types/node@22.19.11)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@types/node'
       - typescript
@@ -9260,14 +9260,14 @@ snapshots:
     dependencies:
       typescript: 5.9.3
 
-  ts-node@10.9.2(@types/node@22.19.3)(typescript@5.9.3):
+  ts-node@10.9.2(@types/node@22.19.11)(typescript@5.9.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
       acorn: 8.15.0
       acorn-walk: 8.3.4
       arg: 4.1.3
@@ -9400,11 +9400,11 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unplugin-fonts@1.4.0(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)):
+  unplugin-fonts@1.4.0(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)):
     dependencies:
       fast-glob: 3.3.3
       unplugin: 2.3.5
-      vite: 6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
 
   unplugin-utils@0.2.5:
     dependencies:
@@ -9457,14 +9457,14 @@ snapshots:
 
   validator@13.15.15: {}
 
-  vite-node@0.34.6(@types/node@22.19.3):
+  vite-node@0.34.6(@types/node@22.19.11):
     dependencies:
       cac: 6.7.14
       debug: 4.4.1
       mlly: 1.8.0
       pathe: 1.1.2
       picocolors: 1.1.1
-      vite: 5.4.19(@types/node@22.19.3)
+      vite: 5.4.19(@types/node@22.19.11)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -9476,20 +9476,20 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-babel-macros@1.0.6(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)):
+  vite-plugin-babel-macros@1.0.6(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)):
     dependencies:
       '@babel/core': 7.28.3
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.28.3)
       '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.28.3)
       '@types/babel__core': 7.20.5
       babel-plugin-macros: 3.1.0
-      vite: 6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-dts@3.9.1(@types/node@22.19.3)(rollup@4.52.5)(typescript@5.9.3)(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)):
+  vite-plugin-dts@3.9.1(@types/node@22.19.11)(rollup@4.52.5)(typescript@5.9.3)(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)):
     dependencies:
-      '@microsoft/api-extractor': 7.43.0(@types/node@22.19.3)
+      '@microsoft/api-extractor': 7.43.0(@types/node@22.19.11)
       '@rollup/pluginutils': 5.2.0(rollup@4.52.5)
       '@vue/language-core': 1.8.27(typescript@5.9.3)
       debug: 4.4.1
@@ -9498,7 +9498,7 @@ snapshots:
       typescript: 5.9.3
       vue-tsc: 1.8.27(typescript@5.9.3)
     optionalDependencies:
-      vite: 6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
@@ -9523,20 +9523,20 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-externalize-deps@0.7.0(vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)):
+  vite-plugin-externalize-deps@0.7.0(vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)):
     dependencies:
-      vite: 6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
+      vite: 6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1)
 
-  vite@5.4.19(@types/node@22.19.3):
+  vite@5.4.19(@types/node@22.19.11):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
       rollup: 4.52.5
     optionalDependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
       fsevents: 2.3.3
 
-  vite@6.4.1(@types/node@22.19.3)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1):
+  vite@6.4.1(@types/node@22.19.11)(jiti@2.5.1)(tsx@4.21.0)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.11
       fdir: 6.5.0(picomatch@4.0.3)
@@ -9545,7 +9545,7 @@ snapshots:
       rollup: 4.52.5
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
       fsevents: 2.3.3
       jiti: 2.5.1
       tsx: 4.21.0
@@ -9570,7 +9570,7 @@ snapshots:
     dependencies:
       '@types/chai': 4.3.20
       '@types/chai-subset': 1.3.6(@types/chai@4.3.20)
-      '@types/node': 22.19.3
+      '@types/node': 22.19.11
       '@vitest/expect': 0.34.6
       '@vitest/runner': 0.34.6
       '@vitest/snapshot': 0.34.6
@@ -9589,8 +9589,8 @@ snapshots:
       strip-literal: 1.3.0
       tinybench: 2.9.0
       tinypool: 0.7.0
-      vite: 5.4.19(@types/node@22.19.3)
-      vite-node: 0.34.6(@types/node@22.19.3)
+      vite: 5.4.19(@types/node@22.19.11)
+      vite-node: 0.34.6(@types/node@22.19.11)
       why-is-node-running: 2.3.0
     transitivePeerDependencies:
       - less
