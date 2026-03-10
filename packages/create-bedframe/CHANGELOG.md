@@ -1,5 +1,16 @@
 # create-bedframe
 
+## 0.1.1
+
+### Patch Changes
+
+- 58f8f7a: Prevent public assets from inflating npm tarballs
+
+  Disable Vite publicDir copying for CLI and create-bedframe package builds so repository media files are not emitted into dist and published artifacts.
+
+- Updated dependencies [58f8f7a]
+  - @bedframe/cli@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
