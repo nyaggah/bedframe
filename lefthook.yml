@@ -1,14 +1,14 @@
 pre-commit:
   commands:
     lint-staged:
-      run: pnpm lint-staged
+      run: sh -c 'if [ -n "${CI:-}" ]; then echo "Skipping pre-commit hooks in CI"; exit 0; fi; pnpm lint-staged'
 
 prepare-commit-msg:
   commands:
     commitizen:
-      run: sh -c 'msg_file="{1}"; source="{2}"; if [ "$source" = "merge" ] || [ "$source" = "squash" ] || [ "$source" = "message" ] || [ "$source" = "template" ] || [ "$source" = "commit" ] || [ -s "$msg_file" ] || [ ! -t 1 ]; then echo "Skipping commitizen for non-interactive or prefilled commit message"; exit 0; fi; exec < /dev/tty && pnpm cz --hook || true'
+      run: sh -c 'if [ -n "${CI:-}" ]; then echo "Skipping prepare-commit-msg hooks in CI"; exit 0; fi; msg_file="{1}"; source="{2}"; if [ "$source" = "merge" ] || [ "$source" = "squash" ] || [ "$source" = "message" ] || [ "$source" = "template" ] || [ "$source" = "commit" ] || [ -s "$msg_file" ] || [ ! -t 1 ]; then echo "Skipping commitizen for non-interactive or prefilled commit message"; exit 0; fi; exec < /dev/tty && pnpm cz --hook || true'
 
 commit-msg:
   commands:
     commitlint:
-      run: sh -c 'if [ -t 0 ]; then pnpm commitlint --edit "{1}"; else echo "Skipping commitlint in non-terminal environment"; fi'
+      run: sh -c 'if [ -n "${CI:-}" ]; then echo "Skipping commit-msg hooks in CI"; exit 0; fi; msg_file="{1}"; first_line="$(head -n 1 "$msg_file")"; if [ "$first_line" = "Version Packages" ]; then echo "Skipping commitlint for Changesets version commit"; exit 0; fi; if [ -t 0 ]; then pnpm commitlint --edit "$msg_file"; else echo "Skipping commitlint in non-terminal environment"; fi'
