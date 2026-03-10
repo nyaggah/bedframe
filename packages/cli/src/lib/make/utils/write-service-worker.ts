@@ -67,7 +67,9 @@ ${browserAction}
  * @export
  * @param {prompts.Answers<string>} response
  */
-export function writeServiceWorker(response: prompts.Answers<string>) {
+export async function writeServiceWorker(
+  response: prompts.Answers<string>,
+): Promise<void> {
   const { extension } = response
   const rootDir = path.resolve(extension.name.path)
   const serviceWorkerPath = path.resolve(
@@ -90,14 +92,7 @@ export function writeServiceWorker(response: prompts.Answers<string>) {
   }
 
   const scriptsDir = path.join(rootDir, 'src', 'scripts')
-  ensureDir(scriptsDir).then(() => {
-    ensureWriteFile(serviceWorkerPath)
-      .then(() =>
-        outputFile(
-          serviceWorkerPath,
-          `${fileContent(extension.type.name)}\n`,
-        ).catch(console.error),
-      )
-      .catch(console.error)
-  })
+  await ensureDir(scriptsDir)
+  await ensureWriteFile(serviceWorkerPath)
+  await outputFile(serviceWorkerPath, `${fileContent(extension.type.name)}\n`)
 }

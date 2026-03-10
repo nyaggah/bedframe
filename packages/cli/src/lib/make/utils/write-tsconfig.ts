@@ -7,7 +7,9 @@ import { ensureDir, outputFile } from './utils.fs'
  * @export
  * @param {Answers<string>} response
  */
-export function writeTsConfig(response: Answers<string>): void {
+export async function writeTsConfig(
+  response: Answers<string>,
+): Promise<void> {
   const { style, tests } = response.development.template.config
   const { name } = response.extension
   const isTailWind = style.toLowerCase() === 'tailwind'
@@ -99,19 +101,11 @@ export function writeTsConfig(response: Answers<string>): void {
 
 `
 
-  try {
-    const rootDir = path.resolve(name.path)
-    ensureDir(rootDir).catch(console.error)
-    outputFile(path.join(rootDir, 'tsconfig.json'), tsConfig).catch((error) =>
-      console.error(error),
-    )
-    outputFile(path.join(rootDir, 'tsconfig.app.json'), tsConfigApp).catch(
-      (error) => console.error(error),
-    )
-    outputFile(path.join(rootDir, 'tsconfig.node.json'), tsConfigNode).catch(
-      (error) => console.error(error),
-    )
-  } catch (error) {
-    console.error(error)
-  }
+  const rootDir = path.resolve(name.path)
+  await ensureDir(rootDir)
+  await Promise.all([
+    outputFile(path.join(rootDir, 'tsconfig.json'), tsConfig),
+    outputFile(path.join(rootDir, 'tsconfig.app.json'), tsConfigApp),
+    outputFile(path.join(rootDir, 'tsconfig.node.json'), tsConfigNode),
+  ])
 }

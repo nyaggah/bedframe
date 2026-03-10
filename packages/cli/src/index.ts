@@ -1,4 +1,3 @@
-import { readFileSync } from 'node:fs'
 import { Command } from 'commander'
 import {
   buildCommand,
@@ -9,10 +8,7 @@ import {
   zipCommand,
 } from './commands'
 import { promptsIntro } from './lib'
-
-const pkg = JSON.parse(
-  readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
-)
+import pkg from '../package.json'
 
 const program = new Command()
 program

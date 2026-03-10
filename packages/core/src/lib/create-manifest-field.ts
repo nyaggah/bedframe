@@ -23,7 +23,11 @@ function background(background: ManifestBackground): ManifestBackground {
 }
 
 function sidePanel(
-  sidePanel: any, // TO diddly DO: update when @types/chrome catches up
+  // https://developer.chrome.com/docs/extensions/reference/api/sidePanel
+  // side_panel?: {
+  //     default_path?: string | undefined;
+  // } | undefined;
+  sidePanel: any,
 ): any {
   return sidePanel
 }

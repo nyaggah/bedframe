@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "sortTailwindcss": {
+    "functions": ["clsx"]
+  },
+  "printWidth": 80,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "package-lock.json",
+    "npm-shrinkwrap.json",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "bun.lock",
+    "bun.lockb",
+    "node_modules",
+    "dist",
+    "coverage",
+    ".vscode",
+    "*.local",
+    "*-safari"
+  ]
+}

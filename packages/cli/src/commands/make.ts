@@ -39,6 +39,10 @@ makeCommand
   .option('-f, --framework <framework>', `framework to use (${dim('react')})`)
   .option('-l, --language <language>', `language to use (${dim('typescript')})`)
   .option('-s, --style <style>', `css framework to use (${dim('tailwind')})`)
+  .option('--shadcnBase <base>', `shadcn base library (${dim('radix')})`)
+  .option('--shadcnPreset <preset>', `shadcn preset (${dim('nova')})`)
+  .option('--no-shadcnCssVariables', `disable shadcn css variables (${dim('true')})`)
+  .option('--shadcnRtl', `enable shadcn RTL support (${dim('false')})`)
   .option('-o, --lintFormat', `add linting with formatting (${dim('true')})`)
   .option(
     '-e, --tests',

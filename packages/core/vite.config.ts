@@ -7,18 +7,27 @@ import { nodeExternals } from './node-externals'
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        bedframe: resolve(__dirname, 'src/index.ts'),
+        scaffold: resolve(__dirname, 'src/scaffold.ts'),
+      },
       name: 'bedframe',
-      fileName: 'bedframe',
+      fileName: (_format, entryName) => entryName,
       formats: ['es'],
     },
     outDir: 'dist',
     emptyOutDir: true,
+    rollupOptions: {
+      external: (id) => {
+        if (id.startsWith('.') || id.startsWith('/') || id.startsWith('\0')) {
+          return false
+        }
+        return true
+      },
+    },
   },
   plugins: [
-    externalizeDeps({
-      deps: false,
-    }) as any,
+    externalizeDeps() as any,
     nodeExternals(),
     dts({
       insertTypesEntry: true,

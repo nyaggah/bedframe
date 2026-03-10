@@ -13,9 +13,9 @@
   "types": "dist/bedframe.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/bedframe.d.ts",
       "import": "./dist/bedframe.js",
-      "require": "./dist/bedframe.js",
-      "types": "./dist/bedframe.d.ts"
+      "require": "./dist/bedframe.js"
     }
   },
   "bin": {
@@ -29,8 +29,8 @@
   ],
   "scripts": {
     "clean": "shx rm -rf dist",
-    "build": "pnpm clean && tsc && rollup -c",
-    "format": "prettier --write .",
+    "build": "pnpm clean && tsc && vite build",
+    "format": "oxfmt .",
     "lint": "oxlint --fix-dangerously",
     "build:pack": "pnpm build && pnpm pack"
   },
@@ -48,24 +48,15 @@
   },
   "devDependencies": {
     "@commander-js/extra-typings": "^14.0.0",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-typescript": "^12.3.0",
     "@types/chrome": "^0.1.33",
     "@types/listr": "^0.14.10",
     "@types/node": "^22.19.11",
     "@types/prompts": "^2.4.9",
-    "@typescript-eslint/eslint-plugin": "^8.53.1",
     "concurrently": "^9.2.1",
-    "eslint-config-bedframe": "workspace:^",
-    "eslint-config-turbo": "^2.7.5",
-    "oxlint": "^1.43.0",
-    "prettier": "^3.8.1",
-    "rollup": "^4.59.0",
-    "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-dts": "^6.3.0",
-    "rollup-plugin-esbuild": "^6.2.1",
-    "rollup-plugin-string": "^3.0.0",
+    "oxfmt": "^0.36.0",
+    "oxlint": "^1.38.0",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-static-copy": "^3.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.21.0",
@@ -73,17 +64,12 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "prettier --write .",
+      "oxfmt --no-error-on-unmatched-pattern",
       "oxlint --fix-dangerously"
     ],
     "*.{json,css,scss,md,mdx,html}": [
-      "prettier --write ."
+      "oxfmt --no-error-on-unmatched-pattern"
     ]
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true
   },
   "commitlint": {
     "extends": [

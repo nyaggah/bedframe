@@ -21,13 +21,14 @@ const getOverridePage = (overridePage: string): string => {
  * @return {*}  {string}
  *
  */
-export function writeBedframeConfig(response: Answers<string>): void {
+export async function writeBedframeConfig(
+  response: Answers<string>,
+): Promise<void> {
   const { browser } = response
   const {
     framework,
     language,
     packageManager,
-    style,
     lintFormat,
     tests: hasTests,
     git,
@@ -42,8 +43,6 @@ export function writeBedframeConfig(response: Answers<string>): void {
     name,
   } = response.extension
   const { name: extensionType } = type
-
-  const isTailwind = style.toLowerCase() === 'tailwind'
 
   const browsers = browser
     .map((browser: AnyCase<Browser>) => {
@@ -96,28 +95,6 @@ export default createBedframe({
         framework: '${framework.toLowerCase()}',
         language: '${language.toLowerCase()}',
         packageManager: '${packageManager.toLowerCase()}',
-        style: {
-          framework: '${style.toLowerCase()}',
-          ${
-            isTailwind
-              ? `components: 'shadcn',
-          theme: 'new-york',`
-              : ''
-          }
-          fonts: [
-            {
-              name: 'Inter',
-              local: 'Inter',
-              src: './assets/fonts/inter/*.ttf',
-              weights: {
-                'Inter-Regular': 400,
-                'Inter-SemiBold': 600,
-                'Inter-Bold': 700,
-                'Inter-ExtraBold': 800,
-              },
-            },
-          ],
-        },
         ${lintFormat ? `lintFormat: ${lintFormat},` : ''}
         ${
           hasTests
@@ -141,18 +118,11 @@ export default createBedframe({
 
 `
 
-  try {
-    const rootDir = path.resolve(name.path)
-    const configDir = path.join(rootDir, 'src', '_config')
-    const configFilePath = path.join(configDir, 'bedframe.config.ts')
-    ensureDir(configDir)
-      .then(() => {
-        ensureWriteFile(configFilePath).then(() =>
-          outputFile(configFilePath, `${fileContent}\n`),
-        )
-      })
-      .catch(console.error)
-  } catch (error) {
-    console.error(error)
-  }
+  const rootDir = path.resolve(name.path)
+  const configDir = path.join(rootDir, 'src', '_config')
+  const configFilePath = path.join(configDir, 'bedframe.config.ts')
+
+  await ensureDir(configDir)
+  await ensureWriteFile(configFilePath)
+  await outputFile(configFilePath, `${fileContent}\n`)
 }

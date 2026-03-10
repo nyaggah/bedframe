@@ -5,7 +5,7 @@
     "types": ["chrome", "node"],
     "declaration": true,
     "module": "esnext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "noEmit": true,

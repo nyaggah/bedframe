@@ -1,0 +1,14 @@
+pre-commit:
+  commands:
+    lint-staged:
+      run: pnpm lint-staged
+
+prepare-commit-msg:
+  commands:
+    commitizen:
+      run: sh -c 'msg_file="{1}"; source="{2}"; if [ "$source" = "merge" ] || [ "$source" = "squash" ] || [ "$source" = "message" ] || [ "$source" = "template" ] || [ "$source" = "commit" ] || [ -s "$msg_file" ] || [ ! -t 1 ]; then echo "Skipping commitizen for non-interactive or prefilled commit message"; exit 0; fi; exec < /dev/tty && pnpm cz --hook || true'
+
+commit-msg:
+  commands:
+    commitlint:
+      run: sh -c 'if [ -t 0 ]; then pnpm commitlint --edit "{1}"; else echo "Skipping commitlint in non-terminal environment"; fi'

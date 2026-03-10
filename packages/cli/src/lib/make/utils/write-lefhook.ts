@@ -2,7 +2,9 @@ import path from 'node:path'
 import type prompts from 'prompts'
 import { writeFile } from './utils.fs'
 
-export function writeLefthookYml(response: prompts.Answers<string>): void {
+export async function writeLefthookYml(
+  response: prompts.Answers<string>,
+): Promise<void> {
   const { packageManager } = response.development.template.config
   const pm = packageManager.toLowerCase()
   const pmRun = pm !== 'yarn' ? `${pm} run` : pm
@@ -31,5 +33,5 @@ prepare-commit-msg:
 
   const destinationRoot = path.resolve(response.extension.name.path)
   const destinationLefthookYml = path.join(destinationRoot, 'lefthook.yml')
-  writeFile(destinationLefthookYml, lefthookYml).catch(console.error)
+  await writeFile(destinationLefthookYml, lefthookYml)
 }

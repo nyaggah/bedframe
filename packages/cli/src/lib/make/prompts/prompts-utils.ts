@@ -4,7 +4,7 @@ import {
   Language,
   PackageManager,
   Style,
-} from '@bedframe/core'
+} from '@bedframe/core/scaffold'
 import {
   blue,
   cyan,
@@ -113,11 +113,6 @@ export const frameworks = Object.values(Framework).map((framework) => {
   return {
     title: color(_framework),
     value: _framework,
-    disabled: Boolean(
-      disableOptions(['Lit', 'Preact', 'Svelte', 'Vanilla', 'Vue']).has(
-        _framework,
-      ),
-    ),
   }
 })
 
@@ -127,7 +122,6 @@ export const languages = Object.values(Language).map((language) => {
   return {
     title: color(_language),
     value: _language,
-    disabled: Boolean(disableOptions(['JavaScript']).has(_language)),
   }
 })
 

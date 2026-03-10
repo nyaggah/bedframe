@@ -78,7 +78,7 @@ The default Bedframe setup generates a production-ready Chrome Popup extension B
 # Bedframe (default) project structure
 bedframe-project/
 ├─ .git/
-├─ .husky/
+├─ lefthook.yml
 ├─ .vscode
 ├─ public/
 │  ├─ icons/
@@ -167,9 +167,8 @@ we pass this along to the `vite.config.ts`
 ```typescript
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
-import { crx } from '@crxjs/vite-plugin'
 import react from '@vitejs/plugin-react'
-import { getManifest } from '@bedframe/core'
+import { bedframe } from '@bedframe/core'
 import * as manifest from './src/manifest'
 
 export default ({ mode }) => {
@@ -180,10 +179,8 @@ export default ({ mode }) => {
       },
     },
     plugins: [
+      bedframe([manifest.chrome]),
       react(),
-      crx({
-        manifest: getManifest(mode, [manifest.chrome]),
-      }),
     ],
     build: {
       outDir: `dist/${mode}`,

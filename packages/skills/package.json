@@ -1,0 +1,35 @@
+{
+  "name": "@bedframe/skills",
+  "description": "Agent Skills for Bedframe — Browser Extension Development Framework",
+  "author": {
+    "name": "Joe Nyaggah",
+    "url": "https://bedframe.dev"
+  },
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "AGENTS.md",
+    "bedframe",
+    "package.json"
+  ],
+  "exports": {
+    "./package.json": "./package.json"
+  },
+  "keywords": [
+    "bedframe",
+    "browser-extension",
+    "agent-skills",
+    "ai",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nyaggah/bedframe.git",
+    "directory": "packages/skills"
+  },
+  "homepage": "https://bedframe.dev",
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,9 +1,5 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import { App } from '@/components/app'
-import { Layout } from '@/components/layout'
-import 'unfonts.css'
-import '@/styles/style.css'
+import { mountPage } from '@/components/page-root'
 
 chrome.devtools.panels.create(
   'Bedframe (Panel)',
@@ -22,10 +18,4 @@ chrome.devtools.panels.elements.createSidebarPane(
   },
 )
 
-createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
-    <Layout>
-      <App />
-    </Layout>
-  </StrictMode>,
-)
+mountPage(<App />)
