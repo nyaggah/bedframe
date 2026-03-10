@@ -1,15 +1,16 @@
 # Bedframe
 
-This repository contains the Bedframe open source framework, its docs, and the current OSS command and type surface.
+This repository contains the Bedframe open source framework and the current OSS command and type surface.
 
 ## Read first
 
 When working in this repository, start with:
 
-1. `docs/bf2/index.md`
-2. `docs/bf2/start/work-with-an-agent.md`
-3. `docs/bf2/start/project/bedframe-config.md`
-4. `docs/bf2/publish/publish-overview.md`
+1. `README.md`
+2. `packages/skills/AGENTS.md`
+3. `packages/skills/bedframe/SKILL.md`
+4. `packages/cli/src/commands/*`
+5. `packages/core/src/lib/*`
 
 ## Current OSS Bedframe surface
 
@@ -33,7 +34,8 @@ The code-level surface is centered on:
 
 For user-facing behavior, use these as the source of truth:
 
-- `docs/bf2/*`
+- `README.md`
+- `packages/skills/bedframe/*`
 - `packages/cli/src/commands/*`
 - `packages/core/src/lib/*`
 - `packages/create-bedframe/src/index.ts`
@@ -57,6 +59,7 @@ Project-level Bedframe skills live in:
 - `.agents/skills/*`
 
 These skills should stay aligned with the current OSS docs and command surface.
+These skills should stay aligned with the current OSS command and code surface.
 
 ## Current constraints
 
