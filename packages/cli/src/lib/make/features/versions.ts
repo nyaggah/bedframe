@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
@@ -66,33 +66,7 @@ function resolveCurrentCoreVersion(): string {
   return readVersion(packageJsonPath)
 }
 
-const dynamicVersionPackages = {
-  '@bedframe/cli': `^${resolveCurrentCliVersion()}`,
-  '@bedframe/core': `^${resolveCurrentCoreVersion()}`,
-} as const
-
-const cliPackageJsonPath = resolvePackageJsonUpwards(
-  path.dirname(fileURLToPath(import.meta.url)),
-  '@bedframe/cli',
-)
-const repoRootPath = path.resolve(path.dirname(cliPackageJsonPath), '..', '..')
-const cliTarballPath = path.join(
-  repoRootPath,
-  'packages',
-  'cli',
-  `bedframe-cli-${resolveCurrentCliVersion()}.tgz`,
-)
-const coreTarballPath = path.join(
-  repoRootPath,
-  'packages',
-  'core',
-  `bedframe-core-${resolveCurrentCoreVersion()}.tgz`,
-)
-
-const localBedframeTarballs = {
-  '@bedframe/cli': `file:${cliTarballPath}`,
-  '@bedframe/core': `file:${coreTarballPath}`,
-} as const
+const dynamicVersionPackages = new Set(['@bedframe/cli', '@bedframe/core'])
 
 const publishedBedframeSpecifiers = {
   '@bedframe/cli': `^${resolveCurrentCliVersion()}`,
@@ -100,17 +74,9 @@ const publishedBedframeSpecifiers = {
 } as const
 
 export function packageSpecifier(packageName: string): string {
-  if (packageName in dynamicVersionPackages && packageName in localBedframeTarballs) {
-    const localSpecifier =
-      localBedframeTarballs[packageName as keyof typeof localBedframeTarballs]
-    const localTarballPath = localSpecifier.replace(/^file:/, '')
-
-    if (existsSync(localTarballPath)) {
-      return localSpecifier
-    }
-
-    // Temporary local-test fallback:
-    // return publishedBedframeSpecifiers[packageName as keyof typeof publishedBedframeSpecifiers]
+  if (dynamicVersionPackages.has(packageName)) {
+    // Local tarball resolution is intentionally disabled for scaffold portability.
+    // Always resolve Bedframe packages by published semver range.
     return publishedBedframeSpecifiers[
       packageName as keyof typeof publishedBedframeSpecifiers
     ]
