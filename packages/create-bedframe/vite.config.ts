@@ -4,6 +4,7 @@ import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/guide/build.html#library-mode
 export default defineConfig({
+  publicDir: false,
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
