@@ -8,11 +8,13 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'create-bedframe',
-      fileName: 'create-bedframe',
+      fileName: 'index',
       formats: ['es'],
     },
     outDir: 'dist',
+    emptyOutDir: true,
     rollupOptions: {
+      external: (id) => !/^[./]/.test(id),
       output: {
         // Preserve the shebang comment
         intro: '#!/usr/bin/env node',

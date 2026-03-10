@@ -1,5 +1,9 @@
 import path from 'node:path'
+import { promises as fs } from 'node:fs'
 import type prompts from 'prompts'
+import { resolveDependencyPlan } from '../features/dependency-plan'
+import { resolveScaffoldSpec } from '../features/scaffold-spec'
+import { packageSpecifier } from '../features/versions'
 import { writeFile } from './utils.fs'
 
 /**
@@ -9,180 +13,133 @@ import { writeFile } from './utils.fs'
  * @export
  * @param {prompts.Answers<string>} response
  */
-export function writePackageJson(response: prompts.Answers<string>): void {
-  const { browser: browsers } = response
+export async function writePackageJson(
+  response: prompts.Answers<string>,
+): Promise<void> {
+  const spec = resolveScaffoldSpec(response)
+  const { browsers } = spec
   const { manifest, author, license, isPrivate } = response.extension
   const projectName = manifest[0].manifest.name
   const projectAuthor = author
   const projectVersion = manifest[0].manifest.version
   const projectDescription = manifest[0].manifest.description
 
-  const {
-    // framework,
-    language,
-    packageManager,
-    lintFormat,
-    tests: hasTests,
-    style,
-    git,
-    gitHooks,
-    changesets,
-    commitLint,
-  } = response.development.template.config
-
-  const isStyle = {
-    tailwind: style.toLowerCase() === 'tailwind',
-  }
+  const { language, packageManager } = response.development.template.config
+  const { lintFormat, tests: hasTests, git, gitHooks, changesets, commitLint } =
+    spec.featureFlags
 
   const pm = packageManager.toLowerCase()
   const pmRun = pm !== 'yarn' ? `${pm} run` : pm
+  const scripts: Record<string, string> = {
+    dev: 'bedframe dev',
+    build: 'tsc && bedframe build',
+    publish: 'bedframe publish -b',
+    zip: 'bedframe zip',
+  }
 
-  const packageJson = `{
-  "name": "${parameterizeString(projectName)}",
-  "version": "${projectVersion}",
-  "description": "${projectDescription}",
-  ${
-    projectAuthor
-      ? `"author": {
-    "name": "${projectAuthor.name}",
-    "email": "${projectAuthor.email}",
-    "url": "${projectAuthor.url}"
-  },`
-      : ''
+  if (changesets) {
+    scripts.version = 'bedframe version'
   }
-  "license": "${license}",
-  "private": ${isPrivate},
-  "type": "module",
-  "scripts": {
-    "dev": "bedframe dev",
-    "build": "tsc && bedframe build",
-    ${changesets ? `"version": "bedframe version",` : ''}
-    ${
-      git
-        ? `"release": "gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes",`
-        : ''
-    }
-    "publish": "bedframe publish -b",
-    ${
-      lintFormat
-        ? `"format": "prettier --write .",
-    "lint": "oxlint --fix .",
-    "fix": "${pmRun} format && ${pmRun} lint",`
-        : ''
-    }
-    ${hasTests ? `"test": "vitest run --coverage",` : ''}
-    ${commitLint ? `"commit": "${lintFormat ? 'lint-staged && ' : ''}cz",` : ''}"zip": "bedframe zip",
-    ${
-      browsers.includes('safari')
-        ? `"convert:safari": "xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name-safari"`
-        : ''
-    }
-  },
-  "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"${
-      isStyle.tailwind
-        ? `,
-    "clsx": "^2.1.1",
-    "react-icons": "^5.5.0",
-    "tailwind-merge": "^3.3.1",
-    "tailwindcss-animate": "^1.0.7"`
-        : ''
-    }
-  },
-  "devDependencies": {
-    "@bedframe/cli": "^0.0.95",
-    "@bedframe/core": "^0.0.46",
-${
-  changesets
-    ? `"@changesets/cli": "^2.29.5",
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",`
-    : ''
-}${
-    hasTests
-      ? `\n"@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/jest": "^30.0.0",
-    "happy-dom": "^18.0.1",
-    "vitest": "^3.2.4",
-    "@vitest/coverage-istanbul": "^3.2.4",`
-      : ''
+  if (git) {
+    scripts.release =
+      'gh release create $npm_package_name@$npm_package_version ./dist/*.zip --generate-notes'
   }
-    "@types/node": "^24.0.3",
-    "@types/chrome": "^0.0.326",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react": "^4.5.2",
-    "concurrently": "^9.2.0",${
-      commitLint
-        ? `"commitizen": "^4.3.1",
-    "cz-conventional-changelog": "^3.3.0",`
-        : ''
-    }${
-      lintFormat
-        ? `\n"oxlint": "^1.2.0",
-    "globals": "^16.2.0",
-    "lint-staged": "^16.1.2",
-    "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.13",`
-        : ''
-    }
-    ${gitHooks ? `"lefthook": "^1.11.14",` : ''}
-    ${
-      isStyle.tailwind
-        ? `"@tailwindcss/vite": "^4.1.10",
-    "@tailwindcss/postcss": "^4.1.10",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.10",`
-        : ''
-    }
-    ${language.toLowerCase() === 'typescript' ? `"typescript": "^5.8.3",` : ''}
-    "unplugin-fonts": "^1.3.1",
-    "vite": "^6.3.5"
+  if (lintFormat) {
+    scripts.format = 'oxfmt .'
+    scripts.lint = 'oxlint --fix .'
+    scripts.fix = `${pmRun} format && ${pmRun} lint`
   }
-  ${lintFormat ? ',' : ''}
-  ${
-    lintFormat
-      ? `"lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "oxlint --fix"
-    ],
-    "*.{css,html,json}": "prettier --write"
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true,
-    "tailwindFunctions": [
-      "clsx"
-    ],
-    "plugins": [
-      "prettier-plugin-tailwindcss"
-    ]
-  }`
-      : ''
-  }${commitLint ? ',' : ''}${
-    commitLint
-      ? `"commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  }`
-      : ''
+  if (hasTests) {
+    scripts.test = 'vitest run --coverage'
   }
-}
-`
+  if (commitLint) {
+    scripts.commit = `${lintFormat ? 'lint-staged && ' : ''}cz`
+  }
+  if (browsers.includes('safari')) {
+    scripts['convert:safari'] =
+      'xcrun safari-web-extension-converter dist/safari --project-location . --app-name $npm_package_name-safari'
+  }
+
+  const dependencyPlan = resolveDependencyPlan(response)
+  const dependencies = Object.fromEntries(
+    dependencyPlan.dependencies.map((packageName) => [
+      packageName,
+      packageSpecifier(packageName),
+    ]),
+  )
+  const devDependencies = Object.fromEntries(
+    dependencyPlan.devDependencies.map((packageName) => [
+      packageName,
+      packageSpecifier(packageName),
+    ]),
+  )
+
+  let existingPackageJson: Record<string, unknown> = {}
+  try {
+    const raw = await fs.readFile(
+      path.join(response.extension.name.path, 'package.json'),
+      'utf8',
+    )
+    existingPackageJson = JSON.parse(raw) as Record<string, unknown>
+  } catch {
+    // no-op: compose from scratch
+  }
+
+  const existingDependencies = (existingPackageJson.dependencies ??
+    {}) as Record<string, string>
+  const existingDevDependencies = (existingPackageJson.devDependencies ??
+    {}) as Record<string, string>
+
+  const packageJsonObject: Record<string, unknown> = {
+    ...existingPackageJson,
+    name: parameterizeString(projectName),
+    version: projectVersion,
+    description: projectDescription,
+    license,
+    private: isPrivate,
+    type: 'module',
+    scripts,
+    dependencies: {
+      ...existingDependencies,
+      ...dependencies,
+    },
+    devDependencies: {
+      ...existingDevDependencies,
+      ...devDependencies,
+    },
+  }
+
+  if (projectAuthor) {
+    packageJsonObject.author = {
+      name: projectAuthor.name,
+      email: projectAuthor.email,
+      url: projectAuthor.url,
+    }
+  }
+
+  if (lintFormat) {
+    packageJsonObject['lint-staged'] = {
+      '*.{js,jsx,ts,tsx,css,html,json}': 'oxfmt --no-error-on-unmatched-pattern',
+      '*.{js,jsx,ts,tsx}': 'oxlint --fix',
+    }
+  }
+
+  if (commitLint) {
+    packageJsonObject.commitlint = {
+      extends: ['@commitlint/config-conventional'],
+    }
+    packageJsonObject.config = {
+      commitizen: {
+        path: './node_modules/cz-conventional-changelog',
+      },
+    }
+  }
+
+  const packageJson = `${JSON.stringify(packageJsonObject, null, 2)}\n`
 
   const destinationRoot = path.resolve(response.extension.name.path)
   const destinationPackageJson = path.join(destinationRoot, 'package.json')
-  writeFile(destinationPackageJson, `${packageJson}\n`).catch(console.error)
+  await writeFile(destinationPackageJson, packageJson)
 }
 
 export const parameterizeString = (string: string, separator = '-') => {

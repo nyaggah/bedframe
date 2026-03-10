@@ -28,7 +28,9 @@ type EdgeEnvironment = {
   apiKey: string
 }
 
-export function writeMVPworkflow(response: Answers<string>) {
+export async function writeMVPworkflow(
+  response: Answers<string>,
+): Promise<void> {
   const { name: projectName, path: projectPath } = response.extension.name
   const { development, browser: browsers } = response
   const {
@@ -224,11 +226,7 @@ ${edgeBlock}
 `,
   }
 
-  ensureDir(join(projectPath, '.github', 'workflows'))
-    .then(() =>
-      ensureWriteFile(file.path).then(() =>
-        outputFile(file.path, file.content),
-      ),
-    )
-    .catch(console.error)
+  await ensureDir(join(projectPath, '.github', 'workflows'))
+  await ensureWriteFile(file.path)
+  await outputFile(file.path, file.content)
 }

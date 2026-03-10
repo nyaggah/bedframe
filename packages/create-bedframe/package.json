@@ -13,10 +13,8 @@
   "types": "./dist/create-bedframe.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
       "types": "./dist/create-bedframe.d.ts",
-      "default": "./dist/index.js"
+      "import": "./dist/index.js"
     }
   },
   "bin": {
@@ -27,7 +25,7 @@
   ],
   "scripts": {
     "clean": "shx rm -rf dist",
-    "build": "pnpm clean && tsc && rollup -c",
+    "build": "pnpm clean && tsc && vite build",
     "format": "prettier --write .",
     "lint": "oxlint --fix-dangerously",
     "build:pack": "pnpm build && pnpm pack"
@@ -37,13 +35,8 @@
     "@bedframe/core": "workspace:^"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-typescript": "^12.3.0",
     "oxlint": "^1.38.0",
     "prettier": "^3.8.1",
-    "rollup-plugin-dts": "^6.3.0",
-    "rollup-plugin-esbuild": "^6.2.1",
-    "rollup-plugin-string": "^3.0.0",
     "typescript": "^5.9.3",
     "vite": "^6.4.1",
     "vite-plugin-dts": "^4.5.4"

@@ -7,7 +7,7 @@ import {
   type BuildTarget,
   createBedframe,
   createManifest,
-} from '@bedframe/core'
+} from '@bedframe/core/scaffold'
 import { dim, italic, red, yellow } from 'kolorist'
 import prompts, { type PromptObject } from 'prompts'
 import type {
@@ -226,11 +226,31 @@ export const developmentPrompts = (
   // biome-ignore lint:  @typescript-eslint/no-explicit-any
   options: any,
 ): PromptObject<keyof DevelopmentPrompts>[] => {
+  const optionProvided = (key: string) =>
+    Object.prototype.hasOwnProperty.call(options, key) &&
+    options[key] !== undefined
+
+  const isShadcnCompatible = (values: {
+    framework?: string
+    language?: string
+    style?: string
+  }): boolean => {
+    return (
+      String(values.framework ?? '').toLowerCase() === 'react' &&
+      String(values.language ?? '').toLowerCase() === 'typescript' &&
+      String(values.style ?? '').toLowerCase() === 'tailwind'
+    )
+  }
+
   const initialValue = {
     packageManager: 0,
     framework: 0,
     language: 0,
     style: 0,
+    shadcnBase: 0,
+    shadcnPreset: 0,
+    shadcnCssVariables: true,
+    shadcnRtl: false,
     lintFormat: true,
     tests: true,
     git: true,
@@ -242,14 +262,14 @@ export const developmentPrompts = (
 
   return [
     {
-      type: () => (!options.packageManager ? 'select' : null),
+      type: () => (!optionProvided('packageManager') ? 'select' : null),
       name: 'packageManager',
       message: 'Package manager:',
       choices: packageManagers,
       initial: initialValue.packageManager,
     },
     {
-      type: () => (!options.framework ? 'select' : null),
+      type: () => (!optionProvided('framework') ? 'select' : null),
       name: 'framework',
       message: 'Framework:',
       warn: yellow('currently unavailable'),
@@ -257,7 +277,7 @@ export const developmentPrompts = (
       initial: initialValue.framework,
     },
     {
-      type: () => (!options.language ? 'select' : null),
+      type: () => (!optionProvided('language') ? 'select' : null),
       name: 'language',
       message: 'Programming language:',
       warn: yellow('currently unavailable'),
@@ -265,14 +285,60 @@ export const developmentPrompts = (
       initial: initialValue.language,
     },
     {
-      type: () => (!options.style ? 'select' : null),
+      type: () => (!optionProvided('style') ? 'select' : null),
       name: 'style',
       message: 'CSS framework:',
       choices: stylingOptions,
       initial: initialValue.style,
     },
     {
-      type: () => (!options.lintFormat ? 'toggle' : null),
+      type: (_prev, answers) =>
+        !optionProvided('shadcnBase') && isShadcnCompatible(answers) ? 'select' : null,
+      name: 'shadcnBase',
+      message: 'shadcn base library:',
+      initial: initialValue.shadcnBase,
+      choices: [
+        { title: 'radix', value: 'radix' },
+        { title: 'base', value: 'base' },
+      ],
+    },
+    {
+      type: (_prev, answers) =>
+        !optionProvided('shadcnPreset') && isShadcnCompatible(answers) ? 'select' : null,
+      name: 'shadcnPreset',
+      message: 'shadcn preset:',
+      initial: initialValue.shadcnPreset,
+      choices: [
+        { title: 'nova', value: 'nova' },
+        { title: 'vega', value: 'vega' },
+        { title: 'maia', value: 'maia' },
+        { title: 'lyra', value: 'lyra' },
+        { title: 'mira', value: 'mira' },
+        { title: 'custom', value: 'custom' },
+      ],
+    },
+    {
+      type: (_prev, answers) =>
+        !optionProvided('shadcnCssVariables') && isShadcnCompatible(answers)
+          ? 'toggle'
+          : null,
+      name: 'shadcnCssVariables',
+      message: 'shadcn css variables:',
+      initial: initialValue.shadcnCssVariables,
+      active: 'Yes',
+      inactive: 'No',
+    },
+    {
+      type: (_prev, answers) =>
+        !optionProvided('shadcnRtl') && isShadcnCompatible(answers) ? 'toggle' : null,
+      name: 'shadcnRtl',
+      message: 'shadcn RTL support:',
+      initial: initialValue.shadcnRtl,
+      active: 'Yes',
+      inactive: 'No',
+    },
+    {
+      type: () => (!optionProvided('lintFormat') ? 'toggle' : null),
       name: 'lintFormat',
       message: 'Add linting & formatting:',
       initial: initialValue.lintFormat,
@@ -280,7 +346,7 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: () => (!options.tests ? 'toggle' : null),
+      type: () => (!optionProvided('tests') ? 'toggle' : null),
       name: 'tests',
       message: 'Add unit tests:',
       initial: initialValue.tests,
@@ -288,7 +354,7 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: () => (!options.git ? 'toggle' : null),
+      type: () => (!optionProvided('git') ? 'toggle' : null),
       name: 'git',
       message: 'Add git',
       initial: initialValue.git,
@@ -296,7 +362,7 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: (prev) => (prev && !options.gitHooks ? 'toggle' : null),
+      type: (prev) => (prev && !optionProvided('gitHooks') ? 'toggle' : null),
       name: 'gitHooks',
       message: 'Add git hooks:',
       initial: initialValue.gitHooks,
@@ -305,7 +371,7 @@ export const developmentPrompts = (
     },
     {
       type: (_prev, answers) =>
-        answers.git && !options.commitLint ? 'toggle' : null,
+        answers.git && !optionProvided('commitLint') ? 'toggle' : null,
       name: 'commitLint',
       message: 'Add commit linting:',
       initial: initialValue.commitLint,
@@ -314,7 +380,7 @@ export const developmentPrompts = (
     },
     {
       type: (_prev, answers) =>
-        answers.git && !options.changesets ? 'toggle' : null,
+        answers.git && !optionProvided('changesets') ? 'toggle' : null,
       name: 'changesets',
       message: 'Add changesets:',
       initial: initialValue.changesets,
@@ -322,7 +388,7 @@ export const developmentPrompts = (
       inactive: 'No',
     },
     {
-      type: () => (!options.installDeps ? 'toggle' : null),
+      type: () => (!optionProvided('installDeps') ? 'toggle' : null),
       name: 'installDeps',
       message: 'Install dependencies:',
       initial: initialValue.installDeps,
@@ -337,6 +403,10 @@ export async function bedframePrompts(
   // biome-ignore lint:  @typescript-eslint/no-explicit-any
   options: any,
 ): Promise<Bedframe> {
+  const hasOption = (key: string) =>
+    Object.prototype.hasOwnProperty.call(options, key) &&
+    options[key] !== undefined
+
   projectName === undefined
     ? {
         name: basename(cwd()),
@@ -344,35 +414,61 @@ export async function bedframePrompts(
       }
     : projectName
 
-  const browsersResponse = options.browsers
+  const yesMode = Boolean(options.yes)
+  const parsedBrowsers = options.browsers
     ? options.browsers
         .toString()
         .split(',')
         .map((browser: AnyCase<Browser>) => browser.trim().toLowerCase())
-    : await prompts(browserPrompts(options), {
+    : ['chrome']
+
+  const browsersResponse = yesMode
+    ? { browsers: parsedBrowsers }
+    : options.browsers
+      ? { browsers: parsedBrowsers }
+      : await prompts(browserPrompts(options), {
+          onCancel: () => {
+            console.log('cancelling...')
+            process.exit()
+          },
+        })
+
+  const extensionDefaults = {
+    name:
+      projectName ??
+      (options.name
+        ? {
+            name: basename(options.name.name ?? options.name),
+            path: resolve(options.name.path ?? options.name),
+          }
+        : { name: basename(cwd()), path: cwd() }),
+    version: options.version ?? '0.0.1',
+    description: options.description ?? '',
+    author: options.author
+      ? (() => {
+          const [name, email, url] = String(options.author).split(',')
+          return {
+            name: (name ?? '').trim(),
+            email: (email ?? '').trim(),
+            url: (url ?? '').trim(),
+          }
+        })()
+      : { name: '', email: '', url: '' },
+    license: options.license ?? 'MIT',
+    private: hasOption('private') ? options.private : true,
+    type: options.type ?? 'popup',
+    override: options.override ?? 'none',
+    options: options.options ?? 'embedded',
+  }
+
+  const extensionResponse = yesMode
+    ? extensionDefaults
+    : await prompts(extensionPrompts(projectName, options), {
         onCancel: () => {
           console.log('cancelling...')
           process.exit()
         },
       })
-
-  if (options.browsers) {
-    const browsersArray = options.browsers
-      .toString()
-      .split(',')
-      .map((browser: AnyCase<Browser>) => browser.trim().toLowerCase())
-    browsersResponse.browsers = browsersArray
-  }
-
-  const extensionResponse = await prompts(
-    extensionPrompts(projectName, options),
-    {
-      onCancel: () => {
-        console.log('cancelling...')
-        process.exit()
-      },
-    },
-  )
 
   if (options.name) {
     if (options.name === '.') {
@@ -387,13 +483,13 @@ export async function bedframePrompts(
       }
     }
   }
-  if (options.version) {
+  if (hasOption('version')) {
     extensionResponse.version = options.version
   }
-  if (options.description) {
+  if (hasOption('description')) {
     extensionResponse.description = options.description
   }
-  if (options.author) {
+  if (hasOption('author')) {
     const [name, email, url] = options.author.split(',')
     extensionResponse.author = {
       name: name.trim(),
@@ -401,63 +497,98 @@ export async function bedframePrompts(
       url: url.trim(),
     }
   }
-  if (options.license) {
+  if (hasOption('license')) {
     extensionResponse.license = options.license
   }
-  if (options.private) {
+  if (hasOption('private')) {
     extensionResponse.private = options.private
   }
-  if (options.type) {
+  if (hasOption('type')) {
     extensionResponse.type = options.type
   }
-  if (options.override) {
+  if (hasOption('override')) {
     extensionResponse.override = options.override
   }
-  if (options.options) {
+  if (hasOption('options')) {
     extensionResponse.options = options.options
   }
 
-  const developmentResponse = await prompts(developmentPrompts(options), {
-    onCancel: () => {
-      console.log('cancelling...')
-      process.exit()
-    },
-  })
+  const developmentDefaults = {
+    packageManager: options.packageManager ?? 'pnpm',
+    framework: options.framework ?? 'react',
+    language: options.language ?? 'typescript',
+    style: options.style ?? 'tailwind',
+    shadcnBase: options.shadcnBase ?? 'radix',
+    shadcnPreset: options.shadcnPreset ?? 'nova',
+    shadcnCssVariables: hasOption('shadcnCssVariables')
+      ? options.shadcnCssVariables
+      : true,
+    shadcnRtl: hasOption('shadcnRtl') ? options.shadcnRtl : false,
+    lintFormat: hasOption('lintFormat') ? options.lintFormat : true,
+    tests: hasOption('tests') ? options.tests : true,
+    git: hasOption('git') ? options.git : true,
+    gitHooks: hasOption('gitHooks') ? options.gitHooks : true,
+    commitLint: hasOption('commitLint') ? options.commitLint : true,
+    changesets: hasOption('changesets') ? options.changesets : true,
+    installDeps: hasOption('installDeps') ? options.installDeps : true,
+    yes: yesMode,
+  }
 
-  if (options.packageManager) {
+  const developmentResponse = yesMode
+    ? developmentDefaults
+    : await prompts(developmentPrompts(options), {
+        onCancel: () => {
+          console.log('cancelling...')
+          process.exit()
+        },
+      })
+
+  if (hasOption('packageManager')) {
     developmentResponse.packageManager = options.packageManager
   }
-  if (options.framework) {
+  if (hasOption('framework')) {
     developmentResponse.framework = options.framework
   }
-  if (options.language) {
+  if (hasOption('language')) {
     developmentResponse.language = options.language
   }
-  if (options.style) {
+  if (hasOption('style')) {
     developmentResponse.style = options.style
   }
-  if (options.lintFormat) {
+  if (hasOption('shadcnBase')) {
+    developmentResponse.shadcnBase = options.shadcnBase
+  }
+  if (hasOption('shadcnPreset')) {
+    developmentResponse.shadcnPreset = options.shadcnPreset
+  }
+  if (hasOption('shadcnCssVariables')) {
+    developmentResponse.shadcnCssVariables = options.shadcnCssVariables
+  }
+  if (hasOption('shadcnRtl')) {
+    developmentResponse.shadcnRtl = options.shadcnRtl
+  }
+  if (hasOption('lintFormat')) {
     developmentResponse.lintFormat = options.lintFormat
   }
-  if (options.tests) {
+  if (hasOption('tests')) {
     developmentResponse.tests = options.tests
   }
-  if (options.git) {
+  if (hasOption('git')) {
     developmentResponse.git = options.git
   }
-  if (options.gitHooks) {
+  if (hasOption('gitHooks')) {
     developmentResponse.gitHooks = options.gitHooks
   }
-  if (options.commitLint) {
+  if (hasOption('commitLint')) {
     developmentResponse.commitLint = options.commitLint
   }
-  if (options.changesets) {
+  if (hasOption('changesets')) {
     developmentResponse.changesets = options.changesets
   }
-  if (options.installDeps) {
+  if (hasOption('installDeps')) {
     developmentResponse.installDeps = options.installDeps
   }
-  if (options.yes) {
+  if (hasOption('yes')) {
     developmentResponse.yes = options.yes
   }
 
@@ -504,6 +635,12 @@ export async function bedframePrompts(
           language: developmentResponse.language,
           packageManager: developmentResponse.packageManager,
           style: developmentResponse.style,
+          shadcn: {
+            base: developmentResponse.shadcnBase ?? 'radix',
+            preset: developmentResponse.shadcnPreset ?? 'nova',
+            cssVariables: developmentResponse.shadcnCssVariables ?? true,
+            rtl: developmentResponse.shadcnRtl ?? false,
+          },
           lintFormat: developmentResponse.lintFormat,
           tests: developmentResponse.tests,
           git: developmentResponse.git,

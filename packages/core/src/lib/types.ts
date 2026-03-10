@@ -70,10 +70,6 @@ export type BuildTarget = {
   manifest: Manifest
   browser: AnyCase<Browser>
 }
-export type BuildConfig = {
-  command?: 'build' | 'serve'
-  mode?: AnyCase<Browser> | string | undefined
-}
 /**
  * Extract the first parameter of the `crx` function
  * and Override the `browser` key to allow `any`

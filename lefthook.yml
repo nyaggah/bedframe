@@ -1,0 +1,14 @@
+pre-commit:
+  commands:
+    lint-staged:
+      run: pnpm lint-staged
+
+prepare-commit-msg:
+  commands:
+    commitizen:
+      run: sh -c 'if [ -t 1 ]; then exec < /dev/tty && pnpm cz --hook || true; else echo "Skipping commitizen in non-terminal environment"; fi'
+
+commit-msg:
+  commands:
+    commitlint:
+      run: sh -c 'if [ -t 0 ]; then pnpm commitlint --edit "{1}"; else echo "Skipping commitlint in non-terminal environment"; fi'

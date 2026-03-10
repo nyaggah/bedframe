@@ -1,4 +1,3 @@
-import type { FontFamily } from './get-fonts'
 import type { Framework, Language, PackageManager, Style } from './types'
 import type { AnyCase } from './utils'
 
@@ -12,10 +11,9 @@ export interface TemplateConfig {
   framework: AnyCase<Framework>
   language: AnyCase<Language>
   packageManager: AnyCase<PackageManager>
-  style: Partial<{
+  style?: Partial<{
     framework: AnyCase<Style>
     components?: string | Record<string, any>
-    fonts: FontFamily[]
     theme?: string | Record<string, any>
   }>
   lintFormat?: Record<string, any> | boolean

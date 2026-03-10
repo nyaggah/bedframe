@@ -44,7 +44,7 @@ export const baseManifest = {
   // Optional
   // - - - - - - - - -
   author: {
-    email: ${response.extension.author.email ? 'pkg.author.email' : 'author@example.com'}
+    email: ${response.extension.author.email ? 'pkg.author.email' : "'author@example.com'"}
   },
   background: {
     service_worker: 'scripts/service-worker.ts',
@@ -210,30 +210,15 @@ export async function writeManifests(response: Answers<string>): Promise<void> {
   const manifestDir = path.resolve(extension.name.path, 'src', 'manifests')
   const manifestBasePath = path.join(manifestDir, 'base.manifest.ts')
 
-  try {
-    const promises = browsers.map(async (browser: Browser) => {
-      const manifestPath = path.join(manifestDir, `${browser.toLowerCase()}.ts`)
-      ensureDir(join(manifestDir))
-        .then(() => {
-          ensureWriteFile(manifestBasePath)
-            .then(() =>
-              outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`),
-            )
-            .catch(console.error)
+  await ensureDir(join(manifestDir))
+  await ensureWriteFile(manifestBasePath)
+  await outputFile(manifestBasePath, `${writeBaseManifest(response)}\n`)
 
-          ensureWriteFile(manifestPath)
-            .then(() =>
-              outputFile(
-                manifestPath,
-                `${manifestForBrowser(response, browser)}\n`,
-              ),
-            )
-            .catch(console.error)
-        })
-        .catch(console.error)
-    })
-    await Promise.all(promises)
-  } catch (error) {
-    console.error(error)
-  }
+  await Promise.all(
+    browsers.map(async (browser: Browser) => {
+      const manifestPath = path.join(manifestDir, `${browser.toLowerCase()}.ts`)
+      await ensureWriteFile(manifestPath)
+      await outputFile(manifestPath, `${manifestForBrowser(response, browser)}\n`)
+    }),
+  )
 }

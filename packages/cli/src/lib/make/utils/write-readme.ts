@@ -2,7 +2,9 @@ import { join, resolve } from 'node:path'
 import type prompts from 'prompts'
 import { ensureWriteFile, outputFile } from './utils.fs'
 
-export function writeReadMe(response: prompts.Answers<string>): void {
+export async function writeReadMe(
+  response: prompts.Answers<string>,
+): Promise<void> {
   const { name: projectName, path: projectPath } = response.extension.name
   const { browser: browsers } = response
   const { manifest, license } = response.extension
@@ -75,9 +77,8 @@ export function writeReadMe(response: prompts.Answers<string>): void {
     let structure = `src/
 ├── _config/                 # Configuration files
 │   ├── bedframe.config.ts   # Main Bedframe configuration
-│   ${isStyle.tailwind ? '├── shadcn.config.ts     # shadcn/ui configuration\n│   ' : ''}└── tests.config.ts      # Test configuration
-├── assets/                  # Static assets
-│   ├── fonts/              # Inter font files
+│   └── tests.config.ts      # Test configuration
+${isStyle.tailwind ? '├── lib/                     # Utility helpers\n│   └── utils.ts             # shadcn/ui utility helpers\n' : ''}├── assets/                  # Static assets
 │   └── icons/              # Extension icons
 ├── components/             # React components
 │   ├── app.tsx            # Main app component
@@ -145,8 +146,9 @@ export function writeReadMe(response: prompts.Answers<string>): void {
     structure += `
 ├── scripts/              # Extension scripts
 │   └── service-worker.ts # Service worker
-${extensionType === 'overlay' ? '│   └── content.tsx       # Content script\n' : ''}└── styles/               # Global styles
-    └── style.css         # Main stylesheet`
+${extensionType === 'overlay' ? '│   └── content.tsx       # Content script\n' : ''}├── index.css             # Tailwind + shadcn theme styles
+└── components/
+    └── theme-provider.tsx # Light/dark theme provider`
 
     return structure
   }
@@ -164,7 +166,7 @@ ${pm} run test             # Run tests with coverage`
 
     if (lintFormat) {
       scripts += `
-${pm} run format           # Format code with Prettier
+${pm} run format           # Format code with oxfmt
 ${pm} run lint             # Lint code with Oxlint
 ${pm} run fix              # Format and lint code`
     }
@@ -203,8 +205,7 @@ ${pm} run convert:safari   # Convert to Safari Web Extension`
 ### Styling & UI
 
 - **Tailwind CSS v4** - Utility-first CSS framework
-- **shadcn/ui** - Component library (New York theme)
-- **Inter Font** - Typography with multiple weights (400, 600, 700, 800)`
+- **shadcn/ui** - Component library`
     }
 
     stack += `
@@ -220,7 +221,7 @@ ${pm} run convert:safari   # Convert to Safari Web Extension`
 
     if (lintFormat) {
       stack += `
-- **Prettier** - Code formatting
+- **oxfmt** - Code formatting
 - **Oxlint** - Fast linting`
     }
 
@@ -337,17 +338,7 @@ development: {
     config: {
       framework: '${framework}',
       language: '${language}',
-      packageManager: '${packageManager}',
-      style: {
-        framework: '${style}',${
-          isStyle.tailwind
-            ? `
-        components: 'shadcn',
-        theme: 'new-york',`
-            : ''
-        }
-        fonts: [/* Inter font configuration */],
-      },${
+      packageManager: '${packageManager}',${
         lintFormat
           ? `
       lintFormat: true,`
@@ -423,7 +414,7 @@ ${backTicks}`
       workflow += `### Code Quality
 
 - **Linting**: Oxlint for fast JavaScript/TypeScript linting
-- **Formatting**: Prettier with Tailwind CSS plugin
+- **Formatting**: oxfmt
 - **Type Safety**: TypeScript with strict configuration`
     }
 
@@ -532,7 +523,6 @@ The project includes automated dependency updates via Dependabot:
       features.push(
         '**Component library** - shadcn/ui components with New York theme',
       )
-      features.push('**Font optimization** - Inter font with multiple weights')
     }
 
     features.push(
@@ -565,7 +555,7 @@ ${projectDescription}
 
 A browser extension built with [Bedframe](https://bedframe.dev), a modern framework for cross-browser extension development.
 
-## 🚀 Quick Start
+## Quick Start
 
 ${backTicks}bash
 # Install dependencies
@@ -585,7 +575,7 @@ ${pm} run test`
   }
 ${backTicks}
 
-## 📋 Project Overview
+## Project Overview
 
 This is a **${getExtensionTypeDescription().toLowerCase()}**${getAdditionalFeatures()}. The extension is built using the Bedframe framework, which provides a unified development experience across multiple browsers.
 
@@ -603,37 +593,37 @@ ${overridePage !== 'none' ? `- **Additional**: ${overridePage.charAt(0).toUpperC
 
 - ${getSupportedBrowsers()}
 
-## 🏗️ Architecture & Tech Stack
+## Architecture & Tech Stack
 
 ${getTechStack()}
 
-## 📁 Project Structure
+## Project Structure
 
 ${backTicks}
 ${getProjectStructure()}
 ${backTicks}
 
-## ⚙️ Configuration
+## Configuration
 
 ${getConfigurationSection()}
 
-## 🔧 Development Workflow
+## Development Workflow
 
 ${getDevelopmentWorkflow()}
 
-## 🚀 Deployment
+## Deployment
 
 ${getDeploymentSection()}
 
-## 📚 Key Features
+## Key Features
 
 - ${getKeyFeatures()}
 
-## 📄 License
+## License
 
 ${license} License - see [LICENSE](LICENSE) file for details.
 
-## 🔗 Resources
+## Resources
 
 - [Bedframe Documentation](https://bedframe.dev)
 - [React Documentation](https://react.dev)${
@@ -650,11 +640,6 @@ ${license} License - see [LICENSE](LICENSE) file for details.
   }
 `
 
-  ensureWriteFile(readMePath)
-    .then(() =>
-      outputFile(readMePath, readMeContent).catch((error) =>
-        console.error(error),
-      ),
-    )
-    .catch(console.error)
+  await ensureWriteFile(readMePath)
+  await outputFile(readMePath, readMeContent)
 }

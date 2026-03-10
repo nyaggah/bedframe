@@ -67,9 +67,9 @@ This is an **overlay extension (content script)** that also overrides the new ta
 
 - **npm** - Package manager and runtime
 - **Vitest** - Testing framework with Happy DOM
-- **Prettier** - Code formatting
-- **Oxlint** - Fast linting
-- **Lefthook** - Git hooks management
+- **Formatting** - Use the local `format` script
+- **Linting** - Use the local `lint` script
+- **Git hooks** - Managed by the template hook configuration
 
 ### Quality Assurance
 
@@ -184,9 +184,9 @@ development: {
 
 ## 🔧 Development Workflow
 
-### Git Hooks (Lefthook)
+### Git Hooks
 
-The project uses Lefthook for managing Git hooks:
+The project uses project-defined Git hooks for commit-time validation:
 
 - **pre-commit**: Runs lint-staged to format and lint changed files
 - **commit-msg**: Validates commit messages using conventional commits
@@ -199,8 +199,8 @@ The project uses Lefthook for managing Git hooks:
 npm run dev              # Start development server
 npm run build            # Build for production
 npm run test             # Run tests with coverage
-npm run format           # Format code with Prettier
-npm run lint             # Lint code with Oxlint
+npm run format           # Format code
+npm run lint             # Lint code
 npm run fix              # Format and lint code
 
 # Extension Management
@@ -220,8 +220,8 @@ npm run convert:safari   # Convert to Safari Web Extension
 
 ### Code Quality
 
-- **Linting**: Oxlint for fast JavaScript/TypeScript linting
-- **Formatting**: Prettier with Tailwind CSS plugin
+- **Linting**: Use the project `lint` script
+- **Formatting**: Use the project `format` script
 - **Type Safety**: TypeScript with strict configuration
 - **Conventional Commits**: Standardized commit message format
 
@@ -329,9 +329,9 @@ cd my-overlay-react-ts
 
 Find all files in the root directory that start with `__` leading double underscores to have a leading `.` dot:
 
+- \_\_agents/
 - \_\_changeset/
 - \_\_github/
-- \_\_husky/
 - \_\_vscode/
 - \_\_env.example
 

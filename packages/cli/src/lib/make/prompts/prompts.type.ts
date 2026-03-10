@@ -23,6 +23,10 @@ export type DevelopmentPrompts = {
   framework: string
   language: string
   style: string
+  shadcnBase: string
+  shadcnPreset: string
+  shadcnCssVariables: boolean
+  shadcnRtl: boolean
   lintFormat: string
   tests: string
   git: string
