@@ -1,5 +1,11 @@
 # @bedframe/cli
 
+## 0.1.2
+
+### Patch Changes
+
+- f68a089: ensure initial lint script runs on project scaffold
+
 ## 0.1.1
 
 ### Patch Changes
