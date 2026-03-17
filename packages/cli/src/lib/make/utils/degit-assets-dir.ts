@@ -1,8 +1,8 @@
-import path from 'node:path'
-import { promises as fs } from 'node:fs'
-import type { AnyCase, PackageManager } from '@bedframe/core'
-import { execa } from 'execa'
-import { ensureDir } from './utils.fs'
+import path from "node:path";
+import { promises as fs } from "node:fs";
+import type { AnyCase, PackageManager } from "@bedframe/core";
+import { runDegit } from "./degit";
+import { ensureDir } from "./utils.fs";
 
 /**
  *
@@ -16,53 +16,28 @@ import { ensureDir } from './utils.fs'
  */
 export async function getAssetsDir(
   projectPath: string,
-  packageManager: AnyCase<PackageManager> = 'npm',
+  packageManager: AnyCase<PackageManager> = "npm",
 ) {
-  const srcDir = path.join(projectPath, 'src')
-  const assetsDir = path.join(projectPath, 'src', 'assets')
-  const tempAssetsDir = path.join(projectPath, '.bedframe-assets')
-  await ensureDir(srcDir)
-  await ensureDir(assetsDir)
-  const pm = packageManager.toLowerCase()
-  const repo = 'https://github.com/nyaggah/bedframe/assets'
-  const dest = tempAssetsDir
-
-  let command: string
-  let args: string[]
-
-  switch (pm) {
-    case 'yarn':
-      command = 'yarn'
-      args = ['dlx', 'degit', repo, dest]
-      break
-    case 'bun':
-      command = 'bunx'
-      args = ['degit', repo, dest]
-      break
-    case 'npm':
-      command = 'npx'
-      args = ['degit', repo, dest]
-      break
-    case 'pnpm':
-      command = 'pnpm'
-      args = ['dlx', 'degit', repo, dest]
-      break
-    default:
-      throw new Error(`Unknown package manager: ${pm}`)
-  }
+  const srcDir = path.join(projectPath, "src");
+  const assetsDir = path.join(projectPath, "src", "assets");
+  const tempAssetsDir = path.join(projectPath, ".bedframe-assets");
+  await ensureDir(srcDir);
+  await ensureDir(assetsDir);
+  const repo = "https://github.com/nyaggah/bedframe/assets";
+  const dest = tempAssetsDir;
 
   try {
-    const { stdout } = await execa(command, args)
-    console.log(stdout)
-    await ensureDir(path.join(assetsDir, 'icons'))
-    await fs.cp(path.join(tempAssetsDir, 'icons'), path.join(assetsDir, 'icons'), {
+    const stdout = await runDegit(repo, dest, packageManager);
+    console.log(stdout);
+    await ensureDir(path.join(assetsDir, "icons"));
+    await fs.cp(path.join(tempAssetsDir, "icons"), path.join(assetsDir, "icons"), {
       recursive: true,
       force: true,
-    })
-    await fs.rm(tempAssetsDir, { recursive: true, force: true })
+    });
+    await fs.rm(tempAssetsDir, { recursive: true, force: true });
     // biome-ignore lint:  @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    await fs.rm(tempAssetsDir, { recursive: true, force: true })
-    throw new Error(`Failed to run degit command: ${error.message}`)
+    await fs.rm(tempAssetsDir, { recursive: true, force: true });
+    throw new Error(`Failed to run degit command: ${error.message}`);
   }
 }
