@@ -54,7 +54,7 @@
     "@types/prompts": "^2.4.9",
     "concurrently": "^9.2.1",
     "oxfmt": "^0.36.0",
-    "oxlint": "^1.38.0",
+    "oxlint": "^1.56.0",
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-static-copy": "^3.0.0",
     "ts-node": "^10.9.2",
